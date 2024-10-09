@@ -70,3 +70,11 @@ This will remove all compiled files and the coverage reports.
 - `make ctest TEST=TestName`: Create a new test file in the `tests` directory.
 - `make docs`: Generate Doxygen documentation.
 - `make leaks`: Check for memory leaks.
+
+### Project Diagrams
+
+We have prepared several diagrams to help visualize the architecture and flow of the project. You can access all the diagrams on our Miro team board:
+
+🔗 **[Miro Team Boards](https://miro.com/welcome/S2hpakhKMVc2QXJNTDU3QmZUNVMySDBieVJYM3FUdFRTOXF6Q2xFdFdjVEtJRTdVNXE3N05iR0h0U0xHbDViWHwzNDU4NzY0NTg4MzM2MTM4NDcyfDE=?share_link_id=556175432229)**
+
+Please ensure you have access to the Miro team or request access if necessary.
