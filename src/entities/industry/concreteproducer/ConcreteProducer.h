@@ -1,9 +1,9 @@
 #ifndef CONCRETEPRODUCER_H
 #define CONCRETEPRODUCER_H
 
-#include "entities/utility/base/Utility.h"
+#include "entities/industry/base/Industry.h"
 
-class ConcreteProducer : public Utility
+class ConcreteProducer : public Industry
 {
 public:
     ConcreteProducer();

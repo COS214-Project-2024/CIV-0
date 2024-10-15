@@ -1,9 +1,9 @@
 #ifndef STONEPRODUCER_H
 #define STONEPRODUCER_H
 
-#include "entities/utility/base/Utility.h"
+#include "entities/industry/base/Industry.h"
 
-class StoneProducer : Utility
+class StoneProducer : Industry
 {
 public:
     StoneProducer();
