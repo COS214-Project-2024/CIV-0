@@ -73,24 +73,20 @@ We are following a structured branching model to ensure smooth collaboration and
 - **`main`**: The main production-ready branch.
 - **`dev`**: All features and hotfixes are integrated here before merging into `main`.
 - **`feature/your-feature`**: For developing new features. When working on a feature, follow this workflow:
-  - Create sub-branches for specific tasks (e.g., `feature/your-feature/subtask`).
-  - Work on the subtask branch, and once complete, create a pull request to merge the subtask into the main `feature/your-feature` branch.
-  - **Only one review is required** to merge the subtask into the main feature branch, and you can approve it yourself.
-  
-  - Once all subtasks are complete, create a pull request to merge the `feature/your-feature` branch into `dev`, which requires the usual review process.
+  - Create a `feature/your-feature` branch from `dev`.
+  - You can commit directly to the feature branch without creating sub-branches. If you prefer, you can create sub-branches for specific tasks, such as `feature/your-feature/subtask`.
 
-- **`hotfix/your-hotfix`**: For urgent fixes. You can push directly to a `hotfix/*` branch and create a pull request to merge it into `dev` and `main`.
+- **`hotfix/your-hotfix`**: For urgent fixes. You can push directly to a `hotfix/*` branch, or if needed, create sub-branches such as `hotfix/your-hotfix/subtask`.
 
 #### **Workflow**:
 1. **Working in a Feature Branch**:
    - **Create a feature branch** from `dev` (e.g., `feature/your-feature`).
-   - For each task under that feature, create a sub-branch (e.g., `feature/your-feature/subtask`).
-   - Work on the subtask, and when it's ready, submit a pull request to merge it back into `feature/your-feature`. This requires one review, which can be done by yourself.
-   - Once all subtasks are merged into the feature branch, submit a pull request to merge the feature branch into `dev`.
+   - You can commit directly to the feature branch. If desired, you can create sub-branches (e.g., `feature/your-feature/subtask`).
+   - Once the feature is complete, submit a pull request to merge the feature branch into `dev`.
 
 2. **Working with Hotfixes**:
    - For urgent fixes, create a branch directly from `main` or `dev` with the naming convention `hotfix/your-hotfix`.
-   - You can push directly to the `hotfix/*` branch and then create a pull request to merge into `dev` and `main`.
+   - You can push directly to the `hotfix/*` branch, or optionally create sub-branches (e.g., `hotfix/your-hotfix/subtask`), and then create a pull request to merge into `dev` and `main`.
 
 #### **Branch Rulesets**:
 
@@ -106,12 +102,11 @@ We are following a structured branching model to ensure smooth collaboration and
    - Requires linear history (no merge commits).
 
 3. **`feature/*`**:
-   - **Create sub-branches** from a feature branch for specific tasks.
-   - You must submit a pull request to merge a subtask back into the main feature branch. Only one review is required, and you can review it yourself.
-   - Once all subtasks are complete, a pull request is required to merge the feature branch into `dev`.
+   - You can commit directly to the feature branch, or if preferred, create sub-branches for specific tasks.
+   - Once the feature is complete, a pull request is required to merge the feature branch into `dev`.
 
 4. **`hotfix/*`**:
-   - You can push directly to a `hotfix/*` branch.
+   - You can push directly to a `hotfix/*` branch, or if preferred, create sub-branches for specific tasks.
    - You must create a pull request to merge into `dev` and `main`.
 
 This system ensures code is integrated smoothly while maintaining flexibility for individual developers during feature development.
