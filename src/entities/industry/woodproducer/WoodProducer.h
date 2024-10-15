@@ -1,9 +1,9 @@
 #ifndef WOODPRODUCER_H
 #define WOODPRODUCER_H
 
-#include "entities/utility/base/Utility.h"
+#include "entities/industry/base/Industry.h"
 
-class WoodProducer : Utility
+class WoodProducer : Industry
 {
 public:
     WoodProducer();
