@@ -1,5 +1,5 @@
 #include "Entity.h"
-#include "entities/state/UnderCOnstruction.h"
+#include "entities/state/UnderConstruction.h"
 #include "entities/state/Built.h"
 
 Entity::Entity()
