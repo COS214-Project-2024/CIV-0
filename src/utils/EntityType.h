@@ -1,11 +1,26 @@
 #ifndef ENTITYTYPE_H
 #define ENTITYTYPE_H
 
-class EntityType
+enum class EntityType
 {
-public:
-    EntityType();
-    ~EntityType();
+    BUSSTOP,
+    TRAINSTATION,
+    AIRPORT,
+    OFFICE,
+    SHOPPINGMALL,
+    FACTORY,
+    HOUSE,
+    APARTMENT,
+    HOSPITAL,
+    POLICESTATION,
+    SCHOOL,
+    PARK,
+    THEATER,
+    MONUMENT,
+    POWERPLANT,
+    WATERSUPPLY,
+    WASTEMANAGMENT,
+    SEWAGESYSTEM,
 };
 
 #endif // ENTITYTYPE_H

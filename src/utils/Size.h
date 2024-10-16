@@ -1,11 +1,11 @@
 #ifndef SIZE_H
 #define SIZE_H
 
-class Size
+enum class Size
 {
-public:
-    Size();
-    ~Size();
+    SMALL,
+    MEDIUM,
+    LARGE,
 };
 
 #endif // SIZE_H
