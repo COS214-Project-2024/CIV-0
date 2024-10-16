@@ -120,8 +120,8 @@ This system ensures code is integrated smoothly while maintaining flexibility fo
 
 ### Project Diagrams
 
-We have prepared several diagrams to help visualize the architecture and flow of the project. You can access all the diagrams on our Miro team board:
+We have prepared several diagrams to help visualize the architecture and flow of the project. You can access all the diagrams on our Lucid Charts team board:
 
-🔗 **[Miro Team Boards](https://miro.com/welcome/S2hpakhKMVc2QXJNTDU3QmZUNVMySDBieVJYM3FUdFRTOXF6Q2xFdFdjVEtJRTdVNXE3N05iR0h0U0xHbDViWHwzNDU4NzY0NTg4MzM2MTM4NDcyfDE=?share_link_id=556175432229)**
+🔗 **[Lucid charts](https://lucid.app/lucidchart/6e509cca-4ff4-4916-80f2-b78223818bf3/edit?view_items=c6DgXFr46dar&invitationId=inv_b33ae7ae-4790-4b55-aff6-ef27bfa26008)**
 
-Please ensure you have access to the Miro team or request access if necessary.
+Please use your tuks email for signup as there is pro version.
