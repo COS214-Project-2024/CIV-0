@@ -21,6 +21,7 @@ enum class EntityType
     WATERSUPPLY,
     WASTEMANAGMENT,
     SEWAGESYSTEM,
+    ROAD,
 };
 
 #endif // ENTITYTYPE_H
