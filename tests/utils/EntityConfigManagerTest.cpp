@@ -1,5 +1,6 @@
 #include "doctest.h"
 #include "utils/EntityConfigManager.h"
+#include <stdexcept>
 
 TEST_CASE("EntityConfigManagerTest test")
 {
