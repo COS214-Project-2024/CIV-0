@@ -36,10 +36,7 @@ Entity::~Entity()
     delete state;
 }
 
-/*
-Returns true if entity is within the effect Radius
-NOTE - If the Entity is on the Border of the radius - it does not count (returns false)
-*/
+//Note: If the entity is on the border of the radius, it does not count (returns false).
 bool Entity::isWithinEffectRadius(Entity* entity)
 {
     if(entity->getXPosition() + entity->getWidth()<=xPosition-effectRadius || entity->getXPosition()>=xPosition+width+effectRadius)
@@ -101,4 +98,9 @@ void Entity::updateBuildState()
         delete state;
         state = newState;
     }
+}
+
+void Entity::setSymbol(std::string symbol)
+{
+    this->symbol = symbol;
 }
