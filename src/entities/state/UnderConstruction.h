@@ -6,8 +6,10 @@
 class UnderConstruction : public State
 {
 public:
-    UnderConstruction();
+    UnderConstruction(int buildTime);
     ~UnderConstruction();
+    State* update();
+    State* initialize();
 };
 
 #endif // UNDERCONSTRUCTION_H

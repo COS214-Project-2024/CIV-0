@@ -6,8 +6,10 @@
 class Built : public State
 {
 public:
-    Built();
+    Built(int buildTime);
     ~Built();
+    State* update();
+    State* initialize();
 };
 
 #endif // BUILT_H
