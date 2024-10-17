@@ -105,9 +105,9 @@ private:
         configTable.emplace(std::make_pair(EntityType::SEWAGESYSTEM, Size::LARGE), EntityConfig(Cost(2500, 1000, 400, 300), 15, 10, "S", 10, 12, 10, 9, 9, 0, 3));
 
         // Road
-        configTable.emplace(std::make_pair(EntityType::ROAD, Size::SMALL), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "║", 0, 0, 0, 1, 1, 0, 0));
-        configTable.emplace(std::make_pair(EntityType::ROAD, Size::MEDIUM), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "║", 0, 0, 0, 1, 1, 0, 0));
-        configTable.emplace(std::make_pair(EntityType::ROAD, Size::LARGE), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "║", 0, 0, 0, 1, 1, 0, 0));
+        configTable.emplace(std::make_pair(EntityType::ROAD, Size::SMALL), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "█", 0, 0, 0, 1, 1, 0, 0));
+        configTable.emplace(std::make_pair(EntityType::ROAD, Size::MEDIUM), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "█", 0, 0, 0, 1, 1, 0, 0));
+        configTable.emplace(std::make_pair(EntityType::ROAD, Size::LARGE), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "█", 0, 0, 0, 1, 1, 0, 0));
     }
 };
 
