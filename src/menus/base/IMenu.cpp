@@ -12,9 +12,19 @@
 // Minimum width for the menu
 constexpr int MIN_MENU_WIDTH = 50;
 
+/**
+ * @brief Constructs a menu with the specified heading.
+ * @param heading The heading of the menu.
+ */
 IMenu::IMenu(std::string heading) : menuHeading(heading) {}
 
-// Custom function to repeat a multi-byte Unicode string
+/**
+ * @brief Repeats a given string for a specified number of times.
+ *
+ * @param str The string to be repeated.
+ * @param times The number of times to repeat the string.
+ * @return The repeated string.
+ */
 std::string repeat(const std::string &str, int times)
 {
     std::string result;
@@ -25,7 +35,17 @@ std::string repeat(const std::string &str, int times)
     return result;
 }
 
-// Utility function to calculate dynamic width
+/**
+ * @brief Calculates the maximum width of the menu based on its heading and sections.
+ *
+ * This function calculates the maximum width of the menu by comparing the heading
+ * and the text of the options in the sections to ensure the menu is wide enough
+ * to fit all content.
+ *
+ * @param menuHeading The heading of the menu.
+ * @param sections The sections of the menu.
+ * @return The maximum width of the menu.
+ */
 int calculateMaxWidth(const std::string &menuHeading, const std::vector<Section> &sections)
 {
     int maxWidth = static_cast<int>(menuHeading.size());
@@ -46,39 +66,68 @@ int calculateMaxWidth(const std::string &menuHeading, const std::vector<Section>
     return maxWidth;
 }
 
-// Function to print the top border of the menu
+/**
+ * @brief Prints the top border of the menu using box-drawing characters.
+ *
+ * @param width The width of the menu.
+ */
 void printTopBorder(int width)
 {
     std::cout << DARK_GRAY << "╔" << repeat("═", width) << "╗" << RESET << std::endl;
 }
 
-// Function to print the bottom border of the menu
+/**
+ * @brief Prints the bottom border of the menu using box-drawing characters.
+ *
+ * @param width The width of the menu.
+ */
 void printBottomBorder(int width)
 {
     std::cout << DARK_GRAY << "╚" << repeat("═", width) << "╝" << RESET << std::endl;
 }
 
-// Function to print the menu section divider
+/**
+ * @brief Prints a section divider in the menu using box-drawing characters.
+ *
+ * @param width The width of the menu.
+ */
 void printSectionDivider(int width)
 {
     std::cout << DARK_GRAY << "╟" << repeat("─", width) << "╢" << RESET << std::endl;
 }
 
-// Function to print a double-line divider for the main heading
+/**
+ * @brief Prints a double-line divider for the main heading of the menu.
+ *
+ * @param width The width of the menu.
+ */
 void printDoubleLineDivider(int width)
 {
     std::cout << DARK_GRAY << "╠" << repeat("═", width) << "╣" << RESET << std::endl;
 }
 
-// Function to center text
+/**
+ * @brief Centers text with space padding on both sides.
+ *
+ * @param text The text to be centered.
+ * @param width The total width to center the text within.
+ * @return A string containing the centered text.
+ */
 std::string centerText(const std::string &text, int width)
 {
     int padding = (width - static_cast<int>(text.size())) / 2;
     return std::string(padding, ' ') + text + std::string(width - text.size() - padding, ' ');
 }
 
-// Generalized function to center text with a custom character on both sides
-std::string centerTextWithChar(const std::string &text, int width, const std::string &padChar = " ")
+/**
+ * @brief Centers text with custom character padding on both sides.
+ *
+ * @param text The text to be centered.
+ * @param width The total width to center the text within.
+ * @param padChar The character used to pad the text.
+ * @return A string containing the centered text with padding.
+ */
+std::string centerTextWithChar(const std::string &text, int width, const std::string &padChar)
 {
     int padding = (width - static_cast<int>(text.size())) / 2;
     std::string leftPadding = repeat(padChar, padding - 1) + " ";
@@ -86,6 +135,9 @@ std::string centerTextWithChar(const std::string &text, int width, const std::st
     return leftPadding + text + rightPadding;
 }
 
+/**
+ * @brief Displays the menu by printing its sections, options, and borders.
+ */
 void IMenu::displayMenu() const
 {
     // Calculate the maximum width based on the longest piece of text
