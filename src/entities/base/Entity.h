@@ -45,12 +45,6 @@ public:
     Entity();
 
     /**
-     * @brief Copy constructor for the Entity class.
-     * @param entity Pointer to the entity to copy.
-     */
-    Entity(Entity* entity);
-
-    /**
      * @brief Constructs an Entity with specified attributes.
      * 
      * @param electricity Amount of electricity consumption.
