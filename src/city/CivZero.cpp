@@ -1,9 +1,10 @@
 #include "CivZero.h"
-#include "menus/MenuManager.h"
+#include "menus/base/MenuManager.h"
 #include <iostream>
+#include <cstdlib> // For system()
 
 // Access to the single instance
-CivZero &CivZero::getInstance()
+CivZero &CivZero::instance()
 {
     static CivZero instance; // Singleton instance
     return instance;
@@ -28,14 +29,14 @@ void CivZero::startGame()
     running = true;
     std::cout << "Starting the game..." << std::endl;
 
-    MenuManager::getInstance().setCity(city);
+    MenuManager::instance().setCity(city);
 
     gameLoop(); // Call the internal game loop method
 }
 
-void CivZero::setRunningStatus(bool status)
+void CivZero::quit()
 {
-    this->running = status;
+    this->running = false;
 }
 
 // The game loop itself
@@ -43,9 +44,10 @@ void CivZero::gameLoop()
 {
     while (running)
     {
+        MenuManager::instance().clearScreen();
         // Display the current menu and handle its input
-        MenuManager::getInstance().displayCurrentMenu();
-        MenuManager::getInstance().handleCurrentMenuInput();
+        MenuManager::instance().displayCurrentMenu();
+        MenuManager::instance().handleCurrentMenuInput();
     }
     std::cout << "Game has ended." << std::endl;
 }

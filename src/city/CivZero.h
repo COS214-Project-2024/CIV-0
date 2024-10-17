@@ -7,7 +7,7 @@ class CivZero
 {
 public:
     // Get the single instance of CivZero
-    static CivZero &getInstance();
+    static CivZero &instance();
 
     // Prevent copying and assignment
     CivZero(const CivZero &) = delete;
@@ -15,7 +15,7 @@ public:
 
     // Method to start the game
     void startGame();
-    void setRunningStatus(bool status);
+    void quit();
 
 private:
     // Private constructor and destructor
