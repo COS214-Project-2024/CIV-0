@@ -1,20 +1,21 @@
 #include "WaterSupply.h"
 
-WaterSupply::WaterSupply() {}
-WaterSupply::~WaterSupply() {}
-
-WaterSupply::WaterSupply(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime) : Utility(electricity, water, symbol, radius, localEffect, globalEffect, width, height, revenue, size, xPos, yPos, buildTime)
-{
-    setOutput(20); //TODO - change value
+WaterSupply::WaterSupply(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime) : Utility(20, electricity, water, symbol, radius, localEffect, globalEffect, width, height, revenue, size, xPos, yPos, buildTime) {
+    //TODO - change value of output (1st param in utility constructor)
 }
 
-void WaterSupply::update()
-{
-    //TODO
+WaterSupply::WaterSupply(WaterSupply* waterSupply) : Utility(waterSupply) {
+
 }
 
-Entity* WaterSupply::clone()
-{
-    Entity* e = new WaterSupply(electricityConsumption, waterConsumption, symbol, effectRadius, localEffectStrength, globalEffectStrength, width, height, revenue, size, xPosition, yPosition, state->getBuildTime());
-    return e;
+WaterSupply::~WaterSupply() {
+
+}
+
+void WaterSupply::update() {
+    
+}
+
+Entity* WaterSupply::clone() {
+    return new WaterSupply(this);
 }
