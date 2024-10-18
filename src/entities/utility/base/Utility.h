@@ -64,11 +64,9 @@ public:
     /**
      * @brief Sets the output value of the utility.
      * 
-     * This method updates the output of the utility, which can represent resources such as electricity or water.
-     * 
      * @param output The new output value to be set.
      */
-    virtual void setOutput(int output);
+    void setOutput(int output);
 
     /**
      * @brief Pure virtual function to clone the utility.
