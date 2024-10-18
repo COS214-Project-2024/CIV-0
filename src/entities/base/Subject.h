@@ -12,8 +12,9 @@ protected:
 public:
     Subject();
     ~Subject();
+    bool unsubscribe(Observer* observer);
     bool subscribe(Observer* observer);
-    void notify();
+    void subscribeToAllResidentialInRadius();
 };
 
 #endif // SUBJECT_H

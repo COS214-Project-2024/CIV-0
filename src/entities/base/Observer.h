@@ -1,6 +1,7 @@
 #ifndef OBSERVER_H
 #define OBSERVER_H
 
+#include "Subject.h"
 #include <vector>
 
 class Subject;
@@ -12,6 +13,7 @@ protected:
 public:
     Observer();
     ~Observer();
+    bool subscribe(Subject* subject);
     bool unsubscribe(Subject* subject);
     void unsubscribeFromAll();
 };

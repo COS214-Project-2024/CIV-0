@@ -8,11 +8,6 @@ House::House(int electricity, int water, std::string symbol, int radius, int loc
 
 }
 
-void House::update()
-{
-    //TODO
-}
-
 Entity* House::clone()
 {
     Entity* e = new House(electricityConsumption, waterConsumption, symbol, effectRadius, localEffectStrength, globalEffectStrength, width, height, revenue, size, xPosition, yPosition, state->getBuildTime());

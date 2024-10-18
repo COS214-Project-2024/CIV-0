@@ -3,13 +3,34 @@
 Subject::Subject(){}
 Subject::~Subject() {}
 
-bool Subject::subscribe(Observer* observer)
+//Removes and observer (A ResidentialBuilding) from its list of observers to notify
+bool Subject::unsubscribe(Observer* observer)
 {
+    for(auto it = subscribers.begin(); it != subscribers.end(); it++)
+    {
+        if (*it == observer)
+        {
+            subscribers.erase(it);
+            return true;
+        }
+    }
     return false;
-    //TODO
 }
 
-void Subject::notify()
+bool Subject::subscribe(Observer* observer)
 {
-    //TODO
+    for(Observer* obs : subscribers)
+    {
+        if(obs == observer)
+        {
+            return false;
+        }
+    }
+    subscribers.push_back(observer);
+    return true;
+}
+
+void subscribeToAllResidentialInRadius()
+{
+    //TODO - Need ResidentialIterator First
 }
