@@ -16,6 +16,7 @@ MenuManager::MenuManager()
     menus[Menu::POLICY] = std::make_shared<PolicyMenu>();
     menus[Menu::UPGRADES] = std::make_shared<UpgradesMenu>();
     menus[Menu::TAX] = std::make_shared<TaxMenu>();
+    menus[Menu::DISPLAYCITY] = std::make_shared<DisplayCityMenu>();
 
     // Set the default menu to MainMenu
     setCurrentMenu(Menu::MAIN);

@@ -61,6 +61,77 @@ protected:
     std::vector<Section> sections; ///< List of sections in the menu
     std::string menuHeading;       ///< The heading of the menu
 
+    // Utility functions and color constants for inherited classes
+
+    /**
+     * @brief ANSI color codes and styles for use in all menus.
+     * These are static constants so that derived classes can access them easily.
+     */
+    static constexpr const char *RESET = "\033[0m";
+    static constexpr const char *BOLD_WHITE = "\033[1;37m";
+    static constexpr const char *NORMAL_WHITE = "\033[0;37m";
+    static constexpr const char *DARK_GRAY = "\033[1;30m";
+    static constexpr const char *BOLD_YELLOW = "\033[1;33m";
+
+    static constexpr int MIN_MENU_WIDTH = 50; ///< Minimum width for the menu
+
+    /**
+     * @brief Utility function to repeat a string multiple times.
+     * @param str The string to repeat.
+     * @param times How many times to repeat the string.
+     * @return A concatenated string repeated n times.
+     */
+    std::string repeat(const std::string &str, int times) const;
+
+    /**
+     * @brief Calculates the maximum width for the menu.
+     * @param menuHeading The heading of the menu.
+     * @param sections The sections of the menu.
+     * @return The maximum width.
+     */
+    int calculateMaxWidth(const std::string &menuHeading, const std::vector<Section> &sections) const;
+
+    /**
+     * @brief Prints the top border of the menu using box-drawing characters.
+     * @param width The width of the menu.
+     */
+    void printTopBorder(int width) const;
+
+    /**
+     * @brief Prints the bottom border of the menu using box-drawing characters.
+     * @param width The width of the menu.
+     */
+    void printBottomBorder(int width) const;
+
+    /**
+     * @brief Prints a section divider in the menu using box-drawing characters.
+     * @param width The width of the menu.
+     */
+    void printSectionDivider(int width) const;
+
+    /**
+     * @brief Prints a double-line divider for the main heading of the menu.
+     * @param width The width of the menu.
+     */
+    void printDoubleLineDivider(int width) const;
+
+    /**
+     * @brief Centers text with space padding on both sides.
+     * @param text The text to be centered.
+     * @param width The total width to center the text within.
+     * @return A string containing the centered text.
+     */
+    std::string centerText(const std::string &text, int width) const;
+
+    /**
+     * @brief Centers text with custom character padding on both sides.
+     * @param text The text to be centered.
+     * @param width The total width to center the text within.
+     * @param padChar The character used to pad the text.
+     * @return A string containing the centered text with padding.
+     */
+    std::string centerTextWithChar(const std::string &text, int width, const std::string &padChar) const;
+
     /**
      * @brief Function to display the formatted menu with sections and options.
      */

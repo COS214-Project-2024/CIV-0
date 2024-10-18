@@ -9,6 +9,7 @@
 #include "menus/upgrades/UpgradesMenu.h"
 #include "menus/tax/TaxMenu.h"
 #include "menus/buildings/BuildingsMenu.h"
+#include "menus/main/DisplayCityMenu.h"
 #include <memory>
 #include <unordered_map>
 #include <string>

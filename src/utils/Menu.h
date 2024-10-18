@@ -8,11 +8,12 @@
  */
 enum class Menu
 {
-    MAIN,      ///< The Main Menu
-    BUILDINGS, ///< The Buildings Menu
-    UPGRADES,  ///< The Upgrades Menu
-    POLICY,    ///< The Policy Menu
-    TAX,       ///< The Tax Menu
+    MAIN,        ///< The Main Menu
+    BUILDINGS,   ///< The Buildings Menu
+    UPGRADES,    ///< The Upgrades Menu
+    POLICY,      ///< The Policy Menu
+    TAX,         ///< The Tax Menu
+    DISPLAYCITY, ///< The Display City Menu
 };
 
 #endif // MENU_H

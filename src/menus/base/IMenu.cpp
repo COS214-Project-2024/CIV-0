@@ -2,13 +2,6 @@
 #include <algorithm> // For std::max
 #include <iostream>  // For std::setw
 
-// ANSI color codes for styling
-#define RESET "\033[0m"
-#define BOLD_WHITE "\033[1;37m"
-#define NORMAL_WHITE "\033[0;37m"
-#define DARK_GRAY "\033[1;30m"
-#define BOLD_YELLOW "\033[1;33m"
-
 // Minimum width for the menu
 constexpr int MIN_MENU_WIDTH = 50;
 
@@ -25,7 +18,7 @@ IMenu::IMenu(std::string heading) : menuHeading(heading) {}
  * @param times The number of times to repeat the string.
  * @return The repeated string.
  */
-std::string repeat(const std::string &str, int times)
+std::string IMenu::repeat(const std::string &str, int times) const
 {
     std::string result;
     for (int i = 0; i < times; ++i)
@@ -46,7 +39,7 @@ std::string repeat(const std::string &str, int times)
  * @param sections The sections of the menu.
  * @return The maximum width of the menu.
  */
-int calculateMaxWidth(const std::string &menuHeading, const std::vector<Section> &sections)
+int IMenu::calculateMaxWidth(const std::string &menuHeading, const std::vector<Section> &sections) const
 {
     int maxWidth = static_cast<int>(menuHeading.size());
 
@@ -71,7 +64,7 @@ int calculateMaxWidth(const std::string &menuHeading, const std::vector<Section>
  *
  * @param width The width of the menu.
  */
-void printTopBorder(int width)
+void IMenu::printTopBorder(int width) const
 {
     std::cout << DARK_GRAY << "╔" << repeat("═", width) << "╗" << RESET << std::endl;
 }
@@ -81,7 +74,7 @@ void printTopBorder(int width)
  *
  * @param width The width of the menu.
  */
-void printBottomBorder(int width)
+void IMenu::printBottomBorder(int width) const
 {
     std::cout << DARK_GRAY << "╚" << repeat("═", width) << "╝" << RESET << std::endl;
 }
@@ -91,7 +84,7 @@ void printBottomBorder(int width)
  *
  * @param width The width of the menu.
  */
-void printSectionDivider(int width)
+void IMenu::printSectionDivider(int width) const
 {
     std::cout << DARK_GRAY << "╟" << repeat("─", width) << "╢" << RESET << std::endl;
 }
@@ -101,7 +94,7 @@ void printSectionDivider(int width)
  *
  * @param width The width of the menu.
  */
-void printDoubleLineDivider(int width)
+void IMenu::printDoubleLineDivider(int width) const
 {
     std::cout << DARK_GRAY << "╠" << repeat("═", width) << "╣" << RESET << std::endl;
 }
@@ -113,7 +106,7 @@ void printDoubleLineDivider(int width)
  * @param width The total width to center the text within.
  * @return A string containing the centered text.
  */
-std::string centerText(const std::string &text, int width)
+std::string IMenu::centerText(const std::string &text, int width) const
 {
     int padding = (width - static_cast<int>(text.size())) / 2;
     return std::string(padding, ' ') + text + std::string(width - text.size() - padding, ' ');
@@ -127,7 +120,7 @@ std::string centerText(const std::string &text, int width)
  * @param padChar The character used to pad the text.
  * @return A string containing the centered text with padding.
  */
-std::string centerTextWithChar(const std::string &text, int width, const std::string &padChar)
+std::string IMenu::centerTextWithChar(const std::string &text, int width, const std::string &padChar) const
 {
     int padding = (width - static_cast<int>(text.size())) / 2;
     std::string leftPadding = repeat(padChar, padding - 1) + " ";

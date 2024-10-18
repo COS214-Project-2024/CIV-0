@@ -10,7 +10,8 @@ MainMenu::MainMenu() : IMenu("Main Menu")
          {{'1', "🏗️ ", "Buildings Menu"},
           {'2', "🛠️ ", "Upgrades Menu"},
           {'3', "📜", "Policy Menu"},
-          {'4', "💰", "Tax Menu"}}},
+          {'4', "💰", "Tax Menu"},
+          {'5', "⏩", "Continue"}}},
         {"City Information",
          {{'6', "📊", "Show Stats"},
           {'d', "🏙️ ", "Display City"}}},
@@ -48,6 +49,14 @@ void MainMenu::handleInput() const
     case '4':
         // Switch to the Tax Menu
         MenuManager::instance().setCurrentMenu(Menu::TAX);
+        break;
+    case '5':
+        // Switch to the Show Stats Menu
+        // MenuManager::instance().setCurrentMenu(Menu::TAX);
+        break;
+    case 'd':
+        // Switch to the Tax Menu
+        MenuManager::instance().setCurrentMenu(Menu::DISPLAYCITY);
         break;
     case 'q':
         char confirm;
