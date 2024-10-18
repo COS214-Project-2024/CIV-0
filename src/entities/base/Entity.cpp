@@ -48,7 +48,11 @@ Entity::Entity(Entity* entity)
 
 Entity::~Entity()
 {
-    delete state;
+    if(state != nullptr)
+    {
+        delete state;
+        state = nullptr;
+    }
 }
 
 //Note: If the entity is on the border of the radius, it does not count (returns false).

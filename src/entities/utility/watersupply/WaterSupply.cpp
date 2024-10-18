@@ -17,7 +17,9 @@ WaterSupply::~WaterSupply() {
 }
 
 void WaterSupply::update() {
-    
+    if (!isBuilt()) {
+        updateBuildState();
+    }
 }
 
 Entity* WaterSupply::clone() {

@@ -17,7 +17,9 @@ WasteManagement::~WasteManagement() {
 }
 
 void WasteManagement::update() {
-    
+    if (!isBuilt()) {
+        updateBuildState();
+    }
 }
 
 Entity* WasteManagement::clone() {
