@@ -22,6 +22,9 @@ enum class EntityType
     WASTEMANAGMENT,
     SEWAGESYSTEM,
     ROAD,
+    WOODPRODUCER,
+    STONEPRODUCER,
+    CONCRETEPRODUCER,
 };
 
 #endif // ENTITYTYPE_H

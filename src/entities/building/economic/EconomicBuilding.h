@@ -8,7 +8,12 @@ class EconomicBuilding : public Building, public Subject
 {
 public:
     EconomicBuilding();
-    ~EconomicBuilding();
+    EconomicBuilding(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, 
+           int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime);
+    virtual ~EconomicBuilding();
+
+    virtual void update() = 0;
+    virtual Entity* clone() = 0;
 };
 
 #endif // ECONOMICBUILDING_H
