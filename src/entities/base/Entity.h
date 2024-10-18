@@ -65,6 +65,17 @@ public:
            int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime);
 
     /**
+     * @brief Copy constructor for the Entity class.
+     * 
+     * Creates a new Entity by copying the attributes of an existing Entity.
+     * This performs a deep copy of all properties, ensuring that the new entity
+     * is independent of the original.
+     * 
+     * @param entity Pointer to the Entity object to be copied.
+     */
+    Entity(Entity* entity);
+
+    /**
      * @brief Virtual destructor for the Entity class.
      */
     virtual ~Entity();

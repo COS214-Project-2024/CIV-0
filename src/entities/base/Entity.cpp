@@ -21,14 +21,29 @@ Entity::Entity(int electricity, int water, std::string symbol, int radius, int l
     this->size = size;
     this->xPosition = xPos;
     this->yPosition = yPos;
-    state = new UnderConstruction(buildTime);
 
-    State* newState = state->initialize();
-    if (newState != state)
-    {
-        delete state;
-        state = newState;
+    if(buildTime <= 0) {
+        state = new Built(buildTime);
+    } else {
+        state = new UnderConstruction(buildTime);
     }
+}
+
+Entity::Entity(Entity* entity)
+{
+    this->symbol = entity->symbol;
+    this->effectRadius = entity->effectRadius;
+    this->localEffectStrength = entity->localEffectStrength;
+    this->globalEffectStrength = entity->globalEffectStrength;
+    this->width = entity->width;
+    this->height = entity->height;
+    this->xPosition = entity->xPosition;
+    this->yPosition = entity->yPosition;
+    this->size = entity->size;
+    this->state = entity->state->clone();
+    this->revenue = entity->revenue;
+    this->electricityConsumption = entity->electricityConsumption;
+    this->waterConsumption = entity->waterConsumption;
 }
 
 Entity::~Entity()
