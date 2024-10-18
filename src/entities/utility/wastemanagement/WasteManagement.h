@@ -44,6 +44,13 @@ public:
     WasteManagement(WasteManagement* wasteManagement);
 
     /**
+     * @brief Default constructor for the WasteManagement class.
+     * 
+     * Creates a new WasteManagement object without initializing any of it's values (naughty).
+     */
+    WasteManagement();
+
+    /**
      * @brief Destructor for the WasteManagement object.
      */
     virtual ~WasteManagement();

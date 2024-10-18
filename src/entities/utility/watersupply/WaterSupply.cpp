@@ -8,6 +8,10 @@ WaterSupply::WaterSupply(WaterSupply* waterSupply) : Utility(waterSupply) {
 
 }
 
+WaterSupply::WaterSupply() : Utility() {
+
+}
+
 WaterSupply::~WaterSupply() {
 
 }

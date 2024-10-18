@@ -8,6 +8,10 @@ WasteManagement::WasteManagement(WasteManagement* wasteManagement) : Utility(was
 
 }
 
+WasteManagement::WasteManagement() : Utility() {
+
+}
+
 WasteManagement::~WasteManagement() {
 
 }

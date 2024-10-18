@@ -8,6 +8,10 @@ Utility::Utility(Utility* utility) : Entity(utility) {
     this->output = utility->output;
 }
 
+Utility::Utility() : Entity() {
+    
+}
+
 Utility::~Utility() {
 
 }

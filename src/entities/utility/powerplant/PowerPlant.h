@@ -44,6 +44,13 @@ public:
     PowerPlant(PowerPlant* powerPlant);
 
     /**
+     * @brief Default constructor for the PowerPlant class.
+     * 
+     * Creates a new PowerPlant object without initializing any of it's values (naughty).
+     */
+    PowerPlant();
+
+    /**
      * @brief Destructor for the PowerPlant object.
      */
     virtual ~PowerPlant();

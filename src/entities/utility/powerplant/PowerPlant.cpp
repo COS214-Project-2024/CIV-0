@@ -8,6 +8,10 @@ PowerPlant::PowerPlant(PowerPlant* powerPlant) : Utility(powerPlant) {
 
 }
 
+PowerPlant::PowerPlant() : Utility() {
+
+}
+
 PowerPlant::~PowerPlant() {}
 
 void PowerPlant::update() {

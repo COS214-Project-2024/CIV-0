@@ -44,6 +44,13 @@ public:
     SewageSystem(SewageSystem* sewageSystem);
 
     /**
+     * @brief Default constructor for the SewageSystem class.
+     * 
+     * Creates a new SewageSystem object without initializing any of it's values (naughty).
+     */
+    SewageSystem();
+
+    /**
      * @brief Destructor for the SewageSystem object.
      */
     virtual ~SewageSystem();

@@ -8,6 +8,10 @@ SewageSystem::SewageSystem(SewageSystem* sewageSystem) : Utility(sewageSystem) {
 
 }
 
+SewageSystem::SewageSystem() : Utility() {
+
+}
+
 SewageSystem::~SewageSystem() {
 
 }

@@ -36,6 +36,13 @@ public:
     Utility(Utility* utility);
 
     /**
+     * @brief Default constructor for the Utility class.
+     * 
+     * Creates a new Utility object without initializing any of it's values (naughty).
+     */
+    Utility();
+
+    /**
      * @brief Destructor for the Utility object.
      */
     virtual ~Utility();
