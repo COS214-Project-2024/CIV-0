@@ -2,12 +2,15 @@
 #define WOODPRODUCERLEVELTWOUPGRADE_H
 
 #include "WoodProducerUpgrade.h"
-
+#include "WoodProducer.h"
 class WoodProducerLevelTwoUpgrade : public WoodProducerUpgrade
 {
 public:
-    WoodProducerLevelTwoUpgrade();
+    WoodProducerLevelTwoUpgrade(WoodProducer* woodProducer);
     ~WoodProducerLevelTwoUpgrade();
+    void update();
+    Entity* clone();
+    int getStrength();
 };
 
 #endif // WOODPRODUCERLEVELTWOUPGRADE_H

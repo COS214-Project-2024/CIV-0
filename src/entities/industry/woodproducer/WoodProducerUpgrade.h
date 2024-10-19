@@ -12,7 +12,7 @@ public:
     ~WoodProducerUpgrade();
     virtual Entity* clone() = 0;
     virtual void update() = 0;
-    
+
 private: 
     WoodProducer* WoodProducer;
     
