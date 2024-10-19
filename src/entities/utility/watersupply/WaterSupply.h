@@ -3,8 +3,7 @@
 
 #include "entities/utility/base/Utility.h"
 
-class WaterSupply : Utility
-{
+class WaterSupply : public Utility{
 public:
     WaterSupply();
     WaterSupply(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, 
