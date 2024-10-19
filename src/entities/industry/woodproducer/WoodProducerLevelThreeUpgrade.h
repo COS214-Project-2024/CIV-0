@@ -2,14 +2,13 @@
 #define WOODPRODUCERLEVELTHREEUPGRADE_H
 
 #include "WoodProducerUpgrade.h"
-#incude "Entity.h"
-class WoodProducerLevelThreeUpgrade : WoodProducerUpgrade
+class WoodProducerLevelThreeUpgrade : public WoodProducerUpgrade
 {
 public:
     WoodProducerLevelThreeUpgrade();
     ~WoodProducerLevelThreeUpgrade();
-    void update();
-    Entity* clone();
+    void update() override;
+    Entity *clone() override;
     int getStrength();
 };
 

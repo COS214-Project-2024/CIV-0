@@ -2,19 +2,18 @@
 #define WOODPRODUCERLEVELONEUPGRADE_H
 
 #include "WoodProducerUpgrade.h"
-#include "Entity.h"
 
 class WoodProducerLevelOneUpgrade : public WoodProducerUpgrade
 {
 public:
     WoodProducerLevelOneUpgrade();
     ~WoodProducerLevelOneUpgrade();
-    void update();
-    Entity* clone();
+    void update() override;
+    Entity *clone() override;
     int getStrength();
 
-private: 
-    const int UPGRADE = 1.5;
+private:
+    const int UPGRADE = 1;
 };
 
 #endif // WOODPRODUCERLEVELONEUPGRADE_H

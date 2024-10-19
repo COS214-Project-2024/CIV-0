@@ -4,6 +4,6 @@ WoodProducerUpgrade::WoodProducerUpgrade() {}
 
 WoodProducerUpgrade::~WoodProducerUpgrade() {}
 
-Entity* WoodProducerUpgrade::clone() {}
+// Entity *WoodProducerUpgrade::clone() { return nullptr; }
 
-void WoodProducerUpgrade::update() {}
+// void WoodProducerUpgrade::update() {}

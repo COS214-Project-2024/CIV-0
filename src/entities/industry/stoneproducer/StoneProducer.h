@@ -3,15 +3,15 @@
 
 #include "entities/industry/base/Industry.h"
 
-class StoneProducer : Industry
+class StoneProducer : public Industry
 {
 public:
     StoneProducer();
-    StoneProducer(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, 
-           int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime);
+    StoneProducer(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect,
+                  int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime);
     virtual ~StoneProducer();
     void update();
-    Entity* clone();
+    Entity *clone();
 };
 
 #endif // STONEPRODUCER_H
