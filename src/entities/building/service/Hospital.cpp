@@ -10,7 +10,15 @@ Hospital::Hospital(int electricity, int water, std::string symbol, int radius, i
 
 void Hospital::update()
 {
-    //TODO
+    for(Observer* o : subscribers)
+    {
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        
+        if(rb)
+        {
+            rb->updateHospital(this);
+        }
+    }
 }
 
 Entity* Hospital::clone()

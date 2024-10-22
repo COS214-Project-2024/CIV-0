@@ -8,11 +8,6 @@ Apartment::Apartment(int electricity, int water, std::string symbol, int radius,
 
 }
 
-void Apartment::update()
-{
-    //TODO
-}
-
 Entity* Apartment::clone()
 {
     Entity* e = new Apartment(electricityConsumption, waterConsumption, symbol, effectRadius, localEffectStrength, globalEffectStrength, width, height, revenue, size, xPosition, yPosition, state->getBuildTime());

@@ -11,7 +11,6 @@ public:
            int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime);
     virtual ~House();
 
-    void update();
     Entity* clone();
 };
 

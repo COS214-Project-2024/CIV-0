@@ -10,7 +10,15 @@ Office::Office(int electricity, int water, std::string symbol, int radius, int l
 
 void Office::update()
 {
-    //TODO
+    for(Observer* o : subscribers)
+    {
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        
+        if(rb)
+        {
+            rb->updateOffice(this);
+        }
+    }
 }
 
 Entity* Office::clone()

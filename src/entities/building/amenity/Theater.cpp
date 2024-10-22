@@ -10,7 +10,15 @@ Theater::Theater(int electricity, int water, std::string symbol, int radius, int
 
 void Theater::update()
 {
-    //TODO
+    for(Observer* o : subscribers)
+    {
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        
+        if(rb)
+        {
+            rb->updateAmenity(this);
+        }
+    }
 }
 
 Entity* Theater::clone()

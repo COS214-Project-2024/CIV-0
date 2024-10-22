@@ -10,7 +10,15 @@ Factory::Factory(int electricity, int water, std::string symbol, int radius, int
 
 void Factory::update()
 {
-    //TODO
+    for(Observer* o : subscribers)
+    {
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        
+        if(rb)
+        {
+            rb->updateFactory(this);
+        }
+    }
 }
 
 Entity* Factory::clone()

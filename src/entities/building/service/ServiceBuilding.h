@@ -2,6 +2,7 @@
 #define SERVICEBUILDING_H
 
 #include "entities/building/base/Building.h"
+#include "entities/building/residential/ResidentialBuilding.h"
 #include "entities/base/Subject.h"
 
 class ServiceBuilding : public Building, public Subject
