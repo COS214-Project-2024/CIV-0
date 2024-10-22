@@ -2,6 +2,7 @@
 #define CONFIGMANAGER_H
 
 #include <map>
+#include <optional>
 #include "EntityType.h"
 #include "Size.h"
 #include "EntityConfig.h"
@@ -10,12 +11,17 @@
 class ConfigManager
 {
 public:
-    // Public static method to get the entity configuration for a given type and size
-    static EntityConfig getEntityConfig(EntityType entityType, Size size)
+     static EntityConfig getEntityConfig(EntityType entityType, Size size)
     {
         static ConfigManager instance;
         auto key = std::make_pair(entityType, size);
-        return instance.entityConfigTable.at(key); // Use `at` to safely access the map
+        return instance.entityConfigTable.at(key); // Use at to safely access the map
+    }
+
+    static SatisfactionConfig getSatisfactionConfig(EntityType entityType)
+    {
+        static ConfigManager instance;
+        return instance.satisfactionConfigTable.at(entityType); // Use `at` to safely access the map
     }
 
 private:
@@ -128,6 +134,21 @@ private:
         entityConfigTable.emplace(std::make_pair(EntityType::ROAD, Size::SMALL), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "█", 0, 0, 0, 1, 1, 0, 0));
         entityConfigTable.emplace(std::make_pair(EntityType::ROAD, Size::MEDIUM), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "█", 0, 0, 0, 1, 1, 0, 0));
         entityConfigTable.emplace(std::make_pair(EntityType::ROAD, Size::LARGE), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "█", 0, 0, 0, 1, 1, 0, 0));
+
+        // Airport
+        entityConfigTable.emplace(std::make_pair(EntityType::AIRPORT, Size::SMALL), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "A", 0, 0, 0, 1, 1, 0, 0));
+        entityConfigTable.emplace(std::make_pair(EntityType::AIRPORT, Size::MEDIUM), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "A", 0, 0, 0, 1, 1, 0, 0));
+        entityConfigTable.emplace(std::make_pair(EntityType::AIRPORT, Size::LARGE), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "A", 0, 0, 0, 1, 1, 0, 0));
+
+        // BusStop
+        entityConfigTable.emplace(std::make_pair(EntityType::BUSSTOP, Size::SMALL), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "B", 0, 0, 0, 1, 1, 0, 0));
+        entityConfigTable.emplace(std::make_pair(EntityType::BUSSTOP, Size::MEDIUM), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "B", 0, 0, 0, 1, 1, 0, 0));
+        entityConfigTable.emplace(std::make_pair(EntityType::BUSSTOP, Size::LARGE), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "B", 0, 0, 0, 1, 1, 0, 0));
+
+        // TrainStation
+        entityConfigTable.emplace(std::make_pair(EntityType::TRAINSTATION, Size::SMALL), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "T", 0, 0, 0, 1, 1, 0, 0));
+        entityConfigTable.emplace(std::make_pair(EntityType::TRAINSTATION, Size::MEDIUM), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "T", 0, 0, 0, 1, 1, 0, 0));
+        entityConfigTable.emplace(std::make_pair(EntityType::TRAINSTATION, Size::LARGE), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "T", 0, 0, 0, 1, 1, 0, 0));
     }
 
     void initializeSatisfactionConfig()
@@ -153,43 +174,43 @@ private:
         satisfactionConfigTable.emplace(EntityType::THEATER, SatisfactionConfig(2.0f, 2.0f, 15.0f, 0.0f));
 
         // Power Plant
-        satisfactionConfigTable.emplace(EntityType::POWERPLANT, SatisfactionConfig(2.0f, 2.0f, -25.0f, 0.0f));
+        satisfactionConfigTable.emplace(EntityType::POWERPLANT, SatisfactionConfig(-2.0f, 2.0f, -25.0f, 0.0f));
 
         // Water Supply
-        satisfactionConfigTable.emplace(EntityType::WATERSUPPLY, SatisfactionConfig(2.0f, 2.0f, -25.0f, 0.0f));
+        satisfactionConfigTable.emplace(EntityType::WATERSUPPLY, SatisfactionConfig(-2.0f, -2.0f, -25.0f, 0.0f));
 
         // Waste Managment
-        satisfactionConfigTable.emplace(EntityType::WASTEMANAGMENT, SatisfactionConfig(2.0f, 2.0f, -25.0f, 0.0f));
+        satisfactionConfigTable.emplace(EntityType::WASTEMANAGMENT, SatisfactionConfig(-2.0f, 2.0f, -25.0f, 0.0f));
 
         // Sewage System
-        satisfactionConfigTable.emplace(EntityType::SEWAGESYSTEM, SatisfactionConfig(2.0f, 2.0f, -25.0f, 0.0f));
+        satisfactionConfigTable.emplace(EntityType::SEWAGESYSTEM, SatisfactionConfig(-2.0f, 2.0f, -25.0f, 0.0f));
 
         // Wood Producer
-        satisfactionConfigTable.emplace(EntityType::WOODPRODUCER, SatisfactionConfig(2.0f, 2.0f, -25.0f, 0.0f));
+        satisfactionConfigTable.emplace(EntityType::WOODPRODUCER, SatisfactionConfig(-2.0f, 2.0f, -25.0f, 0.0f));
 
         // Stone Producer
-        satisfactionConfigTable.emplace(EntityType::STONEPRODUCER, SatisfactionConfig(2.0f, 2.0f, -25.0f, 0.0f));
+        satisfactionConfigTable.emplace(EntityType::STONEPRODUCER, SatisfactionConfig(-2.0f, 2.0f, -25.0f, 0.0f));
 
         // Concrete Producer
-        satisfactionConfigTable.emplace(EntityType::CONCRETEPRODUCER, SatisfactionConfig(2.0f, 2.0f, -25.0f, 0.0f));
+        satisfactionConfigTable.emplace(EntityType::CONCRETEPRODUCER, SatisfactionConfig(-2.0f, 2.0f, -25.0f, 0.0f));
 
         // Airport
-        satisfactionConfigTable.emplace(EntityType::AIRPORT, SatisfactionConfig(2.0f, 2.0f, -15.0f, 5.0f));
+        satisfactionConfigTable.emplace(EntityType::AIRPORT, SatisfactionConfig(-2.0f, 2.0f, -15.0f, 5.0f));
 
         // Bus Stop
         satisfactionConfigTable.emplace(EntityType::BUSSTOP, SatisfactionConfig(2.0f, 2.0f, 10.0f, 2.0f));
 
         // Train Station
-        satisfactionConfigTable.emplace(EntityType::BUSSTOP, SatisfactionConfig(2.0f, 2.0f, 10.0f, 2.0f));
+        satisfactionConfigTable.emplace(EntityType::TRAINSTATION, SatisfactionConfig(2.0f, 2.0f, 10.0f, 2.0f));
 
         // Factory
-        satisfactionConfigTable.emplace(EntityType::FACTORY, SatisfactionConfig(2.0f, 2.0f, -15.0f, 10.0f));
+        satisfactionConfigTable.emplace(EntityType::FACTORY, SatisfactionConfig(-2.0f, 2.0f, -15.0f, 10.0f));
 
         // Shopping Mall
         satisfactionConfigTable.emplace(EntityType::SHOPPINGMALL, SatisfactionConfig(2.0f, 2.0f, 3.0f, 10.0f));
 
         // Office
-        satisfactionConfigTable.emplace(EntityType::OFFICE, SatisfactionConfig(2.0f, 2.0f, -10.0f, 10.0f));
+        satisfactionConfigTable.emplace(EntityType::OFFICE, SatisfactionConfig(-2.0f, 2.0f, -10.0f, 10.0f));
     }
 };
 

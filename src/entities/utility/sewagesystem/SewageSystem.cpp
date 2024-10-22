@@ -3,18 +3,34 @@
 SewageSystem::SewageSystem() {}
 SewageSystem::~SewageSystem() {}
 
-SewageSystem::SewageSystem(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime) : Utility(electricity, water, symbol, radius, localEffect, globalEffect, width, height, revenue, size, xPos, yPos, buildTime)
+SewageSystem::SewageSystem(EntityConfig ec, Size size, int xPos, int yPos) : Utility(ec, size, xPos, yPos)
 {
     setOutput(20); //TODO - change value
 }
 
-void SewageSystem::update()
-{
-    //TODO
+SewageSystem::SewageSystem(SewageSystem* sewageSystem) : Utility(sewageSystem) {
+
+}
+
+void SewageSystem::update() {
+    for(Observer* o : subscribers)
+    {
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        
+        if(rb)
+        {
+            rb->updateUtility(this);
+        }
+    }
+
+    // This is for updating the build state (it should run once per game loop)
+    if (!isBuilt()) {
+        updateBuildState();
+    }
 }
 
 Entity* SewageSystem::clone()
 {
-    Entity* e = new SewageSystem(electricityConsumption, waterConsumption, symbol, effectRadius, localEffectStrength, globalEffectStrength, width, height, revenue, size, xPosition, yPosition, state->getBuildTime());
+    Entity* e = new SewageSystem(*ec, size, xPosition, yPosition);
     return e;
 }

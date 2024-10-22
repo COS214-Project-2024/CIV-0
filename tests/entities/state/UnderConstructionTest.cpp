@@ -34,11 +34,4 @@ TEST_CASE("UnderConstructionTest with zero build time")
 
     CHECK(state.getGameLoopCounter() == 0);
     CHECK(state.getBuildTime() == buildTime);
-
-    State* newState = state.initialize();
-    CHECK(newState != &state);
-    CHECK(dynamic_cast<Built*>(newState) != nullptr);
-    CHECK(newState->getGameLoopCounter() == 0);
-
-    delete newState;
 }

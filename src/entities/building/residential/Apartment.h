@@ -7,11 +7,9 @@ class Apartment : public ResidentialBuilding
 {
 public:
     Apartment();
-    Apartment(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, 
-           int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime);
+    Apartment(EntityConfig ec, Size size, int xPos, int yPos);
     virtual ~Apartment();
 
-    void update();
     Entity* clone();
 };
 
