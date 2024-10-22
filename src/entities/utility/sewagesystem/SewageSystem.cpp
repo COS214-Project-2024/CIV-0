@@ -8,8 +8,11 @@ SewageSystem::SewageSystem(EntityConfig ec, Size size, int xPos, int yPos) : Uti
     setOutput(20); //TODO - change value
 }
 
-void SewageSystem::update()
-{
+SewageSystem::SewageSystem(SewageSystem* sewageSystem) : Utility(sewageSystem) {
+
+}
+
+void SewageSystem::update() {
     for(Observer* o : subscribers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
@@ -18,6 +21,11 @@ void SewageSystem::update()
         {
             rb->updateUtility(this);
         }
+    }
+
+    // This is for updating the build state (it should run once per game loop)
+    if (!isBuilt()) {
+        updateBuildState();
     }
 }
 

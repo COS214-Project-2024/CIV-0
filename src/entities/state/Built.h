@@ -19,6 +19,15 @@ public:
      * @param buildTime The time taken to build the entity.
      */
     Built(int buildTime);
+
+    /**
+     * @brief Copy constructor for the Built class.
+     * 
+     * Creates a new Built state by copying the attributes of an existing Built object.
+     * 
+     * @param built Pointer to the existing Built object to be copied.
+     */
+    Built(Built* built);
     
     /**
      * @brief Destructor for the Built state.
@@ -32,10 +41,14 @@ public:
     State* update();
     
     /**
-     * @brief Initializes the current state.
-     * @return A pointer to the initialized state (remains the same in the built state).
+     * @brief Creates a deep copy of the Built state.
+     * 
+     * This method returns a new Built object that is a copy of the current instance.
+     * This allows for proper polymorphic copying of State objects.
+     * 
+     * @return A pointer to a new Built object that is a copy of this instance.
      */
-    State* initialize();
+    State* clone();
 };
 
 #endif // BUILT_H

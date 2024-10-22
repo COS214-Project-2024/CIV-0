@@ -8,8 +8,11 @@ WasteManagement::WasteManagement(EntityConfig ec, Size size, int xPos, int yPos)
     setOutput(20); //TODO - change value
 }
 
-void WasteManagement::update()
-{
+WasteManagement::WasteManagement(WasteManagement* wasteManagement) : Utility(wasteManagement) {
+
+}
+
+void WasteManagement::update() {
     for(Observer* o : subscribers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
@@ -18,6 +21,11 @@ void WasteManagement::update()
         {
             rb->updateUtility(this);
         }
+    }
+    
+    // This is for updating the build state (it should run once per game loop)
+    if (!isBuilt()) {
+        updateBuildState();
     }
 }
 

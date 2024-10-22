@@ -21,6 +21,15 @@ public:
      * @param buildTime The time required to build the entity.
      */
     State(int buildTime);
+
+    /**
+     * @brief Copy constructor for the State class.
+     * 
+     * Creates a new State by copying the attributes of an existing State object.
+     * 
+     * @param state Pointer to the existing State object to be copied.
+     */
+    State(State* state);
     
     /**
      * @brief Destructor for the State.
@@ -34,10 +43,14 @@ public:
     virtual State* update() = 0;
 
     /**
-     * @brief Initializes the current state.
-     * @return A pointer to the next state after initialization.
+     * @brief Creates a deep copy of the current State object.
+     * 
+     * This method is responsible for cloning the concrete subclass of State.
+     * This allows for proper polymorphic copying of abstract State objects.
+     * 
+     * @return A pointer to a new State object that is a copy of the current instance.
      */
-    virtual State* initialize() = 0;
+    virtual State* clone() = 0;
 
     /**
      * @brief Gets the current game loop counter.

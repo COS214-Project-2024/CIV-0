@@ -8,6 +8,10 @@ WaterSupply::WaterSupply(EntityConfig ec, Size size, int xPos, int yPos) : Utili
     setOutput(20); //TODO - change value
 }
 
+WaterSupply::WaterSupply(WaterSupply* waterSupply) : Utility(waterSupply) {
+
+}
+
 void WaterSupply::update()
 {
     for(Observer* o : subscribers)

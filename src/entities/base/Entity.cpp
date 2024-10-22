@@ -7,6 +7,31 @@ Entity::Entity()
 
 }
 
+Entity::Entity(Entity* entity)
+{
+    this->electricityConsumption = entity->electricityConsumption;
+    this->waterConsumption = entity->waterConsumption;
+    this->symbol = entity->symbol;
+    this->effectRadius = entity->effectRadius;
+    this->localEffectStrength = entity->localEffectStrength;
+    this->globalEffectStrength = entity->globalEffectStrength;
+    this->width = entity->width;
+    this->height = entity->height;
+    this->revenue = entity->revenue;
+    this->size = entity->size;
+    this->xPosition = entity->xPosition;
+    this->yPosition = entity->yPosition;
+    this->ec = entity->ec;
+    if(!entity->isBuilt())
+    {
+        state = new UnderConstruction(3);
+    }
+    else
+    {
+        state = new Built(3);
+    }
+}
+
 Entity::Entity(EntityConfig ec, Size size, int xPos, int yPos)
 {
     this->electricityConsumption = ec.electricityConsumption;
@@ -34,7 +59,11 @@ Entity::Entity(EntityConfig ec, Size size, int xPos, int yPos)
 
 Entity::~Entity()
 {
-    delete state;
+    if(state != nullptr)
+    {
+        delete state;
+        state = nullptr;
+    }
 }
 
 //Note: If the entity is on the border of the radius, it does not count (returns false).
