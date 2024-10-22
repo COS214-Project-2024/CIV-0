@@ -58,14 +58,14 @@ public:
     /**
      * @brief Retrieves the upgraded power plant's output.
      * 
-     * Returns the power output of the level one upgraded power plant, which reflects a 1.5x enhancement.
+     * Returns the power output of the level one upgraded power plant.
      * 
      * @return The updated power output as an integer.
      */
     int getOutput();
 
 private:
-    const int UPGRADE = 1.5; ///< Multiplier applied to the original power output for the level one upgrade.
+    const int UPGRADE = 2; ///< Multiplier applied to the original power output for the level one upgrade.
 };
 
 #endif // POWERPLANTLEVELONEUPGRADE_H
