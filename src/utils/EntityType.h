@@ -84,7 +84,7 @@ inline std::string entityTypeToString(EntityType type)
     case EntityType::CONCRETEPRODUCER:
         return "CONCRETEPRODUCER";
     default:
-        throw std::invalid_argument("Invalid EntityType enum value");
+        return "Unknown Entity";
     }
 }
 

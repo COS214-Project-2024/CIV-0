@@ -1,13 +1,19 @@
 #include "MenuManager.h"
 
-// Singleton instance method
+/**
+ * @brief Singleton instance method.
+ * @return The singleton instance of MenuManager.
+ */
 MenuManager &MenuManager::instance()
 {
     static MenuManager instance;
     return instance;
 }
 
-// Private constructor
+/**
+ * @brief Private constructor for MenuManager.
+ * Initializes all the menus and stores them in the map with the enum as the key.
+ */
 MenuManager::MenuManager()
 {
     // Initialize all the menus and store them in the map with the enum as the key
@@ -28,10 +34,15 @@ MenuManager::MenuManager()
     setCurrentMenu(Menu::MAIN);
 }
 
-// Destructor
+/**
+ * @brief Destructor for MenuManager.
+ */
 MenuManager::~MenuManager() {}
 
-// Set the current menu by enum key
+/**
+ * @brief Sets the current menu by enum key.
+ * @param menuType The type of the menu to switch to.
+ */
 void MenuManager::setCurrentMenu(Menu menuType)
 {
     if (menus.find(menuType) != menus.end())
@@ -44,7 +55,18 @@ void MenuManager::setCurrentMenu(Menu menuType)
     }
 }
 
-// Display the current menu
+/**
+ * @brief Sets the current menu using a dynamic menu passed as a shared pointer.
+ * @param menu The shared pointer to the menu to set as current.
+ */
+void MenuManager::setCurrentMenu(std::shared_ptr<IMenu> menu)
+{
+    currentMenu = menu;
+}
+
+/**
+ * @brief Displays the currently active menu.
+ */
 void MenuManager::displayCurrentMenu()
 {
     if (currentMenu)
@@ -57,11 +79,39 @@ void MenuManager::displayCurrentMenu()
     }
 }
 
-// Handle the input for the current menu
+/**
+ * @brief Handles the input for the current menu.
+ */
 void MenuManager::handleCurrentMenuInput()
 {
     if (currentMenu)
     {
         currentMenu->handleInput();
     }
+}
+
+/**
+ * @brief Sets the reference to the City object to be used by menus.
+ * @param city Pointer to the City object.
+ */
+void MenuManager::setCity(City *city)
+{
+    this->city = city;
+}
+
+/**
+ * @brief Gets the reference to the City object.
+ * @return Pointer to the City object.
+ */
+City *MenuManager::getCity() const
+{
+    return city;
+}
+
+/**
+ * @brief Clears the terminal screen.
+ */
+void MenuManager::clearScreen() const
+{
+    system("clear");
 }

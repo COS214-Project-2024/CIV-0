@@ -4,19 +4,39 @@
 #include <cstdlib> // For rand()
 #include <ctime>   // For time()
 
+/**
+ * @brief Constructor for DisplayCityMenu.
+ * Initializes the menu with a single option to go back to the main menu.
+ */
 DisplayCityMenu::DisplayCityMenu() : IMenu("Display City")
 {
     sections = {
         {"Display City Menu", {{'q', "🔙", "Back to Main Menu"}}}};
 }
+
+/**
+ * @brief Destructor for DisplayCityMenu.
+ */
 DisplayCityMenu::~DisplayCityMenu() {}
 
+/**
+ * @brief Displays the menu and the city grid.
+ * Calls displayMenu() to show menu options and displayCity() to render the city.
+ */
 void DisplayCityMenu::display() const
 {
-    displayMenu();
-    displayCity();
+    displayMenu(); // Display menu options
+    displayCity(); // Display the city layout
 }
 
+/**
+ * @brief Displays the city grid with streets, houses, apartments, and factories.
+ *
+ * The function generates a random walk for streets, ensuring that buildings
+ * are placed next to streets. Buildings are either houses (1x1), apartments (2x2),
+ * or factories (3x3). The grid is displayed using box-drawing characters for
+ * borders, and letters to label the rows and columns.
+ */
 void DisplayCityMenu::displayCity() const
 {
     const int width = 26;
@@ -36,6 +56,7 @@ void DisplayCityMenu::displayCity() const
     int direction = rand() % 4; // Initially pick a random direction
     int walkLength = 5;         // This controls how long the road goes in a straight line
 
+    // Generate streets
     for (int i = 0; i < 200; ++i) // Adjust total iterations to create more streets
     {
         if (walkLength == 0 || rand() % 10 == 0) // Occasionally change direction
@@ -57,7 +78,7 @@ void DisplayCityMenu::displayCity() const
         cityGrid[y][x] = "█";
     }
 
-    // Function to check if a cell is adjacent to a street
+    // Helper function to check if a cell is adjacent to a street
     auto isNextToStreet = [&](int x, int y) -> bool
     {
         if (x > 0 && cityGrid[y][x - 1] == "█")
@@ -150,19 +171,29 @@ void DisplayCityMenu::displayCity() const
     printBottomBorder(width);
 }
 
+/**
+ * @brief Handles user input in the "Display City" menu.
+ * Allows the user to return to the main menu or display error for invalid choices.
+ */
 void DisplayCityMenu::handleInput()
 {
-    char choice;
-    std::cout << "Enter your choice: ";
-    std::cin >> choice;
+    bool choosing = true;
 
-    switch (choice)
+    while (choosing)
     {
-    case 'q':
-        MenuManager::instance().setCurrentMenu(Menu::MAIN);
-        break;
-    default:
-        std::cout << "Invalid choice. Please select a valid option." << std::endl;
-        break;
+        char choice;
+        displayChoicePrompt();
+        std::cin >> choice;
+
+        switch (choice)
+        {
+        case 'q':
+            MenuManager::instance().setCurrentMenu(Menu::MAIN);
+            choosing = false;
+            break;
+        default:
+            displayInvalidChoice(); // Display error for invalid input
+            break;
+        }
     }
 }

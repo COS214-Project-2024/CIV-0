@@ -1,6 +1,11 @@
 #include "BuyAmenityMenu.h"
 #include "menus/base/MenuManager.h"
 
+/**
+ * @brief Allows the user to choose an amenity type from the options available.
+ * Displays options such as Park, Theater, and Monument.
+ * @return The selected EntityType corresponding to the chosen amenity.
+ */
 EntityType BuyAmenityMenu::chooseEntityType()
 {
     sections = {
@@ -9,7 +14,7 @@ EntityType BuyAmenityMenu::chooseEntityType()
           {'2', "🎭", "Theater"},
           {'3', "🗽", "Monument"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Building Menu"},
+         {{'b', "🔙", "Back to Buildings Menu"},
           {'q', "🔙", "Back to Main Menu"}}}};
     setHeading("Select Amenity Type");
     clearScreen();

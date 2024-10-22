@@ -3,9 +3,6 @@
 #include <iostream>  // For std::setw
 #include <regex>
 
-// Minimum width for the menu
-constexpr int MIN_MENU_WIDTH = 50;
-
 /**
  * @brief Constructs a menu with the specified heading.
  * @param heading The heading of the menu.
@@ -201,16 +198,32 @@ void IMenu::displayMenu() const
     }
 }
 
+/**
+ * @brief Displays the choice prompt for user input.
+ */
 void IMenu::displayChoicePrompt() const
 {
     std::string prompt = "Enter your choice: ";
 
-    // Create a visually appealing prompt with some spacing, a border, and colors
-    std::cout << DARK_GRAY << "\n>> "  // Start with a subtle ">>" in dark gray
-              << BOLD_YELLOW << prompt // Make the prompt itself stand out
-              << RESET;                // Reset color back to normal for input
+    displayChoiceMessagePrompt(prompt);
 }
 
+/**
+ * @brief Displays a message prompt with a custom message.
+ *
+ * @param message The message to display.
+ */
+void IMenu::displayChoiceMessagePrompt(const std::string &message) const
+{
+    // Create a visually appealing prompt with some spacing, a border, and colors
+    std::cout << DARK_GRAY << "\n>> "   // Start with a subtle ">>" in dark gray
+              << BOLD_YELLOW << message // Make the prompt itself stand out
+              << RESET;                 // Reset color back to normal for input
+}
+
+/**
+ * @brief Displays an error message when the user makes an invalid choice.
+ */
 void IMenu::displayInvalidChoice() const
 {
     std::string message = "Invalid choice. Please select a valid option.";
@@ -218,10 +231,28 @@ void IMenu::displayInvalidChoice() const
     displayErrorMessage(message);
 }
 
+/**
+ * @brief Displays an error message with the provided message text.
+ *
+ * @param message The error message to display.
+ */
 void IMenu::displayErrorMessage(const std::string &message) const
 {
-    // Create a styled invalid choi1ce message with colors and spacing
+    // Create a styled error message with colors and spacing
     std::cout << DARK_GRAY << "\n>> " // Subtle indicator in dark gray
               << BOLD_RED << message  // Bold red to make the error message stand out
               << RESET << std::endl;  // Reset color and add a new line
+}
+
+/**
+ * @brief Displays a success message with green color.
+ *
+ * @param message The success message to display.
+ */
+void IMenu::displaySuccessMessage(const std::string &message) const
+{
+    // Create a styled success message with colors and spacing
+    std::cout << DARK_GRAY << "\n>> "  // Subtle indicator in dark gray
+              << BOLD_GREEN << message // Bold green to make the success message stand out
+              << RESET << std::endl;   // Reset color and add a new line
 }

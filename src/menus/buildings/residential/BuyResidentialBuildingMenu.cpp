@@ -2,11 +2,22 @@
 #include "menus/base/MenuManager.h"
 #include "utils/ConfigManager.h"
 
+/**
+ * @brief Constructor for BuyResidentialBuildingMenu.
+ * Initializes the base BuyMenu for residential building selection.
+ */
 BuyResidentialBuildingMenu::BuyResidentialBuildingMenu() : BuyMenu() {}
 
+/**
+ * @brief Destructor for BuyResidentialBuildingMenu.
+ */
 BuyResidentialBuildingMenu::~BuyResidentialBuildingMenu() {}
 
-// Override the entity type selection for residential buildings
+/**
+ * @brief Displays the options for selecting a residential building type.
+ * The user can choose between House or Apartment.
+ * @return The selected EntityType for the residential building.
+ */
 EntityType BuyResidentialBuildingMenu::chooseEntityType()
 {
     sections = {
@@ -14,7 +25,7 @@ EntityType BuyResidentialBuildingMenu::chooseEntityType()
          {{'1', "🏠", "House"},
           {'2', "🏢", "Apartment"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Building Menu"},
+         {{'b', "🔙", "Back to Buildings Menu"},
           {'q', "🔙", "Back to Main Menu"}}}};
 
     setHeading("Select Residential Building Type");

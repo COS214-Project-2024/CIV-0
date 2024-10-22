@@ -10,9 +10,9 @@
  */
 struct Option
 {
-    char key;         ///< Custom key for this option
-    std::string icon; ///< Icon for this option
-    std::string text; ///< The actual text of the option
+    char key;         ///< Custom key for this option.
+    std::string icon; ///< Icon for this option.
+    std::string text; ///< The actual text of the option.
 };
 
 /**
@@ -20,8 +20,8 @@ struct Option
  */
 struct Section
 {
-    std::string heading;         ///< The heading of the section
-    std::vector<Option> options; ///< The list of options in the section
+    std::string heading;         ///< The heading of the section.
+    std::vector<Option> options; ///< The list of options in the section.
 };
 
 /**
@@ -57,19 +57,21 @@ public:
      */
     virtual void handleInput() = 0;
 
+    /**
+     * @brief Sets the heading of the menu.
+     * @param heading The new heading for the menu.
+     */
     void setHeading(const std::string &heading);
 
 protected:
-    std::vector<Section> sections; ///< List of sections in the menu
-    std::string menuHeading;       ///< The heading of the menu
-
+    std::vector<Section> sections; ///< List of sections in the menu.
+    std::string menuHeading;       ///< The heading of the menu.
     bool hasExited;
 
-    // Utility functions and color constants for inherited classes
+    // Utility functions and color constants for inherited classes.
 
     /**
      * @brief ANSI color codes and styles for use in all menus.
-     * These are static constants so that derived classes can access them easily.
      */
     static constexpr const char *RESET = "\033[0m";
     static constexpr const char *BOLD_WHITE = "\033[1;37m";
@@ -77,13 +79,14 @@ protected:
     static constexpr const char *DARK_GRAY = "\033[1;30m";
     static constexpr const char *BOLD_YELLOW = "\033[1;33m";
     static constexpr const char *BOLD_RED = "\033[1;31m";
+    static constexpr const char *BOLD_GREEN = "\033[1;32m"; ///< Green color for success messages.
 
-    static constexpr int MIN_MENU_WIDTH = 50; ///< Minimum width for the menu
+    static constexpr int MIN_MENU_WIDTH = 50; ///< Minimum width for the menu.
 
     /**
      * @brief Utility function to repeat a string multiple times.
      * @param str The string to repeat.
-     * @param times How many times to repeat the string.
+     * @param times The number of times to repeat the string.
      * @return A concatenated string repeated n times.
      */
     std::string repeat(const std::string &str, int times) const;
@@ -142,14 +145,44 @@ protected:
      */
     void displayMenu() const;
 
+    /**
+     * @brief Displays the choice prompt for the user.
+     */
     void displayChoicePrompt() const;
 
+    /**
+     * @brief Displays a message prompt with a custom message for the user.
+     * @param message The message to display.
+     */
+    void displayChoiceMessagePrompt(const std::string &message) const;
+
+    /**
+     * @brief Displays an error message when the user makes an invalid choice.
+     */
     void displayInvalidChoice() const;
 
+    /**
+     * @brief Displays a general error message.
+     * @param message The error message to display.
+     */
     void displayErrorMessage(const std::string &message) const;
 
+    /**
+     * @brief Displays a success message in green color.
+     * @param message The success message to display.
+     */
+    void displaySuccessMessage(const std::string &message) const;
+
+    /**
+     * @brief Clears the screen.
+     */
     void clearScreen() const { system("clear"); }
 
+    /**
+     * @brief Strips ANSI color codes from a string.
+     * @param input The string with potential color codes.
+     * @return A plain string with color codes removed.
+     */
     std::string stripColorCodes(const std::string &input) const;
 };
 

@@ -3,14 +3,31 @@
 
 #include "menus/base/BuyMenu.h"
 
+/**
+ * @brief Menu for purchasing resource-producing buildings.
+ * This menu allows the user to choose between different types of resource-producing buildings.
+ */
 class BuyResourceMenu : public BuyMenu
 {
 public:
+    /**
+     * @brief Constructor for BuyResourceMenu.
+     * Initializes the resource-building purchase menu.
+     */
     BuyResourceMenu();
+
+    /**
+     * @brief Destructor for BuyResourceMenu.
+     */
     ~BuyResourceMenu();
 
 protected:
-    EntityType chooseEntityType() override; // Override to choose resource building types
+    /**
+     * @brief Provides the selection of resource-producing building types for the user.
+     * Overrides the pure virtual method to present specific resource-producing building options.
+     * @return The selected EntityType corresponding to the chosen resource building.
+     */
+    EntityType chooseEntityType() override;
 };
 
 #endif // BUYRESOURCEMENU_H

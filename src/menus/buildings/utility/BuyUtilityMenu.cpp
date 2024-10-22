@@ -2,11 +2,22 @@
 #include "menus/base/MenuManager.h"
 #include "utils/ConfigManager.h"
 
+/**
+ * @brief Constructor for BuyUtilityMenu.
+ * Initializes the base BuyMenu for utility-building selection.
+ */
 BuyUtilityMenu::BuyUtilityMenu() : BuyMenu() {}
 
+/**
+ * @brief Destructor for BuyUtilityMenu.
+ */
 BuyUtilityMenu::~BuyUtilityMenu() {}
 
-// Override the entity type selection for utility buildings
+/**
+ * @brief Displays the options for selecting a utility building type.
+ * The user can choose between Power Plant, Water Supply, Waste Management, or Sewage System.
+ * @return The selected EntityType for the utility building.
+ */
 EntityType BuyUtilityMenu::chooseEntityType()
 {
     sections = {
@@ -16,7 +27,7 @@ EntityType BuyUtilityMenu::chooseEntityType()
           {'3', "🗑️ ", "Waste Management"},
           {'4', "🚽", "Sewage System"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Building Menu"},
+         {{'b', "🔙", "Back to Buildings Menu"},
           {'q', "🔙", "Back to Main Menu"}}}};
 
     setHeading("Select Utility Building Type");

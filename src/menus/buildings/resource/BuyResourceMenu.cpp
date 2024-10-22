@@ -2,11 +2,22 @@
 #include "menus/base/MenuManager.h"
 #include "utils/ConfigManager.h"
 
+/**
+ * @brief Constructor for BuyResourceMenu.
+ * Initializes the base BuyMenu for resource-producing building selection.
+ */
 BuyResourceMenu::BuyResourceMenu() : BuyMenu() {}
 
+/**
+ * @brief Destructor for BuyResourceMenu.
+ */
 BuyResourceMenu::~BuyResourceMenu() {}
 
-// Override the entity type selection for resource-producing buildings
+/**
+ * @brief Displays the options for selecting a resource-producing building type.
+ * The user can choose between Wood Production, Stone Quarry, or Concrete Factory.
+ * @return The selected EntityType for the resource-producing building.
+ */
 EntityType BuyResourceMenu::chooseEntityType()
 {
     sections = {
@@ -15,7 +26,7 @@ EntityType BuyResourceMenu::chooseEntityType()
           {'2', "🪨 ", "Stone Quarry"},
           {'3', "🏗️ ", "Concrete Factory"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Building Menu"},
+         {{'b', "🔙", "Back to Buildings Menu"},
           {'q', "🔙", "Back to Main Menu"}}}};
 
     setHeading("Select Resource Building Type");

@@ -40,6 +40,12 @@ public:
     void setCurrentMenu(Menu menuType);
 
     /**
+     * @brief Sets the current menu to display using a dynamic menu.
+     * @param menu The shared pointer to the menu to set as current.
+     */
+    void setCurrentMenu(std::shared_ptr<IMenu> menu);
+
+    /**
      * @brief Displays the currently active menu.
      */
     void displayCurrentMenu();
@@ -53,18 +59,18 @@ public:
      * @brief Sets the reference to the City object to be used by menus.
      * @param city Pointer to the City object.
      */
-    void setCity(City *city) { this->city = city; }
+    void setCity(City *city);
 
     /**
      * @brief Gets the reference to the City object.
      * @return Pointer to the City object.
      */
-    City *getCity() const { return city; }
+    City *getCity() const;
 
     /**
      * @brief Clears the terminal screen.
      */
-    void clearScreen() const { system("clear"); }
+    void clearScreen() const;
 
 private:
     /**
@@ -77,13 +83,19 @@ private:
      */
     ~MenuManager();
 
-    std::shared_ptr<IMenu> currentMenu; ///< Pointer to the currently active menu
-    City *city = nullptr;               ///< Pointer to the City object
+    std::shared_ptr<IMenu> currentMenu; ///< Pointer to the currently active menu.
+    City *city = nullptr;               ///< Pointer to the City object.
 
-    std::unordered_map<Menu, std::shared_ptr<IMenu>> menus; ///< Map of menus with the Menu enum as keys
+    std::unordered_map<Menu, std::shared_ptr<IMenu>> menus; ///< Map of menus with the Menu enum as keys.
 
-    // Delete copy constructor and assignment operator to enforce singleton pattern
+    /**
+     * @brief Deleted copy constructor to enforce singleton pattern.
+     */
     MenuManager(const MenuManager &) = delete;
+
+    /**
+     * @brief Deleted assignment operator to enforce singleton pattern.
+     */
     MenuManager &operator=(const MenuManager &) = delete;
 };
 

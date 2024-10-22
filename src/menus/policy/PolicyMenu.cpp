@@ -20,23 +20,31 @@ void PolicyMenu::display() const
 
 void PolicyMenu::handleInput()
 {
-    char choice;
-    std::cout << "Enter your choice: ";
-    std::cin >> choice;
+    bool choosing = true;
 
-    switch (choice)
+    while (choosing)
     {
-    case '1':
-        std::cout << "Changing Policy 1..." << std::endl;
-        break;
-    case '2':
-        std::cout << "Changing Policy 2..." << std::endl;
-        break;
-    case 'q':
-        // Switch back to the Main Menu
-        MenuManager::instance().setCurrentMenu(Menu::MAIN);
-        break;
-    default:
-        std::cout << "Invalid choice." << std::endl;
+        char choice;
+        displayChoicePrompt();
+        std::cin >> choice;
+
+        switch (choice)
+        {
+        case '1':
+            std::cout << "Changing Policy 1..." << std::endl;
+            choosing = false;
+            break;
+        case '2':
+            std::cout << "Changing Policy 2..." << std::endl;
+            choosing = false;
+            break;
+        case 'q':
+            // Switch back to the Main Menu
+            MenuManager::instance().setCurrentMenu(Menu::MAIN);
+            choosing = false;
+            break;
+        default:
+            displayInvalidChoice();
+        }
     }
 }

@@ -2,6 +2,10 @@
 #include "menus/base/MenuManager.h"
 #include "city/CivZero.h"
 
+/**
+ * @brief Constructor for MainMenu.
+ * Initializes the menu options and navigation for the Main Menu.
+ */
 MainMenu::MainMenu() : IMenu("Main Menu")
 {
     // Initialize menu sections
@@ -19,57 +23,81 @@ MainMenu::MainMenu() : IMenu("Main Menu")
          {{'q', "🚪", "Quit Game"}}}};
 }
 
+/**
+ * @brief Destructor for MainMenu.
+ * Cleans up any resources used by the Main Menu.
+ */
 MainMenu::~MainMenu() {}
 
+/**
+ * @brief Displays the Main Menu.
+ * Uses the inherited displayMenu() method to render the menu with all the options.
+ */
 void MainMenu::display() const
 {
     displayMenu(); // Use the inherited displayMenu() function to show the menu
 }
 
+/**
+ * @brief Handles user input in the Main Menu.
+ *
+ * This function manages the logic for navigating between the various menus or exiting the game
+ * based on the player's input.
+ */
 void MainMenu::handleInput()
 {
-    char choice;
-    std::cout << "Enter your choice: ";
-    std::cin >> choice;
+    bool choosing = true;
 
-    switch (choice)
+    while (choosing)
     {
-    case '1':
-        // Switch to the Buildings Menu
-        MenuManager::instance().setCurrentMenu(Menu::BUILDINGS);
-        break;
-    case '2':
-        // Switch to the Upgrades Menu
-        MenuManager::instance().setCurrentMenu(Menu::UPGRADES);
-        break;
-    case '3':
-        // Switch to the Policy Menu
-        MenuManager::instance().setCurrentMenu(Menu::POLICY);
-        break;
-    case '4':
-        // Switch to the Tax Menu
-        MenuManager::instance().setCurrentMenu(Menu::TAX);
-        break;
-    case '5':
-        // Switch to the Show Stats Menu
-        // MenuManager::instance().setCurrentMenu(Menu::TAX);
-        break;
-    case 'd':
-        // Switch to the Tax Menu
-        MenuManager::instance().setCurrentMenu(Menu::DISPLAYCITY);
-        break;
-    case 'q':
-        char confirm;
-        std::cout << "Are you sure you want to quit the game (y/n):";
-        std::cin >> confirm;
-        if (confirm == 'y')
+        char choice;
+        displayChoicePrompt(); // Display the prompt asking for input
+        std::cin >> choice;
+
+        switch (choice)
         {
-            std::cout << "Quitting game..." << std::endl;
-            CivZero::instance().quit();
+        case '1':
+            // Switch to the Buildings Menu
+            MenuManager::instance().setCurrentMenu(Menu::BUILDINGS);
+            choosing = false;
+            break;
+        case '2':
+            // Switch to the Upgrades Menu
+            MenuManager::instance().setCurrentMenu(Menu::UPGRADES);
+            choosing = false;
+            break;
+        case '3':
+            // Switch to the Policy Menu
+            MenuManager::instance().setCurrentMenu(Menu::POLICY);
+            choosing = false;
+            break;
+        case '4':
+            // Switch to the Tax Menu
+            MenuManager::instance().setCurrentMenu(Menu::TAX);
+            choosing = false;
+            break;
+        case '5':
+            // Logic for continuing the game can be added here
+            break;
+        case 'd':
+            // Switch to the Display City Menu
+            MenuManager::instance().setCurrentMenu(Menu::DISPLAYCITY);
+            choosing = false;
+            break;
+        case 'q':
+            char confirm;
+            displayChoiceMessagePrompt("Are you sure you want to quit the game (y/n):");
+            std::cin >> confirm;
+            if (confirm == 'y')
+            {
+                displaySuccessMessage("Quitting game...");
+                CivZero::instance().quit(); // Call the quit method from CivZero
+                choosing = false;
+            }
+            break;
+        default:
+            displayInvalidChoice(); // Handle invalid input
+            break;
         }
-        break;
-    default:
-        std::cout << "Invalid choice. Please select a valid option." << std::endl;
-        break;
     }
 }

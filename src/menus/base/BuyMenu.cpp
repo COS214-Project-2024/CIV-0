@@ -2,12 +2,26 @@
 #include "menus/base/MenuManager.h"
 #include "utils/ConfigManager.h"
 
-BuyMenu::BuyMenu() : IMenu(), availableMoney(1000), availableWood(50), availableStone(1000), availableConcrete(1000) {}
+/**
+ * @brief Constructs a new BuyMenu with default available resources.
+ */
+BuyMenu::BuyMenu() : IMenu(), availableMoney(10000), availableWood(50000), availableStone(10000), availableConcrete(10000) {}
 
+/**
+ * @brief Destructor for BuyMenu.
+ */
 BuyMenu::~BuyMenu() {}
 
+/**
+ * @brief Displays the base menu (empty in this base class).
+ * Derived classes should implement their own display logic.
+ */
 void BuyMenu::display() const {}
 
+/**
+ * @brief Handles the input workflow for purchasing a building.
+ * It allows the user to select the building type, size, and position, and then confirms the purchase.
+ */
 void BuyMenu::handleInput()
 {
     hasExited = false;
@@ -29,6 +43,12 @@ void BuyMenu::handleInput()
     confirmPurchase(type, size, xPos, yPos);
 }
 
+/**
+ * @brief Allows the user to choose the size of the building based on available resources.
+ * Displays an error message if the user cannot afford the selected size.
+ * @param type The EntityType of the building.
+ * @return Size The selected size of the building.
+ */
 Size BuyMenu::chooseBuildingSize(EntityType type)
 {
     sections.clear();
@@ -39,6 +59,7 @@ Size BuyMenu::chooseBuildingSize(EntityType type)
     {
         EntityConfig config = ConfigManager::getEntityConfig(type, size);
 
+        // Affordability check for each size
         bool canAfford = (availableMoney >= config.cost.moneyCost &&
                           availableWood >= config.cost.woodCost &&
                           availableStone >= config.cost.stoneCost &&
@@ -59,7 +80,7 @@ Size BuyMenu::chooseBuildingSize(EntityType type)
         sections[0].options.push_back(Option{optionKey++, "📏", displayText});
     }
 
-    sections.push_back({"Navigation", {{'q', "🔙", "Back to Main Menu"}}});
+    sections.push_back({"Navigation", {{'b', "🔙", "Back to Buildings Menu"}, {'q', "🔙", "Back to Main Menu"}}});
     setHeading("Select Size of the " + entityTypeToString(type));
     clearScreen();
     displayMenu();
@@ -82,12 +103,7 @@ Size BuyMenu::chooseBuildingSize(EntityType type)
                 availableStone < smallConfig.cost.stoneCost ||
                 availableConcrete < smallConfig.cost.concreteCost)
             {
-                std::string errorMessage = "You cannot afford the SMALL size! You are missing: " +
-                                           ((availableMoney < smallConfig.cost.moneyCost) ? std::string("money, ") : "") +
-                                           ((availableWood < smallConfig.cost.woodCost) ? std::string("wood, ") : "") +
-                                           ((availableStone < smallConfig.cost.stoneCost) ? std::string("stone, ") : "") +
-                                           ((availableConcrete < smallConfig.cost.concreteCost) ? std::string("concrete") : "");
-                displayErrorMessage(errorMessage);
+                displayErrorMessage("You cannot afford the SMALL size!");
                 break;
             }
             size = Size::SMALL;
@@ -102,12 +118,7 @@ Size BuyMenu::chooseBuildingSize(EntityType type)
                 availableStone < mediumConfig.cost.stoneCost ||
                 availableConcrete < mediumConfig.cost.concreteCost)
             {
-                std::string errorMessage = "You cannot afford the MEDIUM size! You are missing: " +
-                                           ((availableMoney < mediumConfig.cost.moneyCost) ? std::string("money, ") : "") +
-                                           ((availableWood < mediumConfig.cost.woodCost) ? std::string("wood, ") : "") +
-                                           ((availableStone < mediumConfig.cost.stoneCost) ? std::string("stone, ") : "") +
-                                           ((availableConcrete < mediumConfig.cost.concreteCost) ? std::string("concrete") : "");
-                displayErrorMessage(errorMessage);
+                displayErrorMessage("You cannot afford the MEDIUM size!");
                 break;
             }
             size = Size::MEDIUM;
@@ -122,18 +133,18 @@ Size BuyMenu::chooseBuildingSize(EntityType type)
                 availableStone < largeConfig.cost.stoneCost ||
                 availableConcrete < largeConfig.cost.concreteCost)
             {
-                std::string errorMessage = "You cannot afford the LARGE size! You are missing: " +
-                                           ((availableMoney < largeConfig.cost.moneyCost) ? std::string("money, ") : "") +
-                                           ((availableWood < largeConfig.cost.woodCost) ? std::string("wood, ") : "") +
-                                           ((availableStone < largeConfig.cost.stoneCost) ? std::string("stone, ") : "") +
-                                           ((availableConcrete < largeConfig.cost.concreteCost) ? std::string("concrete") : "");
-                displayErrorMessage(errorMessage);
+                displayErrorMessage("You cannot afford the LARGE size!");
                 break;
             }
             size = Size::LARGE;
             choosing = false;
             break;
         }
+        case 'b':
+            MenuManager::instance().setCurrentMenu(Menu::BUILDINGS);
+            choosing = false;
+            hasExited = true;
+            break;
         case 'q':
             MenuManager::instance().setCurrentMenu(Menu::MAIN);
             choosing = false;
@@ -148,6 +159,12 @@ Size BuyMenu::chooseBuildingSize(EntityType type)
     return size;
 }
 
+/**
+ * @brief Allows the user to choose the position of the building on the grid.
+ * Displays available positions and lets the user select one.
+ * @param xPos Reference to the x-coordinate for the building's position.
+ * @param yPos Reference to the y-coordinate for the building's position.
+ */
 void BuyMenu::chooseBuildingPosition(int &xPos, int &yPos)
 {
     int positions[4][2] = {
@@ -166,7 +183,7 @@ void BuyMenu::chooseBuildingPosition(int &xPos, int &yPos)
         sections[0].options.push_back(Option{optionKey++, "📍", posStr});
     }
 
-    sections.push_back({"Navigation", {{'q', "🔙", "Back to Main Menu"}}});
+    sections.push_back({"Navigation", {{'b', "🔙", "Back to Buildings Menu"}, {'q', "🔙", "Back to Main Menu"}}});
     setHeading("Select Position for the Building");
     clearScreen();
     displayMenu();
@@ -186,6 +203,10 @@ void BuyMenu::chooseBuildingPosition(int &xPos, int &yPos)
             yPos = positions[index][1];
             choosing = false;
         }
+        else if (choice == 'b')
+        {
+            MenuManager::instance().setCurrentMenu(Menu::BUILDINGS);
+        }
         else if (choice == 'q')
         {
             MenuManager::instance().setCurrentMenu(Menu::MAIN);
@@ -199,6 +220,14 @@ void BuyMenu::chooseBuildingPosition(int &xPos, int &yPos)
     }
 }
 
+/**
+ * @brief Confirms the building purchase and displays a summary including type, size, and cost.
+ * Asks for final confirmation before proceeding with the purchase.
+ * @param type The type of the building.
+ * @param size The size of the building.
+ * @param xPos The x-coordinate for the building's position.
+ * @param yPos The y-coordinate for the building's position.
+ */
 void BuyMenu::confirmPurchase(EntityType type, Size size, int xPos, int yPos)
 {
     clearScreen(); // Clear the screen to give a clean view for the summary
@@ -278,7 +307,7 @@ void BuyMenu::confirmPurchase(EntityType type, Size size, int xPos, int yPos)
     std::cout << DARK_GRAY << "╚" << repeat("═", totalWidth) << "╝" << RESET << std::endl;
 
     // Ask for confirmation
-    std::cout << BOLD_WHITE << "Confirm purchase (y/n)? " << RESET;
+    displayChoiceMessagePrompt("Confirm purchase (y/n):");
     char confirmation;
     std::cin >> confirmation;
 

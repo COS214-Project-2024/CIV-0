@@ -3,14 +3,31 @@
 
 #include "menus/base/BuyMenu.h"
 
+/**
+ * @brief Menu for purchasing utility buildings.
+ * This menu allows the user to choose between different types of utility buildings.
+ */
 class BuyUtilityMenu : public BuyMenu
 {
 public:
+    /**
+     * @brief Constructor for BuyUtilityMenu.
+     * Initializes the utility-building purchase menu.
+     */
     BuyUtilityMenu();
+
+    /**
+     * @brief Destructor for BuyUtilityMenu.
+     */
     ~BuyUtilityMenu();
 
 protected:
-    EntityType chooseEntityType() override; // Override to choose utility building types
+    /**
+     * @brief Provides the selection of utility building types for the user.
+     * Overrides the pure virtual method to present specific utility building options.
+     * @return The selected EntityType corresponding to the chosen utility building.
+     */
+    EntityType chooseEntityType() override;
 };
 
 #endif // BUYUTILITYMENU_H

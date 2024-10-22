@@ -2,11 +2,22 @@
 #include "menus/base/MenuManager.h"
 #include "utils/ConfigManager.h"
 
+/**
+ * @brief Constructor for BuyTransportMenu.
+ * Initializes the base BuyMenu for transport-building selection.
+ */
 BuyTransportMenu::BuyTransportMenu() : BuyMenu() {}
 
+/**
+ * @brief Destructor for BuyTransportMenu.
+ */
 BuyTransportMenu::~BuyTransportMenu() {}
 
-// Override the entity type selection for transport buildings
+/**
+ * @brief Displays the options for selecting a transport building type.
+ * The user can choose between Bus Stop, Airport, or Train Station.
+ * @return The selected EntityType for the transport building.
+ */
 EntityType BuyTransportMenu::chooseEntityType()
 {
     sections = {
@@ -15,7 +26,7 @@ EntityType BuyTransportMenu::chooseEntityType()
           {'2', "✈️ ", "Airport"},
           {'3', "🚆", "Train Station"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Building Menu"},
+         {{'b', "🔙", "Back to Buildings Menu"},
           {'q', "🔙", "Back to Main Menu"}}}};
 
     setHeading("Select Transport Building Type");

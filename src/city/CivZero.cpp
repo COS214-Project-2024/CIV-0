@@ -27,7 +27,6 @@ CivZero::~CivZero()
 void CivZero::startGame()
 {
     running = true;
-    std::cout << "Starting the game..." << std::endl;
 
     MenuManager::instance().setCity(city);
 
@@ -49,5 +48,4 @@ void CivZero::gameLoop()
         MenuManager::instance().displayCurrentMenu();
         MenuManager::instance().handleCurrentMenuInput();
     }
-    std::cout << "Game has ended." << std::endl;
 }

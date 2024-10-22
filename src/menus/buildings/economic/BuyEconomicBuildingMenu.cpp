@@ -2,11 +2,22 @@
 #include "menus/base/MenuManager.h"
 #include "utils/ConfigManager.h"
 
+/**
+ * @brief Constructor for BuyEconomicBuildingMenu.
+ * Initializes the base BuyMenu and sets up any economic building-related configurations.
+ */
 BuyEconomicBuildingMenu::BuyEconomicBuildingMenu() : BuyMenu() {}
 
+/**
+ * @brief Destructor for BuyEconomicBuildingMenu.
+ */
 BuyEconomicBuildingMenu::~BuyEconomicBuildingMenu() {}
 
-// Override the entity type selection for economic buildings
+/**
+ * @brief Allows the user to choose an economic building type from the options available.
+ * Displays options such as Office, Shopping Mall, and Factory.
+ * @return The selected EntityType corresponding to the chosen economic building.
+ */
 EntityType BuyEconomicBuildingMenu::chooseEntityType()
 {
     sections = {
@@ -15,7 +26,7 @@ EntityType BuyEconomicBuildingMenu::chooseEntityType()
           {'2', "🏬", "Shopping Mall"},
           {'3', "🏭", "Factory"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Building Menu"},
+         {{'b', "🔙", "Back to Buildings Menu"},
           {'q', "🔙", "Back to Main Menu"}}}};
 
     setHeading("Select Economic Building Type");
