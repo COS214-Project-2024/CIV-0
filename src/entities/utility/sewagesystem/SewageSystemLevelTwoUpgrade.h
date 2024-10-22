@@ -58,14 +58,14 @@ public:
     /**
      * @brief Retrieves the upgraded sewage system's output.
      * 
-     * Returns the sewage system output after the level two upgrade, reflecting a 2.625x enhancement.
+     * Returns the sewage system output after the level two upgrade.
      * 
      * @return The updated output as an integer.
      */
     int getOutput();
 
 private:
-    const int UPGRADE = 2.625; ///< Multiplier applied to the original output for the level two upgrade.
+    const int UPGRADE = 4; ///< Multiplier applied to the original output for the level two upgrade.
 };
 
 #endif // SEWAGESYSTEMLEVELTWOUPGRADE_H
