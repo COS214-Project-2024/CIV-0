@@ -58,14 +58,14 @@ public:
     /**
      * @brief Retrieves the upgraded water supply system's output.
      * 
-     * Returns the output of the level one upgraded water supply system, which reflects a 1.5x enhancement.
+     * Returns the output of the level one upgraded water supply system.
      * 
      * @return The updated output as an integer.
      */
     int getOutput();
 
 private:
-    const int UPGRADE = 1.5; ///< Multiplier applied to the original water supply output for the level one upgrade.
+    const int UPGRADE = 2; ///< Multiplier applied to the original water supply output for the level one upgrade.
 };
 
 #endif // WATERSUPPLYLEVELONEUPGRADE_H

@@ -58,14 +58,14 @@ public:
     /**
      * @brief Retrieves the upgraded water supply system's output.
      * 
-     * Returns the delivery capacity of the level three upgraded water supply system, reflecting a 5.25x enhancement.
+     * Returns the delivery capacity of the level three upgraded water supply system.
      * 
      * @return The updated delivery capacity as an integer.
      */
     int getOutput();
 
 private:
-    const int UPGRADE = 5.25; ///< Multiplier applied to the original delivery capacity for the level three upgrade.
+    const int UPGRADE = 6; ///< Multiplier applied to the original delivery capacity for the level three upgrade.
 };
 
 #endif // WATERSUPPLYLEVELTHREEUPGRADE_H
