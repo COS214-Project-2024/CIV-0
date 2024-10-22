@@ -7,27 +7,28 @@ Entity::Entity()
 
 }
 
-Entity::Entity(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime)
+Entity::Entity(EntityConfig ec, Size size, int xPos, int yPos)
 {
-    this->electricityConsumption = electricity;
-    this->waterConsumption = water;
-    this->symbol = symbol;
-    this->effectRadius = radius;
-    this->localEffectStrength = localEffect;
-    this->globalEffectStrength = globalEffect;
-    this->width = width;
-    this->height = height;
-    this->revenue = revenue;
+    this->electricityConsumption = ec.electricityConsumption;
+    this->waterConsumption = ec.waterConsumption;
+    this->symbol = ec.symbol;
+    this->effectRadius = ec.effectRadius;
+    this->localEffectStrength = ec.localEffectStrength;
+    this->globalEffectStrength = ec.globalEffectStrength;
+    this->width = ec.width;
+    this->height = ec.height;
+    this->revenue = ec.revenue;
     this->size = size;
     this->xPosition = xPos;
     this->yPosition = yPos;
-    if(buildTime!=0)
+    this->ec = &ec;
+    if(ec.buildTime!=0)
     {
-        state = new UnderConstruction(buildTime);
+        state = new UnderConstruction(ec.buildTime);
     }
     else
     {
-        state = new Built(buildTime);
+        state = new Built(ec.buildTime);
     }
 }
 

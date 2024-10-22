@@ -11,8 +11,7 @@ private:
     int output;
 public:
     Utility();
-    Utility(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, 
-           int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime);
+    Utility(EntityConfig ec, Size size, int xPos, int yPos);
     virtual ~Utility();
 
     virtual void update() = 0;

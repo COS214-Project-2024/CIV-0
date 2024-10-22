@@ -3,7 +3,7 @@
 WoodProducer::WoodProducer() {}
 WoodProducer::~WoodProducer() {}
 
-WoodProducer::WoodProducer(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime) : Industry(electricity, water, symbol, radius, localEffect, globalEffect, width, height, revenue, size, xPos, yPos, buildTime)
+WoodProducer::WoodProducer(EntityConfig ec, Size size, int xPos, int yPos) : Industry(ec, size, xPos, yPos)
 {
     setOutput(20); //TODO - change value
 }
@@ -23,6 +23,6 @@ void WoodProducer::update()
 
 Entity* WoodProducer::clone()
 {
-    Entity* e = new WoodProducer(electricityConsumption, waterConsumption, symbol, effectRadius, localEffectStrength, globalEffectStrength, width, height, revenue, size, xPosition, yPosition, state->getBuildTime());
+    Entity* e = new WoodProducer(*ec, size, xPosition, yPosition);
     return e;
 }

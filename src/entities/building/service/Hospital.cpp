@@ -3,7 +3,7 @@
 Hospital::Hospital() {}
 Hospital::~Hospital() {}
 
-Hospital::Hospital(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime) : ServiceBuilding(electricity, water, symbol, radius, localEffect, globalEffect, width, height, revenue, size, xPos, yPos, buildTime)
+Hospital::Hospital(EntityConfig ec, Size size, int xPos, int yPos) : ServiceBuilding(ec, size, xPos, yPos)
 {
 
 }
@@ -23,6 +23,6 @@ void Hospital::update()
 
 Entity* Hospital::clone()
 {
-    Entity* e = new Hospital(electricityConsumption, waterConsumption, symbol, effectRadius, localEffectStrength, globalEffectStrength, width, height, revenue, size, xPosition, yPosition, state->getBuildTime());
+    Entity* e = new Hospital(*ec, size, xPosition, yPosition);
     return e;
 }

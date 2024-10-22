@@ -9,8 +9,7 @@ class EconomicBuilding : public Building, public Subject
 {
 public:
     EconomicBuilding();
-    EconomicBuilding(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, 
-           int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime);
+    EconomicBuilding(EntityConfig ec, Size size, int xPos, int yPos);
     virtual ~EconomicBuilding();
 
     virtual void update() = 0;
