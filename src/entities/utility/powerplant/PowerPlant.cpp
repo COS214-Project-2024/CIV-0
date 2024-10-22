@@ -1,18 +1,15 @@
 #include "PowerPlant.h"
 
-PowerPlant::PowerPlant(PowerPlant* powerPlant) : Utility(powerPlant) {
-
-}
-
-PowerPlant::PowerPlant() : Utility() {
-
-}
-
+PowerPlant::PowerPlant() : Utility() {}
 PowerPlant::~PowerPlant() {}
 
 PowerPlant::PowerPlant(EntityConfig ec, Size size, int xPos, int yPos) : Utility(ec, size, xPos, yPos)
 {
     setOutput(20); //TODO - change value
+}
+
+PowerPlant::PowerPlant(PowerPlant* powerPlant) : Utility(powerPlant) {
+
 }
 
 void PowerPlant::update()
@@ -35,6 +32,5 @@ void PowerPlant::update()
 
 Entity* PowerPlant::clone()
 {
-    Entity* e = new PowerPlant(*ec, size, xPosition, yPosition);
-    return e;
+    return new PowerPlant(*ec, size, xPosition, yPosition);
 }
