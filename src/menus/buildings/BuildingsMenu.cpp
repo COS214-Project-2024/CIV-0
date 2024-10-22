@@ -19,9 +19,9 @@ BuildingsMenu::BuildingsMenu() : IMenu("Buildings Menu")
           {'4', "🏥", "Buy Service Building"},
           {'5', "🌳", "Buy Amenity"},
           {'6', "⚡", "Buy Utility"},
-          {'7', "🛠️", "Buy Resource"}}},
+          {'7', "🛠️ ", "Buy Resource"}}},
         {"Sell Buildings", // Section for selling buildings
-         {{'8', "🏚️", "Sell Building"}}},
+         {{'8', "🏚️ ", "Sell Building"}}},
         {"View Building Stats", // Section for viewing stats of different building types
          {{'a', "🔍", "View Transport Stats"},
           {'b', "🔍", "View Economic Building Stats"},
