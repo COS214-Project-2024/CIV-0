@@ -109,7 +109,7 @@ void SellMenu::sellSpecificBuilding()
         {
             choosing = false;
         }
-        else if (choice = 'q')
+        else if (choice == 'q')
         {
             MenuManager::instance().setCurrentMenu(Menu::MAIN);
             choosing = false;
@@ -163,7 +163,7 @@ void SellMenu::sellAllBuildingsOfType()
         {
             choosing = false;
         }
-        else if (choice = 'q')
+        else if (choice == 'q')
         {
             MenuManager::instance().setCurrentMenu(Menu::MAIN);
             choosing = false;
