@@ -2,32 +2,48 @@
 #define POLICYMENU_H
 
 #include "menus/base/IMenu.h"
+#include <vector>
+#include <string>
 
-/**
- * @brief Represents the menu for managing policies in the game.
- */
 class PolicyMenu : public IMenu
 {
 public:
-    /**
-     * @brief Constructor for PolicyMenu.
-     */
     PolicyMenu();
-
-    /**
-     * @brief Destructor for PolicyMenu.
-     */
     ~PolicyMenu();
 
     /**
-     * @brief Displays the Policy menu.
+     * @brief Displays the Policy Menu.
      */
     void display() const override;
 
     /**
-     * @brief Handles user input in the Policy menu.
+     * @brief Handles user input in the Policy Menu.
      */
     void handleInput() override;
+
+private:
+    std::vector<std::string> policyHistory; ///< Stores all past policy applications
+
+    /**
+     * @brief Submenu to select water consumption policy.
+     */
+    void selectWaterPolicy();
+
+    /**
+     * @brief Submenu to select electricity consumption policy.
+     */
+    void selectElectricityPolicy();
+
+    /**
+     * @brief Displays the history of all applied policies.
+     */
+    void showPolicyHistory();
+
+    /**
+     * @brief Records a new policy in the history.
+     * @param policyDescription The description of the policy.
+     */
+    void addPolicyToHistory(std::string policyDescription);
 };
 
 #endif // POLICYMENU_H

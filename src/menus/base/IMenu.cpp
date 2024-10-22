@@ -256,3 +256,13 @@ void IMenu::displaySuccessMessage(const std::string &message) const
               << BOLD_GREEN << message // Bold green to make the success message stand out
               << RESET << std::endl;   // Reset color and add a new line
 }
+
+void IMenu::displayPressEnterToContinue() const
+{
+    // Display the message asking the user to press enter
+    std::cout << BOLD_WHITE << "\nPress Enter to continue..." << RESET << std::endl;
+
+    // Wait for the user to press enter
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.get();
+}

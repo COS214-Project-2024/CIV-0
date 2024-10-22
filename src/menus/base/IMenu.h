@@ -174,6 +174,11 @@ protected:
     void displaySuccessMessage(const std::string &message) const;
 
     /**
+     * @brief Displays a message asking the user to press Enter to continue.
+     */
+    void displayPressEnterToContinue() const;
+
+    /**
      * @brief Clears the screen.
      */
     void clearScreen() const { system("clear"); }
