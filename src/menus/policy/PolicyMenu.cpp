@@ -18,7 +18,7 @@ void PolicyMenu::display() const
     displayMenu(); // Use the inherited displayMenu() to show sections and options
 }
 
-void PolicyMenu::handleInput() const
+void PolicyMenu::handleInput()
 {
     char choice;
     std::cout << "Enter your choice: ";

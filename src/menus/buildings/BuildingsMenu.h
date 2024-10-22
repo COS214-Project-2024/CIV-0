@@ -27,7 +27,7 @@ public:
     /**
      * @brief Handles user input in the Buildings menu.
      */
-    void handleInput() const override;
+    void handleInput() override;
 };
 
 #endif // BUILDINGSMENU_H

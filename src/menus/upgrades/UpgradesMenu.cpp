@@ -20,7 +20,7 @@ void UpgradesMenu::display() const
     displayMenu();
 }
 
-void UpgradesMenu::handleInput() const
+void UpgradesMenu::handleInput()
 {
     char choice;
     std::cout << "Enter your choice: ";

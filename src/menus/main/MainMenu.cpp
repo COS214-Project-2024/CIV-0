@@ -26,7 +26,7 @@ void MainMenu::display() const
     displayMenu(); // Use the inherited displayMenu() function to show the menu
 }
 
-void MainMenu::handleInput() const
+void MainMenu::handleInput()
 {
     char choice;
     std::cout << "Enter your choice: ";

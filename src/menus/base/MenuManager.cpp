@@ -17,6 +17,12 @@ MenuManager::MenuManager()
     menus[Menu::UPGRADES] = std::make_shared<UpgradesMenu>();
     menus[Menu::TAX] = std::make_shared<TaxMenu>();
     menus[Menu::DISPLAYCITY] = std::make_shared<DisplayCityMenu>();
+    menus[Menu::BUY_AMENITY] = std::make_shared<BuyAmenityMenu>();
+    menus[Menu::BUY_ECONOMIC_BUILDING] = std::make_shared<BuyEconomicBuildingMenu>();
+    menus[Menu::BUY_RESIDENTIAL_BUILDING] = std::make_shared<BuyResidentialBuildingMenu>();
+    menus[Menu::BUY_TRANSPORT] = std::make_shared<BuyTransportMenu>();
+    menus[Menu::BUY_UTILITY] = std::make_shared<BuyUtilityMenu>();
+    menus[Menu::BUY_RESOURCE] = std::make_shared<BuyResourceMenu>();
 
     // Set the default menu to MainMenu
     setCurrentMenu(Menu::MAIN);

@@ -55,11 +55,15 @@ public:
     /**
      * @brief Pure virtual function to handle user input in the menu.
      */
-    virtual void handleInput() const = 0;
+    virtual void handleInput() = 0;
+
+    void setHeading(const std::string &heading);
 
 protected:
     std::vector<Section> sections; ///< List of sections in the menu
     std::string menuHeading;       ///< The heading of the menu
+
+    bool hasExited;
 
     // Utility functions and color constants for inherited classes
 
@@ -72,6 +76,7 @@ protected:
     static constexpr const char *NORMAL_WHITE = "\033[0;37m";
     static constexpr const char *DARK_GRAY = "\033[1;30m";
     static constexpr const char *BOLD_YELLOW = "\033[1;33m";
+    static constexpr const char *BOLD_RED = "\033[1;31m";
 
     static constexpr int MIN_MENU_WIDTH = 50; ///< Minimum width for the menu
 
@@ -136,6 +141,16 @@ protected:
      * @brief Function to display the formatted menu with sections and options.
      */
     void displayMenu() const;
+
+    void displayChoicePrompt() const;
+
+    void displayInvalidChoice() const;
+
+    void displayErrorMessage(const std::string &message) const;
+
+    void clearScreen() const { system("clear"); }
+
+    std::string stripColorCodes(const std::string &input) const;
 };
 
 #endif // IMENU_H

@@ -12,9 +12,10 @@ BuildingsMenu::BuildingsMenu() : IMenu("Buildings Menu")
           {'3', "🏠", "Buy Residential Building"},
           {'4', "🏥", "Buy Service Building"},
           {'5', "🌳", "Buy Amenity"},
-          {'6', "⚡", "Buy Utility"}}},
+          {'6', "⚡", "Buy Utility"},
+          {'7', "🛠️ ", "Buy Resource"}}},
         {"Sell Buildings",
-         {{'7', "🏚️ ", "Sell Building"}}},
+         {{'8', "🏚️ ", "Sell Building"}}},
         {"Navigation",
          {{'q', "🔙", "Back to Main Menu"}}}};
 }
@@ -26,7 +27,7 @@ void BuildingsMenu::display() const
     displayMenu(); // Use the inherited displayMenu() function to show the menu
 }
 
-void BuildingsMenu::handleInput() const
+void BuildingsMenu::handleInput()
 {
     char choice;
     std::cout << "Enter your choice: ";
@@ -35,19 +36,30 @@ void BuildingsMenu::handleInput() const
     switch (choice)
     {
     case '1':
-        // Action for building a house
-        std::cout << "Building a house..." << std::endl;
+        MenuManager::instance().setCurrentMenu(Menu::BUY_TRANSPORT);
         break;
     case '2':
-        // Action for building a factory
-        std::cout << "Building a factory..." << std::endl;
+        MenuManager::instance().setCurrentMenu(Menu::BUY_ECONOMIC_BUILDING);
         break;
     case '3':
-        // Action for building a commercial building
-        std::cout << "Building a commercial building..." << std::endl;
+        MenuManager::instance().setCurrentMenu(Menu::BUY_RESIDENTIAL_BUILDING);
+        break;
+    case '4':
+        MenuManager::instance().setCurrentMenu(Menu::BUY_SERVICE);
+        break;
+    case '5':
+        MenuManager::instance().setCurrentMenu(Menu::BUY_AMENITY);
+        break;
+    case '6':
+        MenuManager::instance().setCurrentMenu(Menu::BUY_UTILITY);
+        break;
+    case '7':
+        MenuManager::instance().setCurrentMenu(Menu::BUY_RESOURCE);
+        break;
+    case '8':
+
         break;
     case 'q':
-        // Go back to the main menu
         MenuManager::instance().setCurrentMenu(Menu::MAIN);
         break;
     default:

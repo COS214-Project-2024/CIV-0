@@ -27,7 +27,7 @@ public:
     /**
      * @brief Handles user input in the Main menu.
      */
-    void handleInput() const override;
+    void handleInput() override;
 };
 
 #endif // MAINMENU_H

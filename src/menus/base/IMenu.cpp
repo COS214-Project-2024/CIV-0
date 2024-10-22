@@ -1,6 +1,7 @@
 #include "IMenu.h"
 #include <algorithm> // For std::max
 #include <iostream>  // For std::setw
+#include <regex>
 
 // Minimum width for the menu
 constexpr int MIN_MENU_WIDTH = 50;
@@ -10,6 +11,11 @@ constexpr int MIN_MENU_WIDTH = 50;
  * @param heading The heading of the menu.
  */
 IMenu::IMenu(std::string heading) : menuHeading(heading) {}
+
+void IMenu::setHeading(const std::string &heading)
+{
+    this->menuHeading = heading;
+}
 
 /**
  * @brief Repeats a given string for a specified number of times.
@@ -41,21 +47,25 @@ std::string IMenu::repeat(const std::string &str, int times) const
  */
 int IMenu::calculateMaxWidth(const std::string &menuHeading, const std::vector<Section> &sections) const
 {
-    int maxWidth = static_cast<int>(menuHeading.size());
+    int maxWidth = static_cast<int>(stripColorCodes(menuHeading).size());
 
     for (const auto &section : sections)
     {
-        maxWidth = std::max(maxWidth, static_cast<int>(section.heading.size()));
+        // Compare section heading width
+        maxWidth = std::max(maxWidth, static_cast<int>(stripColorCodes(section.heading).size()));
+
         for (const auto &option : section.options)
         {
-            // Account for the key (1 char), icon (2 chars), and spaces (2 chars) + text length
-            int optionWidth = static_cast<int>(option.text.size()) + 5; // Adjusted width calculation
+            // Strip color codes to calculate the plain text width
+            std::string plainText = stripColorCodes(option.text);
+            int optionWidth = static_cast<int>(plainText.size()) + 6; // Account for key, icon, and spacing
             maxWidth = std::max(maxWidth, optionWidth);
         }
     }
 
-    // Ensure that the calculated width is at least MIN_MENU_WIDTH
-    maxWidth = std::max(maxWidth + 4, MIN_MENU_WIDTH); // Add padding and enforce minimum width
+    // Set a reasonable minimum width for all menus to ensure it’s large enough for the longest text
+    maxWidth = std::max(maxWidth, 70); // Example width, adjust as necessary
+
     return maxWidth;
 }
 
@@ -128,12 +138,18 @@ std::string IMenu::centerTextWithChar(const std::string &text, int width, const 
     return leftPadding + text + rightPadding;
 }
 
+std::string IMenu::stripColorCodes(const std::string &input) const
+{
+    static const std::regex colorCodePattern("\033\\[\\d+(;\\d+)*m");
+    return std::regex_replace(input, colorCodePattern, "");
+}
+
 /**
  * @brief Displays the menu by printing its sections, options, and borders.
  */
 void IMenu::displayMenu() const
 {
-    // Calculate the maximum width based on the longest piece of text
+    // Calculate the maximum width based on the longest piece of text (ignoring color codes)
     int maxWidth = calculateMaxWidth(menuHeading, sections);
 
     // Print the menu heading if it exists
@@ -160,12 +176,13 @@ void IMenu::displayMenu() const
             printSectionDivider(maxWidth);
         }
 
-        // Display each option in the section with its custom key
+        // Display each option in the section with its custom key and proper padding
         for (const auto &option : section.options)
         {
-            int iconWidth = 2;                   // Assume each icon takes 2 characters
-            int keyAndIconWidth = 6 + iconWidth; // Key (1 char), space (1 char), icon, and space (1 char)
-            int padding = maxWidth - static_cast<int>(option.text.size()) - keyAndIconWidth;
+            std::string plainText = stripColorCodes(option.text); // Remove color codes for proper alignment
+            int iconWidth = 2;                                    // Assume each icon takes 2 characters
+            int keyAndIconWidth = 6 + iconWidth;                  // Key (1 char), space (1 char), icon, and space (1 char)
+            int padding = maxWidth - static_cast<int>(plainText.size()) - keyAndIconWidth;
 
             // Print the option with dynamically calculated padding
             std::cout << DARK_GRAY << "║ " << BOLD_YELLOW << option.key << RESET << ". " << option.icon << " "
@@ -182,4 +199,29 @@ void IMenu::displayMenu() const
             printSectionDivider(maxWidth); // No extra spacing, just a section divider
         }
     }
+}
+
+void IMenu::displayChoicePrompt() const
+{
+    std::string prompt = "Enter your choice: ";
+
+    // Create a visually appealing prompt with some spacing, a border, and colors
+    std::cout << DARK_GRAY << "\n>> "  // Start with a subtle ">>" in dark gray
+              << BOLD_YELLOW << prompt // Make the prompt itself stand out
+              << RESET;                // Reset color back to normal for input
+}
+
+void IMenu::displayInvalidChoice() const
+{
+    std::string message = "Invalid choice. Please select a valid option.";
+
+    displayErrorMessage(message);
+}
+
+void IMenu::displayErrorMessage(const std::string &message) const
+{
+    // Create a styled invalid choi1ce message with colors and spacing
+    std::cout << DARK_GRAY << "\n>> " // Subtle indicator in dark gray
+              << BOLD_RED << message  // Bold red to make the error message stand out
+              << RESET << std::endl;  // Reset color and add a new line
 }

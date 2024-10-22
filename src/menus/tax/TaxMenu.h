@@ -27,7 +27,7 @@ public:
     /**
      * @brief Handles user input in the Tax menu.
      */
-    void handleInput() const override;
+    void handleInput() override;
 };
 
 #endif // TAXMENU_H

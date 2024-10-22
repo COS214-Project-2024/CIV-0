@@ -27,7 +27,7 @@ public:
     /**
      * @brief Handles user input in the Upgrades menu.
      */
-    void handleInput() const override;
+    void handleInput() override;
 };
 
 #endif // UPGRADESMENU_H

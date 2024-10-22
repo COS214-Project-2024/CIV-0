@@ -10,6 +10,12 @@
 #include "menus/tax/TaxMenu.h"
 #include "menus/buildings/BuildingsMenu.h"
 #include "menus/main/DisplayCityMenu.h"
+#include "menus/buildings/amenity/BuyAmenityMenu.h"
+#include "menus/buildings/economic/BuyEconomicBuildingMenu.h"
+#include "menus/buildings/residential/BuyResidentialBuildingMenu.h"
+#include "menus/buildings/transport/BuyTransportMenu.h"
+#include "menus/buildings/utility/BuyUtilityMenu.h"
+#include "menus/buildings/resource/BuyResourceMenu.h"
 #include <memory>
 #include <unordered_map>
 #include <string>

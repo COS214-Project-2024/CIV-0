@@ -150,7 +150,7 @@ void DisplayCityMenu::displayCity() const
     printBottomBorder(width);
 }
 
-void DisplayCityMenu::handleInput() const
+void DisplayCityMenu::handleInput()
 {
     char choice;
     std::cout << "Enter your choice: ";

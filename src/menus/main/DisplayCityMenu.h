@@ -17,7 +17,7 @@ public:
     /**
      * @brief Handles user input in the "Display City" menu.
      */
-    void handleInput() const override;
+    void handleInput() override;
 
     void displayCity() const;
 };

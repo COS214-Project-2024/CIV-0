@@ -27,7 +27,7 @@ public:
     /**
      * @brief Handles user input in the Policy menu.
      */
-    void handleInput() const override;
+    void handleInput() override;
 };
 
 #endif // POLICYMENU_H

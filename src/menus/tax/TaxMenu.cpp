@@ -22,7 +22,7 @@ void TaxMenu::display() const
     displayMenu();
 }
 
-void TaxMenu::handleInput() const
+void TaxMenu::handleInput()
 {
     char choice;
     std::cout << "Enter your choice: ";
