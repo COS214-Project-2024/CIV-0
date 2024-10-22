@@ -70,4 +70,28 @@ TEST_SUITE("WaterSupply Tests") {
         CHECK(waterSupply.getWidth() == 5);
         CHECK(waterSupply.getHeight() == 5);
     }
+
+    TEST_CASE("isWithinEffectRadius Test") {
+        WaterSupply baseWaterSupply(100, 50, "P", 10, 5, 15, 5, 5, 1000, Size::LARGE, 0, 0, 1);
+        
+        SUBCASE("WaterSupply within radius") {
+            WaterSupply nearbyWaterSupply(100, 50, "P", 10, 5, 15, 5, 5, 1000, Size::LARGE, 5, 5, 1);
+            CHECK(baseWaterSupply.isWithinEffectRadius(&nearbyWaterSupply) == true);
+        }
+
+        SUBCASE("WaterSupply outside radius") {
+            WaterSupply farWaterSupply(100, 50, "P", 10, 5, 15, 5, 5, 1000, Size::LARGE, 50, 50, 1);
+            CHECK(baseWaterSupply.isWithinEffectRadius(&farWaterSupply) == false);
+        }
+
+        SUBCASE("WaterSupply exactly on border") {
+            WaterSupply borderWaterSupply(100, 50, "P", 10, 5, 15, 5, 5, 1000, Size::LARGE, 15, 15, 1);
+            CHECK(baseWaterSupply.isWithinEffectRadius(&borderWaterSupply) == false);
+        }
+
+        SUBCASE("WaterSupply partially overlaps with radius") {
+            WaterSupply partialOverlapWaterSupply(100, 50, "P", 10, 5, 15, 5, 5, 1000, Size::LARGE, 9, 9, 1);
+            CHECK(baseWaterSupply.isWithinEffectRadius(&partialOverlapWaterSupply) == true);
+        }
+    }
 }

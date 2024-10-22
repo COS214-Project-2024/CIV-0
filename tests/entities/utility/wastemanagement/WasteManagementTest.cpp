@@ -70,4 +70,28 @@ TEST_SUITE("WasteManagement Tests") {
         CHECK(wasteManagement.getWidth() == 5);
         CHECK(wasteManagement.getHeight() == 5);
     }
+
+    TEST_CASE("isWithinEffectRadius Test") {
+        WasteManagement baseWasteManagement(100, 50, "P", 10, 5, 15, 5, 5, 1000, Size::LARGE, 0, 0, 1);
+        
+        SUBCASE("WasteManagement within radius") {
+            WasteManagement nearbyWasteManagement(100, 50, "P", 10, 5, 15, 5, 5, 1000, Size::LARGE, 5, 5, 1);
+            CHECK(baseWasteManagement.isWithinEffectRadius(&nearbyWasteManagement) == true);
+        }
+
+        SUBCASE("WasteManagement outside radius") {
+            WasteManagement farWasteManagement(100, 50, "P", 10, 5, 15, 5, 5, 1000, Size::LARGE, 50, 50, 1);
+            CHECK(baseWasteManagement.isWithinEffectRadius(&farWasteManagement) == false);
+        }
+
+        SUBCASE("WasteManagement exactly on border") {
+            WasteManagement borderWasteManagement(100, 50, "P", 10, 5, 15, 5, 5, 1000, Size::LARGE, 15, 15, 1);
+            CHECK(baseWasteManagement.isWithinEffectRadius(&borderWasteManagement) == false);
+        }
+
+        SUBCASE("WasteManagement partially overlaps with radius") {
+            WasteManagement partialOverlapWasteManagement(100, 50, "P", 10, 5, 15, 5, 5, 1000, Size::LARGE, 9, 9, 1);
+            CHECK(baseWasteManagement.isWithinEffectRadius(&partialOverlapWasteManagement) == true);
+        }
+    }
 }

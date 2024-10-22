@@ -70,4 +70,28 @@ TEST_SUITE("PowerPlant Tests") {
         CHECK(powerPlant.getWidth() == 5);
         CHECK(powerPlant.getHeight() == 5);
     }
+
+    TEST_CASE("isWithinEffectRadius Test") {
+        PowerPlant basePowerPlant(100, 50, "P", 10, 5, 15, 5, 5, 1000, Size::LARGE, 0, 0, 1);
+        
+        SUBCASE("PowerPlant within radius") {
+            PowerPlant nearbyPowerPlant(100, 50, "P", 10, 5, 15, 5, 5, 1000, Size::LARGE, 5, 5, 1);
+            CHECK(basePowerPlant.isWithinEffectRadius(&nearbyPowerPlant) == true);
+        }
+
+        SUBCASE("PowerPlant outside radius") {
+            PowerPlant farPowerPlant(100, 50, "P", 10, 5, 15, 5, 5, 1000, Size::LARGE, 50, 50, 1);
+            CHECK(basePowerPlant.isWithinEffectRadius(&farPowerPlant) == false);
+        }
+
+        SUBCASE("PowerPlant exactly on border") {
+            PowerPlant borderPowerPlant(100, 50, "P", 10, 5, 15, 5, 5, 1000, Size::LARGE, 15, 15, 1);
+            CHECK(basePowerPlant.isWithinEffectRadius(&borderPowerPlant) == false);
+        }
+
+        SUBCASE("PowerPlant partially overlaps with radius") {
+            PowerPlant partialOverlapPowerPlant(100, 50, "P", 10, 5, 15, 5, 5, 1000, Size::LARGE, 9, 9, 1);
+            CHECK(basePowerPlant.isWithinEffectRadius(&partialOverlapPowerPlant) == true);
+        }
+    }
 }

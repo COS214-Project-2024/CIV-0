@@ -70,4 +70,28 @@ TEST_SUITE("SewageSystem Tests") {
         CHECK(sewageSystem.getWidth() == 5);
         CHECK(sewageSystem.getHeight() == 5);
     }
+
+    TEST_CASE("isWithinEffectRadius Test") {
+        SewageSystem baseSewageSystem(100, 50, "P", 10, 5, 15, 5, 5, 1000, Size::LARGE, 0, 0, 1);
+        
+        SUBCASE("SewageSystem within radius") {
+            SewageSystem nearbySewageSystem(100, 50, "P", 10, 5, 15, 5, 5, 1000, Size::LARGE, 5, 5, 1);
+            CHECK(baseSewageSystem.isWithinEffectRadius(&nearbySewageSystem) == true);
+        }
+
+        SUBCASE("SewageSystem outside radius") {
+            SewageSystem farSewageSystem(100, 50, "P", 10, 5, 15, 5, 5, 1000, Size::LARGE, 50, 50, 1);
+            CHECK(baseSewageSystem.isWithinEffectRadius(&farSewageSystem) == false);
+        }
+
+        SUBCASE("SewageSystem exactly on border") {
+            SewageSystem borderSewageSystem(100, 50, "P", 10, 5, 15, 5, 5, 1000, Size::LARGE, 15, 15, 1);
+            CHECK(baseSewageSystem.isWithinEffectRadius(&borderSewageSystem) == false);
+        }
+
+        SUBCASE("SewageSystem partially overlaps with radius") {
+            SewageSystem partialOverlapSewageSystem(100, 50, "P", 10, 5, 15, 5, 5, 1000, Size::LARGE, 9, 9, 1);
+            CHECK(baseSewageSystem.isWithinEffectRadius(&partialOverlapSewageSystem) == true);
+        }
+    }
 }
