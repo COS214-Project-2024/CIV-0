@@ -58,14 +58,14 @@ public:
     /**
      * @brief Retrieves the upgraded waste management system's output.
      * 
-     * Returns the efficiency output of the level three upgraded waste management system, reflecting a 5.25x enhancement.
+     * Returns the efficiency output of the level three upgraded waste management system.
      * 
      * @return The updated efficiency output as an integer.
      */
     int getOutput();
 
 private:
-    const int UPGRADE = 5.25; ///< Multiplier applied to the original efficiency output for the level three upgrade.
+    const int UPGRADE = 6; ///< Multiplier applied to the original efficiency output for the level three upgrade.
 };
 
 #endif // WASTEMANAGEMENTLEVELTHREEUPGRADE_H
