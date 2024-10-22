@@ -3,13 +3,13 @@
 House::House() {}
 House::~House() {}
 
-House::House(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime) : ResidentialBuilding(electricity, water, symbol, radius, localEffect, globalEffect, width, height, revenue, size, xPos, yPos, buildTime)
+House::House(EntityConfig ec, Size size, int xPos, int yPos) : ResidentialBuilding(ec, size, xPos, yPos)
 {
 
 }
 
 Entity* House::clone()
 {
-    Entity* e = new House(electricityConsumption, waterConsumption, symbol, effectRadius, localEffectStrength, globalEffectStrength, width, height, revenue, size, xPosition, yPosition, state->getBuildTime());
+    Entity* e = new House(*ec, size, xPosition, yPosition);
     return e;
 }

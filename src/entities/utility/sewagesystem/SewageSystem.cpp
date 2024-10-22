@@ -1,18 +1,14 @@
 #include "SewageSystem.h"
 
-SewageSystem::SewageSystem(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime) : Utility(20, electricity, water, symbol, radius, localEffect, globalEffect, width, height, revenue, size, xPos, yPos, buildTime) {
-    //TODO - change value of output (1st param in Utility constructor)
+SewageSystem::SewageSystem() {}
+SewageSystem::~SewageSystem() {}
+
+SewageSystem::SewageSystem(EntityConfig ec, Size size, int xPos, int yPos) : Utility(ec, size, xPos, yPos)
+{
+    setOutput(20); //TODO - change value
 }
 
 SewageSystem::SewageSystem(SewageSystem* sewageSystem) : Utility(sewageSystem) {
-
-}
-
-SewageSystem::SewageSystem() : Utility() {
-
-}
-
-SewageSystem::~SewageSystem() {
 
 }
 
@@ -33,6 +29,8 @@ void SewageSystem::update() {
     }
 }
 
-Entity* SewageSystem::clone() {
-    return new SewageSystem(this);
+Entity* SewageSystem::clone()
+{
+    Entity* e = new SewageSystem(*ec, size, xPosition, yPosition);
+    return e;
 }

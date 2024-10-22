@@ -3,7 +3,7 @@
 StoneProducer::StoneProducer() {}
 StoneProducer::~StoneProducer() {}
 
-StoneProducer::StoneProducer(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime) : Industry(electricity, water, symbol, radius, localEffect, globalEffect, width, height, revenue, size, xPos, yPos, buildTime)
+StoneProducer::StoneProducer(EntityConfig ec, Size size, int xPos, int yPos) : Industry(ec, size, xPos, yPos)
 {
     setOutput(20); //TODO - change value
 }
@@ -23,6 +23,6 @@ void StoneProducer::update()
 
 Entity* StoneProducer::clone()
 {
-    Entity* e = new StoneProducer(electricityConsumption, waterConsumption, symbol, effectRadius, localEffectStrength, globalEffectStrength, width, height, revenue, size, xPosition, yPosition, state->getBuildTime());
+    Entity* e = new StoneProducer(*ec, size, xPosition, yPosition);
     return e;
 }

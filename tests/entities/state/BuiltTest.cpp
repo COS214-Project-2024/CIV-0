@@ -11,7 +11,4 @@ TEST_CASE("BuiltTest test")
 
     State* newState = state.update();
     CHECK(newState == &state);
-
-    newState = state.initialize();
-    CHECK(newState == &state);
 }

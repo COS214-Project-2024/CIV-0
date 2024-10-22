@@ -7,27 +7,53 @@ Entity::Entity()
 
 }
 
-Entity::Entity(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime)
+Entity::Entity(Entity* entity)
 {
-    this->electricityConsumption = electricity;
-    this->waterConsumption = water;
-    this->symbol = symbol;
-    this->effectRadius = radius;
-    this->localEffectStrength = localEffect;
-    this->globalEffectStrength = globalEffect;
-    this->width = width;
-    this->height = height;
-    this->revenue = revenue;
-    this->size = size;
-    this->xPosition = xPos;
-    this->yPosition = yPos;
-    if(buildTime!=0)
+    this->electricityConsumption = entity->electricityConsumption;
+    this->waterConsumption = entity->waterConsumption;
+    this->symbol = entity->symbol;
+    this->effectRadius = entity->effectRadius;
+    this->localEffectStrength = entity->localEffectStrength;
+    this->globalEffectStrength = entity->globalEffectStrength;
+    this->width = entity->width;
+    this->height = entity->height;
+    this->revenue = entity->revenue;
+    this->size = entity->size;
+    this->xPosition = entity->xPosition;
+    this->yPosition = entity->yPosition;
+    this->ec = entity->ec;
+    if(!entity->isBuilt())
     {
-        state = new UnderConstruction(buildTime);
+        state = new UnderConstruction(3);
     }
     else
     {
-        state = new Built(buildTime);
+        state = new Built(3);
+    }
+}
+
+Entity::Entity(EntityConfig ec, Size size, int xPos, int yPos)
+{
+    this->electricityConsumption = ec.electricityConsumption;
+    this->waterConsumption = ec.waterConsumption;
+    this->symbol = ec.symbol;
+    this->effectRadius = ec.effectRadius;
+    this->localEffectStrength = ec.localEffectStrength;
+    this->globalEffectStrength = ec.globalEffectStrength;
+    this->width = ec.width;
+    this->height = ec.height;
+    this->revenue = ec.revenue;
+    this->size = size;
+    this->xPosition = xPos;
+    this->yPosition = yPos;
+    this->ec = &ec;
+    if(ec.buildTime!=0)
+    {
+        state = new UnderConstruction(ec.buildTime);
+    }
+    else
+    {
+        state = new Built(ec.buildTime);
     }
 }
 

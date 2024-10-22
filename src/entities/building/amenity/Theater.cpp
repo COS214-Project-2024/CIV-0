@@ -3,7 +3,7 @@
 Theater::Theater() {}
 Theater::~Theater() {}
 
-Theater::Theater(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime) : Amenity(electricity, water, symbol, radius, localEffect, globalEffect, width, height, revenue, size, xPos, yPos, buildTime)
+Theater::Theater(EntityConfig ec, Size size, int xPos, int yPos) : Amenity(ec, size, xPos, yPos)
 {
 
 }
@@ -23,6 +23,6 @@ void Theater::update()
 
 Entity* Theater::clone()
 {
-    Entity* e = new Theater(electricityConsumption, waterConsumption, symbol, effectRadius, localEffectStrength, globalEffectStrength, width, height, revenue, size, xPosition, yPosition, state->getBuildTime());
+    Entity* e = new Theater(*ec, size, xPosition, yPosition);
     return e;
 }

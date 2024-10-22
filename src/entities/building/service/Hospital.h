@@ -7,8 +7,7 @@ class Hospital : public ServiceBuilding
 {
 public:
     Hospital();
-    Hospital(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, 
-           int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime);
+    Hospital(EntityConfig ec, Size size, int xPos, int yPos);
     virtual ~Hospital();
 
     void update();

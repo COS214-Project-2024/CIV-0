@@ -134,6 +134,21 @@ private:
         entityConfigTable.emplace(std::make_pair(EntityType::ROAD, Size::SMALL), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "█", 0, 0, 0, 1, 1, 0, 0));
         entityConfigTable.emplace(std::make_pair(EntityType::ROAD, Size::MEDIUM), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "█", 0, 0, 0, 1, 1, 0, 0));
         entityConfigTable.emplace(std::make_pair(EntityType::ROAD, Size::LARGE), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "█", 0, 0, 0, 1, 1, 0, 0));
+
+        // Airport
+        entityConfigTable.emplace(std::make_pair(EntityType::AIRPORT, Size::SMALL), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "A", 0, 0, 0, 1, 1, 0, 0));
+        entityConfigTable.emplace(std::make_pair(EntityType::AIRPORT, Size::MEDIUM), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "A", 0, 0, 0, 1, 1, 0, 0));
+        entityConfigTable.emplace(std::make_pair(EntityType::AIRPORT, Size::LARGE), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "A", 0, 0, 0, 1, 1, 0, 0));
+
+        // BusStop
+        entityConfigTable.emplace(std::make_pair(EntityType::BUSSTOP, Size::SMALL), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "B", 0, 0, 0, 1, 1, 0, 0));
+        entityConfigTable.emplace(std::make_pair(EntityType::BUSSTOP, Size::MEDIUM), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "B", 0, 0, 0, 1, 1, 0, 0));
+        entityConfigTable.emplace(std::make_pair(EntityType::BUSSTOP, Size::LARGE), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "B", 0, 0, 0, 1, 1, 0, 0));
+
+        // TrainStation
+        entityConfigTable.emplace(std::make_pair(EntityType::TRAINSTATION, Size::SMALL), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "T", 0, 0, 0, 1, 1, 0, 0));
+        entityConfigTable.emplace(std::make_pair(EntityType::TRAINSTATION, Size::MEDIUM), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "T", 0, 0, 0, 1, 1, 0, 0));
+        entityConfigTable.emplace(std::make_pair(EntityType::TRAINSTATION, Size::LARGE), EntityConfig(Cost(10, 0, 0, 0), 0, 0, "T", 0, 0, 0, 1, 1, 0, 0));
     }
 
     void initializeSatisfactionConfig()

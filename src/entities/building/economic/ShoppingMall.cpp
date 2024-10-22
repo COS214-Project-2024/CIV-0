@@ -3,7 +3,7 @@
 ShoppingMall::ShoppingMall() {}
 ShoppingMall::~ShoppingMall() {}
 
-ShoppingMall::ShoppingMall(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime) : EconomicBuilding(electricity, water, symbol, radius, localEffect, globalEffect, width, height, revenue, size, xPos, yPos, buildTime)
+ShoppingMall::ShoppingMall(EntityConfig ec, Size size, int xPos, int yPos) : EconomicBuilding(ec, size, xPos, yPos)
 {
 
 }
@@ -23,6 +23,6 @@ void ShoppingMall::update()
 
 Entity* ShoppingMall::clone()
 {
-    Entity* e = new ShoppingMall(electricityConsumption, waterConsumption, symbol, effectRadius, localEffectStrength, globalEffectStrength, width, height, revenue, size, xPosition, yPosition, state->getBuildTime());
+    Entity* e = new ShoppingMall(*ec, size, xPosition, yPosition);
     return e;
 }
