@@ -13,14 +13,14 @@ CivZero &CivZero::instance()
 // Private constructor
 CivZero::CivZero() : running(false)
 {
-    this->city = new City();
+    // this->city = new City();
 }
 
 // Private destructor
 CivZero::~CivZero()
 {
-    if (city)
-        delete city;
+    // if (city)
+    //     delete city;
 }
 
 // Start the game, which initializes the game loop
