@@ -3,6 +3,7 @@
 
 #include "entities/base/Entity.h"
 #include "entities/base/Subject.h"
+#include "entities/building/residential/ResidentialBuilding.h"
 
 class Industry : public Entity, public Subject
 {

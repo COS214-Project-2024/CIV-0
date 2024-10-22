@@ -10,7 +10,15 @@ TrainStation::~TrainStation() {}
 
 void TrainStation::update()
 {
-    //TODO
+    for(Observer* o : subscribers)
+    {
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        
+        if(rb)
+        {
+            rb->updateTrainStation(this);
+        }
+    }
 }
 
 Entity* TrainStation::clone()

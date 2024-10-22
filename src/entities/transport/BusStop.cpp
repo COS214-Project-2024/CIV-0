@@ -10,7 +10,15 @@ BusStop::~BusStop() {}
 
 void BusStop::update()
 {
-    //TODO
+    for(Observer* o : subscribers)
+    {
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        
+        if(rb)
+        {
+            rb->updateBusStop(this);
+        }
+    }
 }
 
 Entity* BusStop::clone()

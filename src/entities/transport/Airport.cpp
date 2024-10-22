@@ -10,7 +10,15 @@ Airport::~Airport() {}
 
 void Airport::update()
 {
-    //TODO
+    for(Observer* o : subscribers)
+    {
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        
+        if(rb)
+        {
+            rb->updateAirport(this);
+        }
+    }
 }
 
 Entity* Airport::clone()

@@ -10,7 +10,15 @@ ShoppingMall::ShoppingMall(int electricity, int water, std::string symbol, int r
 
 void ShoppingMall::update()
 {
-    //TODO
+    for(Observer* o : subscribers)
+    {
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        
+        if(rb)
+        {
+            rb->updateShoppingMall(this);
+        }
+    }
 }
 
 Entity* ShoppingMall::clone()

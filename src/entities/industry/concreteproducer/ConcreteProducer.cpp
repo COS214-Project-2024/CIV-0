@@ -10,7 +10,15 @@ ConcreteProducer::ConcreteProducer(int electricity, int water, std::string symbo
 
 void ConcreteProducer::update()
 {
-    //TODO
+    for(Observer* o : subscribers)
+    {
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        
+        if(rb)
+        {
+            rb->updateIndustry(this);
+        }
+    }
 }
 
 Entity* ConcreteProducer::clone()

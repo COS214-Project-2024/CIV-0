@@ -3,6 +3,7 @@
 
 #include "entities/building/base/Building.h"
 #include "entities/base/Subject.h"
+#include "entities/building/residential/ResidentialBuilding.h"
 
 class EconomicBuilding : public Building, public Subject
 {

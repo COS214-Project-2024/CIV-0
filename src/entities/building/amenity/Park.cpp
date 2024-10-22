@@ -10,7 +10,15 @@ Park::Park(int electricity, int water, std::string symbol, int radius, int local
 
 void Park::update()
 {
-    //TODO
+    for(Observer* o : subscribers)
+    {
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        
+        if(rb)
+        {
+            rb->updateAmenity(this);
+        }
+    }
 }
 
 Entity* Park::clone()

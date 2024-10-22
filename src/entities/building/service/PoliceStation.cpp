@@ -10,7 +10,15 @@ PoliceStation::PoliceStation(int electricity, int water, std::string symbol, int
 
 void PoliceStation::update()
 {
-    //TODO
+    for(Observer* o : subscribers)
+    {
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        
+        if(rb)
+        {
+            rb->updatePoliceStation(this);
+        }
+    }
 }
 
 Entity* PoliceStation::clone()
