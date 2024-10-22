@@ -93,6 +93,10 @@ void BuildingsMenu::handleInput()
             MenuManager::instance().setCurrentMenu(Menu::BUY_RESOURCE);
             choosing = false;
             break;
+        case '8': // Sell Building(s)
+            MenuManager::instance().setCurrentMenu(Menu::SELL);
+            choosing = false;
+            break;
         case 'a': // View Transport Stats
             MenuManager::instance().setCurrentMenu(std::make_shared<BuildingsStatMenu>(
                 std::vector<EntityType>{EntityType::BUSSTOP, EntityType::AIRPORT, EntityType::TRAINSTATION}));
