@@ -186,7 +186,7 @@ private:
         satisfactionConfigTable.emplace(EntityType::BUSSTOP, SatisfactionConfig(2.0f, 2.0f, 10.0f, 2.0f));
 
         // Train Station
-        satisfactionConfigTable.emplace(EntityType::BUSSTOP, SatisfactionConfig(2.0f, 2.0f, 10.0f, 2.0f));
+        satisfactionConfigTable.emplace(EntityType::TRAINSTATION, SatisfactionConfig(2.0f, 2.0f, 10.0f, 2.0f));
 
         // Factory
         satisfactionConfigTable.emplace(EntityType::FACTORY, SatisfactionConfig(-2.0f, 2.0f, -15.0f, 10.0f));

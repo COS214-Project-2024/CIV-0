@@ -27,5 +27,8 @@ bool Observer::unsubscribe(Subject* subject)
 
 void Observer::unsubscribeFromAll()
 {
-    
+    for(Subject* s : subscriptions)
+    {
+        s->unsubscribe(this);
+    }
 }

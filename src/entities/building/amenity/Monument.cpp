@@ -10,7 +10,15 @@ Monument::Monument(int electricity, int water, std::string symbol, int radius, i
 
 void Monument::update()
 {
-    //TODO
+    for(Observer* o : subscribers)
+    {
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        
+        if(rb)
+        {
+            rb->updateAmenity(this);
+        }
+    }
 }
 
 Entity* Monument::clone()

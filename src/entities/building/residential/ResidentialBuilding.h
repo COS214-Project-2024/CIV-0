@@ -36,7 +36,7 @@ private:
     float localIndustry;
     float satisfaction;
 
-    void updateEntity(SatisfactionConfig sc, float &local, float &global);
+    void updateEntity(SatisfactionConfig sc, float &local, float &global, Entity* entity);
     void reduceByChange(float &value);
     void reduceByChangeWithNegativeExtreme(SatisfactionConfig sc, float &value);
 public:
@@ -51,18 +51,18 @@ public:
     void calculateSatisfaction();
     float getSatisfaction();
 
-    void updateAirport();
-    void updateBusStop();
-    void updateTrainStation();
-    void updateFactory();
-    void updateShoppingMall();
-    void updateOffice();
-    void updateHospital();
-    void updatePoliceStation();
-    void updateSchool();
-    void updateAmenity();
-    void updateUtility();
-    void updateIndustry();
+    void updateAirport(Entity* entity);
+    void updateBusStop(Entity* entity);
+    void updateTrainStation(Entity* entity);
+    void updateFactory(Entity* entity);
+    void updateShoppingMall(Entity* entity);
+    void updateOffice(Entity* entity);
+    void updateHospital(Entity* entity);
+    void updatePoliceStation(Entity* entity);
+    void updateSchool(Entity* entity);
+    void updateAmenity(Entity* entity);
+    void updateUtility(Entity* entity);
+    void updateIndustry(Entity* entity);
     
 };
 

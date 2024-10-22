@@ -10,7 +10,15 @@ School::School(int electricity, int water, std::string symbol, int radius, int l
 
 void School::update()
 {
-    //TODO
+    for(Observer* o : subscribers)
+    {
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        
+        if(rb)
+        {
+            rb->updateSchool(this);
+        }
+    }
 }
 
 Entity* School::clone()

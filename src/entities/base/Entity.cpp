@@ -21,13 +21,13 @@ Entity::Entity(int electricity, int water, std::string symbol, int radius, int l
     this->size = size;
     this->xPosition = xPos;
     this->yPosition = yPos;
-    state = new UnderConstruction(buildTime);
-
-    State* newState = state->initialize();
-    if (newState != state)
+    if(buildTime!=0)
     {
-        delete state;
-        state = newState;
+        state = new UnderConstruction(buildTime);
+    }
+    else
+    {
+        state = new Built(buildTime);
     }
 }
 

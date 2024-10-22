@@ -11,7 +11,7 @@ protected:
     std::vector<Observer*> subscribers;
 public:
     Subject();
-    ~Subject();
+    virtual ~Subject();
     bool unsubscribe(Observer* observer);
     bool subscribe(Observer* observer);
     void subscribeToAllResidentialInRadius();

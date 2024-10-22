@@ -8,7 +8,7 @@ bool Subject::unsubscribe(Observer* observer)
 {
     for(auto it = subscribers.begin(); it != subscribers.end(); it++)
     {
-        if (*it == observer)
+        if(*it == observer)
         {
             subscribers.erase(it);
             return true;

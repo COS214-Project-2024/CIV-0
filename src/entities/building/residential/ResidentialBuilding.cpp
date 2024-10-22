@@ -83,69 +83,72 @@ float ResidentialBuilding::getSatisfaction()
 }
 
 //this is beutiful
-void ResidentialBuilding::updateAirport()
+void ResidentialBuilding::updateAirport(Entity* entity)
 {
-    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::AIRPORT), localAirport, globalAirport);
+    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::AIRPORT), localAirport, globalAirport, entity);
 }
 
-void ResidentialBuilding::updateBusStop()
+void ResidentialBuilding::updateBusStop(Entity* entity)
 {
-    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::BUSSTOP), localBusStop, globalBusStop);
+    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::BUSSTOP), localBusStop, globalBusStop, entity);
 }
 
-void ResidentialBuilding::updateTrainStation()
+void ResidentialBuilding::updateTrainStation(Entity* entity)
 {
-    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::TRAINSTATION), localTrainStation, globalTrainStation);
+    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::TRAINSTATION), localTrainStation, globalTrainStation, entity);
 }
 
-void ResidentialBuilding::updateFactory()
+void ResidentialBuilding::updateFactory(Entity* entity)
 {
-    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::FACTORY), localFactory, globalFactory);
+    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::FACTORY), localFactory, globalFactory, entity);
 }
 
-void ResidentialBuilding::updateShoppingMall()
+void ResidentialBuilding::updateShoppingMall(Entity* entity)
 {
-    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::SHOPPINGMALL), localShoppingMall, globalShoppingMall);
+    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::SHOPPINGMALL), localShoppingMall, globalShoppingMall, entity);
 }
 
-void ResidentialBuilding::updateOffice()
+void ResidentialBuilding::updateOffice(Entity* entity)
 {
-    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::OFFICE), localOffice, globalOffice);
+    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::OFFICE), localOffice, globalOffice, entity);
 }
 
-void ResidentialBuilding::updateHospital()
+void ResidentialBuilding::updateHospital(Entity* entity)
 {
-    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::HOSPITAL), localHospital, globalHospital);
+    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::HOSPITAL), localHospital, globalHospital, entity);
 }
 
-void ResidentialBuilding::updatePoliceStation()
+void ResidentialBuilding::updatePoliceStation(Entity* entity)
 {
-    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::POLICESTATION), localPoliceStation, globalPoliceStation);
+    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::POLICESTATION), localPoliceStation, globalPoliceStation, entity);
 }
 
-void ResidentialBuilding::updateSchool()
+void ResidentialBuilding::updateSchool(Entity* entity)
 {
-    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::SCHOOL), localSchool, globalSchool);
+    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::SCHOOL), localSchool, globalSchool, entity);
 }
 
-void ResidentialBuilding::updateAmenity()
+void ResidentialBuilding::updateAmenity(Entity* entity)
 {
-    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::PARK), localAmenity, globalAmenity);
+    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::PARK), localAmenity, globalAmenity, entity);
 }
 
-void ResidentialBuilding::updateUtility()
+void ResidentialBuilding::updateUtility(Entity* entity)
 {
-    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::POWERPLANT), localUtility, globalUtility);
+    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::POWERPLANT), localUtility, globalUtility, entity);
 }
 
-void ResidentialBuilding::updateIndustry()
+void ResidentialBuilding::updateIndustry(Entity* entity)
 {
-    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::WOODPRODUCER), localIndustry, globalIndustry);
+    updateEntity(ConfigManager::getSatisfactionConfig(EntityType::WOODPRODUCER), localIndustry, globalIndustry, entity);
 }
 
-void ResidentialBuilding::updateEntity(SatisfactionConfig sc, float &local, float &global)
+void ResidentialBuilding::updateEntity(SatisfactionConfig sc, float &local, float &global, Entity* entity)
 {
-    local += sc.localRate;
+    if(isWithinEffectRadius(entity))
+    {
+        local += sc.localRate;
+    }
     global += sc.globalRate;
 
     if(abs(local)>abs(sc.localExtreme))

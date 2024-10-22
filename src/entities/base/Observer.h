@@ -12,7 +12,7 @@ protected:
     std::vector<Subject*> subscriptions;
 public:
     Observer();
-    ~Observer();
+    virtual ~Observer();
     bool subscribe(Subject* subject);
     bool unsubscribe(Subject* subject);
     void unsubscribeFromAll();

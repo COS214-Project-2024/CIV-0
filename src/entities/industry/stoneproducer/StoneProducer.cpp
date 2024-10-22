@@ -10,7 +10,15 @@ StoneProducer::StoneProducer(int electricity, int water, std::string symbol, int
 
 void StoneProducer::update()
 {
-    //TODO
+    for(Observer* o : subscribers)
+    {
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        
+        if(rb)
+        {
+            rb->updateIndustry(this);
+        }
+    }
 }
 
 Entity* StoneProducer::clone()
