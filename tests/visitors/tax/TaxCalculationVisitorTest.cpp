@@ -10,11 +10,11 @@
 TEST_CASE("TaxCalculationVisitorTest - Collect taxes from buildings using ConfigManager")
 {
     // Create a city instance
-    City &city = City::instance();
+    City *city = City::instance();
 
     // Set tax rates for the city using setters
-    city.setResidentialTax(10); // 10% residential tax
-    city.setEconomicTax(20);    // 20% economic tax
+    city->setResidentialTax(10); // 10% residential tax
+    city->setEconomicTax(20);    // 20% economic tax
 
     // Use ConfigManager to get the expected revenue for the specific building types
     EntityConfig smallHouseConfig = ConfigManager::getEntityConfig(EntityType::HOUSE, Size::SMALL);
@@ -28,19 +28,19 @@ TEST_CASE("TaxCalculationVisitorTest - Collect taxes from buildings using Config
         {nullptr, new Apartment(largeApartmentConfig, Size::LARGE, 1, 0), nullptr},
         {new ShoppingMall(largeShoppingMallConfig, Size::LARGE, 2, 0), nullptr, nullptr}};
 
-    // Assign this mock grid to the city (assuming City has a method to set grid for testing purposes)
-    city.getGrid() = mockGrid;
+    // Assign this mock grid to the city
+    city->getGrid() = mockGrid;
 
     // Create a TaxCalculationVisitor instance
     TaxCalculationVisitor taxVisitor;
 
     // Let the visitor visit the city
-    city.accept(taxVisitor);
+    city->accept(taxVisitor);
 
     // Calculate expected residential and economic taxes using ConfigManager:
-    int expectedResidentialTax = (smallHouseConfig.revenue * city.getResidentialTax()) / 100 + (largeApartmentConfig.revenue * city.getResidentialTax()) / 100;
+    int expectedResidentialTax = (smallHouseConfig.revenue * city->getResidentialTax()) / 100 + (largeApartmentConfig.revenue * city->getResidentialTax()) / 100;
 
-    int expectedEconomicTax = (mediumOfficeConfig.revenue * city.getEconomicTax()) / 100 + (largeShoppingMallConfig.revenue * city.getEconomicTax()) / 100;
+    int expectedEconomicTax = (mediumOfficeConfig.revenue * city->getEconomicTax()) / 100 + (largeShoppingMallConfig.revenue * city->getEconomicTax()) / 100;
 
     // Check the taxes collected by the TaxCalculationVisitor
     CHECK(taxVisitor.getTotalResidentialTax() == expectedResidentialTax);
@@ -59,22 +59,24 @@ TEST_CASE("TaxCalculationVisitorTest - Collect taxes from buildings using Config
 
 TEST_CASE("TaxCalculationVisitorTest - Empty grid produces no taxes using ConfigManager")
 {
+    // Create a city instance
+    City *city = City::instance();
+
     // Create an empty city grid (all nullptrs)
-    City &city = City::instance();
     std::vector<std::vector<Entity *>> emptyGrid(3, std::vector<Entity *>(3, nullptr));
 
     // Assign the empty grid to the city
-    city.getGrid() = emptyGrid;
+    city->getGrid() = emptyGrid;
 
     // Set tax rates for the city using setters
-    city.setResidentialTax(10); // 10% residential tax
-    city.setEconomicTax(20);    // 20% economic tax
+    city->setResidentialTax(10); // 10% residential tax
+    city->setEconomicTax(20);    // 20% economic tax
 
     // Create a TaxCalculationVisitor instance
     TaxCalculationVisitor taxVisitor;
 
     // Let the visitor visit the city
-    city.accept(taxVisitor);
+    city->accept(taxVisitor);
 
     // Check that no taxes were collected
     CHECK(taxVisitor.getTotalResidentialTax() == 0);

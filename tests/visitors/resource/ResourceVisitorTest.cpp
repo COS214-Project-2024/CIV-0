@@ -8,7 +8,7 @@
 TEST_CASE("ResourceVisitorTest - Collect resources from entities")
 {
     // Create a city instance
-    City &city = City::instance();
+    City *city = City::instance();
 
     // Mocking the city grid with different resource-producing entities
     std::vector<std::vector<Entity *>> mockGrid = {
@@ -16,14 +16,14 @@ TEST_CASE("ResourceVisitorTest - Collect resources from entities")
         {nullptr, new StoneProducer(EntityConfig(), Size::LARGE, 1, 0), nullptr},
         {new WoodProducer(EntityConfig(), Size::LARGE, 2, 0), new StoneProducer(EntityConfig(), Size::SMALL, 2, 1), nullptr}};
 
-    // Assign this mock grid to the city (assuming City has a method to set grid for testing purposes)
-    city.getGrid() = mockGrid;
+    // Assign this mock grid to the city
+    city->getGrid() = mockGrid;
 
     // Create a ResourceVisitor instance
     ResourceVisitor resourceVisitor;
 
     // Let the visitor visit the city
-    city.accept(resourceVisitor);
+    city->accept(resourceVisitor);
 
     // Check the totals collected by the ResourceVisitor
     // Each resource producer produces 20 units
@@ -43,18 +43,20 @@ TEST_CASE("ResourceVisitorTest - Collect resources from entities")
 
 TEST_CASE("ResourceVisitorTest - Empty grid produces no resources")
 {
+    // Create a city instance
+    City *city = City::instance();
+
     // Create an empty city grid (all nullptrs)
-    City &city = City::instance();
     std::vector<std::vector<Entity *>> emptyGrid(3, std::vector<Entity *>(3, nullptr));
 
     // Assign the empty grid to the city
-    city.getGrid() = emptyGrid;
+    city->getGrid() = emptyGrid;
 
     // Create a ResourceVisitor instance
     ResourceVisitor resourceVisitor;
 
     // Let the visitor visit the empty city
-    city.accept(resourceVisitor);
+    city->accept(resourceVisitor);
 
     // Check that no resources were collected
     CHECK(resourceVisitor.getTotalWood() == 0);
@@ -65,7 +67,7 @@ TEST_CASE("ResourceVisitorTest - Empty grid produces no resources")
 TEST_CASE("ResourceVisitorTest - Single resource producer in grid")
 {
     // Create a city instance
-    City &city = City::instance();
+    City *city = City::instance();
 
     // Mocking the city grid with one wood producer
     std::vector<std::vector<Entity *>> mockGrid = {
@@ -74,13 +76,13 @@ TEST_CASE("ResourceVisitorTest - Single resource producer in grid")
         {nullptr, nullptr, nullptr}};
 
     // Assign the grid to the city
-    city.getGrid() = mockGrid;
+    city->getGrid() = mockGrid;
 
     // Create a ResourceVisitor instance
     ResourceVisitor resourceVisitor;
 
     // Let the visitor visit the city
-    city.accept(resourceVisitor);
+    city->accept(resourceVisitor);
 
     // Check the totals collected by the ResourceVisitor
     CHECK(resourceVisitor.getTotalWood() == 20);    // 1 wood producer * 20
