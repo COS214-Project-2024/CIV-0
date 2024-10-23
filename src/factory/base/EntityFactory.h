@@ -1,7 +1,9 @@
 #ifndef ENTITYFACTORY_H
 #define ENTITYFACTORY_H
-#include "Entity.h"
-#include "EntityType.h"
+#include "entities/base/Entity.h"
+#include "utils/EntityType.h"
+#include "entities/base/Entity.h"
+#include "utils/Size.h"
 class EntityFactory
 {
 public:

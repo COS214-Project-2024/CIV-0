@@ -1,8 +1,9 @@
 #ifndef TRANSPORTFACTORY_H
 #define TRANSPORTFACTORY_H
 
-#include "EntityFactory.h"
-#include "Size.h"
+#include "factory/base/EntityFactory.h"
+
+
 
 class TransportFactory : EntityFactory {
    public:
