@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <algorithm>
+#include <limits>
 
 /**
  * @brief Represents a menu option with a custom key, icon, and text.
