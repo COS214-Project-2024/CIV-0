@@ -1,6 +1,6 @@
 #include "WaterSupply.h"
 
-WaterSupply::WaterSupply() {}
+WaterSupply::WaterSupply() : Utility() {}
 WaterSupply::~WaterSupply() {}
 
 WaterSupply::WaterSupply(EntityConfig ec, Size size, int xPos, int yPos) : Utility(ec, size, xPos, yPos)
@@ -23,10 +23,14 @@ void WaterSupply::update()
             rb->updateUtility(this);
         }
     }
+
+    // This is for updating the build state (it should run once per game loop)
+    if (!isBuilt()) {
+        updateBuildState();
+    }
 }
 
 Entity* WaterSupply::clone()
 {
-    Entity* e = new WaterSupply(*ec, size, xPosition, yPosition);
-    return e;
+    return new WaterSupply(this);
 }

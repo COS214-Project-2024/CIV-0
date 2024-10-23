@@ -1,6 +1,6 @@
 #include "WasteManagement.h"
 
-WasteManagement::WasteManagement() {}
+WasteManagement::WasteManagement() : Utility() {}
 WasteManagement::~WasteManagement() {}
 
 WasteManagement::WasteManagement(EntityConfig ec, Size size, int xPos, int yPos) : Utility(ec, size, xPos, yPos)
@@ -12,7 +12,8 @@ WasteManagement::WasteManagement(WasteManagement* wasteManagement) : Utility(was
 
 }
 
-void WasteManagement::update() {
+void WasteManagement::update()
+{
     for(Observer* o : subscribers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
@@ -31,6 +32,5 @@ void WasteManagement::update() {
 
 Entity* WasteManagement::clone()
 {
-    Entity* e = new WasteManagement(*ec, size, xPosition, yPosition);
-    return e;
+    return new WasteManagement(this);
 }
