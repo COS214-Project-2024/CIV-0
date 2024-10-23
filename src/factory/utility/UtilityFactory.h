@@ -2,7 +2,7 @@
 #define UTILITYFACTORY_H
 
 #include "factory/base/EntityFactory.h"
-
+#include "entities/base/Entity.h"
 class UtilityFactory : EntityFactory {
    public:
 	UtilityFactory();
