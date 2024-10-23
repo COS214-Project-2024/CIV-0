@@ -313,11 +313,13 @@ void BuyMenu::confirmPurchase(EntityType type, Size size, int xPos, int yPos)
 
     if (confirmation == 'y')
     {
-        std::cout << BOLD_YELLOW << "Purchase confirmed!" << RESET << std::endl;
+        displaySuccessMessage("Purchase successfull!");
+        displayPressEnterToContinue();
         MenuManager::instance().setCurrentMenu(Menu::MAIN);
     }
     else
     {
-        std::cout << BOLD_YELLOW << "Purchase cancelled." << RESET << std::endl;
+        displayErrorMessage("Purchase cancelled.");
+        displayPressEnterToContinue();
     }
 }
