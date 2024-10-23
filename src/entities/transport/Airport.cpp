@@ -28,6 +28,5 @@ void Airport::update()
 
 Entity* Airport::clone()
 {
-    Entity* e = new Airport(*ec, size, xPosition, yPosition);
-    return e;
+    return new Airport(this);
 }

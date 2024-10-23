@@ -28,6 +28,5 @@ void TrainStation::update()
 
 Entity* TrainStation::clone()
 {
-    Entity* e = new TrainStation(*ec, size, xPosition, yPosition);
-    return e;
+    return new TrainStation(this);
 }

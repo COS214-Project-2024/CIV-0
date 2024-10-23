@@ -28,6 +28,5 @@ void BusStop::update()
 
 Entity* BusStop::clone()
 {
-    Entity* e = new BusStop(*ec, size, xPosition, yPosition);
-    return e;
+    return new BusStop(this);
 }
