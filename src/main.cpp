@@ -1,7 +1,8 @@
 #include <iostream>
+#include "city/CivZero.h"
 
 int main()
 {
-    std::cout << "Hello, World!" << std::endl;
+    CivZero::instance().startGame();
     return 0;
 }
