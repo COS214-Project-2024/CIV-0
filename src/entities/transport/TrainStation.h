@@ -8,6 +8,7 @@ class TrainStation : public Transport
 public:
     TrainStation();
     TrainStation(EntityConfig ec, Size size, int xPos, int yPos);
+    TrainStation(TrainStation* TrainStation);
     virtual ~TrainStation();
     void update();
     Entity* clone();

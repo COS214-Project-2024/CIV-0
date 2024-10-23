@@ -10,6 +10,7 @@ class Transport : public Entity, public Subject
 public:
     Transport();
     Transport(EntityConfig ec, Size size, int xPos, int yPos);
+    Transport(Transport* transport);
     virtual ~Transport();
     virtual void update() = 0;
     virtual Entity* clone() = 0;

@@ -5,6 +5,11 @@ TrainStation::TrainStation(EntityConfig ec, Size size, int xPos, int yPos) : Tra
 
 }
 
+TrainStation::TrainStation(TrainStation* trainStation) : Transport(trainStation)
+{
+
+}
+
 TrainStation::TrainStation() {}
 TrainStation::~TrainStation() {}
 

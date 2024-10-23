@@ -5,6 +5,11 @@ BusStop::BusStop(EntityConfig ec, Size size, int xPos, int yPos) : Transport(ec,
 
 }
 
+BusStop::BusStop(BusStop* busStop) : Transport(busStop)
+{
+
+}
+
 BusStop::BusStop() {}
 BusStop::~BusStop() {}
 

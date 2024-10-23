@@ -5,6 +5,11 @@ Airport::Airport(EntityConfig ec, Size size, int xPos, int yPos) : Transport(ec,
 
 }
 
+Airport::Airport(Airport* airport) : Transport(airport)
+{
+
+}
+
 Airport::Airport() {}
 Airport::~Airport() {}
 
