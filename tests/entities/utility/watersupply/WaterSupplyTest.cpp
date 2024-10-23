@@ -51,7 +51,12 @@ TEST_SUITE("WaterSupply Tests") {
     TEST_CASE("Update Method Test") {
         WaterSupply waterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 10, 10);
         CHECK(waterSupply.isBuilt() == false);
-        waterSupply.update();
+        
+        // This simulates the game looping
+        while (!waterSupply.isBuilt()) {
+            waterSupply.update();
+        }
+
         CHECK(waterSupply.isBuilt() == true);
     }
 
@@ -73,7 +78,7 @@ TEST_SUITE("WaterSupply Tests") {
     }
 
     TEST_CASE("isWithinEffectRadius Test") {
-        WaterSupply baseWaterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 10, 10);
+        WaterSupply baseWaterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 0, 0);
         
         SUBCASE("WaterSupply within radius") {
             WaterSupply nearbyWaterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 10, 10);
@@ -81,17 +86,17 @@ TEST_SUITE("WaterSupply Tests") {
         }
 
         SUBCASE("WaterSupply outside radius") {
-            WaterSupply farWaterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 10, 10);
+            WaterSupply farWaterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 20, 20);
             CHECK(baseWaterSupply.isWithinEffectRadius(&farWaterSupply) == false);
         }
 
         SUBCASE("WaterSupply exactly on border") {
-            WaterSupply borderWaterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 10, 10);
+            WaterSupply borderWaterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 14, 14);
             CHECK(baseWaterSupply.isWithinEffectRadius(&borderWaterSupply) == false);
         }
 
         SUBCASE("WaterSupply partially overlaps with radius") {
-            WaterSupply partialOverlapWaterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 10, 10);
+            WaterSupply partialOverlapWaterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 13, 13);
             CHECK(baseWaterSupply.isWithinEffectRadius(&partialOverlapWaterSupply) == true);
         }
     }

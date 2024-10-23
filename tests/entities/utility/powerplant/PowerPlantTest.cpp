@@ -51,7 +51,12 @@ TEST_SUITE("PowerPlant Tests") {
     TEST_CASE("Update Method Test") {
         PowerPlant powerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE), Size::LARGE, 0, 0);
         CHECK(powerPlant.isBuilt() == false);
-        powerPlant.update();
+
+        // This simulates the game looping
+        while (!powerPlant.isBuilt()) {
+            powerPlant.update();
+        }
+        
         CHECK(powerPlant.isBuilt() == true);
     }
 
@@ -86,12 +91,12 @@ TEST_SUITE("PowerPlant Tests") {
         }
 
         SUBCASE("PowerPlant exactly on border") {
-            PowerPlant borderPowerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE), Size::LARGE, 15, 15);
+            PowerPlant borderPowerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE), Size::LARGE, 42, 42);
             CHECK(basePowerPlant.isWithinEffectRadius(&borderPowerPlant) == false);
         }
 
         SUBCASE("PowerPlant partially overlaps with radius") {
-            PowerPlant partialOverlapPowerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE), Size::LARGE, 9, 9);
+            PowerPlant partialOverlapPowerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE), Size::LARGE, 41, 41);
             CHECK(basePowerPlant.isWithinEffectRadius(&partialOverlapPowerPlant) == true);
         }
     }

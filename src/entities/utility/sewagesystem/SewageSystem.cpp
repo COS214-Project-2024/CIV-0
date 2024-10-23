@@ -32,5 +32,5 @@ void SewageSystem::update()
 
 Entity* SewageSystem::clone()
 {
-    return new SewageSystem(*ec, size, xPosition, yPosition);
+    return new SewageSystem(this);
 }

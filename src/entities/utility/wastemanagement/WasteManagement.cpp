@@ -32,5 +32,5 @@ void WasteManagement::update()
 
 Entity* WasteManagement::clone()
 {
-    return new WasteManagement(*ec, size, xPosition, yPosition);
+    return new WasteManagement(this);
 }

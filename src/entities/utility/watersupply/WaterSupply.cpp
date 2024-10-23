@@ -32,5 +32,5 @@ void WaterSupply::update()
 
 Entity* WaterSupply::clone()
 {
-    return new WaterSupply(*ec, size, xPosition, yPosition);
+    return new WaterSupply(this);
 }

@@ -24,7 +24,7 @@ TEST_SUITE("WasteManagement Tests") {
 
     TEST_CASE("Copy Constructor Test") {
         WasteManagement wasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
-        WasteManagement copiedWasteManagement(wasteManagement);
+        WasteManagement copiedWasteManagement(&wasteManagement);
         CHECK(copiedWasteManagement.getXPosition() == wasteManagement.getXPosition());
         CHECK(copiedWasteManagement.getYPosition() == wasteManagement.getYPosition());
         CHECK(copiedWasteManagement.getWidth() == wasteManagement.getWidth());
@@ -51,7 +51,12 @@ TEST_SUITE("WasteManagement Tests") {
     TEST_CASE("Update Method Test") {
         WasteManagement wasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
         CHECK(wasteManagement.isBuilt() == false);
-        wasteManagement.update();
+
+        // This simulates the game looping
+        while (!wasteManagement.isBuilt()) {
+            wasteManagement.update();
+        }
+
         CHECK(wasteManagement.isBuilt() == true);
     }
 
@@ -73,15 +78,15 @@ TEST_SUITE("WasteManagement Tests") {
     }
 
     TEST_CASE("isWithinEffectRadius Test") {
-        WasteManagement baseWasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
+        WasteManagement baseWasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 0, 0);
         
         SUBCASE("WasteManagement within radius") {
-            WasteManagement nearbyWasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
+            WasteManagement nearbyWasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 5, 5);
             CHECK(baseWasteManagement.isWithinEffectRadius(&nearbyWasteManagement) == true);
         }
 
         SUBCASE("WasteManagement outside radius") {
-            WasteManagement farWasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
+            WasteManagement farWasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 15, 15);
             CHECK(baseWasteManagement.isWithinEffectRadius(&farWasteManagement) == false);
         }
 
@@ -91,7 +96,7 @@ TEST_SUITE("WasteManagement Tests") {
         }
 
         SUBCASE("WasteManagement partially overlaps with radius") {
-            WasteManagement partialOverlapWasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
+            WasteManagement partialOverlapWasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 9, 9);
             CHECK(baseWasteManagement.isWithinEffectRadius(&partialOverlapWasteManagement) == true);
         }
     }

@@ -32,5 +32,5 @@ void PowerPlant::update()
 
 Entity* PowerPlant::clone()
 {
-    return new PowerPlant(*ec, size, xPosition, yPosition);
+    return new PowerPlant(this);
 }

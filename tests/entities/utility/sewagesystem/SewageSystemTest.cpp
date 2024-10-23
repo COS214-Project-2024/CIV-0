@@ -51,7 +51,12 @@ TEST_SUITE("SewageSystem Tests") {
     TEST_CASE("Update Method Test") {
         SewageSystem sewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
         CHECK(sewageSystem.isBuilt() == false);
-        sewageSystem.update();
+        
+        // This simulates the game looping
+        while (!sewageSystem.isBuilt()) {
+            sewageSystem.update();
+        }
+
         CHECK(sewageSystem.isBuilt() == true);
     }
 
@@ -73,15 +78,15 @@ TEST_SUITE("SewageSystem Tests") {
     }
 
     TEST_CASE("isWithinEffectRadius Test") {
-        SewageSystem baseSewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
+        SewageSystem baseSewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 0, 0);
         
         SUBCASE("SewageSystem within radius") {
-            SewageSystem nearbySewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
+            SewageSystem nearbySewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 5, 5);
             CHECK(baseSewageSystem.isWithinEffectRadius(&nearbySewageSystem) == true);
         }
 
         SUBCASE("SewageSystem outside radius") {
-            SewageSystem farSewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
+            SewageSystem farSewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 15, 15);
             CHECK(baseSewageSystem.isWithinEffectRadius(&farSewageSystem) == false);
         }
 
@@ -91,7 +96,7 @@ TEST_SUITE("SewageSystem Tests") {
         }
 
         SUBCASE("SewageSystem partially overlaps with radius") {
-            SewageSystem partialOverlapSewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
+            SewageSystem partialOverlapSewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 9, 9);
             CHECK(baseSewageSystem.isWithinEffectRadius(&partialOverlapSewageSystem) == true);
         }
     }
