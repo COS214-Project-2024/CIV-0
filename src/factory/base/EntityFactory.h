@@ -2,7 +2,7 @@
 #define ENTITYFACTORY_H
 #include "entities/base/Entity.h"
 #include "utils/EntityType.h"
-#include "entities/base/Entity.h"
+#include "utils/ConfigManager.h"
 #include "utils/Size.h"
 class EntityFactory
 {

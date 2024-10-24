@@ -16,9 +16,7 @@ class UtilityFactory : EntityFactory {
     Entity* createWaterSupply(Size size, int xPos, int yPos);
     Entity* createWasteManagement(Size size, int xPos, int yPos);
     Entity* createSewageSystem(Size size, int xPos, int yPos);
-    Entity* createConcreteProducer(Size size, int xPos, int yPos);
-    Entity* createStoneProducer(Size size, int xPos, int yPos);
-    Entity* createWoodProducer(Size size, int xPos, int yPos);
+
 };
 
 #endif

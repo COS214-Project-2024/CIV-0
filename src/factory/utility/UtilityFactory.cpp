@@ -39,16 +39,3 @@ Entity * UtilityFactory::createSewageSystem(Size size, int xPos, int yPos)
 return nullptr;
 }
 
-Entity* UtilityFactory::createConcreteProducer(Size size, int xPos, int yPos) {
-    return nullptr;
-}
-
-Entity * UtilityFactory::createStoneProducer(Size size, int xPos, int yPos)
-{
-return nullptr;
-}
-
-Entity * UtilityFactory::createWoodProducer(Size size, int xPos, int yPos)
-{
-return nullptr;
-}
