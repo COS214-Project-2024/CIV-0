@@ -2,6 +2,8 @@
 #define ECONOMICBUILDINGFACTORY_H
 
 #include "factory/base/EntityFactory.h"
+#include "entities/building/economic/Factory.h"
+#include "entities/building/economic/ShoppingMall.h"
 
 class EconomicBuildingFactory : EntityFactory
 {
