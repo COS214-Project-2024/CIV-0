@@ -10,6 +10,7 @@ class EconomicBuilding : public Building, public Subject
 public:
     EconomicBuilding();
     EconomicBuilding(EntityConfig ec, Size size, int xPos, int yPos);
+    EconomicBuilding(EconomicBuilding* economic);
     virtual ~EconomicBuilding();
 
     virtual void update() = 0;

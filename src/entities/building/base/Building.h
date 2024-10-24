@@ -8,6 +8,7 @@ class Building : public Entity
 public:
     Building();
     Building(EntityConfig ec, Size size, int xPos, int yPos);
+    Building(Building* building);
     virtual ~Building();
 
     virtual void update() = 0;
