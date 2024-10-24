@@ -8,6 +8,11 @@ ShoppingMall::ShoppingMall(EntityConfig ec, Size size, int xPos, int yPos) : Eco
 
 }
 
+ShoppingMall::ShoppingMall(ShoppingMall* mall) : EconomicBuilding(mall)
+{
+    
+}
+
 void ShoppingMall::update()
 {
     for(Observer* o : subscribers)
@@ -23,6 +28,5 @@ void ShoppingMall::update()
 
 Entity* ShoppingMall::clone()
 {
-    Entity* e = new ShoppingMall(*ec, size, xPosition, yPosition);
-    return e;
+    return new ShoppingMall(this);
 }

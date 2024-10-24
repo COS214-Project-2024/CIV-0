@@ -8,7 +8,8 @@ class ShoppingMall : public EconomicBuilding
 public:
     ShoppingMall();
     ShoppingMall(EntityConfig ec, Size size, int xPos, int yPos);
-    virtual ~ShoppingMall();
+    ShoppingMall(ShoppingMall* mall);
+    ~ShoppingMall();
 
     void update();
     Entity* clone();

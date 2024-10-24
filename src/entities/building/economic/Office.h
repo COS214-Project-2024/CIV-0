@@ -8,7 +8,8 @@ class Office : public EconomicBuilding
 public:
     Office();
     Office(EntityConfig ec, Size size, int xPos, int yPos);
-    virtual ~Office();
+    Office(Office* office);
+    ~Office();
 
     void update();
     Entity* clone();

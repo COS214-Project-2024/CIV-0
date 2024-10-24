@@ -8,7 +8,8 @@ class Factory : public EconomicBuilding
 public:
     Factory();
     Factory(EntityConfig ec, Size size, int xPos, int yPos);
-    virtual ~Factory();
+    Factory(Factory* factory);
+    ~Factory();
 
     void update();
     Entity* clone();
