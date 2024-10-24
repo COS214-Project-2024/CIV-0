@@ -28,6 +28,5 @@ void Theater::update()
 
 Entity* Theater::clone()
 {
-    Entity* e = new Theater(*ec, size, xPosition, yPosition);
-    return e;
+    return new Theater(this);
 }
