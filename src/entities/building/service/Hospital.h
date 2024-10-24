@@ -8,7 +8,8 @@ class Hospital : public ServiceBuilding
 public:
     Hospital();
     Hospital(EntityConfig ec, Size size, int xPos, int yPos);
-    virtual ~Hospital();
+    Hospital(Hospital* Hospital);
+    ~Hospital();
 
     void update();
     Entity* clone();

@@ -10,6 +10,7 @@ class ServiceBuilding : public Building, public Subject
 public:
     ServiceBuilding();
     ServiceBuilding(EntityConfig ec, Size size, int xPos, int yPos);
+    ServiceBuilding(ServiceBuilding* service);
     virtual ~ServiceBuilding();
 
     virtual void update() = 0;

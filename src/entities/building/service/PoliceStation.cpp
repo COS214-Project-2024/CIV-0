@@ -8,6 +8,11 @@ PoliceStation::PoliceStation(EntityConfig ec, Size size, int xPos, int yPos) : S
 
 }
 
+PoliceStation::PoliceStation(PoliceStation* police) : ServiceBuilding(police)
+{
+    
+}
+
 void PoliceStation::update()
 {
     for(Observer* o : subscribers)

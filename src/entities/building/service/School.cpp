@@ -8,6 +8,11 @@ School::School(EntityConfig ec, Size size, int xPos, int yPos) : ServiceBuilding
 
 }
 
+School::School(School* school) : ServiceBuilding(school)
+{
+    
+}
+
 void School::update()
 {
     for(Observer* o : subscribers)

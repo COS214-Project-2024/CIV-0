@@ -8,7 +8,8 @@ class School : public ServiceBuilding
 public:
     School();
     School(EntityConfig ec, Size size, int xPos, int yPos);
-    virtual ~School();
+    School(School* school);
+    ~School();
 
     void update();
     Entity* clone();

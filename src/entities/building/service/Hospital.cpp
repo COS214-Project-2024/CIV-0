@@ -8,6 +8,11 @@ Hospital::Hospital(EntityConfig ec, Size size, int xPos, int yPos) : ServiceBuil
 
 }
 
+Hospital::Hospital(Hospital* hospital) : ServiceBuilding(hospital)
+{
+    
+}
+
 void Hospital::update()
 {
     for(Observer* o : subscribers)
