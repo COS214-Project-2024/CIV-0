@@ -46,7 +46,7 @@ public:
      * 
      * Ensures proper cleanup of resources when an Airport object is destroyed.
      */
-    virtual ~Airport();
+    ~Airport();
 
     /**
      * @brief Updates the state of the airport entity.

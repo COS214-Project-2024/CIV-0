@@ -46,7 +46,7 @@ public:
      * 
      * Ensures proper cleanup of resources when a TrainStation object is destroyed.
      */
-    virtual ~TrainStation();
+    ~TrainStation();
 
     /**
      * @brief Updates the state of the train station entity.

@@ -46,7 +46,7 @@ public:
      * 
      * Ensures proper cleanup of resources when a BusStop object is destroyed.
      */
-    virtual ~BusStop();
+    ~BusStop();
 
     /**
      * @brief Updates the state of the bus stop entity.
