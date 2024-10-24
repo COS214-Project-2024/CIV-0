@@ -3,11 +3,20 @@
 
 #include "ElectricityPolicy.h"
 
-class HighElectricityPolicy : public ElectricityPolicy
-{
+/**
+ * @brief Concrete strategy for high electricity policy.
+ * 
+ * Increases electricity usage by applying a high usage factor.
+ */
+class HighElectricityPolicy : public ElectricityPolicy {
 public:
-    HighElectricityPolicy();
-    ~HighElectricityPolicy();
+    /**
+     * @brief Overrides calculateElectricityUsage to increase electricity usage.
+     * 
+     * @param electricityUsage Initial electricity usage.
+     * @return int Increased electricity usage (e.g., 125% of the original).
+     */
+    int calculateElectricityUsage(int electricityUsage) override;
 };
 
-#endif // HIGHELECTRICITYPOLICY_H
+#endif
