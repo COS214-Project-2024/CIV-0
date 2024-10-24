@@ -1,22 +1,67 @@
-#ifndef TRANSPORTFACTORY_H
-#define TRANSPORTFACTORY_H
+#include "TransportFactory.h"
+TransportFactory::TransportFactory() {
 
-#include "factory/base/EntityFactory.h"
+}
+TransportFactory::~TransportFactory() {
+    
+}
 
+Entity* TransportFactory::createSmallEntity(EntityType type, int xPos, int yPos) {
+    switch (type) {
+        case EntityType::BUSSTOP:
+            return createBusStop(Size::SMALL, xPos, yPos);
+            break;
+        case EntityType::TRAINSTATION:
+            return createTrainStation(Size::SMALL, xPos, yPos);
+            break;
+        case EntityType::AIRPORT:
+            return createAirport(Size::SMALL, xPos, yPos);
+            break;
+        default:
+            return nullptr;
+    }
+}
 
+Entity* TransportFactory::createMediumEntity(EntityType type, int xPos, int yPos) {
+    switch (type) {
+        case EntityType::BUSSTOP:
+            return createBusStop(Size::MEDIUM, xPos, yPos);
+            break;
+        case EntityType::TRAINSTATION:
+            return createTrainStation(Size::MEDIUM, xPos, yPos);
+            break;
+        case EntityType::AIRPORT:
+            return createAirport(Size::MEDIUM, xPos, yPos);
+            break;
+        default:
+            return nullptr;
+    }
+}
 
-class TransportFactory : EntityFactory {
-   public:
-    TransportFactory();
-    ~TransportFactory();
-    virtual Entity* createSmallEntity(EntityType type, int xPos, int yPos);
-    virtual Entity* createMediumEntity(EntityType type, int xPos, int yPos);
-    virtual Entity* createLargeEntity(EntityType type, int xPos, int yPos);
+Entity* TransportFactory::createLargeEntity(EntityType type, int xPos, int yPos) {
+    switch (type) {
+        case EntityType::BUSSTOP:
+            return createBusStop(Size::LARGE, xPos, yPos);
+            break;
+        case EntityType::TRAINSTATION:
+            return createTrainStation(Size::LARGE, xPos, yPos);
+            break;
+        case EntityType::AIRPORT:
+            return createAirport(Size::LARGE, xPos, yPos);
+            break;
+        default:
+            return nullptr;
+    }
+}
 
-   private:
-    Entity* createBusStop(Size size, int xPos, int yPos);
-    Entity* createTrainStation(Size size, int xPos, int yPos);
-    Entity* createAirport(Size size, int xPos, int yPos);
-};
+Entity* TransportFactory::createBusStop(Size size, int xPos, int yPos) {
+    return new BusStop(ConfigManager::getEntityConfig(EntityType::BUSSTOP, size), size, xPos, yPos);
+}
 
-#endif
+Entity* TransportFactory::createTrainStation(Size size, int xPos, int yPos) {
+    return new TrainStation(ConfigManager::getEntityConfig(EntityType::TRAINSTATION, size), size, xPos, yPos);
+}
+
+Entity* TransportFactory::createAirport(Size size, int xPos, int yPos) {
+    return new Airport(ConfigManager::getEntityConfig(EntityType::AIRPORT, size), size, xPos, yPos);
+}

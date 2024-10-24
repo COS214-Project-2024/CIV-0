@@ -3,6 +3,11 @@
 
 #include "factory/base/EntityFactory.h"
 #include "entities/base/Entity.h"
+#include "entities/utility/powerplant/PowerPlant.h"
+#include "entities/utility/watersupply/WaterSupply.h"
+#include "entities/utility/wastemanagement/WasteManagement.h"
+#include "entities/utility/sewagesystem/SewageSystem.h"
+
 class UtilityFactory : EntityFactory {
    public:
     UtilityFactory();
