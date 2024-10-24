@@ -1,13 +1,32 @@
-#ifndef TRANSPORTFACTORY_H
-#define TRANSPORTFACTORY_H
+#include "TransportFactory.h"
 
-#include "factory/base/EntityFactory.h"
+TransportFactory::TransportFactory() {
 
-class TransportFactory : EntityFactory
-{
-public:
-    TransportFactory();
-    ~TransportFactory();
-};
+}
+TransportFactory::~TransportFactory() {
+    
+}
 
-#endif // TRANSPORTFACTORY_H
+Entity* TransportFactory::createSmallEntity(EntityType type, int xPos, int yPos) {
+    return nullptr;
+}
+
+Entity* TransportFactory::createMediumEntity(EntityType type, int xPos, int yPos) {
+    return nullptr;
+}
+
+Entity* TransportFactory::createLargeEntity(EntityType type, int xPos, int yPos) {
+    return nullptr;
+}
+
+Entity* TransportFactory::createBusStop(Size size, int xPos, int yPos) {
+    return nullptr;
+}
+
+Entity* TransportFactory::createTrainStation(Size size, int xPos, int yPos) {
+    return nullptr;
+}
+
+Entity* TransportFactory::createAirport(Size size, int xPos, int yPos) {
+    return nullptr;
+}
