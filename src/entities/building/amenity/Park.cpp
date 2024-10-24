@@ -8,11 +8,6 @@ Park::Park(EntityConfig ec, Size size, int xPos, int yPos) : Amenity(ec, size, x
 
 }
 
-Park::Park(Park* park) : Amenity(park)
-{
-    
-}
-
 void Park::update()
 {
     for(Observer* o : subscribers)

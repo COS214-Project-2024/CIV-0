@@ -8,11 +8,6 @@ Theater::Theater(EntityConfig ec, Size size, int xPos, int yPos) : Amenity(ec, s
 
 }
 
-Theater::Theater(Theater* theater) : Amenity(theater)
-{
-    
-}
-
 void Theater::update()
 {
     for(Observer* o : subscribers)

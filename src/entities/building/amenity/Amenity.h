@@ -10,7 +10,6 @@ class Amenity : public Building, public Subject
 public:
     Amenity();
     Amenity(EntityConfig ec, Size size, int xPos, int yPos);
-    Amenity(Amenity* amenity);
     virtual ~Amenity();
 
     virtual void update() = 0;

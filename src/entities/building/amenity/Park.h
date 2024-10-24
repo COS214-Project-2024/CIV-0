@@ -8,8 +8,7 @@ class Park : public Amenity
 public:
     Park();
     Park(EntityConfig ec, Size size, int xPos, int yPos);
-    Park(Park* park);
-    ~Park();
+    virtual ~Park();
 
     void update();
     Entity* clone();
