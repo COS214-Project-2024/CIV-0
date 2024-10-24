@@ -2,7 +2,8 @@
 
 UtilityFactory::UtilityFactory() {
 }
-UtilityFactory::~UtilityFactory() {
+UtilityFactory::~UtilityFactory()
+{
 }
 
 Entity* UtilityFactory::createSmallEntity(EntityType type, int xPos, int yPos) {

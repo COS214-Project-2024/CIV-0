@@ -2,6 +2,9 @@
 #define SERVICEBUILDINGFACTORY_H
 
 #include "factory/base/EntityFactory.h"
+#include "entities/building/service/Hospital.h"
+#include "entities/building/service/PoliceStation.h"
+#include "entities/building/service/School.h"
 
 class ServiceBuildingFactory : EntityFactory
 {
