@@ -10,7 +10,7 @@ PoliceStation::PoliceStation(EntityConfig ec, Size size, int xPos, int yPos) : S
 
 PoliceStation::PoliceStation(PoliceStation* police) : ServiceBuilding(police)
 {
-    
+
 }
 
 void PoliceStation::update()
@@ -28,6 +28,5 @@ void PoliceStation::update()
 
 Entity* PoliceStation::clone()
 {
-    Entity* e = new PoliceStation(*ec, size, xPosition, yPosition);
-    return e;
+    return new PoliceStation(this);
 }

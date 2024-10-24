@@ -10,7 +10,7 @@ Hospital::Hospital(EntityConfig ec, Size size, int xPos, int yPos) : ServiceBuil
 
 Hospital::Hospital(Hospital* hospital) : ServiceBuilding(hospital)
 {
-    
+
 }
 
 void Hospital::update()
@@ -28,6 +28,5 @@ void Hospital::update()
 
 Entity* Hospital::clone()
 {
-    Entity* e = new Hospital(*ec, size, xPosition, yPosition);
-    return e;
+    return new Hospital(this);
 }

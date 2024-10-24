@@ -10,7 +10,7 @@ School::School(EntityConfig ec, Size size, int xPos, int yPos) : ServiceBuilding
 
 School::School(School* school) : ServiceBuilding(school)
 {
-    
+
 }
 
 void School::update()
@@ -28,6 +28,5 @@ void School::update()
 
 Entity* School::clone()
 {
-    Entity* e = new School(*ec, size, xPosition, yPosition);
-    return e;
+    return new School(this);
 }
