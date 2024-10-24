@@ -7,3 +7,8 @@ EconomicBuilding::EconomicBuilding(EntityConfig ec, Size size, int xPos, int yPo
 {
 
 }
+
+EconomicBuilding::EconomicBuilding(EconomicBuilding* economic) : Building(economic)
+{
+
+}
