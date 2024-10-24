@@ -8,6 +8,11 @@ Office::Office(EntityConfig ec, Size size, int xPos, int yPos) : EconomicBuildin
 
 }
 
+Office::Office(Office* office) : EconomicBuilding(office)
+{
+    
+}
+
 void Office::update()
 {
     for(Observer* o : subscribers)
@@ -19,10 +24,14 @@ void Office::update()
             rb->updateOffice(this);
         }
     }
+
+    // This is for updating the build state (it should run once per game loop)
+    if (!isBuilt()) {
+        updateBuildState();
+    }
 }
 
 Entity* Office::clone()
 {
-    Entity* e = new Office(*ec, size, xPosition, yPosition);
-    return e;
+    return new Office(this);
 }

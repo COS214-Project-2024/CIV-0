@@ -8,6 +8,11 @@ Factory::Factory(EntityConfig ec, Size size, int xPos, int yPos) : EconomicBuild
 
 }
 
+Factory::Factory(Factory* factory) : EconomicBuilding(factory)
+{
+
+}
+
 void Factory::update()
 {
     for(Observer* o : subscribers)
@@ -19,10 +24,14 @@ void Factory::update()
             rb->updateFactory(this);
         }
     }
+
+    // This is for updating the build state (it should run once per game loop)
+    if (!isBuilt()) {
+        updateBuildState();
+    }
 }
 
 Entity* Factory::clone()
 {
-    Entity* e = new Factory(*ec, size, xPosition, yPosition);
-    return e;
+    return new Factory(this);
 }
