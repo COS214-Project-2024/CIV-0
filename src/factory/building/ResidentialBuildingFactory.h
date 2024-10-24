@@ -2,7 +2,8 @@
 #define RESIDENTIALBUILDINGFACTORY_H
 
 #include "factory/base/EntityFactory.h"
-
+#include "entities/building/residential/House.h"
+#include "entities/building/residential/Apartment.h"
 class ResidentialBuildingFactory : EntityFactory
 {
 public:
