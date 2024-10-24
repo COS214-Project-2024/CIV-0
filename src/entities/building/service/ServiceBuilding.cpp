@@ -7,3 +7,8 @@ ServiceBuilding::ServiceBuilding(EntityConfig ec, Size size, int xPos, int yPos)
 {
 
 }
+
+ServiceBuilding::ServiceBuilding(ServiceBuilding* service) : Building(service)
+{
+
+}
