@@ -8,6 +8,11 @@ Monument::Monument(EntityConfig ec, Size size, int xPos, int yPos) : Amenity(ec,
 
 }
 
+Monument::Monument(Monument* monument) : Amenity(monument)
+{
+    
+}
+
 void Monument::update()
 {
     for(Observer* o : subscribers)

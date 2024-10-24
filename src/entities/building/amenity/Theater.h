@@ -8,7 +8,8 @@ class Theater : public Amenity
 public:
     Theater();
     Theater(EntityConfig ec, Size size, int xPos, int yPos);
-    virtual ~Theater();
+    Theater(Theater* theater);
+    ~Theater();
 
     void update();
     Entity* clone();

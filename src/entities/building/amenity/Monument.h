@@ -8,7 +8,8 @@ class Monument : public Amenity
 public:
     Monument();
     Monument(EntityConfig ec, Size size, int xPos, int yPos);
-    virtual ~Monument();
+    Monument(Monument* monument);
+    ~Monument();
 
     void update();
     Entity* clone();
