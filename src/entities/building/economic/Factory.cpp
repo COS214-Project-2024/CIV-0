@@ -10,7 +10,7 @@ Factory::Factory(EntityConfig ec, Size size, int xPos, int yPos) : EconomicBuild
 
 Factory::Factory(Factory* factory) : EconomicBuilding(factory)
 {
-    
+
 }
 
 void Factory::update()
@@ -23,6 +23,11 @@ void Factory::update()
         {
             rb->updateFactory(this);
         }
+    }
+
+    // This is for updating the build state (it should run once per game loop)
+    if (!isBuilt()) {
+        updateBuildState();
     }
 }
 
