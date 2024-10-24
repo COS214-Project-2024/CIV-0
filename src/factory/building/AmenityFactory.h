@@ -2,7 +2,9 @@
 #define AMENITYFACTORY_H
 
 #include "factory/base/EntityFactory.h"
-
+#include "entities/building/amenity/Park.h"
+#include "entities/building/amenity/Theater.h"
+#include "entities/building/amenity/Monument.h"
 class AmenityFactory : public EntityFactory
 {
 public:
