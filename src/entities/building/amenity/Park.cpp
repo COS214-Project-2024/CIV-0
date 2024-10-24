@@ -28,5 +28,6 @@ void Park::update()
 
 Entity* Park::clone()
 {
-    return new Park(this);
+    Entity* e = new Park(*ec, size, xPosition, yPosition);
+    return e;
 }

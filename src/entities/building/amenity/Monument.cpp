@@ -10,7 +10,7 @@ Monument::Monument(EntityConfig ec, Size size, int xPos, int yPos) : Amenity(ec,
 
 Monument::Monument(Monument* monument) : Amenity(monument)
 {
-
+    
 }
 
 void Monument::update()
@@ -28,5 +28,6 @@ void Monument::update()
 
 Entity* Monument::clone()
 {
-    return new Monument(this);
+    Entity* e = new Monument(*ec, size, xPosition, yPosition);
+    return e;
 }
