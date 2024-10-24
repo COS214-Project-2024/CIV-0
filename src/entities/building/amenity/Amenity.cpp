@@ -7,3 +7,8 @@ Amenity::Amenity(EntityConfig ec, Size size, int xPos, int yPos) : Building(ec, 
 {
 
 }
+
+Amenity::Amenity(Amenity* amenity) : Building(amenity)
+{
+    
+}

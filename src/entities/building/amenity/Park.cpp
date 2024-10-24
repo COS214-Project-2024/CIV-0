@@ -8,6 +8,11 @@ Park::Park(EntityConfig ec, Size size, int xPos, int yPos) : Amenity(ec, size, x
 
 }
 
+Park::Park(Park* park) : Amenity(park)
+{
+    
+}
+
 void Park::update()
 {
     for(Observer* o : subscribers)
@@ -19,10 +24,14 @@ void Park::update()
             rb->updateAmenity(this);
         }
     }
+
+    // This is for updating the build state (it should run once per game loop)
+    if (!isBuilt()) {
+        updateBuildState();
+    }
 }
 
 Entity* Park::clone()
 {
-    Entity* e = new Park(*ec, size, xPosition, yPosition);
-    return e;
+    return new Park(this);
 }
