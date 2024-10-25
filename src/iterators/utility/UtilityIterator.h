@@ -13,7 +13,7 @@ public:
     void first();
     void next();
     bool hasNext();
-    Utility* current();
+    Entity* current();
 };
 
 #endif // UTILITYITERATOR_H

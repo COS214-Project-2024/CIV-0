@@ -13,7 +13,7 @@ public:
     void first();
     void next();
     bool hasNext();
-    SewageSystem* current();
+    Entity* current();
 };
 
 #endif // SEWAGESYSTEMITERATOR_H

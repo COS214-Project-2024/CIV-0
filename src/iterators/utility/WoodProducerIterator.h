@@ -13,7 +13,7 @@ public:
     void first();
     void next();
     bool hasNext();
-    WoodProducer* current();
+    Entity* current();
 };
 
 #endif // WOODPRODUCERITERATOR_H

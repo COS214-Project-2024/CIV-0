@@ -13,7 +13,7 @@ public:
      void first();
      void next();
      bool hasNext();
-     EconomicBuilding* current();
+     Entity* current();
 };
 
 #endif // ECONOMICBUILDINGITERATOR_H

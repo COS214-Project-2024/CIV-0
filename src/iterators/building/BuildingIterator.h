@@ -14,7 +14,7 @@ public:
     void first();
     void next();
     bool hasNext();
-    Building* current();
+    Entity* current();
 };
 
 #endif // BUILDINGITERATOR_H

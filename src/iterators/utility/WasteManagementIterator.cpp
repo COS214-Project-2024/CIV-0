@@ -1,12 +1,14 @@
 #include "WasteManagementIterator.h"
 
-WasteManagementIterator::WasteManagementIterator() {}
+WasteManagementIterator::WasteManagementIterator():Iterator(){}
 WasteManagementIterator::~WasteManagementIterator() {}
 
-WasteManagementIterator::WasteManagementIterator(std::vector<std::vector<Entity*>> &grid){
+WasteManagementIterator::WasteManagementIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
     this->grid = grid;
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
+    this->row = 0;
+    this->col = 0;
 }
 
 void WasteManagementIterator::first(){
@@ -26,14 +28,30 @@ void WasteManagementIterator::first(){
 
 void WasteManagementIterator::next(){
     bool found = false;
-
-    for(;currRow != this->grid.end(); currRow++){
-        for(curr = currRow->begin(); curr != currRow->end(); curr++){
+    int Tcol = this->col;
+    int Trow = this->row;
+    for(;currRow != this->grid.end();++currRow){
+        col = 0;
+        for(curr = currRow->begin(); curr != currRow->end();++curr){
             WasteManagement* wastemanagement = dynamic_cast<WasteManagement*>(*curr);
-
             if(wastemanagement){found = true;break;}
+            col+=1;
         }
         if(found)break;
+        row+=1;
+    }
+
+    if(!found){
+        col = 0;
+        row = 0;
+        for(;currRow != this->grid.end();++currRow){
+        col = 0;
+        for(curr = currRow->begin(); curr != currRow->end();++curr){
+            if(col==Tcol && Trow==row)return;
+            col+=1;
+        }
+        row+=1;
+    }  
     }
 }
 
@@ -53,6 +71,6 @@ bool WasteManagementIterator::hasNext(){
     return found;
 }
 
-WasteManagement* WasteManagementIterator::current(){
-    return dynamic_cast<WasteManagement*>(*this->curr);
+Entity* WasteManagementIterator::current(){
+    return (*this->curr);
 }

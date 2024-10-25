@@ -13,7 +13,7 @@ public:
     void first();
     void next();
     bool hasNext();
-    ConcreteProducer* current();
+    Entity* current();
 };
 
 #endif // CONCRETEPRODUCERITERATOR_H

@@ -8,6 +8,8 @@ protected:
     std::vector<std::vector<Entity*>> grid;
     std::vector<std::vector<Entity*>>::iterator currRow;
     std::vector<Entity*>::iterator curr;
+    int row;
+    int col;
 
 public:
     Iterator();
@@ -18,6 +20,8 @@ public:
     virtual void next() = 0;
     virtual bool hasNext() = 0;
     virtual Entity* current() = 0;
+    virtual int getRow() = 0;
+    virtual int getCol() = 0;
 
 };
 

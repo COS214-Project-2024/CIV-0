@@ -13,7 +13,7 @@ public:
     void first();
     void next();
     bool hasNext();
-    ServiceBuilding* current();
+    Entity* current();
 };
 
 #endif // SERVICEBUILDINGITERATOR_H

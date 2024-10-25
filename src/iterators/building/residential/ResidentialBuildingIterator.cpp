@@ -1,12 +1,17 @@
 #include "ResidentialBuildingIterator.h"
 
-ResidentialBuildingIterator::ResidentialBuildingIterator() {}
+ResidentialBuildingIterator::ResidentialBuildingIterator():Iterator(){
+    this->row = 0;
+    this->col = 0;
+}
 ResidentialBuildingIterator::~ResidentialBuildingIterator() {}
 
-ResidentialBuildingIterator::ResidentialBuildingIterator(std::vector<std::vector<Entity*>> &grid){
+ResidentialBuildingIterator::ResidentialBuildingIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
     this->grid = grid;
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
+    this->row = 0;
+    this->col = 0;
 }
 
 void ResidentialBuildingIterator::first(){
@@ -26,14 +31,30 @@ void ResidentialBuildingIterator::first(){
 
 void ResidentialBuildingIterator::next(){
     bool found = false;
-
-    for(;currRow != this->grid.end(); currRow++){
-        for(curr = currRow->begin(); curr != currRow->end(); curr++){
+    int Tcol = this->col;
+    int Trow = this->row;
+    for(;currRow != this->grid.end();++currRow){
+        col = 0;
+        for(curr = currRow->begin(); curr != currRow->end();++curr){
             ResidentialBuilding* residentialbuilding = dynamic_cast<ResidentialBuilding*>(*curr);
-
             if(residentialbuilding){found = true;break;}
+            col+=1;
         }
         if(found)break;
+        row+=1;
+    }
+
+    if(!found){
+        col = 0;
+        row = 0;
+        for(;currRow != this->grid.end();++currRow){
+        col = 0;
+        for(curr = currRow->begin(); curr != currRow->end();++curr){
+            if(col==Tcol && Trow==row)return;
+            col+=1;
+        }
+        row+=1;
+    }  
     }
 }
 
@@ -53,6 +74,6 @@ bool ResidentialBuildingIterator::hasNext(){
     return found;
 }
 
-ResidentialBuilding* ResidentialBuildingIterator::current(){
-    return dynamic_cast<ResidentialBuilding*>(*this->curr);
+Entity* ResidentialBuildingIterator::current(){
+    return (*this->curr);
 }

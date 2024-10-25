@@ -13,7 +13,7 @@ public:
      void first();
      void next();
      bool hasNext();
-     Amenity* current();
+     Entity* current();
 };
 
 #endif // AMENITYITERATOR_H

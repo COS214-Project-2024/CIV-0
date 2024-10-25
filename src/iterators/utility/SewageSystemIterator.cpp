@@ -3,10 +3,12 @@
 SewageSystemIterator::SewageSystemIterator() {}
 SewageSystemIterator::~SewageSystemIterator() {}
 
-SewageSystemIterator::SewageSystemIterator(std::vector<std::vector<Entity*>> &grid){
+SewageSystemIterator::SewageSystemIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
     this->grid = grid;
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
+    this->row = 0;
+    this->col = 0;
 }
 
 void SewageSystemIterator::first(){
@@ -26,14 +28,30 @@ void SewageSystemIterator::first(){
 
 void SewageSystemIterator::next(){
     bool found = false;
-
-    for(;currRow != this->grid.end(); currRow++){
-        for(curr = currRow->begin(); curr != currRow->end(); curr++){
+    int Tcol = this->col;
+    int Trow = this->row;
+    for(;currRow != this->grid.end();++currRow){
+        col = 0;
+        for(curr = currRow->begin(); curr != currRow->end();++curr){
             SewageSystem* sewagesystem = dynamic_cast<SewageSystem*>(*curr);
-
             if(sewagesystem){found = true;break;}
+            col+=1;
         }
         if(found)break;
+        row+=1;
+    }
+
+    if(!found){
+        col = 0;
+        row = 0;
+        for(;currRow != this->grid.end();++currRow){
+        col = 0;
+        for(curr = currRow->begin(); curr != currRow->end();++curr){
+            if(col==Tcol && Trow==row)return;
+            col+=1;
+        }
+        row+=1;
+    }  
     }
 }
 
@@ -53,6 +71,6 @@ bool SewageSystemIterator::hasNext(){
     return found;
 }
 
-SewageSystem* SewageSystemIterator::current(){
-    return dynamic_cast<SewageSystem*>(*this->curr);
+Entity* SewageSystemIterator::current(){
+    return (*this->curr);
 }

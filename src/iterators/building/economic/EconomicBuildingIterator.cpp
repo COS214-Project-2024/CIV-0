@@ -1,12 +1,17 @@
 #include "EconomicBuildingIterator.h"
 
-EconomicBuildingIterator::EconomicBuildingIterator() {}
+EconomicBuildingIterator::EconomicBuildingIterator():Iterator(){
+    this->row = 0;
+    this->col = 0;
+}
 EconomicBuildingIterator::~EconomicBuildingIterator() {}
 
-EconomicBuildingIterator::EconomicBuildingIterator(std::vector<std::vector<Entity*>> &grid){
+EconomicBuildingIterator::EconomicBuildingIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
     this->grid = grid;
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
+    this->row - 0;
+    this->col - 0;
 }
 
 void EconomicBuildingIterator::first(){
@@ -26,14 +31,30 @@ void EconomicBuildingIterator::first(){
 
 void EconomicBuildingIterator::next(){
     bool found = false;
-
-    for(;currRow != this->grid.end(); currRow++){
-        for(curr = currRow->begin(); curr != currRow->end(); curr++){
-            EconomicBuilding* economicbuilding = dynamic_cast<EconomicBuilding*>(*curr);
-
-            if(economicbuilding){found = true;break;}
+    int Tcol = this->col;
+    int Trow = this->row;
+    for(;currRow != this->grid.end();++currRow){
+        col = 0;
+        for(curr = currRow->begin(); curr != currRow->end();++curr){
+            EconomicBuildingIterator* economicbuildingiterator = dynamic_cast<EconomicBuildingIterator*>(*curr);
+            if(economicbuildingiterator){found = true;break;}
+            col+=1;
         }
         if(found)break;
+        row+=1;
+    }
+
+    if(!found){
+        col = 0;
+        row = 0;
+        for(;currRow != this->grid.end();++currRow){
+        col = 0;
+        for(curr = currRow->begin(); curr != currRow->end();++curr){
+            if(col==Tcol && Trow==row)return;
+            col+=1;
+        }
+        row+=1;
+    }  
     }
 }
 
@@ -53,6 +74,6 @@ bool EconomicBuildingIterator::hasNext(){
     return found;
 }
 
-EconomicBuilding* EconomicBuildingIterator::current(){
-    return dynamic_cast<EconomicBuilding*>(*this->curr);
+Entity* EconomicBuildingIterator::current(){
+    return (*this->curr);
 }

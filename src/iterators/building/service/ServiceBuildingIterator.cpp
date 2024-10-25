@@ -1,12 +1,17 @@
 #include "ServiceBuildingIterator.h"
 
-ServiceBuildingIterator::ServiceBuildingIterator() {}
+ServiceBuildingIterator::ServiceBuildingIterator():Iterator(){
+    this->row = 0;
+    this->col = 0;
+}
 ServiceBuildingIterator::~ServiceBuildingIterator() {}
 
-ServiceBuildingIterator::ServiceBuildingIterator(std::vector<std::vector<Entity*>> &grid){
+ServiceBuildingIterator::ServiceBuildingIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
     this->grid = grid;
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
+    this->row = 0;
+    this->col = 0;
 }
 
 void ServiceBuildingIterator::first(){
@@ -26,14 +31,30 @@ void ServiceBuildingIterator::first(){
 
 void ServiceBuildingIterator::next(){
     bool found = false;
-
-    for(;currRow != this->grid.end(); currRow++){
-        for(curr = currRow->begin(); curr != currRow->end(); curr++){
+    int Tcol = this->col;
+    int Trow = this->row;
+    for(;currRow != this->grid.end();++currRow){
+        col = 0;
+        for(curr = currRow->begin(); curr != currRow->end();++curr){
             ServiceBuilding* servicebuilding = dynamic_cast<ServiceBuilding*>(*curr);
-
             if(servicebuilding){found = true;break;}
+            col+=1;
         }
         if(found)break;
+        row+=1;
+    }
+
+    if(!found){
+        col = 0;
+        row = 0;
+        for(;currRow != this->grid.end();++currRow){
+        col = 0;
+        for(curr = currRow->begin(); curr != currRow->end();++curr){
+            if(col==Tcol && Trow==row)return;
+            col+=1;
+        }
+        row+=1;
+    }  
     }
 }
 
@@ -53,6 +74,6 @@ bool ServiceBuildingIterator::hasNext(){
     return found;
 }
 
-ServiceBuilding* ServiceBuildingIterator::current(){
-    return dynamic_cast<ServiceBuilding*>(*this->curr);
+Entity* ServiceBuildingIterator::current(){
+    return (*this->curr);
 }

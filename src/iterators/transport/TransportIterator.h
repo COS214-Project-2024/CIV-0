@@ -14,7 +14,7 @@ public:
     void first();
     void next();
     bool hasNext();
-    Transport* current();
+    Entity* current();
 };
 
 #endif // TRANSPORTITERATOR_H

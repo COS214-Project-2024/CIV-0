@@ -13,7 +13,7 @@ public:
     void first();
     void next();
     bool hasNext();
-    WasteManagement* current();
+    Entity* current();
 };
 
 #endif // WASTEMANAGEMENTITERATOR_H

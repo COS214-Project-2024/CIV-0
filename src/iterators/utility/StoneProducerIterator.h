@@ -14,7 +14,7 @@ public:
     void first();
     void next();
     bool hasNext();
-    StoneProducer* current();
+    Entity* current();
 };
 
 #endif // STONEPRODUCERITERATOR_H

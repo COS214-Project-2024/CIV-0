@@ -1,12 +1,14 @@
 #include "UtilityIterator.h"
 
-UtilityIterator::UtilityIterator() {}
+UtilityIterator::UtilityIterator():Iterator(){}
 UtilityIterator::~UtilityIterator() {}
 
-UtilityIterator::UtilityIterator(std::vector<std::vector<Entity*>> &grid){
+UtilityIterator::UtilityIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
     this->grid = grid;
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
+    this->row = 0;
+    this->col = 0;
 }
 
 void UtilityIterator::first(){
@@ -26,14 +28,30 @@ void UtilityIterator::first(){
 
 void UtilityIterator::next(){
     bool found = false;
-
-    for(;currRow != this->grid.end(); currRow++){
-        for(curr = currRow->begin(); curr != currRow->end(); curr++){
+    int Tcol = this->col;
+    int Trow = this->row;
+    for(;currRow != this->grid.end();++currRow){
+        col = 0;
+        for(curr = currRow->begin(); curr != currRow->end();++curr){
             Utility* utility = dynamic_cast<Utility*>(*curr);
-
             if(utility){found = true;break;}
+            col+=1;
         }
         if(found)break;
+        row+=1;
+    }
+
+    if(!found){
+        col = 0;
+        row = 0;
+        for(;currRow != this->grid.end();++currRow){
+        col = 0;
+        for(curr = currRow->begin(); curr != currRow->end();++curr){
+            if(col==Tcol && Trow==row)return;
+            col+=1;
+        }
+        row+=1;
+    }  
     }
 }
 
@@ -53,6 +71,6 @@ bool UtilityIterator::hasNext(){
     return found;
 }
 
-Utility* UtilityIterator::current(){
-    return dynamic_cast<Utility*>(*this->curr);
+Entity* UtilityIterator::current(){
+    return (*this->curr);
 }

@@ -14,7 +14,7 @@ public:
     void first();
     void next();
     bool hasNext();
-    Road* current();
+    Entity* current();
 };
 
 #endif // ROADITERATOR_H

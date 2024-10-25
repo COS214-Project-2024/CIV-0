@@ -3,10 +3,12 @@
 WaterSupplyIterator::WaterSupplyIterator() {}
 WaterSupplyIterator::~WaterSupplyIterator() {}
 
-WaterSupplyIterator::WaterSupplyIterator(std::vector<std::vector<Entity*>> &grid){
+WaterSupplyIterator::WaterSupplyIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
     this->grid = grid;
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
+    this->row = 0;
+    this->col = 0;
 }
 
 void WaterSupplyIterator::first(){
@@ -26,14 +28,30 @@ void WaterSupplyIterator::first(){
 
 void WaterSupplyIterator::next(){
     bool found = false;
-
-    for(;currRow != this->grid.end(); currRow++){
-        for(curr = currRow->begin(); curr != currRow->end(); curr++){
+    int Tcol = this->col;
+    int Trow = this->row;
+    for(;currRow != this->grid.end();++currRow){
+        col = 0;
+        for(curr = currRow->begin(); curr != currRow->end();++curr){
             WaterSupply* watersupply = dynamic_cast<WaterSupply*>(*curr);
-
             if(watersupply){found = true;break;}
+            col+=1;
         }
         if(found)break;
+        row+=1;
+    }
+
+    if(!found){
+        col = 0;
+        row = 0;
+        for(;currRow != this->grid.end();++currRow){
+        col = 0;
+        for(curr = currRow->begin(); curr != currRow->end();++curr){
+            if(col==Tcol && Trow==row)return;
+            col+=1;
+        }
+        row+=1;
+    }  
     }
 }
 
@@ -53,6 +71,6 @@ bool WaterSupplyIterator::hasNext(){
     return found;
 }
 
-WaterSupply* WaterSupplyIterator::current(){
-    return dynamic_cast<WaterSupply*>(*this->curr);
+Entity* WaterSupplyIterator::current(){
+    return (*this->curr);
 }

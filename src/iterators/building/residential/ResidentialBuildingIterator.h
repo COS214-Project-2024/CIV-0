@@ -14,7 +14,7 @@ public:
     void first();
      void next();
      bool hasNext();
-     ResidentialBuilding* current();
+     Entity* current();
 };
 
 #endif // RESIDENTIALBUILDINGITERATOR_H

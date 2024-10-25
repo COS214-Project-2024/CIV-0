@@ -13,7 +13,7 @@ public:
     void first();
     void next();
     bool hasNext();
-    WaterSupply* current();
+    Entity* current();
 };
 
 #endif // WATERSUPPLYITERATOR_H

@@ -1,12 +1,14 @@
 #include "ConcreteProducerIterator.h"
 
-ConcreteProducerIterator::ConcreteProducerIterator() {}
+ConcreteProducerIterator::ConcreteProducerIterator():Iterator(){}
 ConcreteProducerIterator::~ConcreteProducerIterator() {}
 
-ConcreteProducerIterator::ConcreteProducerIterator(std::vector<std::vector<Entity*>> &grid){
+ConcreteProducerIterator::ConcreteProducerIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
     this->grid = grid;
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
+    this->row = 0;
+    this->col = 0;
 }
 
 void ConcreteProducerIterator::first(){
@@ -26,14 +28,30 @@ void ConcreteProducerIterator::first(){
 
 void ConcreteProducerIterator::next(){
     bool found = false;
-
-    for(;currRow != this->grid.end(); currRow++){
-        for(curr = currRow->begin(); curr != currRow->end(); curr++){
+    int Tcol = this->col;
+    int Trow = this->row;
+    for(;currRow != this->grid.end();++currRow){
+        col = 0;
+        for(curr = currRow->begin(); curr != currRow->end();++curr){
             ConcreteProducer* concreteproducer = dynamic_cast<ConcreteProducer*>(*curr);
-
             if(concreteproducer){found = true;break;}
+            col+=1;
         }
         if(found)break;
+        row+=1;
+    }
+
+    if(!found){
+        col = 0;
+        row = 0;
+        for(;currRow != this->grid.end();++currRow){
+        col = 0;
+        for(curr = currRow->begin(); curr != currRow->end();++curr){
+            if(col==Tcol && Trow==row)return;
+            col+=1;
+        }
+        row+=1;
+    }  
     }
 }
 
@@ -53,6 +71,6 @@ bool ConcreteProducerIterator::hasNext(){
     return found;
 }
 
-ConcreteProducer* ConcreteProducerIterator::current(){
-    return dynamic_cast<ConcreteProducer*>(*this->curr);
+Entity* ConcreteProducerIterator::current(){
+    return (*this->curr);
 }

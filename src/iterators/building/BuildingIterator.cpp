@@ -1,9 +1,12 @@
 #include "BuildingIterator.h"
 
-BuildingIterator::BuildingIterator() {}
+BuildingIterator::BuildingIterator():Iterator(){
+    this->row = 0;
+    this-> col = 0;
+}
 BuildingIterator::~BuildingIterator() {}
 
-BuildingIterator::BuildingIterator(std::vector<std::vector<Entity*>> &grid){
+BuildingIterator::BuildingIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
     this->grid = grid;
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
@@ -26,14 +29,30 @@ void BuildingIterator::first(){
 
 void BuildingIterator::next(){
     bool found = false;
-
-    for(;currRow != this->grid.end(); currRow++){
-        for(curr = currRow->begin(); curr != currRow->end(); curr++){
+    int Tcol = this->col;
+    int Trow = this->row;
+    for(;currRow != this->grid.end();++currRow){
+        col = 0;
+        for(curr = currRow->begin(); curr != currRow->end();++curr){
             Building* building = dynamic_cast<Building*>(*curr);
-
             if(building){found = true;break;}
+            col+=1;
         }
         if(found)break;
+        row+=1;
+    }
+
+    if(!found){
+        col = 0;
+        row = 0;
+        for(;currRow != this->grid.end();++currRow){
+        col = 0;
+        for(curr = currRow->begin(); curr != currRow->end();++curr){
+            if(col==Tcol && Trow==row)return;
+            col+=1;
+        }
+        row+=1;
+    }  
     }
 }
 
@@ -53,6 +72,6 @@ bool BuildingIterator::hasNext(){
     return found;
 }
 
-Building* BuildingIterator::current(){
-    return dynamic_cast<Building*>(*this->curr);
+Entity* BuildingIterator::current(){
+    return (*this->curr);
 }

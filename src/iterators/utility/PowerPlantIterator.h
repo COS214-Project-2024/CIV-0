@@ -14,7 +14,7 @@ public:
     void first();
     void next();
     bool hasNext();
-    PowerPlant* current();
+    Entity* current();
 };
 
 #endif // POWERPLANTITERATOR_H
