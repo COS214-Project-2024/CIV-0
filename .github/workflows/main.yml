@@ -21,7 +21,7 @@ jobs:
         run: |
           if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
             sudo apt-get update
-            sudo apt-get install -y build-essential make clang curl doxygen
+            sudo apt-get install -y build-essential make clang curl doxygen valgrind
           elif [ "${{ matrix.os }}" == "macos-latest" ]; then
             brew update
             brew install --formula make curl doxygen  # Use --formula to avoid warnings
@@ -37,3 +37,6 @@ jobs:
 
       - name: Run Tests
         run: make test
+
+      - name: Memory Leak Check
+        run: make leaks
