@@ -5,10 +5,15 @@
 class StoneProducerUpgrade : public StoneProducer
 {
 public:
-    StoneProducerUpgrade();
+    StoneProducerUpgrade(StoneProducer* stoneProd);
+    StoneProducerUpgrade(StoneProducerUpgrade* stoneProd);
     ~StoneProducerUpgrade();
 
-private:
+    virtual void update() = 0;
+    virtual Entity* clone() = 0;
+    virtual int getOutput() = 0;
+
+protected:
     StoneProducer *stoneProducer; // mweheheheh nobodoy will see this comment
 };
 
