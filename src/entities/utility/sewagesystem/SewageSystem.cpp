@@ -14,7 +14,7 @@ SewageSystem::SewageSystem(SewageSystem* sewageSystem) : Utility(sewageSystem) {
 
 void SewageSystem::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         

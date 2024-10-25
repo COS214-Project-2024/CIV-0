@@ -10,7 +10,7 @@ Theater::Theater(EntityConfig ec, Size size, int xPos, int yPos) : Amenity(ec, s
 
 void Theater::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         
@@ -23,6 +23,10 @@ void Theater::update()
 
 Entity* Theater::clone()
 {
-    Entity* e = new Theater(*ec, size, xPosition, yPosition);
-    return e;
+    return new Theater(this);
+}
+
+Theater::Theater(Theater* theater) : Amenity(theater)
+{
+
 }

@@ -5,12 +5,16 @@ TrainStation::TrainStation(EntityConfig ec, Size size, int xPos, int yPos) : Tra
 
 }
 
+TrainStation::TrainStation(TrainStation* trainStation) : Transport(trainStation) {
+
+}
+
 TrainStation::TrainStation() {}
 TrainStation::~TrainStation() {}
 
 void TrainStation::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         
@@ -23,6 +27,5 @@ void TrainStation::update()
 
 Entity* TrainStation::clone()
 {
-    Entity* e = new TrainStation(*ec, size, xPosition, yPosition);
-    return e;
+    return new TrainStation(this);
 }

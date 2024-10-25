@@ -3,11 +3,20 @@
 
 #include "ElectricityPolicy.h"
 
-class LowElectricityPolicy : public ElectricityPolicy
-{
+/**
+ * @brief Concrete strategy for low electricity policy.
+ * 
+ * Reduces electricity usage by applying a low usage factor.
+ */
+class LowElectricityPolicy : public ElectricityPolicy {
 public:
-    LowElectricityPolicy();
-    ~LowElectricityPolicy();
+    /**
+     * @brief Overrides calculateElectricityUsage to reduce electricity usage.
+     * 
+     * @param electricityUsage Initial electricity usage.
+     * @return int Reduced electricity usage (e.g., 75% of the original).
+     */
+    int calculateElectricityUsage(int electricityUsage) override;
 };
 
-#endif // LOWELECTRICITYPOLICY_H
+#endif

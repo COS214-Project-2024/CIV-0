@@ -14,7 +14,7 @@ PowerPlant::PowerPlant(PowerPlant* powerPlant) : Utility(powerPlant) {
 
 void PowerPlant::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         
