@@ -14,7 +14,6 @@ public:
     virtual ~Subject();
     bool unsubscribe(Observer* observer);
     bool subscribe(Observer* observer);
-    void subscribeToAllResidentialInRadius();
 };
 
 #endif // SUBJECT_H

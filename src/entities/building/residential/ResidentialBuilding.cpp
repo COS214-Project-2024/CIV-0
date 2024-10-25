@@ -6,6 +6,27 @@ ResidentialBuilding::~ResidentialBuilding() {}
 ResidentialBuilding::ResidentialBuilding(EntityConfig ec, Size size, int xPos, int yPos) : Building(ec, size, xPos, yPos)
 {
     reset();
+
+    switch(size)
+    {
+        case(Size::SMALL):
+            capacity = 5;
+            break;
+        case(Size::MEDIUM):
+            capacity = 10;
+            break;
+        case(Size::LARGE):
+            capacity = 20;
+            break;
+        default:
+            capacity = 0;
+            break;
+    }
+}
+
+int ResidentialBuilding::getCapacity()
+{
+    return capacity;
 }
 
 //HMMMMMMMMMMM - idk this is needed but It looks like html code :(

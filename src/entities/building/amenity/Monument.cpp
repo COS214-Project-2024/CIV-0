@@ -26,3 +26,22 @@ Entity* Monument::clone()
     Entity* e = new Monument(*ec, size, xPosition, yPosition);
     return e;
 }
+
+void Monument::subscribeToAllResidentialInRadius()
+{
+    City* c = City::instance();
+
+    for(int i = 0; i < 50; i++)
+    {
+        for(int j = 0; j < 50; j++)
+        {
+            if(c->getEntity(i, j))
+            {
+                if(isWithinEffectRadius(c->getEntity(i, j)))
+                {
+                    subscribe(c->getEntity(i, j));
+                }
+            }
+        }
+    }
+}

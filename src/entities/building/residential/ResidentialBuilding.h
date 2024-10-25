@@ -36,6 +36,8 @@ private:
     float localIndustry;
     float satisfaction;
 
+    int capacity;
+
     void updateEntity(SatisfactionConfig sc, float &local, float &global, Entity* entity);
     void reduceByChange(float &value);
     void reduceByChangeWithNegativeExtreme(SatisfactionConfig sc, float &value);
@@ -62,6 +64,8 @@ public:
     void updateAmenity(Entity* entity);
     void updateUtility(Entity* entity);
     void updateIndustry(Entity* entity);
+
+    int getCapacity();
     
 };
 

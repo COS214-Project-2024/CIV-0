@@ -29,8 +29,3 @@ bool Subject::subscribe(Observer* observer)
     subscribers.push_back(observer);
     return true;
 }
-
-void subscribeToAllResidentialInRadius()
-{
-    //TODO - Need ResidentialIterator First
-}

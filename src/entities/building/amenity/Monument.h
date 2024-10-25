@@ -12,6 +12,7 @@ public:
 
     void update();
     Entity* clone();
+    void subscribeToAllResidentialInRadius();
 };
 
 #endif // MONUMENT_H

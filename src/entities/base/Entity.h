@@ -10,6 +10,7 @@
 #include "utils/Size.h"
 #include "entities/state/State.h"
 #include "utils/ConfigManager.h"
+#include "city/City.h"
 
 // Forward declarations
 class UnderConstruction; 
@@ -166,6 +167,8 @@ public:
      * @brief Sets the symbol of the entity.
      */
     void setSymbol(std::string symbol);
+
+    virtual void subscribeToAllResidentialInRadius() = 0;
 };
 
 #endif // ENTITY_H
