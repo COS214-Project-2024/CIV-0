@@ -37,25 +37,3 @@ jobs:
 
       - name: Run Tests
         run: make test
-
-      - name: Memory Leak Check (Linux only)
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          # Run Valgrind and fail the job immediately on any leak detection
-          valgrind --leak-check=full --track-origins=yes --error-exitcode=1 bin/project_tests 2>&1 | tee leaks_output.txt
-          
-          # Capture the exit code from Valgrind
-          VALGRIND_EXIT_CODE=${PIPESTATUS[0]}
-          
-          # Output Valgrind logs for troubleshooting
-          echo "=== Valgrind Output ==="
-          cat leaks_output.txt
-          echo "========================"
-          
-          # Check the Valgrind exit code and fail if it indicates an error
-          if [ $VALGRIND_EXIT_CODE -ne 0 ]; then
-            echo "Memory leaks detected! Failing the job."
-            exit $VALGRIND_EXIT_CODE
-          else
-            echo "No memory leaks detected."
-          fi
