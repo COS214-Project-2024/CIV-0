@@ -2,11 +2,10 @@
 #define RESIDENTIALBUILDING_H
 
 #include "entities/building/base/Building.h"
-#include "entities/base/Observer.h"
 #include "utils/ConfigManager.h"
 #include <cmath>
 
-class ResidentialBuilding : public Building, public Observer
+class ResidentialBuilding : public Building
 {
 private:
     const float RATE_OF_CHANGE = 1;
@@ -44,6 +43,7 @@ private:
 public:
     ResidentialBuilding();
     ResidentialBuilding(EntityConfig ec, Size size, int xPos, int yPos);
+    ResidentialBuilding(ResidentialBuilding* entity);
     virtual ~ResidentialBuilding();
 
     void update();
@@ -66,6 +66,7 @@ public:
     void updateIndustry(Entity* entity);
 
     int getCapacity();
+    void setCapacity(int capacity);
     
 };
 

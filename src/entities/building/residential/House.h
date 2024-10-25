@@ -8,6 +8,7 @@ class House : public ResidentialBuilding
 public:
     House();
     House(EntityConfig ec, Size size, int xPos, int yPos);
+    House(House* entity);
     virtual ~House();
 
     Entity* clone();

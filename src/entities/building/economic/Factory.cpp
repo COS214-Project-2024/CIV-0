@@ -15,7 +15,7 @@ Factory::Factory(Factory* factory) : EconomicBuilding(factory)
 
 void Factory::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         

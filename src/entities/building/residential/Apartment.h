@@ -8,6 +8,7 @@ class Apartment : public ResidentialBuilding
 public:
     Apartment();
     Apartment(EntityConfig ec, Size size, int xPos, int yPos);
+    Apartment(Apartment* entity);
     virtual ~Apartment();
 
     Entity* clone();

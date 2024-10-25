@@ -2,7 +2,6 @@
 #define ECONOMICBUILDING_H
 
 #include "entities/building/base/Building.h"
-#include "entities/base/Subject.h"
 #include "entities/building/residential/ResidentialBuilding.h"
 
 /**
@@ -12,7 +11,7 @@
  * EconomicBuilding is a type of Building that generates revenue or supports the city's economy.
  * It inherits from both the Building and Subject classes.
  */
-class EconomicBuilding : public Building, public Subject
+class EconomicBuilding : public Building
 {
 public:
     /**

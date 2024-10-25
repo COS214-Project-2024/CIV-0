@@ -8,6 +8,7 @@ class BusStop : public Transport
 public:
     BusStop();
     BusStop(EntityConfig ec, Size size, int xPos, int yPos);
+    BusStop(BusStop* busStop);
     virtual ~BusStop();
     void update();
     Entity* clone();

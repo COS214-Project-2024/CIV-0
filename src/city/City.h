@@ -1,13 +1,16 @@
 #ifndef CITY_H
 #define CITY_H
 
-#include "entities/base/Entity.h"
 #include <vector>
+
+class Entity;
 
 class City
 {
 private:
     std::vector<std::vector<Entity *>> grid;
+    int width;
+    int height;
     float satisfaction;
     int money;
     int wood;
@@ -36,6 +39,9 @@ public:
     // Deleted copy constructor and assignment operator to enforce singleton pattern
     City(const City &) = delete;
     City &operator=(const City &) = delete;
+
+    int getWidth();
+    int getHeight();
 
     // Example getter for an entity in the city grid
     Entity *getEntity(int x, int y);

@@ -8,9 +8,14 @@ WoodProducer::WoodProducer(EntityConfig ec, Size size, int xPos, int yPos) : Ind
     setOutput(20); //TODO - change value
 }
 
+WoodProducer::WoodProducer(WoodProducer* woodProducer): Industry(woodProducer)
+{
+    
+}
+
 void WoodProducer::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         
@@ -23,6 +28,5 @@ void WoodProducer::update()
 
 Entity* WoodProducer::clone()
 {
-    Entity* e = new WoodProducer(*ec, size, xPosition, yPosition);
-    return e;
+    return new WoodProducer(this);
 }

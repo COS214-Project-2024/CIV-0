@@ -3,7 +3,6 @@
 
 #include "entities/building/base/Building.h"
 #include "entities/building/residential/ResidentialBuilding.h"
-#include "entities/base/Subject.h"
 
 /**
  * @brief Abstract class representing a service building in the city.
@@ -11,7 +10,7 @@
  * Service buildings provide essential services such as healthcare, law enforcement, and education.
  * It inherits from the Building and Subject classes.
  */
-class ServiceBuilding : public Building, public Subject
+class ServiceBuilding : public Building
 {
 public:
     /**

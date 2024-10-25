@@ -8,6 +8,11 @@ Industry::Industry(EntityConfig ec, Size size, int xPos, int yPos) : Entity(ec, 
     output = 0;
 }
 
+Industry::Industry(Industry* industry): Entity(industry)
+{
+    
+}
+
 int Industry::getOutput()
 {
     return output;

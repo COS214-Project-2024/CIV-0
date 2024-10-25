@@ -8,9 +8,14 @@ StoneProducer::StoneProducer(EntityConfig ec, Size size, int xPos, int yPos) : I
     setOutput(20); //TODO - change value
 }
 
+StoneProducer::StoneProducer(StoneProducer* stoneProducer): Industry(stoneProducer)
+{
+    
+}
+
 void StoneProducer::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         
@@ -23,6 +28,5 @@ void StoneProducer::update()
 
 Entity* StoneProducer::clone()
 {
-    Entity* e = new StoneProducer(*ec, size, xPosition, yPosition);
-    return e;
+    return new StoneProducer(this);
 }

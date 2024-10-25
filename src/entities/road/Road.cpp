@@ -13,6 +13,10 @@ void Road::update()
 
 Entity* Road::clone()
 {
-    Entity* e = new Road(*ec, size, xPosition, yPosition);
-    return e;
+    return new Road(this);
+}
+
+Road::Road(Road* road) : Entity(road)
+{
+
 }

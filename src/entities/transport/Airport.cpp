@@ -8,9 +8,13 @@ Airport::Airport(EntityConfig ec, Size size, int xPos, int yPos) : Transport(ec,
 Airport::Airport() {}
 Airport::~Airport() {}
 
+Airport::Airport(Airport* airport) : Transport(airport) {
+
+}
+
 void Airport::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         
@@ -23,6 +27,5 @@ void Airport::update()
 
 Entity* Airport::clone()
 {
-    Entity* e = new Airport(*ec, size, xPosition, yPosition);
-    return e;
+    return new Airport(this);
 }

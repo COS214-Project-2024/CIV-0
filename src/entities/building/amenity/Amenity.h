@@ -2,14 +2,14 @@
 #define AMENITY_H
 
 #include "entities/building/base/Building.h"
-#include "entities/base/Subject.h"
 #include "entities/building/residential/ResidentialBuilding.h"
 
-class Amenity : public Building, public Subject
+class Amenity : public Building
 {
 public:
     Amenity();
     Amenity(EntityConfig ec, Size size, int xPos, int yPos);
+    Amenity(Amenity* amenity);
     virtual ~Amenity();
 
     virtual void update() = 0;
