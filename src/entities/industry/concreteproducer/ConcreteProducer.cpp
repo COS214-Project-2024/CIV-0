@@ -1,11 +1,14 @@
 #include "ConcreteProducer.h"
 
-ConcreteProducer::ConcreteProducer() {}
+ConcreteProducer::ConcreteProducer() : Industry() {}
 ConcreteProducer::~ConcreteProducer() {}
 
 ConcreteProducer::ConcreteProducer(EntityConfig ec, Size size, int xPos, int yPos) : Industry(ec, size, xPos, yPos)
 {
     setOutput(20); //TODO - change value
+}
+
+ConcreteProducer::ConcreteProducer(ConcreteProducer* concreteProd) : Industry(concreteProd) {
 }
 
 void ConcreteProducer::update()
@@ -19,10 +22,13 @@ void ConcreteProducer::update()
             rb->updateIndustry(this);
         }
     }
+
+    if(!isBuilt) {
+        updateBuildState();
+    }
 }
 
 Entity* ConcreteProducer::clone()
 {
-    Entity* e = new ConcreteProducer(*ec, size, xPosition, yPosition);
-    return e;
+    return new ConcreteProducer(this);
 }

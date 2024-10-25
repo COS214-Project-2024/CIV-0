@@ -6,8 +6,14 @@
 class ConcreteProducerLevelTwoUpgrade : public ConcreteProducerUpgrade
 {
 public:
-    ConcreteProducerLevelTwoUpgrade();
+    ConcreteProducerLevelTwoUpgrade(ConcreteProducer* concreteProd);
+    ConcreteProducerLevelTwoUpgrade(ConcreteProducerLevelTwoUpgrade* concreteProd);
     ~ConcreteProducerLevelTwoUpgrade();
+    void update();
+    int getOutput();
+    Entity* clone();
+private: 
+    const int UPGRADE = 2;
 };
 
 #endif // CONCRETEPRODUCERLEVELTWOUPGRADE_H
