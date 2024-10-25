@@ -6,7 +6,7 @@
 class Road : public Entity
 {
 public:
-    Road(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime);
+    Road(EntityConfig ec, Size size, int xPos, int yPos);
     ~Road();
     void update();
     Entity* clone();

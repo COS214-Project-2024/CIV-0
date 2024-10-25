@@ -6,6 +6,11 @@ State::State(int buildTime)
     this->buildTime = buildTime;
 }
 
+State::State(State* state)
+{
+    this->gameLoopCounter = state->gameLoopCounter;
+    this->buildTime = state->buildTime;
+}
 
 State::~State() {}
 

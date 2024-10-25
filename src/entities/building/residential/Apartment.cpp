@@ -3,18 +3,13 @@
 Apartment::Apartment() {}
 Apartment::~Apartment() {}
 
-Apartment::Apartment(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime) : ResidentialBuilding(electricity, water, symbol, radius, localEffect, globalEffect, width, height, revenue, size, xPos, yPos, buildTime)
+Apartment::Apartment(EntityConfig ec, Size size, int xPos, int yPos) : ResidentialBuilding(ec, size, xPos, yPos)
 {
 
-}
-
-void Apartment::update()
-{
-    //TODO
 }
 
 Entity* Apartment::clone()
 {
-    Entity* e = new Apartment(electricityConsumption, waterConsumption, symbol, effectRadius, localEffectStrength, globalEffectStrength, width, height, revenue, size, xPosition, yPosition, state->getBuildTime());
+    Entity* e = new Apartment(*ec, size, xPosition, yPosition);
     return e;
 }

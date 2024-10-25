@@ -3,15 +3,62 @@
 
 #include "entities/utility/base/Utility.h"
 
+/**
+ * @class PowerPlant
+ * @brief Represents a power plant in the city builder simulation.
+ *
+ * The PowerPlant class is a specialized type of Utility that produces electricity.
+ */
 class PowerPlant : public Utility
 {
 public:
+    /**
+     * @brief Constructs a PowerPlant object with specified attributes.
+     * 
+     * Initializes a PowerPlant with detailed parameters.
+     * 
+     * @param ec         EntityConfig.
+     * @param size    Size.
+     * @param xPos      xPosition
+     * @param yPos      yPosition
+     */
+    PowerPlant(EntityConfig ec, Size size, int xPos, int yPos);
+
+    /**
+     * @brief Copy constructor for the PowerPlant class.
+     * 
+     * Creates a new PowerPlant object by copying the attributes of an existing PowerPlant.
+     * 
+     * @param powerPlant Pointer to the existing PowerPlant object to be copied.
+     */
+    PowerPlant(PowerPlant* powerPlant);
+
+    /**
+     * @brief Default constructor for the PowerPlant class.
+     * 
+     * Creates a new PowerPlant object without initializing any of it's values (naughty).
+     */
     PowerPlant();
-    PowerPlant(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, 
-           int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime);
+
+    /**
+     * @brief Destructor for the PowerPlant object.
+     */
     virtual ~PowerPlant();
 
+    /**
+     * @brief Updates the state of the power plant.
+     * 
+     * Defines the specific behavior of the PowerPlant when it is updated in the simulation.
+     */
     void update();
+
+    /**
+     * @brief Clones the current PowerPlant object.
+     * 
+     * Creates and returns a copy of the current PowerPlant instance.
+     * 
+     * @return A pointer to the newly cloned PowerPlant object.
+     */
     Entity* clone();
 };
 

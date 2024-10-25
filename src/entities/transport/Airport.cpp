@@ -1,6 +1,6 @@
 #include "Airport.h"
 
-Airport::Airport(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime) : Transport(electricity, water, symbol, radius, localEffect, globalEffect, width, height, revenue, size, xPos, yPos, buildTime)
+Airport::Airport(EntityConfig ec, Size size, int xPos, int yPos) : Transport(ec, size, xPos, yPos)
 {
 
 }
@@ -10,11 +10,19 @@ Airport::~Airport() {}
 
 void Airport::update()
 {
-    //TODO
+    for(Observer* o : subscribers)
+    {
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        
+        if(rb)
+        {
+            rb->updateAirport(this);
+        }
+    }
 }
 
 Entity* Airport::clone()
 {
-    Entity* e = new Airport(electricityConsumption, waterConsumption, symbol, effectRadius, localEffectStrength, globalEffectStrength, width, height, revenue, size, xPosition, yPosition, state->getBuildTime());
+    Entity* e = new Airport(*ec, size, xPosition, yPosition);
     return e;
 }

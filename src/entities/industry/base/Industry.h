@@ -3,6 +3,7 @@
 
 #include "entities/base/Entity.h"
 #include "entities/base/Subject.h"
+#include "entities/building/residential/ResidentialBuilding.h"
 
 class Industry : public Entity, public Subject
 {
@@ -10,8 +11,7 @@ private:
     int output;
 public:
     Industry();
-    Industry(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, 
-           int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime);
+    Industry(EntityConfig ec, Size size, int xPos, int yPos);
     virtual ~Industry();
 
     virtual void update() = 0;

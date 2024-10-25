@@ -6,9 +6,8 @@
 class WoodProducer : public Industry
 {
 public:
-    WoodProducer(WoodProducer* WoodProducer);
-    WoodProducer(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect,
-                 int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime);
+    WoodProducer();
+    WoodProducer(EntityConfig ec, Size size, int xPos, int yPos);
     virtual ~WoodProducer();
     void update();
     Entity *clone();

@@ -20,6 +20,15 @@ public:
     UnderConstruction(int buildTime);
     
     /**
+     * @brief Copy constructor for the UnderConstruction class.
+     * 
+     * Creates a new UnderConstruction state by copying the attributes of an existing UnderConstruction object.
+     * 
+     * @param underConstruction Pointer to the existing UnderConstruction object to be copied.
+     */
+    UnderConstruction(UnderConstruction* underConstruction);
+
+    /**
      * @brief Destructor for the UnderConstruction state.
      */
     ~UnderConstruction();
@@ -31,10 +40,14 @@ public:
     State* update();
     
     /**
-     * @brief Initializes the current construction state.
-     * @return A pointer to the next state after initialization, which may be a Built state.
+     * @brief Creates a deep copy of the UnderConstruction state.
+     * 
+     * This method returns a new UnderConstruction object that is a copy of the current instance.
+     * This allows for proper polymorphic copying of State objects.
+     * 
+     * @return A pointer to a new UnderConstruction object that is a copy of this instance.
      */
-    State* initialize();
+    State* clone();
 };
 
 #endif // UNDERCONSTRUCTION_H
