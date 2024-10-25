@@ -12,11 +12,11 @@ private:
 public:
     Industry();
     Industry(EntityConfig ec, Size size, int xPos, int yPos);
+    Industry(Industry* industry);
     virtual ~Industry();
-
     virtual void update() = 0;
     virtual Entity* clone() = 0;
-    int getOutput();
+    virtual int getOutput();
     void setOutput(int output);
 };
 

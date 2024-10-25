@@ -10,6 +10,8 @@ public:
     void update();
     Entity *clone();
     int getStrength();
+private: 
+    const int UPGRADE = 2;
 };
 
 #endif // WOODPRODUCERLEVELTWOUPGRADE_H

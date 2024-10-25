@@ -10,6 +10,8 @@ public:
     void update() override;
     Entity *clone() override;
     int getStrength();
+private:
+    const int UPGRADE = 4;
 };
 
 #endif // WOODPRODUCERLEVELTHREEUPGRADE_H

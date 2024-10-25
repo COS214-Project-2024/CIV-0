@@ -1,6 +1,6 @@
 #include "WoodProducer.h"
 
-WoodProducer::WoodProducer() {}
+WoodProducer::WoodProducer() : Industry() {}
 WoodProducer::~WoodProducer() {}
 
 WoodProducer::WoodProducer(EntityConfig ec, Size size, int xPos, int yPos) : Industry(ec, size, xPos, yPos)
@@ -8,21 +8,30 @@ WoodProducer::WoodProducer(EntityConfig ec, Size size, int xPos, int yPos) : Ind
     setOutput(20); //TODO - change value
 }
 
+
+WoodProducer::WoodProducer(WoodProducer* woodProducer) : Industry(woodProducer) {
+
+}
+
 void WoodProducer::update()
 {
     for(Observer* o : subscribers)
     {
-        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o); //i aint touching this
         
         if(rb)
         {
             rb->updateIndustry(this);
         }
     }
+
+    if(!isBuilt()) {
+        updateBuildState();
+    }
 }
 
 Entity* WoodProducer::clone()
 {
-    Entity* e = new WoodProducer(*ec, size, xPosition, yPosition);
-    return e;
+    return new WoodProducer(this);
 }
+

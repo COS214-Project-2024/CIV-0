@@ -1,9 +1,15 @@
 #include "WoodProducerUpgrade.h"
 
-WoodProducerUpgrade::WoodProducerUpgrade() {}
+WoodProducerUpgrade::WoodProducerUpgrade(WoodProducer* WoodProducer) : WoodProducer(woodProducer) {
+    this->woodProducer = woodProducer;
+}
 
-WoodProducerUpgrade::~WoodProducerUpgrade() {}
+WoodProducerUpgrade::WoodProducerUpgrade(WoodProducerUpgrade* woodProducerUpgrade) : WoodProducer(woodProducerUpgrade) {
+    this->woodProducer = woodProducerUpgrade->woodProducer;
+}
 
-// Entity *WoodProducerUpgrade::clone() { return nullptr; }
+WoodProducerUpgrade::~WoodProducerUpgrade() {
 
-// void WoodProducerUpgrade::update() {}
+}
+
+

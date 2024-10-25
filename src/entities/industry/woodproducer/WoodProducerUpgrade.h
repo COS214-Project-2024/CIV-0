@@ -5,11 +5,14 @@
 class WoodProducerUpgrade : public WoodProducer
 {
 public:
-    WoodProducerUpgrade();
-    ~WoodProducerUpgrade();
+    WoodProducerUpgrade(WoodProducer* woodProducer);
+    virtual ~WoodProducerUpgrade();
+    WoodProducerUpgrade(WoodProducerUpgrade* woodProducerUpgrade);
+    virtual void update() = 0;
+    virtual int getOutput() = 0;
 
 protected:
-    WoodProducer *WoodProducer;
+    WoodProducer* woodProducer;
 };
 
 #endif // WOODPRODUCERUPGRADE_H
