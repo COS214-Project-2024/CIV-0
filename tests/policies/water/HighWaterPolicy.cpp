@@ -1,6 +1,5 @@
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
-#include "HighWaterPolicy.h"
+#include "policies/water/HighWaterPolicy.h"
 
 /**
  * @brief Test HighWaterPolicy increases water usage correctly.

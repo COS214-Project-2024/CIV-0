@@ -1,6 +1,5 @@
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
-#include "NormalElectricityPolicy.h"
+#include "policies/electricity/NormalElectricityPolicy.h"
 
 /**
  * @brief Test NormalElectricityPolicy does not change electricity usage.

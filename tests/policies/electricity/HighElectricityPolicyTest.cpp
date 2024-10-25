@@ -1,6 +1,5 @@
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
-#include "HighElectricityPolicy.h"
+#include "policies/electricity/HighElectricityPolicy.h"
 
 /**
  * @brief Test HighElectricityPolicy increases electricity usage correctly.

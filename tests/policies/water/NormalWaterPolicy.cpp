@@ -1,6 +1,5 @@
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
-#include "NormalWaterPolicy.h"
+#include "policies/water/NormalWaterPolicy.h"
 
 /**
  * @brief Test NormalWaterPolicy does not change water usage.

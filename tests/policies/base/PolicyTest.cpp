@@ -1,7 +1,6 @@
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
-#include "Policy.h"
-#include "Memento.h"
+#include "policies/base/Policy.h"
+#include  "utils/Memento.h"
 
 /**
  * @brief Test creating and restoring the state of a Policy using Memento.

@@ -1,6 +1,5 @@
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
-#include "LowWaterPolicy.h"
+#include "policies/water/LowWaterPolicy.h"
 
 /**
  * @brief Test LowWaterPolicy reduces water usage correctly.

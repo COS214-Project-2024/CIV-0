@@ -1,7 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
-#include "Caretaker.h"
-#include "Memento.h"
+#include "utils/Caretaker.h"
+#include "utils/Memento.h"
 
 /**
  * @brief Test storing and retrieving Mementos in Caretaker.
@@ -21,7 +21,4 @@ TEST_CASE("Test Memento Storage in Caretaker") {
     CHECK(retrieved->getName() == "Policy2");
     CHECK(retrieved->getDetail() == "Detail2");
 
-    // Clean up memory
-    delete m1;
-    delete m2;
 }

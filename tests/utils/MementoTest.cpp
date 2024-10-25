@@ -1,6 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
-#include "Memento.h"
+#include "utils/Memento.h"
 
 /**
  * @brief Test creation and retrieval of Memento details.

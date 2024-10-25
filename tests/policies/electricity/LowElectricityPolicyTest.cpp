@@ -1,6 +1,5 @@
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
-#include "LowElectricityPolicy.h"
+#include "policies/electricity/LowElectricityPolicy.h"
 
 /**
  * @brief Test LowElectricityPolicy reduces electricity usage correctly.
