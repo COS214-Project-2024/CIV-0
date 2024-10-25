@@ -46,11 +46,10 @@ void City::reset()
     {
         for (int j = 0; j < width; ++j)
         {
-            Entity *&entity = grid[i][j];
-            if (entity != nullptr)
+            if (grid[i][j])
             {
-                delete entity;    // Free memory
-                entity = nullptr; // Set to nullptr to avoid double-deletion
+                delete grid[i][j];    // Free memory
+                grid[i][j] = nullptr; // Set to nullptr to avoid double-deletion
             }
         }
     }
