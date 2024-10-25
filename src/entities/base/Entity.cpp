@@ -171,6 +171,7 @@ void Entity::unsubscribeFromAllBuildings()
     for(Entity* e : observers)
     {
         e->unsubscribe(this);
+        unsubscribe(e);
     }
 }
 
@@ -210,4 +211,9 @@ void Entity::residentialBuildingPlaced()
             }
         }
     }
+}
+
+std::string Entity::getSymbol()
+{
+    return symbol;
 }

@@ -11,6 +11,7 @@ ResidentialBuilding::ResidentialBuilding(EntityConfig ec, Size size, int xPos, i
 
 ResidentialBuilding::ResidentialBuilding(ResidentialBuilding* entity) : Building(entity)
 {
+    capacity = entity->capacity;
     residentialBuildingPlaced();
 }
 
@@ -204,6 +205,8 @@ void ResidentialBuilding::update()
     reduceByChangeWithNegativeExtreme(ConfigManager::getSatisfactionConfig(EntityType::POWERPLANT), localUtility);
     reduceByChange(globalIndustry);
     reduceByChangeWithNegativeExtreme(ConfigManager::getSatisfactionConfig(EntityType::WOODPRODUCER), localIndustry);
+
+    calculateSatisfaction();
 }
 
 void ResidentialBuilding::reduceByChange(float &value)

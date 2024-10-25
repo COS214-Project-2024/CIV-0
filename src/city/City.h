@@ -45,6 +45,7 @@ public:
 
     // Example getter for an entity in the city grid
     Entity *getEntity(int x, int y);
+    void addEntity(Entity* entity);
 };
 
 #endif // CITY_H

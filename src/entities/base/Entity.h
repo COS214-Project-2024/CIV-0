@@ -196,6 +196,8 @@ public:
      * @return A constant reference to the vector of observer entities.
      */
     const std::vector<Entity*> getObservers();
+
+    std::string getSymbol();
 };
 
 #endif // ENTITY_H

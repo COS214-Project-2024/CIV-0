@@ -5,7 +5,7 @@ Factory::~Factory() {}
 
 Factory::Factory(EntityConfig ec, Size size, int xPos, int yPos) : EconomicBuilding(ec, size, xPos, yPos)
 {
-
+    
 }
 
 Factory::Factory(Factory* factory) : EconomicBuilding(factory)
