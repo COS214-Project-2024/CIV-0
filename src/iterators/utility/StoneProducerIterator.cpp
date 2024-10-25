@@ -34,7 +34,7 @@ void StoneProducerIterator::next(){
         col = 0;
         for(curr = currRow->begin(); curr != currRow->end();++curr){
             StoneProducer* stoneproducer = dynamic_cast<StoneProducer*>(*curr);
-            if(stoneproducer){found = true;break;}
+            if(stoneproducer&& (col!=Tcol || Trow!=row)){found = true;break;}
             col+=1;
         }
         if(found)break;
@@ -60,8 +60,8 @@ bool StoneProducerIterator::hasNext(){
     std::vector<std::vector<Entity*>>::iterator tempRow = this->currRow;
     std::vector<Entity*>::iterator tempCurr = this->curr;
 
-        for(;tempRow != this->grid.end(); tempRow++){
-        for(tempCurr = tempRow->begin(); tempCurr != tempRow->end(); tempCurr++){
+        for(;tempRow != this->grid.end(); ++tempRow){
+        for(tempCurr = tempRow->begin(); tempCurr != tempRow->end(); ++tempCurr){
             StoneProducer* stoneproducer = dynamic_cast<StoneProducer*>(*tempCurr);
 
             if(stoneproducer){found = true;break;}

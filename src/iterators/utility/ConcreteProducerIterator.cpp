@@ -34,7 +34,7 @@ void ConcreteProducerIterator::next(){
         col = 0;
         for(curr = currRow->begin(); curr != currRow->end();++curr){
             ConcreteProducer* concreteproducer = dynamic_cast<ConcreteProducer*>(*curr);
-            if(concreteproducer){found = true;break;}
+            if(concreteproducer && (col!=Tcol || Trow!=row)){found = true;break;}
             col+=1;
         }
         if(found)break;
@@ -57,11 +57,11 @@ void ConcreteProducerIterator::next(){
 
 bool ConcreteProducerIterator::hasNext(){
     bool found = false;
-    std::vector<std::vector<Entity*>>::iterator tempRow = this->currRow;
-    std::vector<Entity*>::iterator tempCurr = this->curr;
+    std::vector<std::vector<Entity*>>::iterator tempRow = ++this->currRow;
+    std::vector<Entity*>::iterator tempCurr = ++this->curr;
 
-        for(;tempRow != this->grid.end(); tempRow++){
-        for(tempCurr = tempRow->begin(); tempCurr != tempRow->end(); tempCurr++){
+        for(;tempRow != this->grid.end(); ++tempRow){
+        for(tempCurr = tempRow->begin(); tempCurr != tempRow->end();++tempCurr){
             ConcreteProducer* concreteproducer = dynamic_cast<ConcreteProducer*>(*tempCurr);
 
             if(concreteproducer){found = true;break;}
