@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev, feature/*, hotfix/*]
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]  # Run on both Linux and macOS environments
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Updated to v3
+
+      - name: Install dependencies
+        run: |
+          if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+            sudo apt-get update
+            sudo apt-get install -y build-essential make clang curl doxygen
+          elif [ "${{ matrix.os }}" == "macos-latest" ]; then
+            brew update
+            brew install --formula make curl doxygen  # Use --formula to avoid warnings
+          fi
+
+      - name: Download Doctest
+        run: |
+          [ ! -f tests/doctest.h ] && curl -sSL https://raw.githubusercontent.com/doctest/doctest/master/doctest/doctest.h -o tests/doctest.h
+
+      - name: Run Makefile Setup
+        run: make setup
+
+      - name: Build Project
+        run: make
+
+      - name: Run Tests
+        run: make test
+
+      - name: Doxygen Documentation
+        run: make docs
