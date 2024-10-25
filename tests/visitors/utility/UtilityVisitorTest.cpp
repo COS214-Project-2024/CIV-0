@@ -32,8 +32,6 @@ TEST_CASE("UtilityVisitorTest - Collect utilities output and handling capacity f
     // Create a UtilityVisitor instance
     UtilityVisitor utilityVisitor;
 
-    // Test 1 2 3
-
     // Let the visitor visit the city
     city->accept(utilityVisitor);
 
