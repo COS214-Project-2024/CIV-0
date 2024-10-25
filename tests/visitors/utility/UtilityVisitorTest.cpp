@@ -41,6 +41,8 @@ TEST_CASE("UtilityVisitorTest - Collect utilities output and handling capacity f
     CHECK(utilityVisitor.getTotalSewageHandled() == 200); // 200 sewage handling
     CHECK(utilityVisitor.getTotalWasteHandled() == 150);  // 150 waste handling
 
+    // Test
+
     city->reset();
 }
 
