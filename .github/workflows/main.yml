@@ -25,6 +25,8 @@ jobs:
           elif [ "${{ matrix.os }}" == "macos-latest" ]; then
             brew update
             brew install --formula make curl doxygen  # Use --formula to avoid warnings
+            echo 'alias make="gmake"' >> ~/.zshrc # Alias gmake to make
+            source ~/.zshrc
           fi
 
       - name: Run Makefile Setup
@@ -35,6 +37,3 @@ jobs:
 
       - name: Run Tests
         run: make test
-
-      - name: Doxygen Documentation
-        run: make docs
