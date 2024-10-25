@@ -35,8 +35,6 @@ TEST_CASE("UtilityVisitorTest - Collect utilities output and handling capacity f
     // Let the visitor visit the city
     city->accept(utilityVisitor);
 
-    // Test 123
-
     // Check the totals collected by the UtilityVisitor
     CHECK(utilityVisitor.getTotalElectricity() == 100);   // 100 electricity
     CHECK(utilityVisitor.getTotalWater() == 50);          // 50 water
