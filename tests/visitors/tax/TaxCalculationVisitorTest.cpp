@@ -6,6 +6,7 @@
 #include "entities/building/economic/Office.h"
 #include "entities/building/economic/ShoppingMall.h"
 #include "utils/ConfigManager.h"
+#include <iostream>
 
 TEST_CASE("TaxCalculationVisitorTest - Collect taxes from buildings using ConfigManager")
 {
@@ -22,14 +23,10 @@ TEST_CASE("TaxCalculationVisitorTest - Collect taxes from buildings using Config
     EntityConfig mediumOfficeConfig = ConfigManager::getEntityConfig(EntityType::OFFICE, Size::MEDIUM);
     EntityConfig largeShoppingMallConfig = ConfigManager::getEntityConfig(EntityType::SHOPPINGMALL, Size::LARGE);
 
-    // Mocking the city grid with different types of buildings (House, Apartment, Office, ShoppingMall)
-    std::vector<std::vector<Entity *>> mockGrid = {
-        {new House(smallHouseConfig, Size::SMALL, 0, 0), nullptr, new Office(mediumOfficeConfig, Size::MEDIUM, 0, 1)},
-        {nullptr, new Apartment(largeApartmentConfig, Size::LARGE, 1, 0), nullptr},
-        {new ShoppingMall(largeShoppingMallConfig, Size::LARGE, 2, 0), nullptr, nullptr}};
-
-    // Assign this mock grid to the city
-    city->getGrid() = mockGrid;
+    city->addEntity(new House(smallHouseConfig, Size::SMALL, 0, 0));
+    city->addEntity(new Office(mediumOfficeConfig, Size::MEDIUM, 0, 1));
+    city->addEntity(new Apartment(largeApartmentConfig, Size::LARGE, 1, 0));
+    city->addEntity(new ShoppingMall(largeShoppingMallConfig, Size::LARGE, 2, 0));
 
     // Create a TaxCalculationVisitor instance
     TaxCalculationVisitor taxVisitor;
@@ -47,26 +44,13 @@ TEST_CASE("TaxCalculationVisitorTest - Collect taxes from buildings using Config
     CHECK(taxVisitor.getTotalEconomicTax() == expectedEconomicTax);
     CHECK(taxVisitor.getTotalTax() == (expectedResidentialTax + expectedEconomicTax));
 
-    // Clean up the dynamically allocated entities
-    for (auto &row : mockGrid)
-    {
-        for (Entity *entity : row)
-        {
-            delete entity; // Free each entity
-        }
-    }
+    city->reset();
 }
 
 TEST_CASE("TaxCalculationVisitorTest - Empty grid produces no taxes using ConfigManager")
 {
     // Create a city instance
     City *city = City::instance();
-
-    // Create an empty city grid (all nullptrs)
-    std::vector<std::vector<Entity *>> emptyGrid(3, std::vector<Entity *>(3, nullptr));
-
-    // Assign the empty grid to the city
-    city->getGrid() = emptyGrid;
 
     // Set tax rates for the city using setters
     city->setResidentialTax(10); // 10% residential tax
@@ -82,4 +66,6 @@ TEST_CASE("TaxCalculationVisitorTest - Empty grid produces no taxes using Config
     CHECK(taxVisitor.getTotalResidentialTax() == 0);
     CHECK(taxVisitor.getTotalEconomicTax() == 0);
     CHECK(taxVisitor.getTotalTax() == 0);
+
+    city->reset();
 }

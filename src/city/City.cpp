@@ -1,5 +1,6 @@
 #include "City.h"
 #include "entities/base/Entity.h"
+#include <algorithm> // for std::fill
 
 City::City() : width(50), height(50), // Set default values
                satisfaction(0), money(0), wood(0), steel(0), concrete(0),
@@ -21,6 +22,42 @@ City::~City()
                 delete grid[i][j];
         }
     }
+}
+
+void City::reset()
+{
+    // Reset scalar properties to default values
+    satisfaction = 0.0f;
+    money = 0;
+    wood = 0;
+    steel = 0;
+    concrete = 0;
+    populationCapacity = 0;
+    population = 0;
+    electricityProduction = 0;
+    electricityConsumption = 0;
+    waterProduction = 0;
+    waterConsumption = 0;
+    residentialTax = 0;
+    economicTax = 0;
+
+    // Safely delete and nullify all entities in the grid
+    for (int i = 0; i < height; ++i)
+    {
+        for (int j = 0; j < width; ++j)
+        {
+            Entity *&entity = grid[i][j];
+            if (entity != nullptr)
+            {
+                delete entity;    // Free memory
+                entity = nullptr; // Set to nullptr to avoid double-deletion
+            }
+        }
+    }
+
+    // Resize and reinitialize grid with nullptr entities
+    grid.clear();
+    grid.resize(height, std::vector<Entity *>(width, nullptr));
 }
 
 /**

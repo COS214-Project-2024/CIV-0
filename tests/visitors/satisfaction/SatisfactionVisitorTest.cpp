@@ -19,15 +19,15 @@ TEST_CASE("SatisfactionVisitorTest - Collect satisfaction from many residential 
     EntityConfig mediumApartmentConfig = ConfigManager::getEntityConfig(EntityType::APARTMENT, Size::MEDIUM);
     EntityConfig largeApartmentConfig = ConfigManager::getEntityConfig(EntityType::APARTMENT, Size::LARGE);
 
-    // Mocking the city grid with various sizes of residential buildings (House, Apartment)
-    std::vector<std::vector<Entity *>> mockGrid = {
-        {new House(smallHouseConfig, Size::SMALL, 0, 0), new Apartment(largeApartmentConfig, Size::LARGE, 0, 1), new House(mediumHouseConfig, Size::MEDIUM, 0, 2)},
-        {new Apartment(mediumApartmentConfig, Size::MEDIUM, 1, 0), new House(largeHouseConfig, Size::LARGE, 1, 1), new Apartment(smallApartmentConfig, Size::SMALL, 1, 2)},
-        {new House(smallHouseConfig, Size::SMALL, 2, 0), new Apartment(mediumApartmentConfig, Size::MEDIUM, 2, 1), new House(largeHouseConfig, Size::LARGE, 2, 2)},
-    };
-
-    // Assign this mock grid to the city
-    city->getGrid() = mockGrid;
+    city->addEntity(new House(smallHouseConfig, Size::SMALL, 0, 0));
+    city->addEntity(new Apartment(largeApartmentConfig, Size::LARGE, 0, 1));
+    city->addEntity(new House(mediumHouseConfig, Size::MEDIUM, 0, 2));
+    city->addEntity(new Apartment(mediumApartmentConfig, Size::MEDIUM, 1, 0));
+    city->addEntity(new House(largeHouseConfig, Size::LARGE, 1, 1));
+    city->addEntity(new Apartment(smallApartmentConfig, Size::SMALL, 1, 2));
+    city->addEntity(new House(smallHouseConfig, Size::SMALL, 2, 0));
+    city->addEntity(new Apartment(mediumApartmentConfig, Size::MEDIUM, 2, 1));
+    city->addEntity(new House(largeHouseConfig, Size::LARGE, 2, 2));
 
     // Create a SatisfactionVisitor instance
     SatisfactionVisitor satisfactionVisitor;
@@ -40,7 +40,7 @@ TEST_CASE("SatisfactionVisitorTest - Collect satisfaction from many residential 
     int residentialCount = 0;
 
     // Iterate over the grid manually to calculate expected satisfaction
-    for (auto &row : mockGrid)
+    for (auto &row : city->getGrid())
     {
         for (Entity *entity : row)
         {
@@ -60,24 +60,13 @@ TEST_CASE("SatisfactionVisitorTest - Collect satisfaction from many residential 
     CHECK(satisfactionVisitor.getAverageSatisfaction() == expectedAverageSatisfaction);
     CHECK(satisfactionVisitor.getResidentialCount() == residentialCount);
 
-    // Clean up the dynamically allocated entities
-    for (auto &row : mockGrid)
-    {
-        for (Entity *entity : row)
-        {
-            delete entity; // Free each entity
-        }
-    }
+    city->reset();
 }
 
 TEST_CASE("SatisfactionVisitorTest - Empty grid produces no satisfaction")
 {
     // Create an empty city grid (all nullptrs)
     City *city = City::instance();
-    std::vector<std::vector<Entity *>> emptyGrid(3, std::vector<Entity *>(3, nullptr));
-
-    // Assign the empty grid to the city
-    city->getGrid() = emptyGrid;
 
     // Create a SatisfactionVisitor instance
     SatisfactionVisitor satisfactionVisitor;
@@ -88,4 +77,6 @@ TEST_CASE("SatisfactionVisitorTest - Empty grid produces no satisfaction")
     // Check that no satisfaction was collected
     CHECK(satisfactionVisitor.getAverageSatisfaction() == 0);
     CHECK(satisfactionVisitor.getResidentialCount() == 0);
+
+    city->reset();
 }

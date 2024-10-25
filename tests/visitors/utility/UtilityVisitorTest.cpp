@@ -24,12 +24,10 @@ TEST_CASE("UtilityVisitorTest - Collect utilities output and handling capacity f
     WasteManagement *wasteManagement = new WasteManagement(EntityConfig(), Size::SMALL, 3, 0);
     wasteManagement->setOutput(150); // Can handle 150 waste
 
-    // Mocking the city grid with the utility entities
-    std::vector<std::vector<Entity *>> mockGrid = {
-        {powerPlant, waterSupply, sewageSystem, wasteManagement}};
-
-    // Assign this mock grid to the city
-    city->getGrid() = mockGrid;
+    city->addEntity(powerPlant);
+    city->addEntity(waterSupply);
+    city->addEntity(sewageSystem);
+    city->addEntity(wasteManagement);
 
     // Create a UtilityVisitor instance
     UtilityVisitor utilityVisitor;
@@ -43,24 +41,13 @@ TEST_CASE("UtilityVisitorTest - Collect utilities output and handling capacity f
     CHECK(utilityVisitor.getTotalSewageHandled() == 200); // 200 sewage handling
     CHECK(utilityVisitor.getTotalWasteHandled() == 150);  // 150 waste handling
 
-    // Clean up the dynamically allocated entities
-    for (auto &row : mockGrid)
-    {
-        for (Entity *entity : row)
-        {
-            delete entity; // Free each entity
-        }
-    }
+    city->reset();
 }
 
 TEST_CASE("UtilityVisitorTest - Empty grid produces no output or capacity")
 {
     // Create an empty city grid (all nullptrs)
     City *city = City::instance();
-    std::vector<std::vector<Entity *>> emptyGrid(3, std::vector<Entity *>(3, nullptr));
-
-    // Assign the empty grid to the city
-    city->getGrid() = emptyGrid;
 
     // Create a UtilityVisitor instance
     UtilityVisitor utilityVisitor;
@@ -73,4 +60,6 @@ TEST_CASE("UtilityVisitorTest - Empty grid produces no output or capacity")
     CHECK(utilityVisitor.getTotalWater() == 0);
     CHECK(utilityVisitor.getTotalSewageHandled() == 0);
     CHECK(utilityVisitor.getTotalWasteHandled() == 0);
+
+    city->reset();
 }

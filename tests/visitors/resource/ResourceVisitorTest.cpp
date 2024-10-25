@@ -10,14 +10,11 @@ TEST_CASE("ResourceVisitorTest - Collect resources from entities")
     // Create a city instance
     City *city = City::instance();
 
-    // Mocking the city grid with different resource-producing entities
-    std::vector<std::vector<Entity *>> mockGrid = {
-        {new WoodProducer(EntityConfig(), Size::SMALL, 0, 0), nullptr, new ConcreteProducer(EntityConfig(), Size::MEDIUM, 0, 1)},
-        {nullptr, new StoneProducer(EntityConfig(), Size::LARGE, 1, 0), nullptr},
-        {new WoodProducer(EntityConfig(), Size::LARGE, 2, 0), new StoneProducer(EntityConfig(), Size::SMALL, 2, 1), nullptr}};
-
-    // Assign this mock grid to the city
-    city->getGrid() = mockGrid;
+    city->addEntity(new WoodProducer(EntityConfig(), Size::SMALL, 0, 0));
+    city->addEntity(new ConcreteProducer(EntityConfig(), Size::MEDIUM, 0, 1));
+    city->addEntity(new StoneProducer(EntityConfig(), Size::LARGE, 1, 0));
+    city->addEntity(new WoodProducer(EntityConfig(), Size::LARGE, 2, 0));
+    city->addEntity(new StoneProducer(EntityConfig(), Size::SMALL, 2, 1));
 
     // Create a ResourceVisitor instance
     ResourceVisitor resourceVisitor;
@@ -31,26 +28,13 @@ TEST_CASE("ResourceVisitorTest - Collect resources from entities")
     CHECK(resourceVisitor.getTotalConcrete() == 20); // 1 concrete producer * 20
     CHECK(resourceVisitor.getTotalStone() == 40);    // 2 stone producers * 20
 
-    // Clean up the dynamically allocated entities
-    for (auto &row : mockGrid)
-    {
-        for (Entity *entity : row)
-        {
-            delete entity; // Free each entity
-        }
-    }
+    city->reset();
 }
 
 TEST_CASE("ResourceVisitorTest - Empty grid produces no resources")
 {
     // Create a city instance
     City *city = City::instance();
-
-    // Create an empty city grid (all nullptrs)
-    std::vector<std::vector<Entity *>> emptyGrid(3, std::vector<Entity *>(3, nullptr));
-
-    // Assign the empty grid to the city
-    city->getGrid() = emptyGrid;
 
     // Create a ResourceVisitor instance
     ResourceVisitor resourceVisitor;
@@ -62,6 +46,8 @@ TEST_CASE("ResourceVisitorTest - Empty grid produces no resources")
     CHECK(resourceVisitor.getTotalWood() == 0);
     CHECK(resourceVisitor.getTotalConcrete() == 0);
     CHECK(resourceVisitor.getTotalStone() == 0);
+
+    city->reset();
 }
 
 TEST_CASE("ResourceVisitorTest - Single resource producer in grid")
@@ -69,14 +55,7 @@ TEST_CASE("ResourceVisitorTest - Single resource producer in grid")
     // Create a city instance
     City *city = City::instance();
 
-    // Mocking the city grid with one wood producer
-    std::vector<std::vector<Entity *>> mockGrid = {
-        {nullptr, nullptr, nullptr},
-        {nullptr, new WoodProducer(EntityConfig(), Size::MEDIUM, 1, 1), nullptr},
-        {nullptr, nullptr, nullptr}};
-
-    // Assign the grid to the city
-    city->getGrid() = mockGrid;
+    city->addEntity(new WoodProducer(EntityConfig(), Size::MEDIUM, 1, 1));
 
     // Create a ResourceVisitor instance
     ResourceVisitor resourceVisitor;
@@ -89,12 +68,5 @@ TEST_CASE("ResourceVisitorTest - Single resource producer in grid")
     CHECK(resourceVisitor.getTotalConcrete() == 0); // No concrete producer
     CHECK(resourceVisitor.getTotalStone() == 0);    // No stone producer
 
-    // Clean up the dynamically allocated entities
-    for (auto &row : mockGrid)
-    {
-        for (Entity *entity : row)
-        {
-            delete entity; // Free each entity
-        }
-    }
+    city->reset();
 }

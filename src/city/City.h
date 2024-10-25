@@ -58,6 +58,8 @@ public:
 
     int getWidth();
     int getHeight();
+
+    void reset();
 };
 
 #endif // CITY_H
