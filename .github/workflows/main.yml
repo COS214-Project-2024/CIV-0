@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  # No change needed for Node.js 20 compatibility
 
       - name: Install dependencies
         run: |
@@ -24,7 +24,12 @@ jobs:
             sudo apt-get install -y build-essential make clang curl doxygen valgrind
           elif [ "${{ matrix.os }}" == "macos-latest" ]; then
             brew update
-            brew install --formula make curl doxygen
+            # Check if curl is installed and install only if needed
+            if ! brew ls --versions curl > /dev/null; then
+              brew install --formula make curl doxygen
+            else
+              echo "curl is already installed, skipping installation."
+            fi
             echo 'alias make="gmake"' >> ~/.zshrc # Alias gmake to make
             source ~/.zshrc
           fi
