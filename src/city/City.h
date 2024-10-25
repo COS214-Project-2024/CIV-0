@@ -1,14 +1,17 @@
 #ifndef CITY_H
 #define CITY_H
 
-#include "entities/base/Entity.h"
 #include "visitors/base/CityVisitor.h"
 #include <vector>
+
+class Entity;
 
 class City
 {
 private:
     std::vector<std::vector<Entity *>> grid;
+    int width;
+    int height;
     float satisfaction;
     int money;
     int wood;
@@ -39,6 +42,7 @@ public:
     City &operator=(const City &) = delete;
 
     Entity *getEntity(int x, int y);
+    void addEntity(Entity *entity);
     std::vector<std::vector<Entity *>> &getGrid(); // Provide access to the grid
 
     // Getters for tax rates
@@ -51,6 +55,9 @@ public:
 
     // Accept method for the visitor pattern
     void accept(CityVisitor &visitor);
+
+    int getWidth();
+    int getHeight();
 };
 
 #endif // CITY_H
