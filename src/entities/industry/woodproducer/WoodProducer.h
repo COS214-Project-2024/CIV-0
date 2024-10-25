@@ -8,6 +8,7 @@ class WoodProducer : Industry
 public:
     WoodProducer();
     WoodProducer(EntityConfig ec, Size size, int xPos, int yPos);
+    WoodProducer(WoodProducer* woodProducer);
     virtual ~WoodProducer();
 
     void update();

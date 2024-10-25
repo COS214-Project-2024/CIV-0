@@ -15,7 +15,7 @@ PoliceStation::PoliceStation(PoliceStation* police) : ServiceBuilding(police)
 
 void PoliceStation::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         

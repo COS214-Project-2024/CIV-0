@@ -1,11 +1,28 @@
 #include "ResidentialBuilding.h"
 
 ResidentialBuilding::ResidentialBuilding() {}
-ResidentialBuilding::~ResidentialBuilding() {}
+ResidentialBuilding::~ResidentialBuilding(){}
 
 ResidentialBuilding::ResidentialBuilding(EntityConfig ec, Size size, int xPos, int yPos) : Building(ec, size, xPos, yPos)
 {
     reset();
+    residentialBuildingPlaced();
+}
+
+ResidentialBuilding::ResidentialBuilding(ResidentialBuilding* entity) : Building(entity)
+{
+    capacity = entity->capacity;
+    residentialBuildingPlaced();
+}
+
+int ResidentialBuilding::getCapacity()
+{
+    return capacity;
+}
+
+void ResidentialBuilding::setCapacity(int capacity)
+{
+    this->capacity = capacity;
 }
 
 //HMMMMMMMMMMM - idk this is needed but It looks like html code :(
@@ -188,6 +205,8 @@ void ResidentialBuilding::update()
     reduceByChangeWithNegativeExtreme(ConfigManager::getSatisfactionConfig(EntityType::POWERPLANT), localUtility);
     reduceByChange(globalIndustry);
     reduceByChangeWithNegativeExtreme(ConfigManager::getSatisfactionConfig(EntityType::WOODPRODUCER), localIndustry);
+
+    calculateSatisfaction();
 }
 
 void ResidentialBuilding::reduceByChange(float &value)

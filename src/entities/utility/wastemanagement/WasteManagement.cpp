@@ -14,7 +14,7 @@ WasteManagement::WasteManagement(WasteManagement* wasteManagement) : Utility(was
 
 void WasteManagement::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         

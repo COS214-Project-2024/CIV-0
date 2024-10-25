@@ -1,14 +1,27 @@
 #include "City.h"
+#include "entities/base/Entity.h"
 
-City::City() : satisfaction(0), money(0), wood(0), steel(0), concrete(0),
+City::City() : width(50), height(50), // Set default values
+               satisfaction(0), money(0), wood(0), steel(0), concrete(0),
                populationCapacity(0), population(0), electricityProduction(0),
                electricityConsumption(0), waterProduction(0), waterConsumption(0),
                residentialTax(0), economicTax(0)
 {
-    // You can initialize the grid and other members here as needed
+    // Initialize grid with default width and height
+    grid.resize(height, std::vector<Entity *>(width, nullptr));
 }
 
-City::~City() {}
+City::~City()
+{
+    for (int i = 0; i < width; i++)
+    {
+        for (int j = 0; j < height; j++)
+        {
+            if (grid[i][j])
+                delete grid[i][j];
+        }
+    }
+}
 
 /**
  * @brief Returns a pointer to the singleton instance of City.
@@ -23,9 +36,29 @@ City *City::instance()
 
 Entity *City::getEntity(int x, int y)
 {
-    if (x >= 0 && x < grid.size() && y >= 0 && y < grid[x].size())
+    if (x >= 0 && x < width && y >= 0 && y < height)
     {
         return grid[x][y];
     }
     return nullptr; // Return nullptr if coordinates are out of bounds
+}
+
+int City::getWidth()
+{
+    return width;
+}
+
+int City::getHeight()
+{
+    return height;
+}
+
+void City::addEntity(Entity* entity)
+{
+    int x = entity->getXPosition();
+    int y = entity->getYPosition();
+    if (x >= 0 && x < width && y >= 0 && y < height)
+    {
+        grid[x][y] = entity;
+    }
 }
