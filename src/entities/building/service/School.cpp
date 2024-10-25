@@ -8,6 +8,11 @@ School::School(EntityConfig ec, Size size, int xPos, int yPos) : ServiceBuilding
 
 }
 
+School::School(School* school) : ServiceBuilding(school)
+{
+
+}
+
 void School::update()
 {
     for(Observer* o : subscribers)
@@ -19,10 +24,14 @@ void School::update()
             rb->updateSchool(this);
         }
     }
+
+    // This is for updating the build state (it should run once per game loop)
+    if (!isBuilt()) {
+        updateBuildState();
+    }
 }
 
 Entity* School::clone()
 {
-    Entity* e = new School(*ec, size, xPosition, yPosition);
-    return e;
+    return new School(this);
 }

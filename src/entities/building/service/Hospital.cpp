@@ -8,6 +8,11 @@ Hospital::Hospital(EntityConfig ec, Size size, int xPos, int yPos) : ServiceBuil
 
 }
 
+Hospital::Hospital(Hospital* hospital) : ServiceBuilding(hospital)
+{
+
+}
+
 void Hospital::update()
 {
     for(Observer* o : subscribers)
@@ -19,10 +24,14 @@ void Hospital::update()
             rb->updateHospital(this);
         }
     }
+
+    // This is for updating the build state (it should run once per game loop)
+    if (!isBuilt()) {
+        updateBuildState();
+    }
 }
 
 Entity* Hospital::clone()
 {
-    Entity* e = new Hospital(*ec, size, xPosition, yPosition);
-    return e;
+    return new Hospital(this);
 }

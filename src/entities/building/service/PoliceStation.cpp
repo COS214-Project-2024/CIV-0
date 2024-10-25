@@ -8,6 +8,11 @@ PoliceStation::PoliceStation(EntityConfig ec, Size size, int xPos, int yPos) : S
 
 }
 
+PoliceStation::PoliceStation(PoliceStation* police) : ServiceBuilding(police)
+{
+
+}
+
 void PoliceStation::update()
 {
     for(Observer* o : subscribers)
@@ -19,10 +24,14 @@ void PoliceStation::update()
             rb->updatePoliceStation(this);
         }
     }
+
+    // This is for updating the build state (it should run once per game loop)
+    if (!isBuilt()) {
+        updateBuildState();
+    }
 }
 
 Entity* PoliceStation::clone()
 {
-    Entity* e = new PoliceStation(*ec, size, xPosition, yPosition);
-    return e;
+    return new PoliceStation(this);
 }
