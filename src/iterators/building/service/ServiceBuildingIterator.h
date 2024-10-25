@@ -2,7 +2,7 @@
 #define SERVICEBUILDINGITERATOR_H
 
 #include "iterators/base/Iterator.h"
-#include "../entities/building/service/ServiceBuilding.h"
+#include "entities/building/service/ServiceBuilding.h"
 
 class ServiceBuildingIterator : public Iterator{
 public:

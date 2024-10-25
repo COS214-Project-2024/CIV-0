@@ -2,7 +2,7 @@
 #define CITYITERATOR_H
 
 #include "iterators/base/Iterator.h"
-#include "../city/City.h"
+#include "city/City.h"
 
 class CityIterator : public Iterator
 {

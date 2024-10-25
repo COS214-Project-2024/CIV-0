@@ -2,7 +2,7 @@
 #define UTILITYITERATOR_H
 
 #include "iterators/base/Iterator.h"
-#include "../entities/utility/base/Utility.h"
+#include "entities/utility/base/Utility.h"
 
 class UtilityIterator : public Iterator{
 public:

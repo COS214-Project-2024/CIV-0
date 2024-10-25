@@ -2,7 +2,7 @@
 #define WASTEMANAGEMENTITERATOR_H
 
 #include "iterators/base/Iterator.h"
-#include "../entities/utility/wastemanagement/WasteManagement.h"
+#include "entities/utility/wastemanagement/WasteManagement.h"
 
 class WasteManagementIterator : public Iterator{
 public:

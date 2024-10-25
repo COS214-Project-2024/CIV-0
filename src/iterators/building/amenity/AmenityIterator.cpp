@@ -37,7 +37,7 @@ void AmenityIterator::next(){
         col = 0;
         for(curr = currRow->begin(); curr != currRow->end();++curr){
             Amenity* amenity = dynamic_cast<Amenity*>(*curr);
-            if(amenity){found = true;break;}
+            if(amenity && (col!=Tcol || Trow!=row)){found = true;break;}
             col+=1;
         }
         if(found)break;
@@ -60,13 +60,12 @@ void AmenityIterator::next(){
 
 bool AmenityIterator::hasNext(){
     bool found = false;
-    std::vector<std::vector<Entity*>>::iterator tempRow = this->currRow;
-    std::vector<Entity*>::iterator tempCurr = this->curr;
+    std::vector<std::vector<Entity*>>::iterator tempRow = ++this->currRow;
+    std::vector<Entity*>::iterator tempCurr = ++this->curr;
 
-        for(;tempRow != this->grid.end(); tempRow++){
-        for(tempCurr = tempRow->begin(); tempCurr != tempRow->end(); tempCurr++){
+        for(;tempRow != this->grid.end();++tempRow){
+        for(tempCurr = tempRow->begin(); tempCurr != tempRow->end();++tempCurr){
             Amenity* amenity = dynamic_cast<Amenity*>(*tempCurr);
-
             if(amenity){found = true;break;}
         }
         if(found)break;

@@ -2,7 +2,7 @@
 #define WATERSUPPLYITERATOR_H
 
 #include "iterators/base/Iterator.h"
-#include "../entities/utility/watersupply/WaterSupply.h"
+#include "entities/utility/watersupply/WaterSupply.h"
 
 class WaterSupplyIterator : public Iterator{
 public:

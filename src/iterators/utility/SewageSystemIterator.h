@@ -2,7 +2,7 @@
 #define SEWAGESYSTEMITERATOR_H
 
 #include "iterators/base/Iterator.h"
-#include "../entities/utility/sewagesystem/SewageSystem.h"
+#include "entities/utility/sewagesystem/SewageSystem.h"
 
 class SewageSystemIterator : public Iterator{
 public:

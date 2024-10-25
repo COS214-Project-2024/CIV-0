@@ -2,7 +2,7 @@
 #define ECONOMICBUILDINGITERATOR_H
 
 #include "iterators/base/Iterator.h"
-#include "../entities/building/economic/EconomicBuilding.h"
+#include "entities/building/economic/EconomicBuilding.h"
 
 class EconomicBuildingIterator : public Iterator{
 public:

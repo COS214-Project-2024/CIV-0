@@ -2,7 +2,7 @@
 #define CONCRETEPRODUCERITERATOR_H
 
 #include "iterators/base/Iterator.h"
-#include "../entities/industry/concreteproducer/ConcreteProducer.h"
+#include "entities/industry/concreteproducer/ConcreteProducer.h"
 
 class ConcreteProducerIterator : public Iterator{
 public:

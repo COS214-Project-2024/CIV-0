@@ -2,7 +2,7 @@
 #define POWERPLANTITERATOR_H
 
 #include "iterators/base/Iterator.h"
-#include "../entities/utility/powerplant/PowerPlant.h"
+#include "entities/utility/powerplant/PowerPlant.h"
 
 class PowerPlantIterator : public Iterator
 {

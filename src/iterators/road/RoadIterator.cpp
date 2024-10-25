@@ -34,7 +34,7 @@ void RoadIterator::next(){
         col = 0;
         for(curr = currRow->begin(); curr != currRow->end();++curr){
             Road* road = dynamic_cast<Road*>(*curr);
-            if(road){found = true;break;}
+            if(road && (col!=Tcol || Trow!=row)){found = true;break;}
             col+=1;
         }
         if(found)break;
@@ -57,11 +57,11 @@ void RoadIterator::next(){
 
 bool RoadIterator::hasNext(){
     bool found = false;
-    std::vector<std::vector<Entity*>>::iterator tempRow = this->currRow;
-    std::vector<Entity*>::iterator tempCurr = this->curr;
+    std::vector<std::vector<Entity*>>::iterator tempRow = ++this->currRow;
+    std::vector<Entity*>::iterator tempCurr = ++this->curr;
 
-        for(;tempRow != this->grid.end(); tempRow++){
-        for(tempCurr = tempRow->begin(); tempCurr != tempRow->end(); tempCurr++){
+        for(;tempRow != this->grid.end();++tempRow){
+        for(tempCurr = tempRow->begin(); tempCurr != tempRow->end();++tempCurr){
             Road* road = dynamic_cast<Road*>(*tempCurr);
 
             if(road){found = true;break;}

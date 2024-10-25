@@ -2,7 +2,7 @@
 #define AMENITYITERATOR_H
 
 #include "iterators/base/Iterator.h"
-#include "../entities/building/amenity/Amenity.h"
+#include "entities/building/amenity/Amenity.h"
 
 class AmenityIterator : public Iterator{
 public:

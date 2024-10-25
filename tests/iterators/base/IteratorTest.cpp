@@ -1,6 +1,7 @@
 #include "doctest.h"
+#include "iterators/base/Iterator.h"
 
 TEST_CASE("IteratorTest test") {
-    // Add your test cases here
+    //its abstract :|
     CHECK(1 == 1);
 }

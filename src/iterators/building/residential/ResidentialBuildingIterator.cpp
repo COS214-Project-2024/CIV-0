@@ -37,7 +37,7 @@ void ResidentialBuildingIterator::next(){
         col = 0;
         for(curr = currRow->begin(); curr != currRow->end();++curr){
             ResidentialBuilding* residentialbuilding = dynamic_cast<ResidentialBuilding*>(*curr);
-            if(residentialbuilding){found = true;break;}
+            if(residentialbuilding && (col!=Tcol || Trow!=row)){found = true;break;}
             col+=1;
         }
         if(found)break;
@@ -60,11 +60,11 @@ void ResidentialBuildingIterator::next(){
 
 bool ResidentialBuildingIterator::hasNext(){
     bool found = false;
-    std::vector<std::vector<Entity*>>::iterator tempRow = this->currRow;
-    std::vector<Entity*>::iterator tempCurr = this->curr;
+    std::vector<std::vector<Entity*>>::iterator tempRow = ++this->currRow;
+    std::vector<Entity*>::iterator tempCurr = ++this->curr;
 
-        for(;tempRow != this->grid.end(); tempRow++){
-        for(tempCurr = tempRow->begin(); tempCurr != tempRow->end(); tempCurr++){
+        for(;tempRow != this->grid.end();++tempRow){
+        for(tempCurr = tempRow->begin(); tempCurr != tempRow->end();++tempCurr){
             ResidentialBuilding* residentialbuilding = dynamic_cast<ResidentialBuilding*>(*tempCurr);
 
             if(residentialbuilding){found = true;break;}

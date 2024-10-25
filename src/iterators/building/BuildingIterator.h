@@ -2,7 +2,7 @@
 #define BUILDINGITERATOR_H
 
 #include "iterators/base/Iterator.h"
-#include "../entities/building/base/Building.h"
+#include "entities/building/base/Building.h"
 
 class BuildingIterator : public Iterator
 {

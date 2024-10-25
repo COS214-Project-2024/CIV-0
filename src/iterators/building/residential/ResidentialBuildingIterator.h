@@ -2,7 +2,7 @@
 #define RESIDENTIALBUILDINGITERATOR_H
 
 #include "iterators/base/Iterator.h"
-#include "../entities/building/residential/ResidentialBuilding.h"
+#include "entities/building/residential/ResidentialBuilding.h"
 
 class ResidentialBuildingIterator : public Iterator
 {

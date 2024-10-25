@@ -34,7 +34,7 @@ void TransportIterator::next(){
         col = 0;
         for(curr = currRow->begin(); curr != currRow->end();++curr){
             Transport* transport = dynamic_cast<Transport*>(*curr);
-            if(transport){found = true;break;}
+            if(transport && (col!=Tcol || Trow!=row)){found = true;break;}
             col+=1;
         }
         if(found)break;
@@ -57,11 +57,11 @@ void TransportIterator::next(){
 
 bool TransportIterator::hasNext(){
     bool found = false;
-    std::vector<std::vector<Entity*>>::iterator tempRow = this->currRow;
-    std::vector<Entity*>::iterator tempCurr = this->curr;
+    std::vector<std::vector<Entity*>>::iterator tempRow = ++this->currRow;
+    std::vector<Entity*>::iterator tempCurr = ++this->curr;
 
-        for(;tempRow != this->grid.end(); tempRow++){
-        for(tempCurr = tempRow->begin(); tempCurr != tempRow->end(); tempCurr++){
+        for(;tempRow != this->grid.end();++tempRow){
+        for(tempCurr = tempRow->begin(); tempCurr != tempRow->end();++tempCurr){
             Transport* transport = dynamic_cast<Transport*>(*tempCurr);
 
             if(transport){found = true;break;}

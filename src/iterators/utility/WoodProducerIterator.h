@@ -2,7 +2,7 @@
 #define WOODPRODUCERITERATOR_H
 
 #include "iterators/base/Iterator.h"
-#include "../entities/industry/woodproducer/WoodProducer.h"
+#include "entities/industry/woodproducer/WoodProducer.h"
 
 class WoodProducerIterator : public Iterator{
 public:

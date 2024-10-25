@@ -2,7 +2,7 @@
 #define STONEPRODUCERITERATOR_H
 
 #include "iterators/base/Iterator.h"
-#include "../entities/industry/stoneproducer/StoneProducer.h"
+#include "entities/industry/stoneproducer/StoneProducer.h"
 
 class StoneProducerIterator : public Iterator
 {

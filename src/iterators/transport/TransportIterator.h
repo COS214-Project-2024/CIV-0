@@ -2,7 +2,7 @@
 #define TRANSPORTITERATOR_H
 
 #include "iterators/base/Iterator.h"
-#include "../entities/transport/Transport.h"
+#include "entities/transport/Transport.h"
 
 class TransportIterator : public Iterator
 {

@@ -37,7 +37,7 @@ void ServiceBuildingIterator::next(){
         col = 0;
         for(curr = currRow->begin(); curr != currRow->end();++curr){
             ServiceBuilding* servicebuilding = dynamic_cast<ServiceBuilding*>(*curr);
-            if(servicebuilding){found = true;break;}
+            if(servicebuilding && (col!=Tcol || Trow!=row)){found = true;break;}
             col+=1;
         }
         if(found)break;
@@ -60,11 +60,11 @@ void ServiceBuildingIterator::next(){
 
 bool ServiceBuildingIterator::hasNext(){
     bool found = false;
-    std::vector<std::vector<Entity*>>::iterator tempRow = this->currRow;
-    std::vector<Entity*>::iterator tempCurr = this->curr;
+    std::vector<std::vector<Entity*>>::iterator tempRow = ++this->currRow;
+    std::vector<Entity*>::iterator tempCurr = ++this->curr;
 
-        for(;tempRow != this->grid.end(); tempRow++){
-        for(tempCurr = tempRow->begin(); tempCurr != tempRow->end(); tempCurr++){
+        for(;tempRow != this->grid.end();++tempRow){
+        for(tempCurr = tempRow->begin(); tempCurr != tempRow->end();++tempCurr){
             ServiceBuilding* servicebuilding = dynamic_cast<ServiceBuilding*>(*tempCurr);
 
             if(servicebuilding){found = true;break;}

@@ -1,7 +1,7 @@
 #ifndef ITERATOR_H
 #define ITERATOR_H
 #include<vector>
-#include "../entities/base/Entity.h"
+#include "entities/base/Entity.h"
 
 class Iterator{
 protected:
@@ -20,8 +20,8 @@ public:
     virtual void next() = 0;
     virtual bool hasNext() = 0;
     virtual Entity* current() = 0;
-    virtual int getRow() = 0;
-    virtual int getCol() = 0;
+    virtual int getRow();
+    virtual int getCol();
 
 };
 

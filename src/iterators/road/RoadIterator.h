@@ -2,7 +2,7 @@
 #define ROADITERATOR_H
 
 #include "iterators/base/Iterator.h"
-#include "../entities/road/Road.h"
+#include "entities/road/Road.h"
 
 class RoadIterator : public Iterator
 {
