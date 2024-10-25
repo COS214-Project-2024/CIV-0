@@ -5,11 +5,12 @@
 class WoodProducerLevelTwoUpgrade : public WoodProducerUpgrade
 {
 public:
-    WoodProducerLevelTwoUpgrade(class WoodProducer *woodProducer);
+    WoodProducerLevelTwoUpgrade(WoodProducer *woodProducer);
+    WoodProducerLevelTwoUpgrade(WoodProducerLevelTwoUpgrade* woodProd);
     ~WoodProducerLevelTwoUpgrade();
     void update();
     Entity *clone();
-    int getStrength();
+    int getOutput();
 private: 
     const int UPGRADE = 2;
 };

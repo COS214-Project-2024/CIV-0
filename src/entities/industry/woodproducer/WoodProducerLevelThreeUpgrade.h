@@ -5,11 +5,12 @@
 class WoodProducerLevelThreeUpgrade : public WoodProducerUpgrade
 {
 public:
-    WoodProducerLevelThreeUpgrade();
+    WoodProducerLevelThreeUpgrade(WoodProducer* woodProd);
+    WoodProducerLevelThreeUpgrade(WoodProducerLevelThreeUpgrade* woodProd);
     ~WoodProducerLevelThreeUpgrade();
     void update() override;
     Entity *clone() override;
-    int getStrength();
+    int getOutput();
 private:
     const int UPGRADE = 4;
 };
