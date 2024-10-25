@@ -27,10 +27,6 @@ jobs:
             brew install --formula make curl doxygen  # Use --formula to avoid warnings
           fi
 
-      - name: Download Doctest
-        run: |
-          [ ! -f tests/doctest.h ] && curl -sSL https://raw.githubusercontent.com/doctest/doctest/master/doctest/doctest.h -o tests/doctest.h
-
       - name: Run Makefile Setup
         run: make setup
 
