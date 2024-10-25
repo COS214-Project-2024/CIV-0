@@ -171,7 +171,8 @@ public:
     void subscribeToAllResidentialInRadius();
     void subscribe(Entity* entity);
     void unsubscribe(Entity* entity);
-    void residentUnsubscribeFromAllBuildings();
+    void unsubscribeFromAllBuildings();
+    void residentialBuildingPlaced();
     const std::vector<Entity*> getObservers();
 };
 

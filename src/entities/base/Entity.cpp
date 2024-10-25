@@ -3,6 +3,7 @@
 #include "entities/state/Built.h"
 #include "city/City.h"
 #include "entities/building/residential/ResidentialBuilding.h"
+#include "entities/road/Road.h"
 
 Entity::Entity()
 {
@@ -59,6 +60,7 @@ Entity::Entity(EntityConfig ec, Size size, int xPos, int yPos)
 
 Entity::~Entity()
 {
+    unsubscribeFromAllBuildings();
     if(state != nullptr)
     {
         delete state;
@@ -164,7 +166,7 @@ void Entity::subscribe(Entity* entity)
     observers.push_back(entity);
 }
 
-void Entity::residentUnsubscribeFromAllBuildings()
+void Entity::unsubscribeFromAllBuildings()
 {
     for(Entity* e : observers)
     {
@@ -172,6 +174,7 @@ void Entity::residentUnsubscribeFromAllBuildings()
     }
 }
 
+//If you edit this you are signing your death warrent
 void Entity::subscribeToAllResidentialInRadius()
 {
     City* c = City::instance();
@@ -185,7 +188,25 @@ void Entity::subscribeToAllResidentialInRadius()
                 if(isWithinEffectRadius(c->getEntity(i, j)))
                 {
                     subscribe(c->getEntity(i, j));
+                    c->getEntity(i,j)->subscribe(this);
                 }
+            }
+        }
+    }
+}
+
+void Entity::residentialBuildingPlaced()
+{
+    City* c = City::instance();
+
+    for(int i = 0; i < c->getWidth(); i++)
+    {
+        for(int j = 0; j < c->getHeight(); j++)
+        {
+             //Don't you dare touch this
+            if(dynamic_cast<ResidentialBuilding*>(c->getEntity(i, j)) == nullptr && c->getEntity(i, j)!=nullptr && dynamic_cast<Road*>(c->getEntity(i, j)) == nullptr)
+            {
+                subscribeToAllResidentialInRadius();
             }
         }
     }
