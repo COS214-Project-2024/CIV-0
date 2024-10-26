@@ -14,5 +14,5 @@ Entity* ConcreteProducerLevelOneUpgrade::clone() {
 }
 
 int ConcreteProducerLevelOneUpgrade::getOutput() {
-    concreteProducer->getOutput() * UPGRADE;
+    return concreteProducer->getOutput() * UPGRADE;
 }

@@ -9,7 +9,7 @@ void ConcreteProducerLevelTwoUpgrade::update() {
 }
 
 int ConcreteProducerLevelTwoUpgrade::getOutput() {
-    concreteProducer->getOutput() * UPGRADE;
+    return concreteProducer->getOutput() * UPGRADE;
 }
 
 Entity* ConcreteProducerLevelTwoUpgrade::clone() {
