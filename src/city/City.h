@@ -1,6 +1,7 @@
 #ifndef CITY_H
 #define CITY_H
 
+#include "visitors/base/CityVisitor.h"
 #include <vector>
 
 class Entity;
@@ -40,12 +41,25 @@ public:
     City(const City &) = delete;
     City &operator=(const City &) = delete;
 
+    Entity *getEntity(int x, int y);
+    void addEntity(Entity *entity);
+    std::vector<std::vector<Entity *>> &getGrid(); // Provide access to the grid
+
+    // Getters for tax rates
+    int getResidentialTax() const; // Get residential tax rate
+    int getEconomicTax() const;    // Get economic tax rate
+
+    // Setters for tax rates
+    void setResidentialTax(int taxRate); // Set residential tax rate
+    void setEconomicTax(int taxRate);    // Set economic tax rate
+
+    // Accept method for the visitor pattern
+    void accept(CityVisitor &visitor);
+
     int getWidth();
     int getHeight();
 
-    // Example getter for an entity in the city grid
-    Entity *getEntity(int x, int y);
-    void addEntity(Entity* entity);
+    void reset();
 };
 
 #endif // CITY_H
