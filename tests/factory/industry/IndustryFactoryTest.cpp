@@ -1,49 +1,49 @@
 #include "doctest.h"
-#include "factory/transport/TransportFactory.h"
+#include "factory/industry/IndustryFactory.h"
 #include "utils/EntityType.h"
-TEST_CASE("TransportFactoryTest test") {
-    TransportFactory transportFactory;
-    Entity* entity = transportFactory.createSmallEntity(EntityType::BUSSTOP, 0, 0);
+TEST_CASE("IndustryFactoryTest test"){
+    IndustryFactory industryFactory;
+    Entity* entity = industryFactory.createSmallEntity(EntityType::CONCRETEPRODUCER, 0, 0);
     CHECK(entity != nullptr);
     CHECK(entity->getXPosition() == 0);
     CHECK(entity->getYPosition() == 0);
     delete entity;
-    entity = transportFactory.createMediumEntity(EntityType::BUSSTOP, 0, 0);
+    entity = industryFactory.createMediumEntity(EntityType::CONCRETEPRODUCER, 0, 0);
     CHECK(entity != nullptr);
     CHECK(entity->getXPosition() == 0);
     CHECK(entity->getYPosition() == 0);
     delete entity;
-    entity = transportFactory.createLargeEntity(EntityType::BUSSTOP, 0, 0);
+    entity = industryFactory.createLargeEntity(EntityType::CONCRETEPRODUCER, 0, 0);
     CHECK(entity != nullptr);
     CHECK(entity->getXPosition() == 0);
     CHECK(entity->getYPosition() == 0);
     delete entity;
-    entity = transportFactory.createSmallEntity(EntityType::TRAINSTATION, 0, 0);
+    entity = industryFactory.createSmallEntity(EntityType::STONEPRODUCER, 0, 0);
     CHECK(entity != nullptr);
     CHECK(entity->getXPosition() == 0);
     CHECK(entity->getYPosition() == 0);
     delete entity;
-    entity = transportFactory.createMediumEntity(EntityType::TRAINSTATION, 0, 0);
+    entity = industryFactory.createMediumEntity(EntityType::STONEPRODUCER, 0, 0);
     CHECK(entity != nullptr);
     CHECK(entity->getXPosition() == 0);
     CHECK(entity->getYPosition() == 0);
     delete entity;
-    entity = transportFactory.createLargeEntity(EntityType::TRAINSTATION, 0, 0);
+    entity = industryFactory.createLargeEntity(EntityType::STONEPRODUCER, 0, 0);
     CHECK(entity != nullptr);
     CHECK(entity->getXPosition() == 0);
     CHECK(entity->getYPosition() == 0);
     delete entity;
-    entity = transportFactory.createSmallEntity(EntityType::AIRPORT, 0, 0);
+    entity = industryFactory.createSmallEntity(EntityType::WOODPRODUCER, 0, 0);
     CHECK(entity != nullptr);
     CHECK(entity->getXPosition() == 0);
     CHECK(entity->getYPosition() == 0);
     delete entity;
-    entity = transportFactory.createMediumEntity(EntityType::AIRPORT, 0, 0);
+    entity = industryFactory.createMediumEntity(EntityType::WOODPRODUCER, 0, 0);
     CHECK(entity != nullptr);
     CHECK(entity->getXPosition() == 0);
     CHECK(entity->getYPosition() == 0);
     delete entity;
-    entity = transportFactory.createLargeEntity(EntityType::AIRPORT, 0, 0);
+    entity = industryFactory.createLargeEntity(EntityType::WOODPRODUCER, 0, 0);
     CHECK(entity != nullptr);
     CHECK(entity->getXPosition() == 0);
     CHECK(entity->getYPosition() == 0);
