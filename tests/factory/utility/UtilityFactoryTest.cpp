@@ -1,6 +1,92 @@
-#include "doctest.h"
 
+#include "doctest.h"
+#include "factory/utility/UtilityFactory.h"
+#include "utils/EntityType.h"
 TEST_CASE("UtilityFactoryTest test") {
-    // Add your test cases here
-    CHECK(1 == 1);
+    // Check if the UtilityFactory can create entities
+    UtilityFactory utilityFactory;
+    Entity* entity = utilityFactory.createSmallEntity(EntityType::POWERPLANT, 0, 0);
+    CHECK(entity != nullptr);
+    // CHECK(entity->getEntityType() == EntityType::POWERPLANT);
+    // CHECK(entity->getSize() == Size::SMALL);
+    CHECK(entity->getXPosition() == 0);
+    CHECK(entity->getYPosition() == 0);
+    delete entity;
+    entity = utilityFactory.createMediumEntity(EntityType::POWERPLANT, 0, 0);
+    CHECK(entity != nullptr);
+    // CHECK(entity->getEntityType() == EntityType::POWERPLANT);
+    // CHECK(entity->getSize() == Size::MEDIUM);
+    CHECK(entity->getXPosition() == 0);
+    CHECK(entity->getYPosition() == 0);
+    delete entity;
+    entity = utilityFactory.createLargeEntity(EntityType::POWERPLANT, 0, 0);
+    CHECK(entity != nullptr);
+    // CHECK(entity->getEntityType() == EntityType::POWERPLANT);
+    // CHECK(entity->getSize() == Size::LARGE);
+    CHECK(entity->getXPosition() == 0);
+    CHECK(entity->getYPosition() == 0);
+    delete entity;
+    entity = utilityFactory.createSmallEntity(EntityType::WATERSUPPLY, 0, 0);
+    CHECK(entity != nullptr);
+    // CHECK(entity->getEntityType() == EntityType::WATERSUPPLY);
+    // CHECK(entity->getSize() == Size::SMALL);
+    CHECK(entity->getXPosition() == 0);
+    CHECK(entity->getYPosition() == 0);
+    delete entity;
+    entity = utilityFactory.createMediumEntity(EntityType::WATERSUPPLY, 0, 0);
+    CHECK(entity != nullptr);
+    // CHECK(entity->getEntityType() == EntityType::WATERSUPPLY);
+    // CHECK(entity->getSize() == Size::MEDIUM);
+    CHECK(entity->getXPosition() == 0);
+    CHECK(entity->getYPosition() == 0);
+    delete entity;
+    entity = utilityFactory.createLargeEntity(EntityType::WATERSUPPLY, 0, 0);
+    CHECK(entity != nullptr);
+    // CHECK(entity->getEntityType() == EntityType::WATERSUPPLY);
+    // CHECK(entity->getSize() == Size::LARGE);
+    CHECK(entity->getXPosition() == 0);
+    CHECK(entity->getYPosition() == 0);
+    delete entity;
+    entity = utilityFactory.createSmallEntity(EntityType::WASTEMANAGMENT, 0, 0);
+    CHECK(entity != nullptr);
+    // CHECK(entity->getEntityType() == EntityType::WASTEMANAGMENT);
+    // CHECK(entity->getSize() == Size::SMALL);
+    CHECK(entity->getXPosition() == 0);
+    CHECK(entity->getYPosition() == 0);
+    delete entity;
+    entity = utilityFactory.createMediumEntity(EntityType::WASTEMANAGMENT, 0, 0);
+    CHECK(entity != nullptr);
+    // CHECK(entity->getEntityType() == EntityType::WASTEMANAGMENT);
+    // CHECK(entity->getSize() == Size::MEDIUM);
+    CHECK(entity->getXPosition() == 0);
+    CHECK(entity->getYPosition() == 0);
+    delete entity;
+    entity = utilityFactory.createLargeEntity(EntityType::WASTEMANAGMENT, 0, 0);
+    CHECK(entity != nullptr);
+    // CHECK(entity->getEntityType() == EntityType::WASTEMANAGMENT);
+    // CHECK(entity->getSize() == Size::LARGE);
+    CHECK(entity->getXPosition() == 0);
+    CHECK(entity->getYPosition() == 0);
+    delete entity;
+    entity = utilityFactory.createSmallEntity(EntityType::SEWAGESYSTEM, 0, 0);
+    CHECK(entity != nullptr);
+    // CHECK(entity->getEntityType() == EntityType::SEWAGESYSTEM);
+    // CHECK(entity->getSize() == Size::SMALL);
+    CHECK(entity->getXPosition() == 0);
+    CHECK(entity->getYPosition() == 0);
+    delete entity;
+    entity = utilityFactory.createMediumEntity(EntityType::SEWAGESYSTEM, 0, 0);
+    CHECK(entity != nullptr);
+    // CHECK(entity->getEntityType() == EntityType::SEWAGESYSTEM);
+    // CHECK(entity->getSize() == Size::MEDIUM);
+    CHECK(entity->getXPosition() == 0);
+    CHECK(entity->getYPosition() == 0);
+    delete entity;
+    entity = utilityFactory.createLargeEntity(EntityType::SEWAGESYSTEM, 0, 0);
+    CHECK(entity != nullptr);
+    // CHECK(entity->getEntityType() == EntityType::SEWAGESYSTEM);
+    // CHECK(entity->getSize() == Size::LARGE);
+    CHECK(entity->getXPosition() == 0);
+    CHECK(entity->getYPosition() == 0);
+    delete entity;
 }
