@@ -26,7 +26,7 @@ void ConcreteProducer::update()
         }
     }
 
-    if(!isBuilt) {
+    if(!isBuilt()) {
         updateBuildState();
     }
 }
