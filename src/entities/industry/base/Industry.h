@@ -68,7 +68,7 @@ public:
      * 
      * @return The production output value.
      */
-    int getOutput();
+    virtual int getOutput();
 
     /**
      * @brief Sets the production output of the industry.
