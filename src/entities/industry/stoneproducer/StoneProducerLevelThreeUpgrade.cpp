@@ -1,8 +1,8 @@
 #include "StoneProducerLevelThreeUpgrade.h"
 
-StoneProducerLevelThreeUpgrade::StoneProducerLevelThreeUpgrade(StoneProducer* stoneProd) : StoneProducerLevelThreeUpgrade(stoneProd) {}
+StoneProducerLevelThreeUpgrade::StoneProducerLevelThreeUpgrade(StoneProducer* stoneProd) : StoneProducerUpgrade(stoneProd) {}
 
-StoneProducerLevelThreeUpgrade::StoneProducerLevelThreeUpgrade(StoneProducerLevelThreeUpgrade* stoneProd) : StoneProducerLevelThreeUpgrade(stoneProd) {}
+StoneProducerLevelThreeUpgrade::StoneProducerLevelThreeUpgrade(StoneProducerLevelThreeUpgrade* stoneProd) : StoneProducerUpgrade(stoneProd) {}
 
 StoneProducerLevelThreeUpgrade::~StoneProducerLevelThreeUpgrade() {}
 

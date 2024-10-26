@@ -2,7 +2,7 @@
 
 StoneProducerLevelTwoUpgrade::StoneProducerLevelTwoUpgrade(StoneProducer* stoneProd) : StoneProducerUpgrade(stoneProd) {}
 
-StoneProducerLevelTwoUpgrade::StoneProducerLevelTwoUpgrade(StoneProducerLevelTwoUpgrade* stoneProd) : StoneProducerLevelTwoUpgrade(stoneProd){}
+StoneProducerLevelTwoUpgrade::StoneProducerLevelTwoUpgrade(StoneProducerLevelTwoUpgrade* stoneProd) : StoneProducerUpgrade(stoneProd){}
 
 StoneProducerLevelTwoUpgrade::~StoneProducerLevelTwoUpgrade() {}
 
@@ -11,7 +11,7 @@ Entity* StoneProducerLevelTwoUpgrade::clone() {
 }
 
 int StoneProducerLevelTwoUpgrade::getOutput() {
-    stoneProducer->getOutput() * UPGRADE;
+    return stoneProducer->getOutput() * UPGRADE;
 }
 
 void StoneProducerLevelTwoUpgrade::update() {

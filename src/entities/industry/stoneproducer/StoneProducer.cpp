@@ -8,11 +8,6 @@ StoneProducer::StoneProducer(EntityConfig ec, Size size, int xPos, int yPos) : I
     setOutput(20); //TODO - change value
 }
 
-StoneProducer::StoneProducer(StoneProducer* stoneProducer): Industry(stoneProducer)
-{
-    
-}
-
 void StoneProducer::update()
 {
     for(Entity* o : observers)
