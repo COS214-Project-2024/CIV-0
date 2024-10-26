@@ -3,18 +3,30 @@
 StoneProducer::StoneProducer() {}
 StoneProducer::~StoneProducer() {}
 
-StoneProducer::StoneProducer(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime) : Industry(electricity, water, symbol, radius, localEffect, globalEffect, width, height, revenue, size, xPos, yPos, buildTime)
+StoneProducer::StoneProducer(EntityConfig ec, Size size, int xPos, int yPos) : Industry(ec, size, xPos, yPos)
 {
     setOutput(20); //TODO - change value
 }
 
+StoneProducer::StoneProducer(StoneProducer* stoneProducer): Industry(stoneProducer)
+{
+    
+}
+
 void StoneProducer::update()
 {
-    //TODO
+    for(Entity* o : observers)
+    {
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        
+        if(rb)
+        {
+            rb->updateIndustry(this);
+        }
+    }
 }
 
 Entity* StoneProducer::clone()
 {
-    Entity* e = new StoneProducer(electricityConsumption, waterConsumption, symbol, effectRadius, localEffectStrength, globalEffectStrength, width, height, revenue, size, xPosition, yPosition, state->getBuildTime());
-    return e;
+    return new StoneProducer(this);
 }

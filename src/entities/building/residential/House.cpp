@@ -3,18 +3,32 @@
 House::House() {}
 House::~House() {}
 
-House::House(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime) : ResidentialBuilding(electricity, water, symbol, radius, localEffect, globalEffect, width, height, revenue, size, xPos, yPos, buildTime)
+House::House(House* entity) : ResidentialBuilding(entity)
 {
 
 }
 
-void House::update()
+House::House(EntityConfig ec, Size size, int xPos, int yPos) : ResidentialBuilding(ec, size, xPos, yPos)
 {
-    //TODO
+
+    switch(size)
+    {
+        case(Size::SMALL):
+            setCapacity(2);
+            break;
+        case(Size::MEDIUM):
+            setCapacity(5);
+            break;
+        case(Size::LARGE):
+            setCapacity(8);
+            break;
+        default:
+            setCapacity(0);
+            break;
+    }
 }
 
 Entity* House::clone()
 {
-    Entity* e = new House(electricityConsumption, waterConsumption, symbol, effectRadius, localEffectStrength, globalEffectStrength, width, height, revenue, size, xPosition, yPosition, state->getBuildTime());
-    return e;
+    return new House(this);
 }

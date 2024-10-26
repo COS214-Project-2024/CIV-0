@@ -7,8 +7,8 @@ class StoneProducer : Industry
 {
 public:
     StoneProducer();
-    StoneProducer(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, 
-           int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime);
+    StoneProducer(EntityConfig ec, Size size, int xPos, int yPos);
+    StoneProducer(StoneProducer* stoneProducer);
     virtual ~StoneProducer();
 
     void update();

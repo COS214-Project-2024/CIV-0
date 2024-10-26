@@ -3,18 +3,30 @@
 Monument::Monument() {}
 Monument::~Monument() {}
 
-Monument::Monument(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime) : Amenity(electricity, water, symbol, radius, localEffect, globalEffect, width, height, revenue, size, xPos, yPos, buildTime)
+Monument::Monument(EntityConfig ec, Size size, int xPos, int yPos) : Amenity(ec, size, xPos, yPos)
+{
+
+}
+
+Monument::Monument(Monument* monument) : Amenity(monument)
 {
 
 }
 
 void Monument::update()
 {
-    //TODO
+    for(Entity* o : observers)
+    {
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        
+        if(rb)
+        {
+            rb->updateAmenity(this);
+        }
+    }
 }
 
 Entity* Monument::clone()
 {
-    Entity* e = new Monument(electricityConsumption, waterConsumption, symbol, effectRadius, localEffectStrength, globalEffectStrength, width, height, revenue, size, xPosition, yPosition, state->getBuildTime());
-    return e;
+    return new Monument(this);
 }

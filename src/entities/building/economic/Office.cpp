@@ -3,18 +3,35 @@
 Office::Office() {}
 Office::~Office() {}
 
-Office::Office(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime) : EconomicBuilding(electricity, water, symbol, radius, localEffect, globalEffect, width, height, revenue, size, xPos, yPos, buildTime)
+Office::Office(EntityConfig ec, Size size, int xPos, int yPos) : EconomicBuilding(ec, size, xPos, yPos)
 {
 
+}
+
+Office::Office(Office* office) : EconomicBuilding(office)
+{
+    
 }
 
 void Office::update()
 {
-    //TODO
+    for(Entity* o : observers)
+    {
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        
+        if(rb)
+        {
+            rb->updateOffice(this);
+        }
+    }
+
+    // This is for updating the build state (it should run once per game loop)
+    if (!isBuilt()) {
+        updateBuildState();
+    }
 }
 
 Entity* Office::clone()
 {
-    Entity* e = new Office(electricityConsumption, waterConsumption, symbol, effectRadius, localEffectStrength, globalEffectStrength, width, height, revenue, size, xPosition, yPosition, state->getBuildTime());
-    return e;
+    return new Office(this);
 }

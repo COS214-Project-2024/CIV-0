@@ -1,6 +1,11 @@
 #include "BusStop.h"
 
-BusStop::BusStop(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime) : Transport(electricity, water, symbol, radius, localEffect, globalEffect, width, height, revenue, size, xPos, yPos, buildTime)
+BusStop::BusStop(EntityConfig ec, Size size, int xPos, int yPos) : Transport(ec, size, xPos, yPos)
+{
+
+}
+
+BusStop::BusStop(BusStop* busStop): Transport(busStop)
 {
 
 }
@@ -10,11 +15,18 @@ BusStop::~BusStop() {}
 
 void BusStop::update()
 {
-    //TODO
+    for(Entity* o : observers)
+    {
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        
+        if(rb)
+        {
+            rb->updateBusStop(this);
+        }
+    }
 }
 
 Entity* BusStop::clone()
 {
-    Entity* e = new BusStop(electricityConsumption, waterConsumption, symbol, effectRadius, localEffectStrength, globalEffectStrength, width, height, revenue, size, xPosition, yPosition, state->getBuildTime());
-    return e;
+    return new BusStop(this);
 }

@@ -2,12 +2,13 @@
 #include "Built.h"
 
 UnderConstruction::UnderConstruction(int buildTime) : State(buildTime) {}
+UnderConstruction::UnderConstruction(UnderConstruction* underConstruction) : State(underConstruction) {}
 UnderConstruction::~UnderConstruction() {}
 
 State* UnderConstruction::update()
 {
     incrementGameLoopCounter();
-    if(this->getGameLoopCounter()<this->getBuildTime())
+    if(this->getGameLoopCounter() < this->getBuildTime())
     {
         return this;
     }
@@ -17,14 +18,7 @@ State* UnderConstruction::update()
     }
 }
 
-State* UnderConstruction::initialize()
+State* UnderConstruction::clone()
 {
-    if(this->getGameLoopCounter()<this->getBuildTime())
-    {
-        return this;
-    }
-    else
-    {
-        return new Built(getBuildTime());
-    }
+    return new UnderConstruction(this);
 }

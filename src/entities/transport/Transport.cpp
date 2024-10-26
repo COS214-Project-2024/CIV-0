@@ -1,8 +1,13 @@
 #include "Transport.h"
 
-Transport::Transport(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime) : Entity(electricity, water, symbol, radius, localEffect, globalEffect, width, height, revenue, size, xPos, yPos, buildTime)
+Transport::Transport(EntityConfig ec, Size size, int xPos, int yPos) : Entity(ec, size, xPosition, yPosition)
 {
+    subscribeToAllResidentialInRadius();
+}
 
+Transport::Transport(Transport* transport): Entity(transport)
+{
+    subscribeToAllResidentialInRadius();
 }
 
 Transport::Transport() {}

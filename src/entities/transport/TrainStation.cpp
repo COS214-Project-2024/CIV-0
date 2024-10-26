@@ -1,7 +1,11 @@
 #include "TrainStation.h"
 
-TrainStation::TrainStation(int electricity, int water, std::string symbol, int radius, int localEffect, int globalEffect, int width, int height, int revenue, Size size, int xPos, int yPos, int buildTime) : Transport(electricity, water, symbol, radius, localEffect, globalEffect, width, height, revenue, size, xPos, yPos, buildTime)
+TrainStation::TrainStation(EntityConfig ec, Size size, int xPos, int yPos) : Transport(ec, size, xPos, yPos)
 {
+
+}
+
+TrainStation::TrainStation(TrainStation* trainStation) : Transport(trainStation) {
 
 }
 
@@ -10,11 +14,18 @@ TrainStation::~TrainStation() {}
 
 void TrainStation::update()
 {
-    //TODO
+    for(Entity* o : observers)
+    {
+        ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
+        
+        if(rb)
+        {
+            rb->updateTrainStation(this);
+        }
+    }
 }
 
 Entity* TrainStation::clone()
 {
-    Entity* e = new TrainStation(electricityConsumption, waterConsumption, symbol, effectRadius, localEffectStrength, globalEffectStrength, width, height, revenue, size, xPosition, yPosition, state->getBuildTime());
-    return e;
+    return new TrainStation(this);
 }
