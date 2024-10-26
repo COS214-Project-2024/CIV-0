@@ -13,8 +13,8 @@ TEST_CASE("RoadIteratorTest test") {
     std::vector<Entity*> row1;
     std::vector<Entity*> row2;
 
-    row1.push_back(new Road(1,1,"s",1,1,1,1,1,1,Size::SMALL,1,1,1));
-    row1.push_back(new Road(1,1,"s",1,1,1,1,1,1,Size::SMALL,1,1,1));
+    row1.push_back(new Road(EntityConfig(),Size::MEDIUM,0,0));
+    row1.push_back(new Road(EntityConfig(),Size::MEDIUM,0,0));
     row2.push_back(NULL);
     row2.push_back(new Theater());
 
@@ -32,8 +32,8 @@ TEST_CASE("Testing next()"){
     std::vector<Entity*> row1;
     std::vector<Entity*> row2;
 
-    row1.push_back(new Road(1,1,"s",1,1,1,1,1,1,Size::SMALL,1,1,1));
-    row1.push_back(new Road(1,1,"s",1,1,1,1,1,1,Size::SMALL,1,1,1));
+    row1.push_back(new Road(EntityConfig(),Size::MEDIUM,0,0));
+    row1.push_back(new Road(EntityConfig(),Size::MEDIUM,0,0));
     row2.push_back(NULL);
     row2.push_back(new Theater());
 
@@ -52,8 +52,8 @@ TEST_CASE("Testing first()"){
     std::vector<Entity*> row1;
     std::vector<Entity*> row2;
 
-    row1.push_back(new Road(1,1,"s",1,1,1,1,1,1,Size::SMALL,1,1,1));
-    row1.push_back(new Road(1,1,"s",1,1,1,1,1,1,Size::SMALL,1,1,1));
+    row1.push_back(new Road(EntityConfig(),Size::MEDIUM,0,0));
+    row1.push_back(new Road(EntityConfig(),Size::MEDIUM,0,0));
     row2.push_back(NULL);
     row2.push_back(new Theater());
 
@@ -72,8 +72,8 @@ TEST_CASE("Testing hasNext()"){
     std::vector<Entity*> row1;
     std::vector<Entity*> row2;
 
-    row1.push_back(new Road(1,1,"s",1,1,1,1,1,1,Size::SMALL,1,1,1));
-    row1.push_back(new Road(1,1,"s",1,1,1,1,1,1,Size::SMALL,1,1,1));
+    row1.push_back(new Road(EntityConfig(),Size::MEDIUM,0,0));
+    row1.push_back(new Road(EntityConfig(),Size::MEDIUM,0,0));
     row2.push_back(NULL);
     row2.push_back(new Theater());
 
@@ -91,8 +91,8 @@ TEST_CASE("Testing hasNext()"){
     std::vector<Entity*> row1;
     std::vector<Entity*> row2;
 
-    row1.push_back(new Road(1,1,"s",1,1,1,1,1,1,Size::SMALL,1,1,1));
-    row1.push_back(new Road(1,1,"s",1,1,1,1,1,1,Size::SMALL,1,1,1));
+    row1.push_back(new Road(EntityConfig(),Size::MEDIUM,0,0));
+    row1.push_back(new Road(EntityConfig(),Size::MEDIUM,0,0));
     row2.push_back(NULL);
     row2.push_back(new Theater());
 
@@ -111,8 +111,8 @@ TEST_CASE("Testing next()"){
     std::vector<Entity*> row1;
     std::vector<Entity*> row2;
 
-    row1.push_back(new Road(1,1,"s",1,1,1,1,1,1,Size::SMALL,1,1,1));
-    row1.push_back(new Road(1,1,"s",1,1,1,1,1,1,Size::SMALL,1,1,1));
+    row1.push_back(new Road(EntityConfig(),Size::MEDIUM,0,0));
+    row1.push_back(new Road(EntityConfig(),Size::MEDIUM,0,0));
     row2.push_back(NULL);
     row2.push_back(NULL);
 
