@@ -1,6 +1,6 @@
 #include "WoodProducerUpgrade.h"
 
-WoodProducerUpgrade::WoodProducerUpgrade(WoodProducer* WoodProducer) : WoodProducer(woodProducer) {
+WoodProducerUpgrade::WoodProducerUpgrade(WoodProducer* woodProducer) : WoodProducer(woodProducer) {
     this->woodProducer = woodProducer;
 }
 

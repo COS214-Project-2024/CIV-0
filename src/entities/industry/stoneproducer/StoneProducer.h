@@ -9,7 +9,6 @@ public:
     StoneProducer();
     StoneProducer(StoneProducer* stoneProd);
     StoneProducer(EntityConfig ec, Size size, int xPos, int yPos);
-    StoneProducer(StoneProducer* stoneProducer);
     virtual ~StoneProducer();
     void update();
     Entity *clone();
