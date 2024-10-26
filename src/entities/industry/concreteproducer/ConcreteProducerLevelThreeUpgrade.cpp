@@ -1,7 +1,7 @@
 #include "ConcreteProducerLevelThreeUpgrade.h"
 
 ConcreteProducerLevelThreeUpgrade::ConcreteProducerLevelThreeUpgrade(ConcreteProducer* concreteProd) : ConcreteProducerUpgrade(concreteProd) {}
-ConcreteProducerLevelThreeUpgrade::ConcreteProducerLevelThreeUpgrade(ConcreteProducerLevelThreeUpgrade* concreteProd) : ConcreteProducerLevelThreeUpgrade(concreteProd){}
+ConcreteProducerLevelThreeUpgrade::ConcreteProducerLevelThreeUpgrade(ConcreteProducerLevelThreeUpgrade* concreteProd) : ConcreteProducerUpgrade(concreteProd){}
 ConcreteProducerLevelThreeUpgrade::~ConcreteProducerLevelThreeUpgrade() {}
 
 void ConcreteProducerLevelThreeUpgrade::update() {
