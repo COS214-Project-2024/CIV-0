@@ -15,7 +15,7 @@ Hospital::Hospital(Hospital* hospital) : ServiceBuilding(hospital)
 
 void Hospital::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         

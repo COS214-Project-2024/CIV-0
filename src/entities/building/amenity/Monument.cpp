@@ -8,9 +8,14 @@ Monument::Monument(EntityConfig ec, Size size, int xPos, int yPos) : Amenity(ec,
 
 }
 
+Monument::Monument(Monument* monument) : Amenity(monument)
+{
+
+}
+
 void Monument::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         
@@ -23,6 +28,5 @@ void Monument::update()
 
 Entity* Monument::clone()
 {
-    Entity* e = new Monument(*ec, size, xPosition, yPosition);
-    return e;
+    return new Monument(this);
 }

@@ -8,12 +8,15 @@ ConcreteProducer::ConcreteProducer(EntityConfig ec, Size size, int xPos, int yPo
     setOutput(20); //TODO - change value
 }
 
-ConcreteProducer::ConcreteProducer(ConcreteProducer* concreteProd) : Industry(concreteProd) {
+
+ConcreteProducer::ConcreteProducer(ConcreteProducer* concreteProducer): Industry(concreteProducer)
+{
+    
 }
 
 void ConcreteProducer::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         

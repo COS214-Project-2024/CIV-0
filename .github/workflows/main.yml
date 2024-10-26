@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev, feature/*, hotfix/*]
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+            sudo apt-get update
+            sudo apt-get install -y build-essential make clang curl doxygen valgrind
+          elif [ "${{ matrix.os }}" == "macos-latest" ]; then
+            brew update
+            brew install --formula make curl doxygen
+            echo 'alias make="gmake"' >> ~/.zshrc # Alias gmake to make
+            source ~/.zshrc
+          fi
+
+      - name: Run Makefile Setup
+        run: make setup
+
+      - name: Build Project
+        run: make
+
+      - name: Run Tests
+        run: make test
+
+      - name: Memory Leak Check (Linux only)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          # Run Valgrind and fail the job immediately on any leak detection
+          valgrind --leak-check=full --track-origins=yes --error-exitcode=1 bin/project_tests 2>&1 | tee leaks_output.txt
+          
+          # Capture the exit code from Valgrind
+          VALGRIND_EXIT_CODE=${PIPESTATUS[0]}
+          
+          # Output Valgrind logs for troubleshooting
+          echo "=== Valgrind Output ==="
+          cat leaks_output.txt
+          echo "========================"
+          
+          # Check the Valgrind exit code and fail if it indicates an error
+          if [ $VALGRIND_EXIT_CODE -ne 0 ]; then
+            echo "Memory leaks detected! Failing the job."
+            exit $VALGRIND_EXIT_CODE
+          else
+            echo "No memory leaks detected."
+          fi

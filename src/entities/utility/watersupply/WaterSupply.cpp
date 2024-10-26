@@ -14,7 +14,7 @@ WaterSupply::WaterSupply(WaterSupply* waterSupply) : Utility(waterSupply) {
 
 void WaterSupply::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         
