@@ -3,7 +3,7 @@
 
 #include "entities/industry/base/Industry.h"
 
-class StoneProducer : public public Industry
+class StoneProducer : public Industry
 {
 public:
     StoneProducer();
