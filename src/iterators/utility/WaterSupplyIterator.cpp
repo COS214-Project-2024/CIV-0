@@ -1,8 +1,22 @@
 #include "WaterSupplyIterator.h"
 
+/**
+ * @brief Construct a new Water Supply Iterator:: Water Supply Iterator object
+ * 
+ */
 WaterSupplyIterator::WaterSupplyIterator() {}
+
+/**
+ * @brief Destroy the Water Supply Iterator:: Water Supply Iterator object
+ * 
+ */
 WaterSupplyIterator::~WaterSupplyIterator() {}
 
+/**
+ * @brief Construct a new Water Supply Iterator:: Water Supply Iterator object
+ * 
+ * @param grid 
+ */
 WaterSupplyIterator::WaterSupplyIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
     this->grid = grid;
     this->currRow = this->grid.begin();
@@ -11,6 +25,12 @@ WaterSupplyIterator::WaterSupplyIterator(std::vector<std::vector<Entity*>> &grid
     this->col = 0;
 }
 
+/**
+ * @brief Resets the iterator to the first WaterSupply instance in the grid.
+ * 
+ * Sets the iterator to the first WaterSupply found in the grid. If no instance is found, it will 
+ * position at the end of the grid.
+ */
 void WaterSupplyIterator::first(){
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
@@ -26,6 +46,12 @@ void WaterSupplyIterator::first(){
     }
 }
 
+/**
+ * @brief Advances the iterator to the next WaterSupply instance in the grid.
+ * 
+ * Moves to the next WaterSupply in the grid based on the current position.
+ * If no more instances are found, resets the iterator.
+ */
 void WaterSupplyIterator::next(){
     bool found = false;
     int Tcol = this->col;
@@ -44,7 +70,7 @@ void WaterSupplyIterator::next(){
     if(!found){
         col = 0;
         row = 0;
-        for(;currRow != this->grid.end();++currRow){
+        for(currRow = grid.begin();currRow != this->grid.end();++currRow){
         col = 0;
         for(curr = currRow->begin(); curr != currRow->end();++curr){
             if(col==Tcol && Trow==row)return;
@@ -55,6 +81,11 @@ void WaterSupplyIterator::next(){
     }
 }
 
+/**
+ * @brief Checks if there is another WaterSupply instance in the grid after the current position.
+ * 
+ * @return true if another WaterSupply exists, false otherwise.
+ */
 bool WaterSupplyIterator::hasNext(){
     bool found = false;
     std::vector<std::vector<Entity*>>::iterator tempRow = ++this->currRow;
@@ -71,6 +102,11 @@ bool WaterSupplyIterator::hasNext(){
     return found;
 }
 
+/**
+ * @brief Returns the current Entity instance pointed to by the iterator.
+ * 
+ * @return A pointer to the current Entity instance.
+ */
 Entity* WaterSupplyIterator::current(){
     return (*this->curr);
 }

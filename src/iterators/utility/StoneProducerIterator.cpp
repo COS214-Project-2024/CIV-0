@@ -1,8 +1,21 @@
 #include "StoneProducerIterator.h"
 
+/**
+ * @brief Construct a new Stone Producer Iterator:: Stone Producer Iterator object
+ * 
+ */
 StoneProducerIterator::StoneProducerIterator():Iterator(){}
+/**
+ * @brief Destroy the Stone Producer Iterator:: Stone Producer Iterator object
+ * 
+ */
 StoneProducerIterator::~StoneProducerIterator() {}
 
+/**
+ * @brief Construct a new Stone Producer Iterator:: Stone Producer Iterator object
+ * 
+ * @param grid 
+ */
 StoneProducerIterator::StoneProducerIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
     this->grid = grid;
     this->currRow = this->grid.begin();
@@ -11,6 +24,12 @@ StoneProducerIterator::StoneProducerIterator(std::vector<std::vector<Entity*>> &
     this->col = 0;
 }
 
+/**
+ * @brief Resets the iterator to the first StoneProducer instance in the grid.
+ * 
+ * Sets the iterator to the first ConcreteProducer found in the grid. If no instance is found, it will 
+ * position at the end of the grid.
+ */
 void StoneProducerIterator::first(){
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
@@ -26,6 +45,12 @@ void StoneProducerIterator::first(){
     }
 }
 
+/**
+ * @brief Advances the iterator to the next StoneProducer instance in the grid.
+ * 
+ * Moves to the next StoneProducer in the grid based on the current position.
+ * If no more instances are found, resets the iterator.
+ */
 void StoneProducerIterator::next(){
     bool found = false;
     int Tcol = this->col;
@@ -44,7 +69,7 @@ void StoneProducerIterator::next(){
     if(!found){
         col = 0;
         row = 0;
-        for(;currRow != this->grid.end();++currRow){
+        for(currRow = grid.begin();currRow != this->grid.end();++currRow){
         col = 0;
         for(curr = currRow->begin(); curr != currRow->end();++curr){
             if(col==Tcol && Trow==row)return;
@@ -55,6 +80,11 @@ void StoneProducerIterator::next(){
     }
 }
 
+/**
+ * @brief Checks if there is another StoneProducer instance in the grid after the current position.
+ * 
+ * @return true if another StoneProducer exists, false otherwise.
+ */
 bool StoneProducerIterator::hasNext(){
     bool found = false;
     std::vector<std::vector<Entity*>>::iterator tempRow = this->currRow;
@@ -71,6 +101,11 @@ bool StoneProducerIterator::hasNext(){
     return found;
 }
 
+/**
+ * @brief Returns current StoneProducer
+ * 
+ * @return Entity* 
+ */
 Entity* StoneProducerIterator::current(){
     return (*this->curr);
 }

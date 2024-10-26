@@ -1,11 +1,24 @@
 #include "ServiceBuildingIterator.h"
 
+/**
+ * @brief Construct a new Service Building Iterator:: Service Building Iterator object
+ * 
+ */
 ServiceBuildingIterator::ServiceBuildingIterator():Iterator(){
     this->row = 0;
     this->col = 0;
 }
+/**
+ * @brief Destroy the Service Building Iterator:: Service Building Iterator object
+ * 
+ */
 ServiceBuildingIterator::~ServiceBuildingIterator() {}
 
+/**
+ * @brief Construct a new Service Building Iterator:: Service Building Iterator object
+ * 
+ * @param grid 
+ */
 ServiceBuildingIterator::ServiceBuildingIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
     this->grid = grid;
     this->currRow = this->grid.begin();
@@ -14,6 +27,10 @@ ServiceBuildingIterator::ServiceBuildingIterator(std::vector<std::vector<Entity*
     this->col = 0;
 }
 
+/**
+ * @brief Goes to first Service Building
+ * 
+ */
 void ServiceBuildingIterator::first(){
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
@@ -29,6 +46,10 @@ void ServiceBuildingIterator::first(){
     }
 }
 
+/**
+ * @brief Goes to next Service Building
+ * 
+ */
 void ServiceBuildingIterator::next(){
     bool found = false;
     int Tcol = this->col;
@@ -47,7 +68,7 @@ void ServiceBuildingIterator::next(){
     if(!found){
         col = 0;
         row = 0;
-        for(;currRow != this->grid.end();++currRow){
+        for(currRow = grid.begin();currRow != this->grid.end();++currRow){
         col = 0;
         for(curr = currRow->begin(); curr != currRow->end();++curr){
             if(col==Tcol && Trow==row)return;
@@ -58,6 +79,12 @@ void ServiceBuildingIterator::next(){
     }
 }
 
+/**
+ * @brief Determines if there is next Service Building
+ * 
+ * @return true 
+ * @return false 
+ */
 bool ServiceBuildingIterator::hasNext(){
     bool found = false;
     std::vector<std::vector<Entity*>>::iterator tempRow = ++this->currRow;
@@ -74,6 +101,11 @@ bool ServiceBuildingIterator::hasNext(){
     return found;
 }
 
+/**
+ * @brief Returns current Service Building
+ * 
+ * @return Entity* 
+ */
 Entity* ServiceBuildingIterator::current(){
     return (*this->curr);
 }

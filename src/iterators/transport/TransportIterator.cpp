@@ -1,8 +1,21 @@
 #include "TransportIterator.h"
-
+/**
+ * @brief Construct a new Transport Iterator:: Transport Iterator object
+ * 
+ */
 TransportIterator::TransportIterator():Iterator(){}
+
+/**
+ * @brief Destroy the Transport Iterator:: Transport Iterator object
+ * 
+ */
 TransportIterator::~TransportIterator() {}
 
+/**
+ * @brief Construct a new Transport Iterator:: Transport Iterator object
+ * 
+ * @param grid 
+ */
 TransportIterator::TransportIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
     this->grid = grid;
     this->currRow = this->grid.begin();
@@ -11,6 +24,10 @@ TransportIterator::TransportIterator(std::vector<std::vector<Entity*>> &grid):It
     this->col = 0;
 }
 
+/**
+ * @brief Goes to first Transport
+ * 
+ */
 void TransportIterator::first(){
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
@@ -26,6 +43,10 @@ void TransportIterator::first(){
     }
 }
 
+/**
+ * @brief Goes to next Transport
+ * 
+ */
 void TransportIterator::next(){
     bool found = false;
     int Tcol = this->col;
@@ -44,7 +65,7 @@ void TransportIterator::next(){
     if(!found){
         col = 0;
         row = 0;
-        for(;currRow != this->grid.end();++currRow){
+        for(currRow = grid.begin();currRow != this->grid.end();++currRow){
         col = 0;
         for(curr = currRow->begin(); curr != currRow->end();++curr){
             if(col==Tcol && Trow==row)return;
@@ -55,6 +76,12 @@ void TransportIterator::next(){
     }
 }
 
+/**
+ * @brief Determines if there is next Transport
+ * 
+ * @return true 
+ * @return false 
+ */
 bool TransportIterator::hasNext(){
     bool found = false;
     std::vector<std::vector<Entity*>>::iterator tempRow = ++this->currRow;
@@ -71,6 +98,11 @@ bool TransportIterator::hasNext(){
     return found;
 }
 
+/**
+ * @brief Returns current Transport
+ * 
+ * @return Entity* 
+ */
 Entity* TransportIterator::current(){
     return (*this->curr);
 }

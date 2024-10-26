@@ -1,8 +1,21 @@
 #include "WoodProducerIterator.h"
-
+/**
+ * @brief Construct a new Wood Producer Iterator:: Wood Producer Iterator object
+ * 
+ */
 WoodProducerIterator::WoodProducerIterator():Iterator(){}
+
+/**
+ * @brief Destroy the Wood Producer Iterator:: Wood Producer Iterator object
+ * 
+ */
 WoodProducerIterator::~WoodProducerIterator() {}
 
+/**
+ * @brief Construct a new Wood Producer Iterator:: Wood Producer Iterator object
+ * 
+ * @param grid 
+ */
 WoodProducerIterator::WoodProducerIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
     this->grid = grid;
     this->currRow = this->grid.begin();
@@ -11,6 +24,12 @@ WoodProducerIterator::WoodProducerIterator(std::vector<std::vector<Entity*>> &gr
     this->col = 0;
 }
 
+/**
+ * @brief Resets the iterator to the first WoodProducer instance in the grid.
+ * 
+ * Sets the iterator to the first WoodProducer found in the grid. If no instance is found, it will 
+ * position at the end of the grid.
+ */
 void WoodProducerIterator::first(){
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
@@ -26,6 +45,12 @@ void WoodProducerIterator::first(){
     }
 }
 
+/**
+ * @brief Advances the iterator to the next WoodProducer instance in the grid.
+ * 
+ * Moves to the next WoodProducer in the grid based on the current position.
+ * If no more instances are found, resets the iterator.
+ */
 void WoodProducerIterator::next(){
     bool found = false;
     int Tcol = this->col;
@@ -44,7 +69,7 @@ void WoodProducerIterator::next(){
     if(!found){
         col = 0;
         row = 0;
-        for(;currRow != this->grid.end();++currRow){
+        for(currRow = grid.begin();currRow != this->grid.end();++currRow){
         col = 0;
         for(curr = currRow->begin(); curr != currRow->end();++curr){
             if(col==Tcol && Trow==row)return;
@@ -55,6 +80,11 @@ void WoodProducerIterator::next(){
     }
 }
 
+/**
+ * @brief Checks if there is another WoodProducer instance in the grid after the current position.
+ * 
+ * @return true if another WoodProducer exists, false otherwise.
+ */
 bool WoodProducerIterator::hasNext(){
     bool found = false;
     std::vector<std::vector<Entity*>>::iterator tempRow = ++this->currRow;
@@ -71,6 +101,11 @@ bool WoodProducerIterator::hasNext(){
     return found;
 }
 
+/**
+ * @brief Returns the current Entity instance pointed to by the iterator.
+ * 
+ * @return A pointer to the current Entity instance.
+ */
 Entity* WoodProducerIterator::current(){
     return (*this->curr);
 }

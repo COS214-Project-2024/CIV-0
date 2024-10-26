@@ -83,6 +83,8 @@ TEST_CASE("Testing hasNext()"){
     AmenityIterator* aIter = new AmenityIterator(grid);
     aIter->next();
     CHECK(aIter->hasNext() == true);
+    CHECK(aIter->getCol() == 1);
+    CHECK(aIter->getRow() == 0);
 }
 
 TEST_CASE("Testing hasNext()"){

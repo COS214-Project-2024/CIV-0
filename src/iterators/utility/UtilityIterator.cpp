@@ -1,8 +1,21 @@
 #include "UtilityIterator.h"
-
+/**
+ * @brief Construct a new Utility Iterator:: Utility Iterator object
+ * 
+ */
 UtilityIterator::UtilityIterator():Iterator(){}
+
+/**
+ * @brief Destroy the Utility Iterator:: Utility Iterator object
+ * 
+ */
 UtilityIterator::~UtilityIterator() {}
 
+/**
+ * @brief Construct a new Utility Iterator:: Utility Iterator object
+ * 
+ * @param grid 
+ */
 UtilityIterator::UtilityIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
     this->grid = grid;
     this->currRow = this->grid.begin();
@@ -11,6 +24,10 @@ UtilityIterator::UtilityIterator(std::vector<std::vector<Entity*>> &grid):Iterat
     this->col = 0;
 }
 
+/**
+ * @brief 
+ * 
+ */
 void UtilityIterator::first(){
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
@@ -26,6 +43,10 @@ void UtilityIterator::first(){
     }
 }
 
+/**
+ * @brief 
+ * 
+ */
 void UtilityIterator::next(){
     bool found = false;
     int Tcol = this->col;
@@ -44,7 +65,7 @@ void UtilityIterator::next(){
     if(!found){
         col = 0;
         row = 0;
-        for(;currRow != this->grid.end();++currRow){
+        for(currRow = grid.begin();currRow != this->grid.end();++currRow){
         col = 0;
         for(curr = currRow->begin(); curr != currRow->end();++curr){
             if(col==Tcol && Trow==row)return;
@@ -55,6 +76,12 @@ void UtilityIterator::next(){
     }
 }
 
+/**
+ * @brief 
+ * 
+ * @return true 
+ * @return false 
+ */
 bool UtilityIterator::hasNext(){
     bool found = false;
     std::vector<std::vector<Entity*>>::iterator tempRow = ++this->currRow;
@@ -71,6 +98,11 @@ bool UtilityIterator::hasNext(){
     return found;
 }
 
+/**
+ * @brief 
+ * 
+ * @return Entity* 
+ */
 Entity* UtilityIterator::current(){
     return (*this->curr);
 }

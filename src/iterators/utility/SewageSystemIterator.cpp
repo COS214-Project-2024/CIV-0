@@ -1,8 +1,21 @@
 #include "SewageSystemIterator.h"
-
+/**
+ * @brief Construct a new Sewage System Iterator:: Sewage System Iterator object
+ * 
+ */
 SewageSystemIterator::SewageSystemIterator() {}
+
+/**
+ * @brief Destroy the Sewage System Iterator:: Sewage System Iterator object
+ * 
+ */
 SewageSystemIterator::~SewageSystemIterator() {}
 
+/**
+ * @brief Construct a new Sewage System Iterator:: Sewage System Iterator object
+ * 
+ * @param grid 
+ */
 SewageSystemIterator::SewageSystemIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
     this->grid = grid;
     this->currRow = this->grid.begin();
@@ -11,6 +24,12 @@ SewageSystemIterator::SewageSystemIterator(std::vector<std::vector<Entity*>> &gr
     this->col = 0;
 }
 
+/**
+ * @brief Resets the iterator to the first SewageSystem instance in the grid.
+ * 
+ * Sets the iterator to the first SewageSystem found in the grid. If no instance is found, it will 
+ * position at the end of the grid.
+ */
 void SewageSystemIterator::first(){
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
@@ -26,6 +45,12 @@ void SewageSystemIterator::first(){
     }
 }
 
+/**
+ * @brief Advances the iterator to the next SewageSystm instance in the grid.
+ * 
+ * Moves to the next SewageSystem in the grid based on the current position.
+ * If no more instances are found, resets the iterator.
+ */
 void SewageSystemIterator::next(){
     bool found = false;
     int Tcol = this->col;
@@ -44,7 +69,7 @@ void SewageSystemIterator::next(){
     if(!found){
         col = 0;
         row = 0;
-        for(;currRow != this->grid.end();++currRow){
+        for(currRow = grid.begin();currRow != this->grid.end();++currRow){
         col = 0;
         for(curr = currRow->begin(); curr != currRow->end();++curr){
             if(col==Tcol && Trow==row)return;
@@ -55,6 +80,12 @@ void SewageSystemIterator::next(){
     }
 }
 
+/**
+ * @brief Advances the iterator to the next SewageSystem instance in the grid.
+ * 
+ * Moves to the next SewageSystem in the grid based on the current position.
+ * If no more instances are found, resets the iterator.
+ */
 bool SewageSystemIterator::hasNext(){
     bool found = false;
     std::vector<std::vector<Entity*>>::iterator tempRow = ++this->currRow;
@@ -71,6 +102,11 @@ bool SewageSystemIterator::hasNext(){
     return found;
 }
 
+/**
+ * @brief Returns the current Entity instance pointed to by the iterator.
+ * 
+ * @return A pointer to the current Entity instance.
+ */
 Entity* SewageSystemIterator::current(){
     return (*this->curr);
 }

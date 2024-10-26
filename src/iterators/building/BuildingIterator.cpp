@@ -1,17 +1,34 @@
 #include "BuildingIterator.h"
 
+/**
+ * @brief Construct a new Building Iterator:: Building Iterator object
+ * 
+ */
 BuildingIterator::BuildingIterator():Iterator(){
     this->row = 0;
     this-> col = 0;
 }
+/**
+ * @brief Destroy the Building Iterator:: Building Iterator object
+ * 
+ */
 BuildingIterator::~BuildingIterator() {}
 
+/**
+ * @brief Construct a new Building Iterator:: Building Iterator object
+ * 
+ * @param grid 
+ */
 BuildingIterator::BuildingIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
     this->grid = grid;
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
 }
 
+/**
+ * @brief Goes tp first Building
+ * 
+ */
 void BuildingIterator::first(){
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
@@ -27,6 +44,10 @@ void BuildingIterator::first(){
     }
 }
 
+/**
+ * @brief Goes to next Building
+ * 
+ */
 void BuildingIterator::next(){
     bool found = false;
     int Tcol = this->col;
@@ -45,7 +66,7 @@ void BuildingIterator::next(){
     if(!found){
         col = 0;
         row = 0;
-        for(;currRow != this->grid.end();++currRow){
+        for(currRow = grid.begin();currRow != this->grid.end();++currRow){
         col = 0;
         for(curr = currRow->begin(); curr != currRow->end();++curr){
             if(col==Tcol && Trow==row)return;
@@ -56,6 +77,12 @@ void BuildingIterator::next(){
     }
 }
 
+/**
+ * @brief Determines if there is next Building
+ * 
+ * @return true 
+ * @return false 
+ */
 bool BuildingIterator::hasNext(){
     bool found = false;
     std::vector<std::vector<Entity*>>::iterator tempRow = this->currRow;
@@ -72,6 +99,11 @@ bool BuildingIterator::hasNext(){
     return found;
 }
 
+/**
+ * @brief Returns current Building
+ * 
+ * @return Entity* 
+ */
 Entity* BuildingIterator::current(){
     return (*this->curr);
 }

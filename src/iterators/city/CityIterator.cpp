@@ -1,11 +1,23 @@
 #include "CityIterator.h"
-
+/**
+ * @brief Construct a new City Iterator:: City Iterator object
+ * 
+ */
 CityIterator::CityIterator():Iterator(){
     this->row = 0;
     this->col = 0;
 }
+/**
+ * @brief Destroy the City Iterator:: City Iterator object
+ * 
+ */
 CityIterator::~CityIterator() {}
 
+/**
+ * @brief Construct a new City Iterator:: City Iterator object
+ * 
+ * @param grid 
+ */
 CityIterator::CityIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
     this->grid = grid;
     this->currRow = this->grid.begin();
@@ -14,66 +26,54 @@ CityIterator::CityIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
     this->col = 0;
 }
 
+/**
+ * @brief Goes to first Entity
+ * 
+ */
 void CityIterator::first(){
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
-    bool found = false;
-
-    for(;currRow != this->grid.end(); currRow++){
-        for(curr = currRow->begin(); curr != currRow->end(); curr++){
-            Entity* entity = dynamic_cast<Entity*>(*curr);
-
-            if(entity){found = true;break;}
-        }
-        if(found)break;
-    }
 }
 
+/**
+ * @brief Goes to next Entity
+ * 
+ */
 void CityIterator::next(){
-    bool found = false;
-    int Tcol = this->col;
-    int Trow = this->row;
-    for(;currRow != this->grid.end();++currRow){
-        col = 0;
-        for(curr = currRow->begin(); curr != currRow->end();++curr){
-            Entity* entity = dynamic_cast<Entity*>(*curr);
-            if(entity){found = true;break;}
-            col+=1;
-        }
-        if(found)break;
+    ++this->curr;
+    col+=1;
+    if(curr == currRow->end()){
+        ++currRow;
         row+=1;
-    }
-
-    if(!found){
+        if(currRow == grid.end()){--currRow; curr = currRow->end();--curr;row-=1;col-=1;return;}
+        curr = currRow->begin();
         col = 0;
-        row = 0;
-        for(;currRow != this->grid.end();++currRow){
-        col = 0;
-        for(curr = currRow->begin(); curr != currRow->end();++curr){
-            if(col==Tcol && Trow==row)return;
-            col+=1;
-        }
-        row+=1;
-    }  
     }
 }
 
+/**
+ * @brief Determines if there is next Entity
+ * 
+ * @return true 
+ * @return false 
+ */
 bool CityIterator::hasNext(){
-    bool found = false;
+    bool found = true;
     std::vector<std::vector<Entity*>>::iterator tempRow = this->currRow;
     std::vector<Entity*>::iterator tempCurr = this->curr;
-
-        for(;tempRow != this->grid.end(); tempRow++){
-        for(tempCurr = tempRow->begin(); tempCurr != tempRow->end(); tempCurr++){
-            Entity* entity = dynamic_cast<Entity*>(*tempCurr);
-
-            if(entity){found = true;break;}
-        }
-        if(found)break;
+    ++tempCurr;
+    if(tempCurr == tempRow->end()){
+        ++tempRow;
+        if(tempRow == grid.end()){found = false;}
     }
     return found;
 }
 
+/**
+ * @brief Returns current space
+ * 
+ * @return Entity* 
+ */
 Entity* CityIterator::current(){
     return (*this->curr);
 }

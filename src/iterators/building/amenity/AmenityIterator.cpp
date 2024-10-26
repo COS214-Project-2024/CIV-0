@@ -1,11 +1,24 @@
 #include "AmenityIterator.h"
-
+/**
+ * @brief Construct a new Amenity Iterator:: Amenity Iterator object
+ * 
+ */
 AmenityIterator::AmenityIterator():Iterator(){
     this->row = 0;
     this->col = 0;
 }
+
+/**
+ * @brief Destroy the Amenity Iterator:: Amenity Iterator object
+ * 
+ */
 AmenityIterator::~AmenityIterator() {}
 
+/**
+ * @brief Construct a new Amenity Iterator:: Amenity Iterator object
+ * 
+ * @param grid 
+ */
 AmenityIterator::AmenityIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
     this->grid = grid;
     this->currRow = this->grid.begin();
@@ -14,6 +27,10 @@ AmenityIterator::AmenityIterator(std::vector<std::vector<Entity*>> &grid):Iterat
     this->col = 0;
 }
 
+/**
+ * @brief Returns first Amenity
+ * 
+ */
 void AmenityIterator::first(){
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
@@ -29,6 +46,10 @@ void AmenityIterator::first(){
     }
 }
 
+/**
+ * @brief goes to next Amenity
+ * 
+ */
 void AmenityIterator::next(){
     bool found = false;
     int Tcol = this->col;
@@ -47,7 +68,7 @@ void AmenityIterator::next(){
     if(!found){
         col = 0;
         row = 0;
-        for(;currRow != this->grid.end();++currRow){
+        for(currRow = grid.begin();currRow != this->grid.end();++currRow){
         col = 0;
         for(curr = currRow->begin(); curr != currRow->end();++curr){
             if(col==Tcol && Trow==row)return;
@@ -58,6 +79,12 @@ void AmenityIterator::next(){
     }
 }
 
+/**
+ * @brief Determines if there is next Amenity
+ * 
+ * @return true 
+ * @return false 
+ */
 bool AmenityIterator::hasNext(){
     bool found = false;
     std::vector<std::vector<Entity*>>::iterator tempRow = ++this->currRow;
@@ -73,6 +100,11 @@ bool AmenityIterator::hasNext(){
     return found;
 }
 
+/**
+ * @brief Returns current Amentity
+ * 
+ * @return Entity* 
+ */
 Entity* AmenityIterator::current(){
     return (*this->curr);
 }

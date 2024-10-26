@@ -1,11 +1,23 @@
 #include "EconomicBuildingIterator.h"
-
+/**
+ * @brief Construct a new Economic Building Iterator:: Economic Building Iterator object
+ * 
+ */
 EconomicBuildingIterator::EconomicBuildingIterator():Iterator(){
     this->row = 0;
     this->col = 0;
 }
+/**
+ * @brief Destroy the Economic Building Iterator:: Economic Building Iterator object
+ * 
+ */
 EconomicBuildingIterator::~EconomicBuildingIterator() {}
 
+/**
+ * @brief Construct a new Economic Building Iterator:: Economic Building Iterator object
+ * 
+ * @param grid 
+ */
 EconomicBuildingIterator::EconomicBuildingIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
     this->grid = grid;
     this->currRow = this->grid.begin();
@@ -14,6 +26,10 @@ EconomicBuildingIterator::EconomicBuildingIterator(std::vector<std::vector<Entit
     this->col - 0;
 }
 
+/**
+ * @brief Goes to first EconomicBuilding
+ * 
+ */
 void EconomicBuildingIterator::first(){
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
@@ -29,6 +45,10 @@ void EconomicBuildingIterator::first(){
     }
 }
 
+/**
+ * @brief Goes to next EconomicBuilding
+ * 
+ */
 void EconomicBuildingIterator::next(){
     bool found = false;
     int Tcol = this->col;
@@ -47,7 +67,7 @@ void EconomicBuildingIterator::next(){
     if(!found){
         col = 0;
         row = 0;
-        for(;currRow != this->grid.end();++currRow){
+        for(currRow = grid.begin();currRow != this->grid.end();++currRow){
         col = 0;
         for(curr = currRow->begin(); curr != currRow->end();++curr){
             if(col==Tcol && Trow==row)return;
@@ -58,6 +78,12 @@ void EconomicBuildingIterator::next(){
     }
 }
 
+/**
+ * @brief Determines if there is next EconomicBuilding
+ * 
+ * @return true 
+ * @return false 
+ */
 bool EconomicBuildingIterator::hasNext(){
     bool found = false;
     std::vector<std::vector<Entity*>>::iterator tempRow = ++this->currRow;
@@ -74,6 +100,11 @@ bool EconomicBuildingIterator::hasNext(){
     return found;
 }
 
+/**
+ * @brief Returns current EconomicBuilding
+ * 
+ * @return Entity* 
+ */
 Entity* EconomicBuildingIterator::current(){
     return (*this->curr);
 }
