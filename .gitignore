@@ -1,59 +1,3 @@
-<<<<<<< HEAD
-# Ignore prerequisites
-*.d
-
-# Compiled object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled headers
-*.gch
-*.pch
-
-# Compiled dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Compiled static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-
-# Build and binary directories
-build/
-bin/
-
-# Coverage files
-*.gcno
-*.gcda
-coverage/
-
-# Other files
-*.log
-*.swp
-*.bak
-*~
-/.vscode
-/submit
-*.zip
-.DS_Store
-
-# Ignore doctest.h in tests folder
-tests/doctest.h
-
-# Ignore Doxygen configuration and output
-Doxyfile
-docs/doxygen/
-=======
 # Ignore prerequisites
 *.d
 
@@ -108,4 +52,3 @@ doctest.h
 # Ignore Doxygen configuration and output
 Doxyfile
 docs/doxygen/
->>>>>>> dev
