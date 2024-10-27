@@ -1,12 +1,13 @@
 #include "ConcreteProducer.h"
 
-ConcreteProducer::ConcreteProducer() {}
+ConcreteProducer::ConcreteProducer() : Industry() {}
 ConcreteProducer::~ConcreteProducer() {}
 
 ConcreteProducer::ConcreteProducer(EntityConfig ec, Size size, int xPos, int yPos) : Industry(ec, size, xPos, yPos)
 {
     setOutput(20); //TODO - change value
 }
+
 
 ConcreteProducer::ConcreteProducer(ConcreteProducer* concreteProducer): Industry(concreteProducer)
 {
@@ -23,6 +24,10 @@ void ConcreteProducer::update()
         {
             rb->updateIndustry(this);
         }
+    }
+
+    if(!isBuilt()) {
+        updateBuildState();
     }
 }
 
