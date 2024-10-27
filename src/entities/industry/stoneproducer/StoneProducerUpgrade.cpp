@@ -1,3 +1,4 @@
+
 #include "StoneProducerUpgrade.h"
 
 StoneProducerUpgrade::StoneProducerUpgrade(StoneProducer* stoneProd) : StoneProducer(stoneProd) {

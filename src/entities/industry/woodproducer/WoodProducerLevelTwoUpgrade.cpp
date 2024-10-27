@@ -1,3 +1,4 @@
+
 #include "WoodProducerLevelTwoUpgrade.h"
 
 WoodProducerLevelTwoUpgrade::WoodProducerLevelTwoUpgrade(WoodProducer *woodProducer) : WoodProducerUpgrade(woodProducer) {}

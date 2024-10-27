@@ -1,3 +1,4 @@
+
 #include "AmenityFactory.h"
 
 AmenityFactory::AmenityFactory() {}

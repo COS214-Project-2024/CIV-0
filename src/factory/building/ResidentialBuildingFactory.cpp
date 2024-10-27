@@ -1,3 +1,4 @@
+
 #include "ResidentialBuildingFactory.h"
 
 ResidentialBuildingFactory::ResidentialBuildingFactory() {
@@ -51,3 +52,4 @@ Entity* ResidentialBuildingFactory::createHouse(Size size, int xPos, int yPos) {
 Entity* ResidentialBuildingFactory::createApartment(Size size, int xPos, int yPos) {
 	return new Apartment(ConfigManager::getEntityConfig(EntityType::APARTMENT, size), size, xPos, yPos);
 }
+

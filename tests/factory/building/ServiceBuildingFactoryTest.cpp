@@ -1,3 +1,4 @@
+
 #include "doctest.h"
 #include "factory/building/ServiceBuildingFactory.h"
 #include "utils/EntityType.h"

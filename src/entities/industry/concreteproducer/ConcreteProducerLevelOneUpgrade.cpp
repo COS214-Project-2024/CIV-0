@@ -1,3 +1,4 @@
+
 #include "ConcreteProducerLevelOneUpgrade.h"
 
 ConcreteProducerLevelOneUpgrade::ConcreteProducerLevelOneUpgrade(ConcreteProducer* concreteProd) : ConcreteProducerUpgrade(concreteProd) {}
@@ -16,3 +17,4 @@ Entity* ConcreteProducerLevelOneUpgrade::clone() {
 int ConcreteProducerLevelOneUpgrade::getOutput() {
     return concreteProducer->getOutput() * UPGRADE;
 }
+

@@ -1,3 +1,4 @@
+
 #ifndef AMENITYFACTORY_H
 #define AMENITYFACTORY_H
 

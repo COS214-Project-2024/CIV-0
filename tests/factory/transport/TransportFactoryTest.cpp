@@ -1,3 +1,4 @@
+
 #include "doctest.h"
 #include "factory/transport/TransportFactory.h"
 #include "utils/EntityType.h"
@@ -49,3 +50,4 @@ TEST_CASE("TransportFactoryTest test") {
     CHECK(entity->getYPosition() == 0);
     delete entity;
 }
+

@@ -1,3 +1,4 @@
+
 #include "ServiceBuildingFactory.h"
 
 ServiceBuildingFactory::ServiceBuildingFactory() {}
@@ -62,3 +63,4 @@ Entity* ServiceBuildingFactory::createPoliceStation(Size size, int xPos, int yPo
 Entity* ServiceBuildingFactory::createSchool(Size size, int xPos, int yPos) {
 	return new School(ConfigManager::getEntityConfig(EntityType::SCHOOL, size), size, xPos, yPos);
 }
+
