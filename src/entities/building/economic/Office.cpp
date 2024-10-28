@@ -15,7 +15,7 @@ Office::Office(Office* office) : EconomicBuilding(office)
 
 void Office::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         

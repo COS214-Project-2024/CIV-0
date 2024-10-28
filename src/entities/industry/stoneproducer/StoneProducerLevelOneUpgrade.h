@@ -6,8 +6,14 @@
 class StoneProducerLevelOneUpgrade : public StoneProducerUpgrade
 {
 public:
-    StoneProducerLevelOneUpgrade();
+    StoneProducerLevelOneUpgrade(StoneProducer* stoneProd);
+    StoneProducerLevelOneUpgrade(StoneProducerLevelOneUpgrade* stoneProd);
     ~StoneProducerLevelOneUpgrade();
+    int getOutput();
+    Entity* clone();
+    void update();
+private: 
+    const int UPGRADE = 1.5;
 };
 
 #endif // STONEPRODUCERLEVELONEUPGRADE_H

@@ -15,7 +15,7 @@ Monument::Monument(Monument* monument) : Amenity(monument)
 
 void Monument::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         

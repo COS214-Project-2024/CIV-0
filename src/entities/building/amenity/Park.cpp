@@ -15,7 +15,7 @@ Park::Park(Park* park) : Amenity(park)
 
 void Park::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         
@@ -33,5 +33,6 @@ void Park::update()
 
 Entity* Park::clone()
 {
+    return new Park(this);
     return new Park(this);
 }

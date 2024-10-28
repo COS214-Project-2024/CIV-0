@@ -1,6 +1,13 @@
 #include "doctest.h"
+#include "policies/electricity/HighElectricityPolicy.h"
 
-TEST_CASE("HighElectricityPolicyTest test") {
-    // Add your test cases here
-    CHECK(1 == 1);
+/**
+ * @brief Test HighElectricityPolicy increases electricity usage correctly.
+ */
+TEST_CASE("Test HighElectricityPolicy") {
+    HighElectricityPolicy highPolicy;
+    int initialUsage = 100;
+    int expectedUsage = 125; // 125% of the initial usage
+    
+    CHECK(highPolicy.calculateElectricityUsage(initialUsage) == expectedUsage);
 }

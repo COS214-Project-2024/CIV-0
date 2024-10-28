@@ -2,7 +2,6 @@
 #define AMENITY_H
 
 #include "entities/building/base/Building.h"
-#include "entities/base/Subject.h"
 #include "entities/building/residential/ResidentialBuilding.h"
 
 /**

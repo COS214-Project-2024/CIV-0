@@ -15,7 +15,7 @@ Theater::Theater(Theater* theater) : Amenity(theater)
 
 void Theater::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         

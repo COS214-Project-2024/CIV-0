@@ -47,7 +47,7 @@ coverage/
 .DS_Store
 
 # Ignore doctest.h in tests folder
-tests/doctest.h
+doctest.h
 
 # Ignore Doxygen configuration and output
 Doxyfile
