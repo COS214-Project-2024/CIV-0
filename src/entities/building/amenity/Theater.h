@@ -4,56 +4,54 @@
 #include "Amenity.h"
 
 /**
- * @brief Class representing a theater in the city.
- * 
- * The Theater class provides an entertainment venue for the population.
- * It inherits from the Amenity class.
+ * @class Theater
+ * @brief Represents a theater entity within the game.
+ *
+ * The Theater class is a specific type of Amenity, providing unique attributes
+ * and behaviors related to theaters, such as increasing local entertainment value.
+ * This class includes implementations for updating the theater's state and cloning itself.
  */
 class Theater : public Amenity
 {
 public:
     /**
      * @brief Default constructor for the Theater class.
-     * 
-     * Initializes an empty theater object.
      */
     Theater();
 
     /**
-     * @brief Parameterized constructor for the Theater class.
+     * @brief Constructs a Theater with specified attributes.
      * 
-     * @param ec Entity configuration for initializing the theater.
-     * @param size The size of the theater.
-     * @param xPos The x-coordinate of the theater's location.
-     * @param yPos The y-coordinate of the theater's location.
+     * @param ec Configuration containing resource consumption and properties.
+     * @param size Size of the theater.
+     * @param xPos X-coordinate position of the theater.
+     * @param yPos Y-coordinate position of the theater.
      */
     Theater(EntityConfig ec, Size size, int xPos, int yPos);
 
     /**
      * @brief Copy constructor for the Theater class.
      * 
-     * @param theater A pointer to an existing Theater object to copy from.
+     * Creates a new Theater by copying the attributes of an existing Theater.
+     * 
+     * @param theater Pointer to the Theater object to be copied.
      */
     Theater(Theater* theater);
 
     /**
      * @brief Destructor for the Theater class.
-     * 
-     * Cleans up resources used by the Theater object.
      */
-    ~Theater();
+    virtual ~Theater();
 
     /**
-     * @brief Updates the state of the theater entity.
-     * 
-     * Handles changes in the theater's state.
+     * @brief Updates the theater's state.
      */
     void update();
 
     /**
-     * @brief Clones the theater entity.
+     * @brief Creates a clone of the theater.
      * 
-     * @return A pointer to a deep copy of the Theater object.
+     * @return A pointer to the cloned Theater.
      */
     Entity* clone();
 };

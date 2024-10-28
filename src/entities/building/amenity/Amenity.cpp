@@ -12,8 +12,3 @@ Amenity::Amenity(Amenity* amenity) : Building(amenity)
 {
     subscribeToAllResidentialInRadius();
 }
-
-Amenity::Amenity(Amenity* amenity) : Building(amenity)
-{
-    
-}

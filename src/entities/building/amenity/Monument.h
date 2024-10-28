@@ -4,56 +4,54 @@
 #include "Amenity.h"
 
 /**
- * @brief Class representing a monument in the city.
- * 
- * The Monument class provides a decorative or commemorative structure to enhance the city's appeal.
- * It inherits from the Amenity class.
+ * @class Monument
+ * @brief Represents a monument entity within the game.
+ *
+ * The Monument class is a specific type of Amenity with its own unique characteristics
+ * and behaviors. This class provides implementations for updating the monument's state 
+ * and cloning itself.
  */
 class Monument : public Amenity
 {
 public:
     /**
      * @brief Default constructor for the Monument class.
-     * 
-     * Initializes an empty monument object.
      */
     Monument();
 
     /**
-     * @brief Parameterized constructor for the Monument class.
+     * @brief Constructs a Monument with specified attributes.
      * 
-     * @param ec Entity configuration for initializing the monument.
-     * @param size The size of the monument.
-     * @param xPos The x-coordinate of the monument's location.
-     * @param yPos The y-coordinate of the monument's location.
+     * @param ec Configuration containing resource consumption and properties.
+     * @param size Size of the monument.
+     * @param xPos X-coordinate position of the monument.
+     * @param yPos Y-coordinate position of the monument.
      */
     Monument(EntityConfig ec, Size size, int xPos, int yPos);
 
     /**
      * @brief Copy constructor for the Monument class.
      * 
-     * @param monument A pointer to an existing Monument object to copy from.
+     * Creates a new Monument by copying the attributes of an existing Monument.
+     * 
+     * @param monument Pointer to the Monument object to be copied.
      */
     Monument(Monument* monument);
 
     /**
      * @brief Destructor for the Monument class.
-     * 
-     * Cleans up resources used by the Monument object.
      */
-    ~Monument();
+    virtual ~Monument();
 
     /**
-     * @brief Updates the state of the monument entity.
-     * 
-     * Handles changes in the monument's state.
+     * @brief Updates the monument's state.
      */
     void update();
 
     /**
-     * @brief Clones the monument entity.
+     * @brief Creates a clone of the monument.
      * 
-     * @return A pointer to a deep copy of the Monument object.
+     * @return A pointer to the cloned Monument.
      */
     Entity* clone();
 };

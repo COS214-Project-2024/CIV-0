@@ -4,56 +4,54 @@
 #include "Amenity.h"
 
 /**
- * @brief Class representing a park in the city.
- * 
- * The Park class provides a recreational area for the population.
- * It inherits from the Amenity class.
+ * @class Park
+ * @brief Represents a park entity within the game.
+ *
+ * The Park class is a specific type of Amenity that provides unique attributes 
+ * and behaviors specific to parks, such as improving nearby area aesthetics.
+ * This class implements the methods to update its state and clone itself.
  */
 class Park : public Amenity
 {
 public:
     /**
      * @brief Default constructor for the Park class.
-     * 
-     * Initializes an empty park object.
      */
     Park();
 
     /**
-     * @brief Parameterized constructor for the Park class.
+     * @brief Constructs a Park with specified attributes.
      * 
-     * @param ec Entity configuration for initializing the park.
-     * @param size The size of the park.
-     * @param xPos The x-coordinate of the park's location.
-     * @param yPos The y-coordinate of the park's location.
+     * @param ec Configuration containing resource consumption and properties.
+     * @param size Size of the park.
+     * @param xPos X-coordinate position of the park.
+     * @param yPos Y-coordinate position of the park.
      */
     Park(EntityConfig ec, Size size, int xPos, int yPos);
 
     /**
      * @brief Copy constructor for the Park class.
      * 
-     * @param park A pointer to an existing Park object to copy from.
+     * Creates a new Park by copying the attributes of an existing Park.
+     * 
+     * @param park Pointer to the Park object to be copied.
      */
     Park(Park* park);
 
     /**
      * @brief Destructor for the Park class.
-     * 
-     * Cleans up resources used by the Park object.
      */
-    ~Park();
+    virtual ~Park();
 
     /**
-     * @brief Updates the state of the park entity.
-     * 
-     * Handles changes in the park's state.
+     * @brief Updates the park's state.
      */
     void update();
 
     /**
-     * @brief Clones the park entity.
+     * @brief Creates a clone of the park.
      * 
-     * @return A pointer to a deep copy of the Park object.
+     * @return A pointer to the cloned Park.
      */
     Entity* clone();
 };
