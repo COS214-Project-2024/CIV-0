@@ -2,7 +2,6 @@
 #define UTILITY_H
 
 #include "entities/base/Entity.h"
-#include "entities/base/Subject.h"
 #include "entities/building/residential/ResidentialBuilding.h"
 
 #include <string>
@@ -13,7 +12,7 @@
  *
  * The Utility class is a specialized entity that has an output value, such as electricity or water.
  */
-class Utility : public Entity, public Subject
+class Utility : public Entity
 {
 public:
     /**

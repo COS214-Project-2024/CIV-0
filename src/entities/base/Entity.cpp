@@ -1,6 +1,9 @@
 #include "Entity.h"
 #include "entities/state/UnderConstruction.h"
 #include "entities/state/Built.h"
+#include "city/City.h"
+#include "entities/building/residential/ResidentialBuilding.h"
+#include "entities/road/Road.h"
 
 Entity::Entity()
 {
@@ -21,7 +24,6 @@ Entity::Entity(Entity* entity)
     this->size = entity->size;
     this->xPosition = entity->xPosition;
     this->yPosition = entity->yPosition;
-    this->ec = entity->ec;
     if(!entity->isBuilt())
     {
         state = new UnderConstruction(3);
@@ -46,7 +48,6 @@ Entity::Entity(EntityConfig ec, Size size, int xPos, int yPos)
     this->size = size;
     this->xPosition = xPos;
     this->yPosition = yPos;
-    this->ec = &ec;
     if(ec.buildTime!=0)
     {
         state = new UnderConstruction(ec.buildTime);
@@ -59,11 +60,17 @@ Entity::Entity(EntityConfig ec, Size size, int xPos, int yPos)
 
 Entity::~Entity()
 {
+    unsubscribeFromAllBuildings();
     if(state != nullptr)
     {
         delete state;
         state = nullptr;
     }
+}
+
+const std::vector<Entity*> Entity::getObservers()
+{
+    return observers;
 }
 
 //Note: If the entity is on the border of the radius, it does not count (returns false).
@@ -133,4 +140,90 @@ void Entity::updateBuildState()
 void Entity::setSymbol(std::string symbol)
 {
     this->symbol = symbol;
+}
+
+void Entity::unsubscribe(Entity* subject)
+{
+    for(auto it = observers.begin(); it != observers.end(); it++)
+    {
+        if(*it == subject)
+        {
+            observers.erase(it);
+            return;
+        }
+    }
+}
+
+void Entity::subscribe(Entity* entity)
+{
+    for(Entity* obs : observers)
+    {
+        if(obs == entity)
+        {
+            return;
+        }
+    }
+    observers.push_back(entity);
+}
+
+void Entity::unsubscribeFromAllBuildings()
+{
+    for(Entity* e : observers)
+    {
+        e->unsubscribe(this);
+        unsubscribe(e);
+    }
+}
+
+//If you edit this you are signing your death warrent
+void Entity::subscribeToAllResidentialInRadius()
+{
+    City* c = City::instance();
+
+    for(int i = 0; i < c->getWidth(); i++)
+    {
+        for(int j = 0; j < c->getHeight(); j++)
+        {
+            if(dynamic_cast<ResidentialBuilding*>(c->getEntity(i, j)) != nullptr)
+            {
+                if(isWithinEffectRadius(c->getEntity(i, j)))
+                {
+                    subscribe(c->getEntity(i, j));
+                    c->getEntity(i,j)->subscribe(this);
+                }
+            }
+        }
+    }
+}
+
+void Entity::residentialBuildingPlaced()
+{
+    City* c = City::instance();
+
+    for(int i = 0; i < c->getWidth(); i++)
+    {
+        for(int j = 0; j < c->getHeight(); j++)
+        {
+             //Don't you dare touch this
+            if(dynamic_cast<ResidentialBuilding*>(c->getEntity(i, j)) == nullptr && c->getEntity(i, j)!=nullptr && dynamic_cast<Road*>(c->getEntity(i, j)) == nullptr)
+            {
+                subscribeToAllResidentialInRadius();
+            }
+        }
+    }
+}
+
+std::string Entity::getSymbol()
+{
+    return symbol;
+}
+
+float Entity::getElectricityConsumption()
+{
+    return electricityConsumption;
+}
+
+float Entity::getWaterConsumption()
+{
+    return waterConsumption;
 }

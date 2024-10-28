@@ -15,7 +15,7 @@ School::School(School* school) : ServiceBuilding(school)
 
 void School::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         

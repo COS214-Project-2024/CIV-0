@@ -1,13 +1,17 @@
 #ifndef CITY_H
 #define CITY_H
 
-#include "entities/base/Entity.h"
+#include "visitors/base/CityVisitor.h"
 #include <vector>
+
+class Entity;
 
 class City
 {
 private:
     std::vector<std::vector<Entity *>> grid;
+    int width;
+    int height;
     float satisfaction;
     int money;
     int wood;
@@ -19,6 +23,10 @@ private:
     int electricityConsumption;
     int waterProduction;
     int waterConsumption;
+    int wasteProduction;
+    int wasteConsumption;
+    int sewageProduction;
+    int sewageConsumption;
     int residentialTax;
     int economicTax;
 
@@ -37,8 +45,57 @@ public:
     City(const City &) = delete;
     City &operator=(const City &) = delete;
 
-    // Example getter for an entity in the city grid
     Entity *getEntity(int x, int y);
+    void addEntity(Entity *entity);
+    std::vector<std::vector<Entity *>> &getGrid(); // Provide access to the grid
+
+    // Accept method for the visitor pattern
+    void accept(CityVisitor &visitor);
+
+
+    // Getters
+    int getWidth() const;
+    int getHeight() const;
+    float getSatisfaction() const;
+    int getMoney() const;
+    int getWood() const;
+    int getSteel() const;
+    int getConcrete() const;
+    int getPopulationCapacity() const;
+    int getPopulation() const;
+    int getElectricityProduction() const;
+    int getElectricityConsumption() const;
+    int getWaterProduction() const;
+    int getWaterConsumption() const;
+    int getWasteProduction() const;
+    int getWasteConsumption() const;
+    int getSewageProduction() const;
+    int getSewageConsumption() const;
+    int getResidentialTax() const;
+    int getEconomicTax() const;
+
+    // Setters
+    void setWidth(int width);
+    void setHeight(int height);
+    void setSatisfaction(float satisfaction);
+    void setMoney(int money);
+    void setWood(int wood);
+    void setSteel(int steel);
+    void setConcrete(int concrete);
+    void setPopulationCapacity(int populationCapacity);
+    void setPopulation(int population);
+    void setElectricityProduction(int electricityProduction);
+    void setElectricityConsumption(int electricityConsumption);
+    void setWaterProduction(int waterProduction);
+    void setWaterConsumption(int waterConsumption);
+    void setWasteProduction(int wasteProduction);
+    void setWasteConsumption(int wasteConsumption);
+    void setSewageProduction(int sewageProduction);
+    void setSewageConsumption(int sewageConsumption);
+    void setResidentialTax(int residentialTax);
+    void setEconomicTax(int economicTax);
+
+    void reset();
 };
 
 #endif // CITY_H

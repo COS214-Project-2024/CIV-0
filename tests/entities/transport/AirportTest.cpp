@@ -17,8 +17,8 @@ TEST_CASE("Testing Airport constructor and clone")
     // CHECK(cloneAirport->getYPosition() == 20);
     // CHECK(cloneAirport->getRevenue() == 1000);
 
-    delete cloneAirport;
     delete a1;
+    delete cloneAirport;
 }
 
 TEST_CASE("Testing Airport update")
@@ -36,14 +36,36 @@ TEST_CASE("Testing Airport update")
     delete house;
 }
 
-TEST_CASE("Testing Airport subscribe and unsubscribe")
-{
-    Airport airport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::SMALL), Size::SMALL, 10, 10);
-    House rb(ConfigManager::getEntityConfig(EntityType::HOUSE, Size::SMALL), Size::SMALL, 10, 10);
+TEST_CASE("Testing Airport subscribe and unsubscribe") {
+    Airport* airport = new Airport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::SMALL), Size::SMALL, 10, 10);
+    House* house = new House(ConfigManager::getEntityConfig(EntityType::HOUSE, Size::SMALL), Size::SMALL, 10, 10);
 
-    CHECK(airport.subscribe(&rb) == true);
-    CHECK(airport.subscribe(&rb) == false);
+    // Subscribe house to airport
+    airport->subscribe(house);
+    
+    // Verify that house is in the observers list of airport
+    CHECK(airport->getObservers().size() == 1);
+    CHECK(airport->getObservers()[0] == house);
+    
+    // Subscribe airport to house
+    house->subscribe(airport);
+    
+    // Verify that airport is in the observers list of house
+    CHECK(house->getObservers().size() == 1);
+    CHECK(house->getObservers()[0] == airport);
+    
+    // Unsubscribe house from airport
+    airport->unsubscribe(house);
+    
+    // Verify that house is no longer in the observers list of airport
+    CHECK(airport->getObservers().size() == 0);
+    
+    // Unsubscribe airport from house
+    house->unsubscribe(airport);
+    
+    // Verify that airport is no longer in the observers list of house
+    CHECK(house->getObservers().size() == 0);
 
-    CHECK(airport.unsubscribe(&rb) == true);
-    CHECK(airport.unsubscribe(&rb) == false);
+    delete airport;
+    delete house;
 }

@@ -1,8 +1,8 @@
 #include "StoneProducer.h"
 
-StoneProducer::StoneProducer() {}
+StoneProducer::StoneProducer() : Industry() {}
 StoneProducer::~StoneProducer() {}
-
+StoneProducer::StoneProducer(StoneProducer* stoneProducer) : Industry(stoneProducer) {}
 StoneProducer::StoneProducer(EntityConfig ec, Size size, int xPos, int yPos) : Industry(ec, size, xPos, yPos)
 {
     setOutput(20); //TODO - change value
@@ -10,7 +10,7 @@ StoneProducer::StoneProducer(EntityConfig ec, Size size, int xPos, int yPos) : I
 
 void StoneProducer::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         
@@ -19,10 +19,14 @@ void StoneProducer::update()
             rb->updateIndustry(this);
         }
     }
+
+    if(!isBuilt()) {
+        updateBuildState();
+    }
 }
+
 
 Entity* StoneProducer::clone()
 {
-    Entity* e = new StoneProducer(*ec, size, xPosition, yPosition);
-    return e;
+    return new StoneProducer(this);
 }

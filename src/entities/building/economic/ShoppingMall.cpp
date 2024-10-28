@@ -15,7 +15,7 @@ ShoppingMall::ShoppingMall(ShoppingMall* mall) : EconomicBuilding(mall)
 
 void ShoppingMall::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         
