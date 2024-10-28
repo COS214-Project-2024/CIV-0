@@ -1,16 +1,19 @@
 #include "City.h"
 #include "entities/base/Entity.h"
 #include "iterators/city/CityIterator.h"
+#include "entities/road/Road.h"
 #include <algorithm> // for std::fill
 
 City::City() : width(50), height(50), // Set default values
-               satisfaction(0), money(0), wood(0), steel(0), concrete(0),
+               satisfaction(0), money(10000), wood(1000), steel(1000), concrete(1000),
                populationCapacity(0), population(0), electricityProduction(0),
                electricityConsumption(0), waterProduction(0), waterConsumption(0),
                residentialTax(0), economicTax(0)
 {
     // Initialize grid with default width and height
+    srand(static_cast<unsigned int>(time(0))); // Seed random number generator
     grid.resize(height, std::vector<Entity *>(width, nullptr));
+    createRandomRoad();
 }
 
 City::~City()
@@ -29,10 +32,10 @@ void City::reset(int newWidth, int newHeight)
 {
     // Reset scalar properties to default values
     satisfaction = 0.0f;
-    money = 0;
-    wood = 0;
-    steel = 0;
-    concrete = 0;
+    money = 10000;
+    wood = 1000;
+    steel = 1000;
+    concrete = 1000;
     populationCapacity = 0;
     population = 0;
     electricityProduction = 0;
@@ -57,6 +60,8 @@ void City::reset(int newWidth, int newHeight)
     height = newHeight;
     grid.clear();
     grid.resize(height, std::vector<Entity *>(width, nullptr));
+
+    createRandomRoad(); // Create a new random road upon reset
 }
 
 void City::reset()
@@ -108,6 +113,20 @@ void City::addEntity(Entity *entity)
 CityIterator City::createIterator()
 {
     return CityIterator(grid); // Pass the grid to the iterator
+}
+
+void City::createRandomRoad()
+{
+    int x = rand() % width;  // Random x coordinate within grid bounds
+    int y = rand() % height; // Random y coordinate within grid bounds
+
+    // Delete any existing entity at the random position
+    if (grid[y][x] != nullptr)
+    {
+        delete grid[y][x];
+    }
+
+    grid[y][x] = new Road(ConfigManager::getEntityConfig(EntityType::ROAD, Size::SMALL), Size::SMALL, x, y); // Place a new Road entity at the random position
 }
 
 // Getters

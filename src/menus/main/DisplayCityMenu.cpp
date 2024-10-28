@@ -2,6 +2,12 @@
 #include "menus/base/MenuManager.h"
 #include "city/CivZero.h"
 #include "iterators/city/CityIterator.h"
+#include "entities/building/residential/ResidentialBuilding.h"
+#include "entities/building/economic/EconomicBuilding.h"
+#include "entities/building/service/ServiceBuilding.h"
+#include "entities/industry/base/Industry.h"
+#include "entities/utility/base/Utility.h"
+#include "entities/road/Road.h"
 #include <iostream>
 #include <stdexcept>
 
@@ -103,10 +109,9 @@ void DisplayCityMenu::display() const
 void DisplayCityMenu::displayCity() const
 {
     City *city = City::instance();
+    const auto &grid = city->getGrid();
     int width = city->getWidth();
     int height = city->getHeight();
-
-    CityIterator it = city->createIterator(); // Get the iterator for the city
 
     // Display the grid headers with extended character labels
     std::cout << "    ";
@@ -118,46 +123,81 @@ void DisplayCityMenu::displayCity() const
               << "  ";
     printTopBorder(width * 2 + 1);
 
-    int prevRow = -1;
-
-    // Use the iterator to go through each cell in the city
-    for (it.first(); it.hasNext(); it.next())
+    // Loop over each row and column in the grid
+    for (int row = 0; row < height; ++row)
     {
-        int row = it.getRow();
-        int col = it.getCol();
+        std::cout << indexToExtendedChar(row) << DARK_GRAY << " ║ " << RESET;
 
-        // Print a new line when moving to a new row
-        if (row != prevRow)
+        for (int col = 0; col < width; ++col)
         {
-            if (prevRow != -1)
+            Entity *entity = grid[row][col];
+            if (entity != nullptr)
             {
-                std::cout << DARK_GRAY << "║" << RESET << std::endl; // Close previous row
+                std::cout << entity->getSymbol() << " ";
             }
-            std::cout << indexToExtendedChar(row) << DARK_GRAY << " ║ " << RESET;
-            prevRow = row;
+            else
+            {
+                std::cout << DARK_GRAY << ". " << RESET;
+            }
         }
-
-        // Display the symbol of the current entity
-        Entity *entity = it.current();
-        if (entity != nullptr)
-        {
-            std::cout << entity->getSymbol() << " ";
-        }
-        else
-        {
-            std::cout << DARK_GRAY << ". " << RESET;
-        }
+        std::cout << DARK_GRAY << "║" << RESET << std::endl;
     }
 
-    // Close the last row
-    std::cout << DARK_GRAY << "║" << RESET << std::endl;
+    // Close the bottom border
+    std::cout << "  ";
+    printBottomBorder(width * 2 + 1);
+}
+
+/**
+ * @brief Displays the city grid, filtering by entity type if specified.
+ *
+ * @tparam T The type of entity to display (e.g., ResidentialBuilding).
+ */
+template <typename T>
+void DisplayCityMenu::displayCityByType() const
+{
+    City *city = City::instance();
+    const auto &grid = city->getGrid();
+    int width = city->getWidth();
+    int height = city->getHeight();
+
+    // Display the grid headers with extended character labels
+    std::cout << "    ";
+    for (int i = 0; i < width; ++i)
+    {
+        std::cout << indexToExtendedChar(i) << " ";
+    }
+    std::cout << std::endl
+              << "  ";
+    printTopBorder(width * 2 + 1);
+
+    for (int row = 0; row < height; ++row)
+    {
+        std::cout << indexToExtendedChar(row) << DARK_GRAY << " ║ " << RESET;
+        for (int col = 0; col < width; ++col)
+        {
+            Entity *entity = grid[row][col];
+            // Only display if entity is of type T
+            if (entity != nullptr && (dynamic_cast<T *>(entity) || dynamic_cast<Road *>(entity)))
+            {
+                std::cout << entity->getSymbol() << " ";
+            }
+            else
+            {
+                std::cout << DARK_GRAY << ". " << RESET;
+            }
+        }
+        std::cout << DARK_GRAY << "║" << RESET << std::endl;
+    }
+
+    // Close the bottom border
     std::cout << "  ";
     printBottomBorder(width * 2 + 1);
 }
 
 /**
  * @brief Handles user input in the "Display City" menu.
- * Allows the user to return to the main menu or display error for invalid choices.
+ * Allows the user to filter by entity type or return to the main menu.
  */
 void DisplayCityMenu::handleInput()
 {
@@ -165,19 +205,40 @@ void DisplayCityMenu::handleInput()
 
     while (choosing)
     {
+        clearScreen(); // Clear screen at the start of each choice
+        display();     // Display city and menu options
         char choice;
         displayChoicePrompt();
         std::cin >> choice;
 
+        clearScreen(); // Clear screen again before showing the filtered view
+
         switch (choice)
         {
+        case '1': // Display All Residential Buildings
+            displayCityByType<ResidentialBuilding>();
+            break;
+        case '2': // Display All Economic Buildings
+            displayCityByType<EconomicBuilding>();
+            break;
+        case '3': // Display All Services
+            displayCityByType<ServiceBuilding>();
+            break;
+        case '4': // Display All Utilities
+            displayCityByType<Utility>();
+            break;
+        case '5': // Display All Industries
+            displayCityByType<Industry>();
+            break;
         case 'q':
             MenuManager::instance().setCurrentMenu(Menu::MAIN);
             choosing = false;
             break;
         default:
-            displayInvalidChoice(); // Display error for invalid input
+            displayInvalidChoice();
             break;
         }
+
+        displayPressEnterToContinue(); // Pause before redisplaying
     }
 }

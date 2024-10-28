@@ -1,6 +1,9 @@
 #include "IMenu.h"
+#include "city/City.h"
 #include <algorithm> // For std::max
-#include <iostream>  // For std::setw
+#include <iostream>
+#include <iomanip>
+#include <sstream>
 #include <regex>
 
 /**
@@ -146,54 +149,107 @@ std::string IMenu::stripColorCodes(const std::string &input) const
  */
 void IMenu::displayMenu() const
 {
-    // Calculate the maximum width based on the longest piece of text (ignoring color codes)
-    int maxWidth = calculateMaxWidth(menuHeading, sections);
+    // Access the city instance
+    City *city = City::instance();
 
-    // Print the menu heading if it exists
+    // Calculate the maximum width of the menu based on all sections and options
+    int maxWidth = calculateMaxWidth(menuHeading, sections);
+    maxWidth = std::max(maxWidth, calculateMaxWidth("City Resources", {}));
+
+    clearScreen(); // Clear screen at the start of each display
+
+    // Display the main menu heading at the top
     if (!menuHeading.empty())
     {
         printTopBorder(maxWidth);
-        // Use centerTextWithChar to pad the heading with "█" characters
-        std::cout << DARK_GRAY << "║ " << BOLD_WHITE << centerTextWithChar(menuHeading, maxWidth - 2, "█") << DARK_GRAY << " ║" << RESET << std::endl;
-        printDoubleLineDivider(maxWidth); // Double line divider after the heading
+        std::cout << DARK_GRAY << "║ " << BOLD_WHITE
+                  << centerTextWithChar(menuHeading, maxWidth - 2, "█")
+                  << DARK_GRAY << " ║" << RESET << std::endl;
+        printDoubleLineDivider(maxWidth);
     }
 
-    // Determine whether to display section headings
+    // Display City Resources section with the correct heading format
+    std::cout << DARK_GRAY << "║ " << NORMAL_WHITE
+              << centerTextWithChar("City Resources", maxWidth - 2, "•")
+              << DARK_GRAY << " ║" << RESET << "\n";
+    printSectionDivider(maxWidth);
+
+    // Display each city stat with alignment and color
+    std::vector<std::pair<std::string, std::string>> resourceLines = {
+        {"Money:", std::to_string(city->getMoney())},
+        {"Population:", std::to_string(city->getPopulation()) + "/" + std::to_string(city->getPopulationCapacity())},
+        {"Wood:", std::to_string(city->getWood())},
+        {"Steel:", std::to_string(city->getSteel())},
+        {"Concrete:", std::to_string(city->getConcrete())},
+        {"Electricity Production:", std::to_string(city->getElectricityProduction())},
+        {"Electricity Consumption:", std::to_string(city->getElectricityConsumption())},
+        {"Water Production:", std::to_string(city->getWaterProduction())},
+        {"Water Consumption:", std::to_string(city->getWaterConsumption())}};
+
+    // Display each resource line with color formatting
+    for (const auto &line : resourceLines)
+    {
+        std::ostringstream formattedLine;
+        formattedLine << BOLD_WHITE << std::left << std::setw(25) << line.first << RESET; // Bold white for label
+
+        // Apply different colors to values based on resource type
+        if (line.first == "Money:")
+        {
+            formattedLine << BOLD_GREEN << line.second << RESET; // Green for money
+        }
+        else if (line.first.find("Production") != std::string::npos)
+        {
+            formattedLine << BOLD_YELLOW << line.second << RESET; // Yellow for production values
+        }
+        else if (line.first.find("Consumption") != std::string::npos)
+        {
+            formattedLine << BOLD_RED << line.second << RESET; // Red for consumption values
+        }
+        else
+        {
+            formattedLine << BOLD_CYAN << line.second << RESET; // Cyan for other resources
+        }
+
+        int padding = maxWidth - 4 - stripColorCodes(formattedLine.str()).size(); // Calculate right padding for alignment
+        std::cout << DARK_GRAY << "║ " << RESET << formattedLine.str()
+                  << std::string(std::max(0, padding), ' ') << DARK_GRAY << "   ║" << RESET << "\n";
+    }
+
+    printSectionDivider(maxWidth); // Divider between City Resources and the rest of the menu
+
+    // Display the main menu sections (Options, Navigation, etc.)
     bool showSections = sections.size() > 1;
 
-    // Loop through the sections and display them
     for (size_t sectionIndex = 0; sectionIndex < sections.size(); ++sectionIndex)
     {
         const auto &section = sections[sectionIndex];
 
-        // Display the section heading only if there is more than one section
         if (showSections)
         {
-            std::cout << DARK_GRAY << "║ " << NORMAL_WHITE << centerTextWithChar(section.heading, maxWidth - 2, "•") << DARK_GRAY << " ║" << RESET << std::endl;
+            std::cout << DARK_GRAY << "║ " << NORMAL_WHITE
+                      << centerTextWithChar(section.heading, maxWidth - 2, "•")
+                      << DARK_GRAY << " ║" << RESET << "\n";
             printSectionDivider(maxWidth);
         }
 
-        // Display each option in the section with its custom key and proper padding
         for (const auto &option : section.options)
         {
-            std::string plainText = stripColorCodes(option.text); // Remove color codes for proper alignment
-            int iconWidth = 2;                                    // Assume each icon takes 2 characters
-            int keyAndIconWidth = 6 + iconWidth;                  // Key (1 char), space (1 char), icon, and space (1 char)
-            int padding = maxWidth - static_cast<int>(plainText.size()) - keyAndIconWidth;
+            std::string plainText = stripColorCodes(option.text);
+            int iconWidth = 2;                   // Icon width assumed as 2 characters
+            int keyAndIconWidth = 6 + iconWidth; // Key, space, icon, and additional space
+            int padding = maxWidth - plainText.size() - keyAndIconWidth;
 
-            // Print the option with dynamically calculated padding
             std::cout << DARK_GRAY << "║ " << BOLD_YELLOW << option.key << RESET << ". " << option.icon << " "
                       << option.text << std::string(std::max(0, padding), ' ') << DARK_GRAY << " ║" << RESET << std::endl;
         }
 
-        // Print the bottom border only after the last section
         if (sectionIndex == sections.size() - 1)
         {
-            printBottomBorder(maxWidth);
+            printBottomBorder(maxWidth); // Bottom border after the last section
         }
         else
         {
-            printSectionDivider(maxWidth); // No extra spacing, just a section divider
+            printSectionDivider(maxWidth);
         }
     }
 }

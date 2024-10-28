@@ -80,8 +80,9 @@ protected:
     static constexpr const char *NORMAL_WHITE = "\033[0;37m";
     static constexpr const char *DARK_GRAY = "\033[1;30m";
     static constexpr const char *BOLD_YELLOW = "\033[1;33m";
+    static constexpr const char *BOLD_GREEN = "\033[1;32m";
     static constexpr const char *BOLD_RED = "\033[1;31m";
-    static constexpr const char *BOLD_GREEN = "\033[1;32m"; ///< Green color for success messages.
+    static constexpr const char *BOLD_CYAN = "\033[1;36m";
 
     static constexpr int MIN_MENU_WIDTH = 50; ///< Minimum width for the menu.
 

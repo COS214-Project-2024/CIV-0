@@ -3,6 +3,8 @@
 
 #include "visitors/base/CityVisitor.h"
 #include <vector>
+#include <cstdlib> // For rand and srand
+#include <ctime>   // For time
 
 class Entity;
 class CityIterator;
@@ -35,6 +37,11 @@ private:
     City();
     ~City();
 
+    /**
+     * @brief Creates a road entity at a random position within the city grid.
+     */
+    void createRandomRoad();
+
 public:
     /**
      * @brief Returns a pointer to the singleton instance of City.
@@ -52,7 +59,6 @@ public:
 
     // Accept method for the visitor pattern
     void accept(CityVisitor &visitor);
-
 
     // Getters
     int getWidth() const;
