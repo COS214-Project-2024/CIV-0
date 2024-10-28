@@ -1,4 +1,5 @@
 #include "AmenityIterator.h"
+#include <iostream>
 /**
  * @brief Construct a new Amenity Iterator:: Amenity Iterator object
  * 
@@ -32,17 +33,19 @@ AmenityIterator::AmenityIterator(std::vector<std::vector<Entity*>> &grid):Iterat
  * 
  */
 void AmenityIterator::first(){
-    this->currRow = this->grid.begin();
-    this->curr = currRow->begin();
+    //this->currRow = this->grid.begin();
+    //his->curr = currRow->begin();
     bool found = false;
 
-    for(;currRow != this->grid.end(); currRow++){
+    for(currRow = grid.begin();currRow != this->grid.end(); currRow++){
+        col = 0;
         for(curr = currRow->begin(); curr != currRow->end(); curr++){
             Amenity* amenity = dynamic_cast<Amenity*>(*curr);
-
             if(amenity){found = true;break;}
+            col+=1;
         }
         if(found)break;
+        row+=1;
     }
 }
 
@@ -54,29 +57,20 @@ void AmenityIterator::next(){
     bool found = false;
     int Tcol = this->col;
     int Trow = this->row;
-    for(;currRow != this->grid.end();++currRow){
+    if(hasNext()){
+        col = 0;
+        row = 0;
+    for(currRow = grid.begin();currRow != this->grid.end();++currRow){
         col = 0;
         for(curr = currRow->begin(); curr != currRow->end();++curr){
             Amenity* amenity = dynamic_cast<Amenity*>(*curr);
-            if(amenity && (col!=Tcol || Trow!=row)){found = true;break;}
+            if(amenity && (Tcol<col || Trow<row)){found = true;break;}
             col+=1;
         }
         if(found)break;
         row+=1;
     }
-
-    if(!found){
-        col = 0;
-        row = 0;
-        for(currRow = grid.begin();currRow != this->grid.end();++currRow){
-        col = 0;
-        for(curr = currRow->begin(); curr != currRow->end();++curr){
-            if(col==Tcol && Trow==row)return;
-            col+=1;
-        }
-        row+=1;
-    }  
-    }
+    }//hasNext
 }
 
 /**
@@ -86,18 +80,17 @@ void AmenityIterator::next(){
  * @return false 
  */
 bool AmenityIterator::hasNext(){
-    bool found = false;
-    std::vector<std::vector<Entity*>>::iterator tempRow = ++this->currRow;
-    std::vector<Entity*>::iterator tempCurr = ++this->curr;
-
-        for(;tempRow != this->grid.end();++tempRow){
-        for(tempCurr = tempRow->begin(); tempCurr != tempRow->end();++tempCurr){
-            Amenity* amenity = dynamic_cast<Amenity*>(*tempCurr);
-            if(amenity){found = true;break;}
+    int tr = 0;
+    int tc = 0;
+    for(std::vector<std::vector<Entity*>>::iterator itRow = grid.begin();itRow != grid.end();  itRow++){
+        for(std::vector<Entity*>::iterator itCol = itRow->begin();itCol != itRow->end();  itCol++){
+            Amenity* a = dynamic_cast<Amenity*>(*itCol);
+            if((a) && (tc>col && tr>row))return true;
+            tc+=1;
         }
-        if(found)break;
+        tr+=1;
     }
-    return found;
+    return false;
 }
 
 /**
