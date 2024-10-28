@@ -28,6 +28,14 @@ void PopulationVisitor::visit(City *city)
                     apartmentPopulationCapacity += residential->getCapacity();
                 }
             }
+
+            // Check if the entity is an Entity
+            Entity *theEntity = dynamic_cast<Entity *>(entity);
+            if(theEntity)
+            {
+                totalWaterConsumption += theEntity->getWaterConsumption();
+                totalElectricityConsumption += theEntity->getElectricityConsumption();
+            }
         }
     }
 }
@@ -45,4 +53,15 @@ int PopulationVisitor::getHousePopulationCapacity() const
 int PopulationVisitor::getApartmentPopulationCapacity() const
 {
     return apartmentPopulationCapacity;
+}
+
+
+int PopulationVisitor::getTotalWaterConsumption() const
+{
+    return totalWaterConsumption;
+}
+
+int PopulationVisitor::getTotalElectricityConsumption() const
+{
+    return totalElectricityConsumption;
 }

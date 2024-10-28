@@ -198,6 +198,9 @@ public:
     const std::vector<Entity*> getObservers();
 
     std::string getSymbol();
+
+    float getElectricityConsumption();
+    float getWaterConsumption();
 };
 
 #endif // ENTITY_H
