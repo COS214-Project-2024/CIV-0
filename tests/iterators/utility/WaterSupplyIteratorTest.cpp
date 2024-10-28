@@ -8,11 +8,13 @@ std::vector<std::vector<Entity*>> grid;
 
     std::vector<Entity*> row1;
     std::vector<Entity*> row2;
+    WaterSupply* p = new WaterSupply();
+    Theater* t = new Theater();
 
-    row1.push_back(new WaterSupply());
-    row1.push_back(new WaterSupply());
+    row1.push_back(p);
+    row1.push_back(p);
     row2.push_back(NULL);
-    row2.push_back(new WaterSupply());
+    row2.push_back(p);
 
     grid.push_back(row1);
     grid.push_back(row2);
@@ -20,6 +22,9 @@ std::vector<std::vector<Entity*>> grid;
     WaterSupplyIterator* aIter = new WaterSupplyIterator(grid);
     CHECK(aIter->getCol() == 0);
     CHECK(aIter->getRow() == 0);
+    delete aIter;
+    delete p;
+    delete t;
 }
 
 TEST_CASE("Testing next()"){
@@ -27,11 +32,13 @@ TEST_CASE("Testing next()"){
 
     std::vector<Entity*> row1;
     std::vector<Entity*> row2;
+    WaterSupply* p = new WaterSupply();
+    Theater* t = new Theater();
 
-    row1.push_back(new WaterSupply());
-    row1.push_back(new WaterSupply());
+    row1.push_back(p);
+    row1.push_back(p);
     row2.push_back(NULL);
-    row2.push_back(new Theater());
+    row2.push_back(t);
 
     grid.push_back(row1);
     grid.push_back(row2);
@@ -40,6 +47,9 @@ TEST_CASE("Testing next()"){
     aIter->next();
     CHECK(aIter->getCol() == 1);
     CHECK(aIter->getRow() == 0);
+    delete aIter;
+    delete p;
+    delete t;
 }
 
 TEST_CASE("Testing first()"){
@@ -47,11 +57,13 @@ TEST_CASE("Testing first()"){
 
     std::vector<Entity*> row1;
     std::vector<Entity*> row2;
+    WaterSupply* p = new WaterSupply();
+    Theater* t = new Theater();
 
-    row1.push_back(new WaterSupply());
-    row1.push_back(new WaterSupply());
+    row1.push_back(p);
+    row1.push_back(p);
     row2.push_back(NULL);
-    row2.push_back(new Theater());
+    row2.push_back(t);
 
     grid.push_back(row1);
     grid.push_back(row2);
@@ -60,6 +72,9 @@ TEST_CASE("Testing first()"){
     aIter->first();
     CHECK(aIter->getCol() == 0);
     CHECK(aIter->getRow() == 0);
+    delete aIter;
+    delete p;
+    delete t;
 }
 
 TEST_CASE("Testing hasNext()"){
@@ -67,11 +82,13 @@ TEST_CASE("Testing hasNext()"){
 
     std::vector<Entity*> row1;
     std::vector<Entity*> row2;
+    WaterSupply* p = new WaterSupply();
+    Theater* t = new Theater();
 
-    row1.push_back(new WaterSupply());
-    row1.push_back(new WaterSupply());
+    row1.push_back(p);
+    row1.push_back(p);
     row2.push_back(NULL);
-    row2.push_back(new Theater());
+    row2.push_back(t);
 
     grid.push_back(row1);
     grid.push_back(row2);
@@ -81,6 +98,9 @@ TEST_CASE("Testing hasNext()"){
     CHECK(aIter->hasNext() == false);
     CHECK(aIter->getCol() == 1);
     CHECK(aIter->getRow() == 0);
+    delete aIter;
+    delete p;
+    delete t;
 }
 
 TEST_CASE("Testing hasNext()"){
@@ -88,11 +108,13 @@ TEST_CASE("Testing hasNext()"){
 
     std::vector<Entity*> row1;
     std::vector<Entity*> row2;
+    WaterSupply* p = new WaterSupply();
+    Theater* t = new Theater();
 
-    row1.push_back(new WaterSupply());
-    row1.push_back(new Theater());
-    row2.push_back(new WaterSupply());
-    row2.push_back(new WaterSupply());
+    row1.push_back(p);
+    row1.push_back(t);
+    row2.push_back(p);
+    row2.push_back(p);
 
     grid.push_back(row1);
     grid.push_back(row2);
@@ -109,6 +131,9 @@ TEST_CASE("Testing hasNext()"){
     CHECK(aIter->getCol() == 1);
     CHECK(aIter->getRow() == 1);
     CHECK(aIter->hasNext() == false);
+    delete aIter;
+    delete p;
+    delete t;
 }
 
 TEST_CASE("Testing next()"){
@@ -116,9 +141,11 @@ TEST_CASE("Testing next()"){
 
     std::vector<Entity*> row1;
     std::vector<Entity*> row2;
+    WaterSupply* p = new WaterSupply();
+    Theater* t = new Theater();
 
-    row1.push_back(new WaterSupply());
-    row1.push_back(new WaterSupply());
+    row1.push_back(p);
+    row1.push_back(p);
     row2.push_back(NULL);
     row2.push_back(NULL);
 
@@ -130,6 +157,9 @@ TEST_CASE("Testing next()"){
     aIter->next();
     aIter->next();
     CHECK(aIter->getCol() == 1);
+    delete aIter;
+    delete p;
+    delete t;
 }
 
 

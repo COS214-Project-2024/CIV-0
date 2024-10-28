@@ -8,11 +8,12 @@ TEST_CASE("CityIteratorTest test") {
 
     std::vector<Entity*> row1;
     std::vector<Entity*> row2;
+    Factory* f = new Factory();
 
-    row1.push_back(new Factory());
-    row1.push_back(new Factory());
+    row1.push_back(f);
+    row1.push_back(f);
     row2.push_back(NULL);
-    row2.push_back(new Factory());
+    row2.push_back(f);
 
     grid.push_back(row1);
     grid.push_back(row2);
@@ -20,6 +21,8 @@ TEST_CASE("CityIteratorTest test") {
     CityIterator* aIter = new CityIterator(grid);
     CHECK(aIter->getCol() == 0);
     CHECK(aIter->getRow() == 0);
+    delete aIter;
+    delete f;
 }
 
 TEST_CASE("Testing first"){
@@ -27,11 +30,12 @@ TEST_CASE("Testing first"){
 
     std::vector<Entity*> row1;
     std::vector<Entity*> row2;
+    Factory* f = new Factory();
 
-    row1.push_back(new Factory());
-    row1.push_back(new Factory());
+    row1.push_back(f);
+    row1.push_back(f);
     row2.push_back(NULL);
-    row2.push_back(new Factory());
+    row2.push_back(f);
 
     grid.push_back(row1);
     grid.push_back(row2);
@@ -39,7 +43,9 @@ TEST_CASE("Testing first"){
     CityIterator* aIter = new CityIterator(grid);
     aIter->first();
     CHECK(aIter->getCol() == 0);
-    CHECK(aIter->getRow() == 0);    
+    CHECK(aIter->getRow() == 0); 
+    delete aIter;
+    delete f;   
 }
 
 TEST_CASE("Testing next() 1"){
@@ -47,11 +53,12 @@ TEST_CASE("Testing next() 1"){
 
     std::vector<Entity*> row1;
     std::vector<Entity*> row2;
+    Factory* f = new Factory();
 
-    row1.push_back(new Factory());
-    row1.push_back(new Factory());
+    row1.push_back(f);
+    row1.push_back(f);
     row2.push_back(NULL);
-    row2.push_back(new Factory());
+    row2.push_back(f);
 
     grid.push_back(row1);
     grid.push_back(row2);
@@ -60,6 +67,8 @@ TEST_CASE("Testing next() 1"){
     aIter->next();
     CHECK(aIter->getCol() == 1);
     CHECK(aIter->getRow() == 0);
+    delete aIter;
+    delete f;
 }
 
 TEST_CASE("Testing next() 2"){
@@ -67,11 +76,12 @@ TEST_CASE("Testing next() 2"){
 
     std::vector<Entity*> row1;
     std::vector<Entity*> row2;
+    Factory* f = new Factory();
 
-    row1.push_back(new Factory());
-    row1.push_back(new Factory());
+    row1.push_back(f);
+    row1.push_back(f);
     row2.push_back(NULL);
-    row2.push_back(new Factory());
+    row2.push_back(f);
 
     grid.push_back(row1);
     grid.push_back(row2);
@@ -81,6 +91,8 @@ TEST_CASE("Testing next() 2"){
     aIter->next();
     CHECK(aIter->getCol() == 0);
     CHECK(aIter->getRow() == 1);
+    delete aIter;
+    delete f;
 }
 
 TEST_CASE("Testing next() 3"){
@@ -88,11 +100,12 @@ TEST_CASE("Testing next() 3"){
 
     std::vector<Entity*> row1;
     std::vector<Entity*> row2;
+    Factory* f = new Factory();
 
-    row1.push_back(new Factory());
-    row1.push_back(new Factory());
+    row1.push_back(f);
+    row1.push_back(f);
     row2.push_back(NULL);
-    row2.push_back(new Factory());
+    row2.push_back(f);
 
     grid.push_back(row1);
     grid.push_back(row2);
@@ -103,6 +116,8 @@ TEST_CASE("Testing next() 3"){
     aIter->next();
     CHECK(aIter->getCol() == 1);
     CHECK(aIter->getRow() == 1);
+    delete aIter;
+    delete f;
 }
 
 TEST_CASE("Testing next() 4"){
@@ -110,11 +125,12 @@ TEST_CASE("Testing next() 4"){
 
     std::vector<Entity*> row1;
     std::vector<Entity*> row2;
+    Factory* f = new Factory();
 
-    row1.push_back(new Factory());
-    row1.push_back(new Factory());
+    row1.push_back(f);
+    row1.push_back(f);
     row2.push_back(NULL);
-    row2.push_back(new Factory());
+    row2.push_back(f);
 
     grid.push_back(row1);
     grid.push_back(row2);
@@ -126,6 +142,8 @@ TEST_CASE("Testing next() 4"){
     aIter->next();
     CHECK(aIter->getCol() == 1);
     CHECK(aIter->getRow() == 1);
+    delete aIter;
+    delete f;
 }
 
 TEST_CASE("Testing hasNext()"){
@@ -133,11 +151,12 @@ TEST_CASE("Testing hasNext()"){
 
     std::vector<Entity*> row1;
     std::vector<Entity*> row2;
+    Factory* f = new Factory();
 
-    row1.push_back(new Factory());
-    row1.push_back(new Factory());
+    row1.push_back(f);
+    row1.push_back(f);
     row2.push_back(NULL);
-    row2.push_back(new Factory());
+    row2.push_back(f);
 
     grid.push_back(row1);
     grid.push_back(row2);
@@ -147,6 +166,8 @@ TEST_CASE("Testing hasNext()"){
     CHECK(aIter->getCol() == 1);
     CHECK(aIter->getRow() == 0);
     CHECK(aIter->hasNext() == true);
+    delete aIter;
+    delete f;
 }
 
 TEST_CASE("Testing hasNext()"){
@@ -154,11 +175,12 @@ TEST_CASE("Testing hasNext()"){
 
     std::vector<Entity*> row1;
     std::vector<Entity*> row2;
+    Factory* f = new Factory();
 
-    row1.push_back(new Factory());
-    row1.push_back(new Factory());
+    row1.push_back(f);
+    row1.push_back(f);
     row2.push_back(NULL);
-    row2.push_back(new Factory());
+    row2.push_back(f);
 
     grid.push_back(row1);
     grid.push_back(row2);
@@ -171,4 +193,6 @@ TEST_CASE("Testing hasNext()"){
     CHECK(aIter->getCol() == 1);
     CHECK(aIter->getRow() == 1);
     CHECK(aIter->hasNext() == false);
+    delete aIter;
+    delete f;
 }
