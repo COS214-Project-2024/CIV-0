@@ -33,8 +33,6 @@ AmenityIterator::AmenityIterator(std::vector<std::vector<Entity*>> &grid):Iterat
  * 
  */
 void AmenityIterator::first(){
-    //this->currRow = this->grid.begin();
-    //his->curr = currRow->begin();
     bool found = false;
 
     for(currRow = grid.begin();currRow != this->grid.end(); currRow++){
@@ -83,9 +81,11 @@ bool AmenityIterator::hasNext(){
     int tr = 0;
     int tc = 0;
     for(std::vector<std::vector<Entity*>>::iterator itRow = grid.begin();itRow != grid.end();  itRow++){
+        tc=0;
         for(std::vector<Entity*>::iterator itCol = itRow->begin();itCol != itRow->end();  itCol++){
             Amenity* a = dynamic_cast<Amenity*>(*itCol);
-            if((a) && (tc>col && tr>row))return true;
+            if((a) && (tr>row)){return true;}
+            if((a) && (tr>=row && tc>col)){return true;}
             tc+=1;
         }
         tr+=1;

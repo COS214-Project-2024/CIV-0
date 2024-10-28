@@ -80,7 +80,10 @@ TEST_CASE("Testing hasNext()"){
     grid.push_back(row2);
 
     EconomicBuildingIterator* aIter = new EconomicBuildingIterator(grid);
+    aIter->first();
     aIter->next();
+    CHECK(aIter->getRow() == 0);
+    CHECK(aIter->getCol() == 1);
     CHECK(aIter->hasNext() == true);
 }
 
@@ -93,7 +96,7 @@ TEST_CASE("Testing hasNext()"){
     row1.push_back(new Office());
     row1.push_back(new Factory());
     row2.push_back(NULL);
-    row2.push_back(NULL);
+    row2.push_back(new Factory());
 
     grid.push_back(row1);
     grid.push_back(row2);
@@ -102,6 +105,8 @@ TEST_CASE("Testing hasNext()"){
     aIter->next();
     aIter->next();
     CHECK(aIter->hasNext() == false);
+    CHECK(aIter->getCol() == 1);
+    CHECK(aIter->getRow() == 1);
 }
 
 

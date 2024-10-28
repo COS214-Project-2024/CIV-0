@@ -31,17 +31,17 @@ StoneProducerIterator::StoneProducerIterator(std::vector<std::vector<Entity*>> &
  * position at the end of the grid.
  */
 void StoneProducerIterator::first(){
-    this->currRow = this->grid.begin();
-    this->curr = currRow->begin();
     bool found = false;
 
-    for(;currRow != this->grid.end(); currRow++){
+    for(currRow = grid.begin();currRow != this->grid.end(); currRow++){
+        col = 0;
         for(curr = currRow->begin(); curr != currRow->end(); curr++){
-            StoneProducer* stoneproducer = dynamic_cast<StoneProducer*>(*curr);
-
-            if(stoneproducer){found = true;break;}
+            StoneProducer* e = dynamic_cast<StoneProducer*>(*curr);
+            if(e){found = true;break;}
+            col+=1;
         }
         if(found)break;
+        row+=1;
     }
 }
 
@@ -55,29 +55,20 @@ void StoneProducerIterator::next(){
     bool found = false;
     int Tcol = this->col;
     int Trow = this->row;
-    for(;currRow != this->grid.end();++currRow){
+    if(hasNext()){
+        col = 0;
+        row = 0;
+    for(currRow = grid.begin();currRow != this->grid.end();++currRow){
         col = 0;
         for(curr = currRow->begin(); curr != currRow->end();++curr){
-            StoneProducer* stoneproducer = dynamic_cast<StoneProducer*>(*curr);
-            if(stoneproducer&& (col!=Tcol || Trow!=row)){found = true;break;}
+            StoneProducer* e = dynamic_cast<StoneProducer*>(*curr);
+            if(e && (Tcol<col || Trow<row)){found = true;break;}
             col+=1;
         }
         if(found)break;
         row+=1;
     }
-
-    if(!found){
-        col = 0;
-        row = 0;
-        for(currRow = grid.begin();currRow != this->grid.end();++currRow){
-        col = 0;
-        for(curr = currRow->begin(); curr != currRow->end();++curr){
-            if(col==Tcol && Trow==row)return;
-            col+=1;
-        }
-        row+=1;
-    }  
-    }
+    }//hasNext
 }
 
 /**
@@ -86,19 +77,19 @@ void StoneProducerIterator::next(){
  * @return true if another StoneProducer exists, false otherwise.
  */
 bool StoneProducerIterator::hasNext(){
-    bool found = false;
-    std::vector<std::vector<Entity*>>::iterator tempRow = this->currRow;
-    std::vector<Entity*>::iterator tempCurr = this->curr;
-
-        for(;tempRow != this->grid.end(); ++tempRow){
-        for(tempCurr = tempRow->begin(); tempCurr != tempRow->end(); ++tempCurr){
-            StoneProducer* stoneproducer = dynamic_cast<StoneProducer*>(*tempCurr);
-
-            if(stoneproducer){found = true;break;}
+    int tr = 0;
+    int tc = 0;
+    for(std::vector<std::vector<Entity*>>::iterator itRow = grid.begin();itRow != grid.end();  itRow++){
+        tc=0;
+        for(std::vector<Entity*>::iterator itCol = itRow->begin();itCol != itRow->end();  itCol++){
+            StoneProducer* a = dynamic_cast<StoneProducer*>(*itCol);
+            if((a) && (tr>row)){return true;}
+            if((a) && (tr>=row && tc>col)){return true;}
+            tc+=1;
         }
-        if(found)break;
+        tr+=1;
     }
-    return found;
+    return false;
 }
 
 /**
