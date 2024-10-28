@@ -176,3 +176,65 @@ TEST_CASE("Testing next()"){
     delete m;
     delete t;
 }
+
+TEST_CASE("Testing HasNext()"){
+    std::vector<std::vector<Entity*>> grid;
+
+    std::vector<Entity*> row1;
+    std::vector<Entity*> row2;
+    Park* p = new Park();
+    Theater* t = new Theater();
+    Monument* m = new Monument();
+
+    row1.push_back(m);
+    row1.push_back(NULL);
+    row2.push_back(p);
+    row2.push_back(NULL);
+
+    grid.push_back(row1);
+    grid.push_back(row2);
+
+    AmenityIterator* aIter = new AmenityIterator(grid);
+    aIter->first();
+    aIter->next();
+    //aIter->next();
+    //aIter->next();
+    CHECK(aIter->hasNext() == false);
+    CHECK(aIter->getCol() == 0);
+    CHECK(aIter->getRow() == 1);
+    delete aIter;
+    delete p;
+    delete m;
+    delete t;
+}
+
+TEST_CASE("Testing next()"){
+    std::vector<std::vector<Entity*>> grid;
+
+    std::vector<Entity*> row1;
+    std::vector<Entity*> row2;
+    Park* p = new Park();
+    Theater* t = new Theater();
+    Monument* m = new Monument();
+
+    row1.push_back(m);
+    row1.push_back(NULL);
+    row2.push_back(NULL);
+    row2.push_back(p);
+
+    grid.push_back(row1);
+    grid.push_back(row2);
+
+    AmenityIterator* aIter = new AmenityIterator(grid);
+    aIter->first();
+    aIter->next();
+    //aIter->next();
+    //aIter->next();
+    CHECK(aIter->hasNext() == false);
+    CHECK(aIter->getCol() == 1);
+    CHECK(aIter->getRow() == 1);
+    delete aIter;
+    delete p;
+    delete m;
+    delete t;
+}

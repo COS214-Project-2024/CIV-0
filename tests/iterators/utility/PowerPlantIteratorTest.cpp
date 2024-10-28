@@ -8,7 +8,7 @@ std::vector<std::vector<Entity*>> grid;
 
     std::vector<Entity*> row1;
     std::vector<Entity*> row2;
-    PowerPlant* p = p;
+    PowerPlant* p = new PowerPlant();
     Theater* t = new Theater();
 
     row1.push_back(p);
