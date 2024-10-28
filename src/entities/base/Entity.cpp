@@ -217,3 +217,13 @@ std::string Entity::getSymbol()
 {
     return symbol;
 }
+
+float Entity::getElectricityConsumption()
+{
+    return electricityConsumption;
+}
+
+float Entity::getWaterConsumption()
+{
+    return waterConsumption;
+}

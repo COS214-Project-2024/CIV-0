@@ -8,6 +8,8 @@ class PopulationVisitor : public CityVisitor
 {
 private:
     int totalPopulationCapacity;
+    int totalWaterConsumption;
+    int totalElectricityConsumption;
     int housePopulationCapacity;
     int apartmentPopulationCapacity;
 
@@ -19,6 +21,8 @@ public:
 
     int getTotalPopulationCapacity() const;
     int getHousePopulationCapacity() const;
+    int getTotalWaterConsumption() const;
+    int getTotalElectricityConsumption() const;
     int getApartmentPopulationCapacity() const;
 };
 
