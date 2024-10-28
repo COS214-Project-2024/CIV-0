@@ -19,10 +19,10 @@ TEST_CASE("ResidentialBuildingIterator test") {
     House* h = new House();
     Apartment* a = new Apartment();
 
-    row1.push_back(new House());
-    row1.push_back(new Apartment());
+    row1.push_back(h);
+    row1.push_back(a);
     row2.push_back(NULL);
-    row2.push_back(new House());
+    row2.push_back(h);
 
     grid.push_back(row1);
     grid.push_back(row2);
@@ -43,10 +43,10 @@ TEST_CASE("Testing next()"){
     House* h = new House();
     Apartment* a = new Apartment();
 
-    row1.push_back(new House());
-    row1.push_back(new Apartment());
+    row1.push_back(h);
+    row1.push_back(a);
     row2.push_back(NULL);
-    row2.push_back(new House());
+    row2.push_back(a);
 
     grid.push_back(row1);
     grid.push_back(row2);
