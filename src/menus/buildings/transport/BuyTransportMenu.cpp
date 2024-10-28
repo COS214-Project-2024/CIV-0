@@ -26,8 +26,8 @@ EntityType BuyTransportMenu::chooseEntityType()
           {'2', "✈️ ", "Airport"},
           {'3', "🚆", "Train Station"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Buildings Menu"},
-          {'q', "🔙", "Back to Main Menu"}}}};
+         {{'b', "⬅️ ", "Back to Buildings Menu"},
+          {'q', "⬅️ ", "Back to Main Menu"}}}};
 
     setHeading("Select Transport Building Type");
     clearScreen();

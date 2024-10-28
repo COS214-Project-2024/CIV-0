@@ -80,7 +80,7 @@ Size BuyMenu::chooseBuildingSize(EntityType type)
         sections[0].options.push_back(Option{optionKey++, "📏", displayText});
     }
 
-    sections.push_back({"Navigation", {{'b', "🔙", "Back to Buildings Menu"}, {'q', "🔙", "Back to Main Menu"}}});
+    sections.push_back({"Navigation", {{'b', "⬅️ ", "Back to Buildings Menu"}, {'q', "⬅️ ", "Back to Main Menu"}}});
     setHeading("Select Size of the " + entityTypeToString(type));
     clearScreen();
     displayMenu();
@@ -183,7 +183,7 @@ void BuyMenu::chooseBuildingPosition(int &xPos, int &yPos)
         sections[0].options.push_back(Option{optionKey++, "📍", posStr});
     }
 
-    sections.push_back({"Navigation", {{'b', "🔙", "Back to Buildings Menu"}, {'q', "🔙", "Back to Main Menu"}}});
+    sections.push_back({"Navigation", {{'b', "⬅️ ", "Back to Buildings Menu"}, {'q', "⬅️ ", "Back to Main Menu"}}});
     setHeading("Select Position for the Building");
     clearScreen();
     displayMenu();

@@ -1,5 +1,6 @@
 #include "City.h"
 #include "entities/base/Entity.h"
+#include "iterators/city/CityIterator.h"
 #include <algorithm> // for std::fill
 
 City::City() : width(50), height(50), // Set default values
@@ -24,7 +25,7 @@ City::~City()
     }
 }
 
-void City::reset()
+void City::reset(int newWidth, int newHeight)
 {
     // Reset scalar properties to default values
     satisfaction = 0.0f;
@@ -41,22 +42,26 @@ void City::reset()
     residentialTax = 0;
     economicTax = 0;
 
-    // Safely delete and nullify all entities in the grid
-    for (int i = 0; i < height; ++i)
+    // Delete existing entities and clear the grid
+    for (auto &row : grid)
     {
-        for (int j = 0; j < width; ++j)
+        for (auto &entity : row)
         {
-            if (grid[i][j])
-            {
-                delete grid[i][j];    // Free memory
-                grid[i][j] = nullptr; // Set to nullptr to avoid double-deletion
-            }
+            delete entity;
+            entity = nullptr;
         }
     }
 
-    // Resize and reinitialize grid with nullptr entities
+    // Resize grid based on new dimensions
+    width = newWidth;
+    height = newHeight;
     grid.clear();
     grid.resize(height, std::vector<Entity *>(width, nullptr));
+}
+
+void City::reset()
+{
+    reset(width, height); // Use current dimensions to reset
 }
 
 /**
@@ -100,6 +105,10 @@ void City::addEntity(Entity *entity)
     }
 }
 
+CityIterator City::createIterator()
+{
+    return CityIterator(grid); // Pass the grid to the iterator
+}
 
 // Getters
 int City::getWidth() const { return width; }

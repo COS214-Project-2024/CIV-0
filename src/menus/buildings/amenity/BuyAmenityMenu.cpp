@@ -14,8 +14,8 @@ EntityType BuyAmenityMenu::chooseEntityType()
           {'2', "🎭", "Theater"},
           {'3', "🗽", "Monument"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Buildings Menu"},
-          {'q', "🔙", "Back to Main Menu"}}}};
+         {{'b', "⬅️ ", "Back to Buildings Menu"},
+          {'q', "⬅️ ", "Back to Main Menu"}}}};
     setHeading("Select Amenity Type");
     clearScreen();
     displayMenu();

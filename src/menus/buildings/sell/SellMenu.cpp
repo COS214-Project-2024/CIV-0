@@ -29,8 +29,8 @@ void SellMenu::handleInput()
          {{'1', "🏠", "Sell a Specific Building"},
           {'2', "🏘️ ", "Sell All Buildings of a Type"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Buildings Menu"},
-          {'q', "🔙", "Back to Main Menu"}}}};
+         {{'b', "⬅️ ", "Back to Buildings Menu"},
+          {'q', "⬅️ ", "Back to Main Menu"}}}};
     setHeading("Sell Menu");
     clearScreen();
     displayMenu();

@@ -24,8 +24,8 @@ EntityType BuyServiceMenu::chooseEntityType()
           {'2', "🏫", "School"},
           {'3', "🏥", "Hospital"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Buildings Menu"},
-          {'q', "🔙", "Back to Main Menu"}}}};
+         {{'b', "⬅️ ", "Back to Buildings Menu"},
+          {'q', "⬅️ ", "Back to Main Menu"}}}};
 
     setHeading("Select Service Building Type");
     clearScreen();

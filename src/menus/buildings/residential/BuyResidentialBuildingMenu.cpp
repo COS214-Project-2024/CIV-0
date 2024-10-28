@@ -25,8 +25,8 @@ EntityType BuyResidentialBuildingMenu::chooseEntityType()
          {{'1', "🏠", "House"},
           {'2', "🏢", "Apartment"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Buildings Menu"},
-          {'q', "🔙", "Back to Main Menu"}}}};
+         {{'b', "⬅️ ", "Back to Buildings Menu"},
+          {'q', "⬅️ ", "Back to Main Menu"}}}};
 
     setHeading("Select Residential Building Type");
     clearScreen();

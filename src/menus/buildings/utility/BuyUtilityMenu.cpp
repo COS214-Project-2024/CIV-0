@@ -27,8 +27,8 @@ EntityType BuyUtilityMenu::chooseEntityType()
           {'3', "🗑️ ", "Waste Management"},
           {'4', "🚽", "Sewage System"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Buildings Menu"},
-          {'q', "🔙", "Back to Main Menu"}}}};
+         {{'b', "⬅️ ", "Back to Buildings Menu"},
+          {'q', "⬅️ ", "Back to Main Menu"}}}};
 
     setHeading("Select Utility Building Type");
     clearScreen();

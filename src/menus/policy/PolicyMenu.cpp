@@ -17,7 +17,7 @@ void PolicyMenu::handleInput()
         {"Policy History",
          {{'3', "📜", "Show all policy history"}}},
         {"Navigation",
-         {{'q', "🔙", "Back to Main Menu"}}}};
+         {{'q', "⬅️", "Back to Main Menu"}}}};
     setHeading("Policy Menu");
     clearScreen();
     displayMenu();
@@ -64,8 +64,8 @@ void PolicyMenu::selectWaterPolicy()
           {'2', "⬅️ ", "Normal Consumption"},
           {'3', "⬇️ ", "Low Consumption"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Policy Menu"},
-          {'q', "🔙", "Back to Main Menu"}}}};
+         {{'b', "⬅️", "Back to Policy Menu"},
+          {'q', "⬅️", "Back to Main Menu"}}}};
     displayMenu();
 
     bool choosing = true;
@@ -119,8 +119,8 @@ void PolicyMenu::selectElectricityPolicy()
           {'2', "⬅️ ", "Normal Consumption"},
           {'3', "⬇️ ", "Low Consumption"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Policy Menu"},
-          {'q', "🔙", "Back to Main Menu"}}}};
+         {{'b', "⬅️ ", "Back to Policy Menu"},
+          {'q', "⬅️ ", "Back to Main Menu"}}}};
     displayMenu();
 
     bool choosing = true;

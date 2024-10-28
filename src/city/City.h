@@ -5,6 +5,7 @@
 #include <vector>
 
 class Entity;
+class CityIterator;
 
 class City
 {
@@ -96,6 +97,9 @@ public:
     void setEconomicTax(int economicTax);
 
     void reset();
+    void reset(int width, int height);
+
+    CityIterator createIterator();
 };
 
 #endif // CITY_H

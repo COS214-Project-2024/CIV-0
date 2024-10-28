@@ -31,7 +31,7 @@ BuildingsMenu::BuildingsMenu() : IMenu("Buildings Menu")
           {'f', "🔍", "View Utility Stats"},
           {'g', "🔍", "View Resource Stats"}}},
         {"Navigation", // Section for navigating back to the main menu
-         {{'q', "🔙", "Back to Main Menu"}}}};
+         {{'q', "⬅️ ", "Back to Main Menu"}}}};
 }
 
 /**
