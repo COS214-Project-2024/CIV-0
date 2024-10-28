@@ -1,13 +1,16 @@
 #include "PopulationManager.h"
 
+//!DO NOT TOUCH MY CODE. I AM GOING TO EDIT THIS IN ANOTHER BRANCH
 PopulationManager::PopulationManager(int minimumIncrease, int maximumIncrease)
 {
     this->minimumIncrease = minimumIncrease;
     this->maximumIncrease = maximumIncrease;
 }
 
+//!DO NOT TOUCH MY CODE. I AM GOING TO EDIT THIS IN ANOTHER BRANCH
 PopulationManager::~PopulationManager() {}
 
+//!DO NOT TOUCH MY CODE. I AM GOING TO EDIT THIS IN ANOTHER BRANCH
 void PopulationManager::calculatePopulationCapacity()
 {
     City* c = City::instance();
@@ -17,6 +20,7 @@ void PopulationManager::calculatePopulationCapacity()
     c->setPopulationCapacity(populationCapacity);
 }
 
+//!DO NOT TOUCH MY CODE. I AM GOING TO EDIT THIS IN ANOTHER BRANCH
 void PopulationManager::growPopulation()
 {
     City* c = City::instance();
@@ -28,6 +32,7 @@ void PopulationManager::growPopulation()
     c->setPopulation(c->getPopulation()+increase);
 }
 
+//!DO NOT TOUCH MY CODE. I AM GOING TO EDIT THIS IN ANOTHER BRANCH
 void PopulationManager::decreasePopulation()
 {
     City* c = City::instance();
@@ -39,6 +44,7 @@ void PopulationManager::decreasePopulation()
     c->setPopulation(c->getPopulation()-decrease);
 }
 
+//!DO NOT TOUCH MY CODE. I AM GOING TO EDIT THIS IN ANOTHER BRANCH
 void PopulationManager::calculateSatisfaction()
 {
     City* c = City::instance();
