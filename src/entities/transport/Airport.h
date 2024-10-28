@@ -5,62 +5,52 @@
 
 /**
  * @class Airport
- * @brief Concrete class representing an airport in the city builder/manager game.
- * 
- * Airport is a specific type of transport entity that handles air transport operations.
- * It inherits from the Transport class and implements the necessary functions.
+ * @brief Represents an airport entity within the game.
+ *
+ * The Airport class manages the properties and behavior of airport entities, 
+ * including their position, size, and functionality related to transportation.
  */
 class Airport : public Transport
 {
 public:
     /**
      * @brief Default constructor for the Airport class.
-     * 
-     * Initializes a new instance of the Airport class with default values.
      */
     Airport();
 
     /**
-     * @brief Parameterized constructor for the Airport class.
+     * @brief Constructs an Airport entity with specified attributes.
      * 
-     * @param ec The configuration object containing general entity properties.
-     * @param size The size of the airport entity.
-     * @param xPos The x-coordinate position of the airport on the map.
-     * @param yPos The y-coordinate position of the airport on the map.
-     * 
-     * Initializes a new instance of the Airport class with specific values.
+     * @param ec Configuration settings for the entity.
+     * @param size Size of the airport entity.
+     * @param xPos X-coordinate position of the airport.
+     * @param yPos Y-coordinate position of the airport.
      */
     Airport(EntityConfig ec, Size size, int xPos, int yPos);
 
     /**
      * @brief Copy constructor for the Airport class.
      * 
-     * @param airport A pointer to an existing Airport object to copy from.
+     * Creates a new Airport entity by copying the attributes of an existing Airport.
      * 
-     * Creates a new Airport instance as a copy of the provided object.
+     * @param airport Pointer to the Airport object to be copied.
      */
     Airport(Airport* airport);
 
     /**
      * @brief Destructor for the Airport class.
-     * 
-     * Ensures proper cleanup of resources when an Airport object is destroyed.
      */
-    ~Airport();
+    virtual ~Airport();
 
     /**
      * @brief Updates the state of the airport entity.
-     * 
-     * This function handles changes in the airport's state.
      */
     void update();
 
     /**
-     * @brief Clones the airport entity.
+     * @brief Creates a clone of the airport entity.
      * 
-     * Returns a deep copy of the current Airport object, used for duplicating the airport.
-     * 
-     * @return A pointer to the newly cloned Airport entity.
+     * @return A pointer to the cloned Airport entity.
      */
     Entity* clone();
 };

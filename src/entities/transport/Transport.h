@@ -2,70 +2,61 @@
 #define TRANSPORT_H
 
 #include "entities/base/Entity.h"
-#include "entities/base/Subject.h"
 #include "entities/building/residential/ResidentialBuilding.h"
 
 /**
  * @class Transport
- * @brief Abstract base class representing a transport entity in the city builder/manager game.
- * 
- * Transport inherits from both Entity and Subject, allowing it to act as an observable
- * entity within the game. It defines the core functionality for transport-related objects
- * that will be implemented by derived classes.
+ * @brief Abstract base class representing a transport entity within the game.
+ *
+ * The Transport class serves as a base for different transport entities,
+ * managing shared properties and behaviors such as position, size,
+ * and the need for updates in derived classes.
  */
-class Transport : public Entity, public Subject
+class Transport : public Entity
 {
 public:
     /**
      * @brief Default constructor for the Transport class.
-     * 
-     * Initializes a new instance of the Transport class with default values.
      */
     Transport();
 
     /**
-     * @brief Parameterized constructor for the Transport class.
+     * @brief Constructs a Transport entity with specified attributes.
      * 
-     * @param ec The configuration object containing general entity properties.
-     * @param size The size of the transport entity.
-     * @param xPos The x-coordinate position of the transport entity on the map.
-     * @param yPos The y-coordinate position of the transport entity on the map.
-     * 
-     * Initializes a new instance of the Transport class with specific values.
+     * @param ec Configuration settings for the entity.
+     * @param size Size of the transport entity.
+     * @param xPos X-coordinate position of the transport.
+     * @param yPos Y-coordinate position of the transport.
      */
     Transport(EntityConfig ec, Size size, int xPos, int yPos);
 
     /**
      * @brief Copy constructor for the Transport class.
      * 
-     * @param transport A pointer to an existing Transport object to copy from.
+     * Creates a new Transport entity by copying the attributes of an existing Transport.
      * 
-     * Creates a new Transport instance as a copy of the provided object.
+     * @param transport Pointer to the Transport object to be copied.
      */
     Transport(Transport* transport);
 
     /**
      * @brief Virtual destructor for the Transport class.
-     * 
-     * Ensures proper cleanup of derived classes that extend the Transport class.
      */
     virtual ~Transport();
 
     /**
-     * @brief Pure virtual function to update the state of the transport entity.
+     * @brief Updates the state of the transport entity.
      * 
-     * This function must be implemented by derived classes to define specific
-     * behavior for updating the transport entity.
+     * This method must be implemented in derived classes to define specific behaviors.
      */
     virtual void update() = 0;
 
     /**
-     * @brief Pure virtual function to clone the transport entity.
+     * @brief Creates a clone of the transport entity.
      * 
-     * This function must be implemented by derived classes to return a deep copy
-     * of the transport entity.
+     * This method must be implemented in derived classes to return a copy of the entity.
      * 
-     * @return A pointer to the newly cloned transport entity.
+     * @return A pointer to the cloned Transport entity.
      */
     virtual Entity* clone() = 0;
 };

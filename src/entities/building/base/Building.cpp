@@ -7,3 +7,8 @@ Building::Building(EntityConfig ec, Size size, int xPos, int yPos) : Entity(ec, 
 {
 
 }
+
+Building::Building(Building* building) : Entity(building)
+{
+
+}

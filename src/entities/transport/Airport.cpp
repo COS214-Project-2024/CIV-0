@@ -13,9 +13,13 @@ Airport::Airport(Airport* airport) : Transport(airport)
 Airport::Airport() {}
 Airport::~Airport() {}
 
+Airport::Airport(Airport* airport) : Transport(airport) {
+
+}
+
 void Airport::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         

@@ -1,3 +1,4 @@
+
 #ifndef STONEPRODUCERLEVELTWOUPGRADE_H
 #define STONEPRODUCERLEVELTWOUPGRADE_H
 
@@ -6,8 +7,14 @@
 class StoneProducerLevelTwoUpgrade : public StoneProducerUpgrade
 {
 public:
-    StoneProducerLevelTwoUpgrade();
+    StoneProducerLevelTwoUpgrade(StoneProducer* stoneProd);
+    StoneProducerLevelTwoUpgrade(StoneProducerLevelTwoUpgrade* stoneProd);
     ~StoneProducerLevelTwoUpgrade();
+    Entity* clone();
+    void update();
+    int getOutput();
+private: 
+    const int UPGRADE = 2;
 };
 
 #endif // STONEPRODUCERLEVELTWOUPGRADE_H

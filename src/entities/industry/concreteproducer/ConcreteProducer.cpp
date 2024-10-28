@@ -1,6 +1,6 @@
 #include "ConcreteProducer.h"
 
-ConcreteProducer::ConcreteProducer() {}
+ConcreteProducer::ConcreteProducer() : Industry() {}
 ConcreteProducer::~ConcreteProducer() {}
 
 ConcreteProducer::ConcreteProducer(EntityConfig ec, Size size, int xPos, int yPos) : Industry(ec, size, xPos, yPos)
@@ -8,9 +8,15 @@ ConcreteProducer::ConcreteProducer(EntityConfig ec, Size size, int xPos, int yPo
     setOutput(20); //TODO - change value
 }
 
+
+ConcreteProducer::ConcreteProducer(ConcreteProducer* concreteProducer): Industry(concreteProducer)
+{
+    
+}
+
 void ConcreteProducer::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         
@@ -19,10 +25,13 @@ void ConcreteProducer::update()
             rb->updateIndustry(this);
         }
     }
+
+    if(!isBuilt()) {
+        updateBuildState();
+    }
 }
 
 Entity* ConcreteProducer::clone()
 {
-    Entity* e = new ConcreteProducer(*ec, size, xPosition, yPosition);
-    return e;
+    return new ConcreteProducer(this);
 }

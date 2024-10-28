@@ -1,6 +1,13 @@
 #include "doctest.h"
+#include "policies/water/HighWaterPolicy.h"
 
-TEST_CASE("HighWaterPolicy test") {
-    // Add your test cases here
-    CHECK(1 == 1);
+/**
+ * @brief Test HighWaterPolicy increases water usage correctly.
+ */
+TEST_CASE("Test HighWaterPolicy") {
+    HighWaterPolicy highPolicy;
+    int initialUsage = 100;
+    int expectedUsage = 120; // 120% of the initial usage
+    
+    CHECK(highPolicy.calculateWaterUsage(initialUsage) == expectedUsage);
 }

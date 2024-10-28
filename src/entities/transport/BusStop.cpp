@@ -5,7 +5,7 @@ BusStop::BusStop(EntityConfig ec, Size size, int xPos, int yPos) : Transport(ec,
 
 }
 
-BusStop::BusStop(BusStop* busStop) : Transport(busStop)
+BusStop::BusStop(BusStop* busStop): Transport(busStop)
 {
 
 }
@@ -15,7 +15,7 @@ BusStop::~BusStop() {}
 
 void BusStop::update()
 {
-    for(Observer* o : subscribers)
+    for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
         
