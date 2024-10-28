@@ -84,43 +84,10 @@ Entity *City::getEntity(int x, int y)
     return nullptr; // Return nullptr if coordinates are out of bounds
 }
 
-// Getter for residential tax rate
-int City::getResidentialTax() const
-{
-    return residentialTax;
-}
-
-// Getter for economic tax rate
-int City::getEconomicTax() const
-{
-    return economicTax;
-}
-
-// Setter for residential tax rate
-void City::setResidentialTax(int taxRate)
-{
-    residentialTax = taxRate;
-}
-
-// Setter for economic tax rate
-void City::setEconomicTax(int taxRate)
-{
-    economicTax = taxRate;
-}
-
 // Implement the accept method
 void City::accept(CityVisitor &visitor)
 {
     visitor.visit(this); // Passing the City object to the visitor
-}
-int City::getWidth()
-{
-    return width;
-}
-
-int City::getHeight()
-{
-    return height;
 }
 
 void City::addEntity(Entity *entity)
@@ -132,3 +99,46 @@ void City::addEntity(Entity *entity)
         grid[x][y] = entity;
     }
 }
+
+
+// Getters
+int City::getWidth() const { return width; }
+int City::getHeight() const { return height; }
+float City::getSatisfaction() const { return satisfaction; }
+int City::getMoney() const { return money; }
+int City::getWood() const { return wood; }
+int City::getSteel() const { return steel; }
+int City::getConcrete() const { return concrete; }
+int City::getPopulationCapacity() const { return populationCapacity; }
+int City::getPopulation() const { return population; }
+int City::getElectricityProduction() const { return electricityProduction; }
+int City::getElectricityConsumption() const { return electricityConsumption; }
+int City::getWaterProduction() const { return waterProduction; }
+int City::getWaterConsumption() const { return waterConsumption; }
+int City::getWasteProduction() const { return wasteProduction; }
+int City::getWasteConsumption() const { return wasteConsumption; }
+int City::getSewageProduction() const { return sewageProduction; }
+int City::getSewageConsumption() const { return sewageConsumption; }
+int City::getResidentialTax() const { return residentialTax; }
+int City::getEconomicTax() const { return economicTax; }
+
+// Setters
+void City::setWidth(int width) { this->width = width; }
+void City::setHeight(int height) { this->height = height; }
+void City::setSatisfaction(float satisfaction) { this->satisfaction = satisfaction; }
+void City::setMoney(int money) { this->money = money; }
+void City::setWood(int wood) { this->wood = wood; }
+void City::setSteel(int steel) { this->steel = steel; }
+void City::setConcrete(int concrete) { this->concrete = concrete; }
+void City::setPopulationCapacity(int populationCapacity) { this->populationCapacity = populationCapacity; }
+void City::setPopulation(int population) { this->population = population; }
+void City::setElectricityProduction(int electricityProduction) { this->electricityProduction = electricityProduction; }
+void City::setElectricityConsumption(int electricityConsumption) { this->electricityConsumption = electricityConsumption; }
+void City::setWaterProduction(int waterProduction) { this->waterProduction = waterProduction; }
+void City::setWaterConsumption(int waterConsumption) { this->waterConsumption = waterConsumption; }
+void City::setWasteProduction(int wasteProduction) { this->wasteProduction = wasteProduction; }
+void City::setWasteConsumption(int wasteConsumption) { this->wasteConsumption = wasteConsumption; }
+void City::setSewageProduction(int sewageProduction) { this->sewageProduction = sewageProduction; }
+void City::setSewageConsumption(int sewageConsumption) { this->sewageConsumption = sewageConsumption; }
+void City::setResidentialTax(int residentialTax) { this->residentialTax = residentialTax; }
+void City::setEconomicTax(int economicTax) { this->economicTax = economicTax; }
