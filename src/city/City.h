@@ -15,7 +15,7 @@ private:
     float satisfaction;
     int money;
     int wood;
-    int steel;
+    int stone;
     int concrete;
     int populationCapacity;
     int population;
@@ -49,6 +49,8 @@ public:
     void addEntity(Entity *entity);
     std::vector<std::vector<Entity *>> &getGrid(); // Provide access to the grid
 
+    void deleteEntity(int x, int y);
+
     // Accept method for the visitor pattern
     void accept(CityVisitor &visitor);
 
@@ -59,7 +61,7 @@ public:
     float getSatisfaction() const;
     int getMoney() const;
     int getWood() const;
-    int getSteel() const;
+    int getStone() const;
     int getConcrete() const;
     int getPopulationCapacity() const;
     int getPopulation() const;
@@ -80,7 +82,7 @@ public:
     void setSatisfaction(float satisfaction);
     void setMoney(int money);
     void setWood(int wood);
-    void setSteel(int steel);
+    void setStone(int stone);
     void setConcrete(int concrete);
     void setPopulationCapacity(int populationCapacity);
     void setPopulation(int population);
