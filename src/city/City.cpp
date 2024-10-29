@@ -31,7 +31,7 @@ City::~City()
 void City::reset(int newWidth, int newHeight)
 {
     // Reset scalar properties to default values
-    satisfaction = 0.0f;
+    satisfaction = 100.0f;
     money = 10000;
     wood = 1000;
     steel = 1000;

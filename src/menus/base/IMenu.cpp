@@ -174,7 +174,7 @@ void IMenu::displayMenu() const
               << DARK_GRAY << " ║" << RESET << "\n";
     printSectionDivider(maxWidth);
 
-    // Display each city stat with alignment and color
+    // Gather city resources with alignment and color
     std::vector<std::pair<std::string, std::string>> resourceLines = {
         {"Money:", std::to_string(city->getMoney())},
         {"Population:", std::to_string(city->getPopulation()) + "/" + std::to_string(city->getPopulationCapacity())},
@@ -186,11 +186,28 @@ void IMenu::displayMenu() const
         {"Water Production:", std::to_string(city->getWaterProduction())},
         {"Water Consumption:", std::to_string(city->getWaterConsumption())}};
 
+    // Get satisfaction value and prepare it for conditional color display
+    int satisfaction = static_cast<int>(city->getSatisfaction());
+    std::string satisfactionColor;
+    if (satisfaction >= 70)
+    {
+        satisfactionColor = BOLD_GREEN;
+    }
+    else if (satisfaction >= 30)
+    {
+        satisfactionColor = BOLD_YELLOW;
+    }
+    else
+    {
+        satisfactionColor = BOLD_RED;
+    }
+    resourceLines.push_back({"Satisfaction:", satisfactionColor + std::to_string(satisfaction) + "%" + RESET});
+
     // Display each resource line with color formatting
     for (const auto &line : resourceLines)
     {
         std::ostringstream formattedLine;
-        formattedLine << BOLD_WHITE << std::left << std::setw(25) << line.first << RESET; // Bold white for label
+        formattedLine << BOLD_WHITE << std::left << std::setw(25) << line.first << RESET;
 
         // Apply different colors to values based on resource type
         if (line.first == "Money:")
@@ -204,6 +221,10 @@ void IMenu::displayMenu() const
         else if (line.first.find("Consumption") != std::string::npos)
         {
             formattedLine << BOLD_RED << line.second << RESET; // Red for consumption values
+        }
+        else if (line.first == "Satisfaction:")
+        {
+            formattedLine << line.second; // Satisfaction is already colored
         }
         else
         {
