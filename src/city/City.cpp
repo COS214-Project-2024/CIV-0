@@ -46,9 +46,10 @@ void City::reset()
     {
         for (int j = 0; j < width; ++j)
         {
-            if (grid[i][j]!=nullptr)
+            if(grid[i][j]!=nullptr)
             {
-                delete grid[i][j];    // Free memory
+                // delete grid[i][j];    // Free memory
+                deleteEntity(i,j);
                 grid[i][j] = nullptr; // Set to nullptr to avoid double-deletion
             }
         }
@@ -86,9 +87,19 @@ Entity *City::getEntity(int x, int y)
 
 void City::deleteEntity(int x, int y)
 {
-    if (x >= 0 && x < width && y >= 0 && y < height && grid[x][y]!=nullptr)
+    if(x >= 0 && x < width && y >= 0 && y < height && grid[x][y]!=nullptr)
     {
-        delete grid[x][y];
+        Entity* e = getEntity(x, y);
+
+        for(int i = e->getXPosition(); i< e->getXPosition() + e->getWidth(); i++)
+        {
+            for(int j = e->getYPosition() - e->getHeight()+1; j <= e->getYPosition(); j++)
+            {
+                grid[j][i] = nullptr;
+            }
+        }
+
+        delete e;
     }
 }
 
@@ -98,13 +109,21 @@ void City::accept(CityVisitor &visitor)
     visitor.visit(this); // Passing the City object to the visitor
 }
 
+//NOTE - THIS DOES NOT CHECK IF IT IS OVERLAPPING WITH ANOTHER ENTITY
 void City::addEntity(Entity *entity)
 {
     int x = entity->getXPosition();
     int y = entity->getYPosition();
-    if (x >= 0 && x < width && y >= 0 && y < height)
+
+    if(x >= 0 && x+entity->getWidth() <= width && y-entity->getHeight() >= 0 && y < height)
     {
-        grid[x][y] = entity;
+        for(int i = x; i<x+entity->getWidth(); i++)
+        {
+            for(int j = y-entity->getHeight()+1; j<=y; j++)
+            {
+                grid[j][i] = entity;
+            }
+        }
     }
 }
 

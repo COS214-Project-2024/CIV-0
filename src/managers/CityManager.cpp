@@ -22,6 +22,7 @@
 #include "entities/building/service/Hospital.h"
 #include "entities/building/service/PoliceStation.h"
 #include "entities/building/service/School.h"
+#include <iostream>
 
 //Brother what are these includes - does anyone want to fix this?
 
@@ -272,7 +273,7 @@ bool CityManager::canBuyAt(int xPos, int yPos, EntityType type, Size size)
 
     for(int i = xPos; i<xPos+ec.width; i++)
     {
-        for(int j = yPos-ec.height; j<yPos; j++)
+        for(int j = yPos-ec.height; j<=yPos; j++)
         {
             if(c->getEntity(i, j)!=nullptr)
             {
@@ -288,10 +289,7 @@ bool CityManager::canBuyAt(int xPos, int yPos, EntityType type, Size size)
         }
     }
 
-    if(!isRoad)
-    {
-        return false;
-    }
+    return isRoad;
 }
 
 bool CityManager::buyEntity(EntityType type, Size size)
