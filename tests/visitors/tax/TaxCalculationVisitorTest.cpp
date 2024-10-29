@@ -12,6 +12,7 @@ TEST_CASE("TaxCalculationVisitorTest - Collect taxes from buildings using Config
 {
     // Create a city instance
     City *city = City::instance();
+    city->reset();
 
     // Set tax rates for the city using setters
     city->setResidentialTax(10); // 10% residential tax
@@ -23,10 +24,22 @@ TEST_CASE("TaxCalculationVisitorTest - Collect taxes from buildings using Config
     EntityConfig mediumOfficeConfig = ConfigManager::getEntityConfig(EntityType::OFFICE, Size::MEDIUM);
     EntityConfig largeShoppingMallConfig = ConfigManager::getEntityConfig(EntityType::SHOPPINGMALL, Size::LARGE);
 
-    city->addEntity(new House(smallHouseConfig, Size::SMALL, 0, 0));
-    city->addEntity(new Office(mediumOfficeConfig, Size::MEDIUM, 0, 1));
-    city->addEntity(new Apartment(largeApartmentConfig, Size::LARGE, 1, 0));
-    city->addEntity(new ShoppingMall(largeShoppingMallConfig, Size::LARGE, 2, 0));
+    city->addEntity(new House(smallHouseConfig, Size::SMALL, 10, 10));
+    city->addEntity(new Office(mediumOfficeConfig, Size::MEDIUM, 20, 21));
+    city->addEntity(new Apartment(largeApartmentConfig, Size::LARGE, 31, 30));
+    city->addEntity(new ShoppingMall(largeShoppingMallConfig, Size::LARGE, 40, 40));
+
+    // for(int i = 0; i<city->getWidth(); i++)
+    // {
+    //     for(int j = 0; j<city->getHeight(); j++)
+    //     {
+    //         if(city->getGrid()[i][j]!=nullptr)
+    //         std::cout<<city->getGrid()[i][j]->getSymbol()<<" ";
+    //         else
+    //             std::cout<<". ";
+    //     }
+    //     std::cout<<"\n";
+    // }
 
     // Create a TaxCalculationVisitor instance
     TaxCalculationVisitor taxVisitor;

@@ -4,8 +4,9 @@
 #include "entities/building/residential/House.h"
 #include "entities/building/residential/Apartment.h"
 #include "utils/ConfigManager.h"
+#include <unordered_set>
 
-TEST_CASE("PopulationVisitorTest - Collect population capacity from residential buildings")
+TEST_CASE("PopulationVisitorTest - Collect population capacity from unique residential buildings")
 {
     // Create a city instance
     City *city = City::instance();
@@ -16,10 +17,10 @@ TEST_CASE("PopulationVisitorTest - Collect population capacity from residential 
     EntityConfig smallApartmentConfig = ConfigManager::getEntityConfig(EntityType::APARTMENT, Size::SMALL);
     EntityConfig largeApartmentConfig = ConfigManager::getEntityConfig(EntityType::APARTMENT, Size::LARGE);
 
-    city->addEntity(new House(smallHouseConfig, Size::SMALL, 0, 0));
-    city->addEntity(new Apartment(largeApartmentConfig, Size::LARGE, 0, 1));
-    city->addEntity(new House(largeHouseConfig, Size::LARGE, 1, 0));
-    city->addEntity(new Apartment(smallApartmentConfig, Size::SMALL, 1, 1));
+    city->addEntity(new House(smallHouseConfig, Size::SMALL, 5, 5));
+    city->addEntity(new Apartment(largeApartmentConfig, Size::LARGE, 10, 10));
+    city->addEntity(new House(largeHouseConfig, Size::LARGE, 10, 20));
+    city->addEntity(new Apartment(smallApartmentConfig, Size::SMALL, 30, 30));
 
     // Create a PopulationVisitor instance
     PopulationVisitor populationVisitor;
@@ -27,29 +28,32 @@ TEST_CASE("PopulationVisitorTest - Collect population capacity from residential 
     // Let the visitor visit the city
     city->accept(populationVisitor);
 
-    // Calculate expected total population capacities
+    // Calculate expected total population capacities using a set to avoid duplicates
     int expectedTotalCapacity = 0;
     int expectedHouseCapacity = 0;
     int expectedApartmentCapacity = 0;
+    std::unordered_set<Entity*> uniqueEntities;
 
     for (auto &row : city->getGrid())
     {
         for (Entity *entity : row)
         {
-            ResidentialBuilding *residential = dynamic_cast<ResidentialBuilding *>(entity);
-            if (residential)
+            if (entity != nullptr && uniqueEntities.insert(entity).second)
             {
-                int capacity = residential->getCapacity();
-                expectedTotalCapacity += capacity;
+                ResidentialBuilding *residential = dynamic_cast<ResidentialBuilding *>(entity);
+                if (residential)
+                {
+                    int capacity = residential->getCapacity();
+                    expectedTotalCapacity += capacity;
 
-                // Check for specific residential building types
-                if (dynamic_cast<House *>(residential))
-                {
-                    expectedHouseCapacity += capacity;
-                }
-                else if (dynamic_cast<Apartment *>(residential))
-                {
-                    expectedApartmentCapacity += capacity;
+                    if (dynamic_cast<House *>(residential))
+                    {
+                        expectedHouseCapacity += capacity;
+                    }
+                    else if (dynamic_cast<Apartment *>(residential))
+                    {
+                        expectedApartmentCapacity += capacity;
+                    }
                 }
             }
         }
