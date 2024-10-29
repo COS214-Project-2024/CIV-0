@@ -46,7 +46,7 @@ void City::reset()
     {
         for (int j = 0; j < width; ++j)
         {
-            if (grid[i][j])
+            if (grid[i][j]!=nullptr)
             {
                 delete grid[i][j];    // Free memory
                 grid[i][j] = nullptr; // Set to nullptr to avoid double-deletion
@@ -82,6 +82,14 @@ Entity *City::getEntity(int x, int y)
         return grid[x][y];
     }
     return nullptr; // Return nullptr if coordinates are out of bounds
+}
+
+void City::deleteEntity(int x, int y)
+{
+    if (x >= 0 && x < width && y >= 0 && y < height && grid[x][y]!=nullptr)
+    {
+        delete grid[x][y];
+    }
 }
 
 // Implement the accept method

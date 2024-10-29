@@ -49,6 +49,8 @@ public:
     void addEntity(Entity *entity);
     std::vector<std::vector<Entity *>> &getGrid(); // Provide access to the grid
 
+    void deleteEntity(int x, int y);
+
     // Accept method for the visitor pattern
     void accept(CityVisitor &visitor);
 
