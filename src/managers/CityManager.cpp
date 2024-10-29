@@ -242,4 +242,3 @@ bool CityManager::buyEntity(EntityType type, Size size)
 {
 
 }
-
