@@ -24,6 +24,11 @@ void Monument::update()
             rb->updateAmenity(this);
         }
     }
+
+    // This is for updating the build state (it should run once per game loop)
+    if (!isBuilt()) {
+        updateBuildState();
+    }
 }
 
 Entity* Monument::clone()
