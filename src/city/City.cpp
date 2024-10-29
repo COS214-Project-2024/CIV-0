@@ -5,7 +5,7 @@
 #include <algorithm> // for std::fill
 
 City::City() : width(50), height(50), // Set default values
-               satisfaction(0), money(10000), wood(1000), steel(1000), concrete(1000),
+               satisfaction(0), money(10000), wood(1000), stone(1000), concrete(1000),
                populationCapacity(0), population(0), electricityProduction(0),
                electricityConsumption(0), waterProduction(0), waterConsumption(0),
                residentialTax(0), economicTax(0)
@@ -34,7 +34,7 @@ void City::reset(int newWidth, int newHeight)
     satisfaction = 100.0f;
     money = 10000;
     wood = 1000;
-    steel = 1000;
+    stone = 1000;
     concrete = 1000;
     populationCapacity = 0;
     population = 0;
@@ -46,12 +46,16 @@ void City::reset(int newWidth, int newHeight)
     economicTax = 0;
 
     // Delete existing entities and clear the grid
-    for (auto &row : grid)
+    for (int i = 0; i < height; ++i)
     {
-        for (auto &entity : row)
+        for (int j = 0; j < width; ++j)
         {
-            delete entity;
-            entity = nullptr;
+            if (grid[i][j] != nullptr)
+            {
+                // delete grid[i][j];    // Free memory
+                deleteEntity(i, j);
+                grid[i][j] = nullptr; // Set to nullptr to avoid double-deletion
+            }
         }
     }
 
@@ -94,17 +98,37 @@ Entity *City::getEntity(int x, int y)
     return nullptr; // Return nullptr if coordinates are out of bounds
 }
 
+void City::deleteEntity(int x, int y)
+{
+    if (x >= 0 && x < width && y >= 0 && y < height && grid[x][y] != nullptr)
+    {
+        Entity *e = getEntity(x, y);
+
+        for (int i = e->getXPosition(); i < e->getXPosition() + e->getWidth(); i++)
+        {
+            for (int j = e->getYPosition() - e->getHeight() + 1; j <= e->getYPosition(); j++)
+            {
+                grid[j][i] = nullptr;
+            }
+        }
+
+        delete e;
+    }
+}
+
 // Implement the accept method
 void City::accept(CityVisitor &visitor)
 {
     visitor.visit(this); // Passing the City object to the visitor
 }
 
+// NOTE - THIS DOES NOT CHECK IF IT IS OVERLAPPING WITH ANOTHER ENTITY
 void City::addEntity(Entity *entity)
 {
     int x = entity->getXPosition();
     int y = entity->getYPosition();
-    if (x >= 0 && x < width && y >= 0 && y < height)
+
+    if (x >= 0 && x + entity->getWidth() <= width && y - entity->getHeight() >= 0 && y < height)
     {
         grid[x][y] = entity;
     }
@@ -135,7 +159,7 @@ int City::getHeight() const { return height; }
 float City::getSatisfaction() const { return satisfaction; }
 int City::getMoney() const { return money; }
 int City::getWood() const { return wood; }
-int City::getSteel() const { return steel; }
+int City::getStone() const { return stone; }
 int City::getConcrete() const { return concrete; }
 int City::getPopulationCapacity() const { return populationCapacity; }
 int City::getPopulation() const { return population; }
@@ -156,7 +180,7 @@ void City::setHeight(int height) { this->height = height; }
 void City::setSatisfaction(float satisfaction) { this->satisfaction = satisfaction; }
 void City::setMoney(int money) { this->money = money; }
 void City::setWood(int wood) { this->wood = wood; }
-void City::setSteel(int steel) { this->steel = steel; }
+void City::setStone(int stone) { this->stone = stone; }
 void City::setConcrete(int concrete) { this->concrete = concrete; }
 void City::setPopulationCapacity(int populationCapacity) { this->populationCapacity = populationCapacity; }
 void City::setPopulation(int population) { this->population = population; }

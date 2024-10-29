@@ -4,8 +4,9 @@
 #include "entities/building/residential/House.h"
 #include "entities/building/residential/Apartment.h"
 #include "utils/ConfigManager.h"
+#include <unordered_set>
 
-TEST_CASE("SatisfactionVisitorTest - Collect satisfaction from many residential buildings")
+TEST_CASE("SatisfactionVisitorTest - Collect satisfaction from unique residential buildings")
 {
     // Create a city instance
     City *city = City::instance();
@@ -19,15 +20,15 @@ TEST_CASE("SatisfactionVisitorTest - Collect satisfaction from many residential 
     EntityConfig mediumApartmentConfig = ConfigManager::getEntityConfig(EntityType::APARTMENT, Size::MEDIUM);
     EntityConfig largeApartmentConfig = ConfigManager::getEntityConfig(EntityType::APARTMENT, Size::LARGE);
 
-    city->addEntity(new House(smallHouseConfig, Size::SMALL, 0, 0));
-    city->addEntity(new Apartment(largeApartmentConfig, Size::LARGE, 0, 1));
-    city->addEntity(new House(mediumHouseConfig, Size::MEDIUM, 0, 2));
-    city->addEntity(new Apartment(mediumApartmentConfig, Size::MEDIUM, 1, 0));
-    city->addEntity(new House(largeHouseConfig, Size::LARGE, 1, 1));
-    city->addEntity(new Apartment(smallApartmentConfig, Size::SMALL, 1, 2));
-    city->addEntity(new House(smallHouseConfig, Size::SMALL, 2, 0));
-    city->addEntity(new Apartment(mediumApartmentConfig, Size::MEDIUM, 2, 1));
-    city->addEntity(new House(largeHouseConfig, Size::LARGE, 2, 2));
+    city->addEntity(new House(smallHouseConfig, Size::SMALL, 0, 10));
+    city->addEntity(new Apartment(largeApartmentConfig, Size::LARGE, 10, 11));
+    city->addEntity(new House(mediumHouseConfig, Size::MEDIUM, 20, 22));
+    city->addEntity(new Apartment(mediumApartmentConfig, Size::MEDIUM, 31, 30));
+    city->addEntity(new House(largeHouseConfig, Size::LARGE, 41, 41));
+    city->addEntity(new Apartment(smallApartmentConfig, Size::SMALL, 1, 32));
+    city->addEntity(new House(smallHouseConfig, Size::SMALL, 2, 20));
+    city->addEntity(new Apartment(mediumApartmentConfig, Size::MEDIUM, 2, 11));
+    city->addEntity(new House(largeHouseConfig, Size::LARGE, 22, 42));
 
     // Create a SatisfactionVisitor instance
     SatisfactionVisitor satisfactionVisitor;
@@ -35,21 +36,25 @@ TEST_CASE("SatisfactionVisitorTest - Collect satisfaction from many residential 
     // Let the visitor visit the city
     city->accept(satisfactionVisitor);
 
-    // Calculate expected average satisfaction
+    // Calculate expected average satisfaction using a set to avoid duplicates
     float expectedSatisfaction = 0;
     int residentialCount = 0;
+    std::unordered_set<Entity*> uniqueEntities;
 
-    // Iterate over the grid manually to calculate expected satisfaction
+    // Iterate over the grid to calculate expected satisfaction from unique entities
     for (auto &row : city->getGrid())
     {
         for (Entity *entity : row)
         {
-            ResidentialBuilding *residential = dynamic_cast<ResidentialBuilding *>(entity);
-            if (residential)
+            if (entity != nullptr && uniqueEntities.insert(entity).second)
             {
-                residential->calculateSatisfaction();
-                expectedSatisfaction += residential->getSatisfaction();
-                residentialCount++;
+                ResidentialBuilding *residential = dynamic_cast<ResidentialBuilding *>(entity);
+                if (residential)
+                {
+                    residential->calculateSatisfaction();
+                    expectedSatisfaction += residential->getSatisfaction();
+                    residentialCount++;
+                }
             }
         }
     }
@@ -57,7 +62,7 @@ TEST_CASE("SatisfactionVisitorTest - Collect satisfaction from many residential 
     float expectedAverageSatisfaction = residentialCount > 0 ? expectedSatisfaction / residentialCount : 0;
 
     // Check the average satisfaction collected by the SatisfactionVisitor
-    CHECK(satisfactionVisitor.getAverageSatisfaction() == expectedAverageSatisfaction);
+    CHECK(satisfactionVisitor.getAverageSatisfaction() == doctest::Approx(expectedAverageSatisfaction));
     CHECK(satisfactionVisitor.getResidentialCount() == residentialCount);
 
     city->reset();
@@ -65,7 +70,7 @@ TEST_CASE("SatisfactionVisitorTest - Collect satisfaction from many residential 
 
 TEST_CASE("SatisfactionVisitorTest - Empty grid produces no satisfaction")
 {
-    // Create an empty city grid (all nullptrs)
+    // Create an empty city instance
     City *city = City::instance();
 
     // Create a SatisfactionVisitor instance

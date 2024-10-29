@@ -10,7 +10,7 @@ Park::Park(EntityConfig ec, Size size, int xPos, int yPos) : Amenity(ec, size, x
 
 Park::Park(Park* park) : Amenity(park)
 {
-
+    
 }
 
 void Park::update()
@@ -23,6 +23,11 @@ void Park::update()
         {
             rb->updateAmenity(this);
         }
+    }
+
+    // This is for updating the build state (it should run once per game loop)
+    if (!isBuilt()) {
+        updateBuildState();
     }
 }
 

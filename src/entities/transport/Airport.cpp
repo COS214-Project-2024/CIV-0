@@ -5,12 +5,13 @@ Airport::Airport(EntityConfig ec, Size size, int xPos, int yPos) : Transport(ec,
 
 }
 
-Airport::Airport() {}
-Airport::~Airport() {}
-
-Airport::Airport(Airport* airport) : Transport(airport) {
+Airport::Airport(Airport* airport) : Transport(airport)
+{
 
 }
+
+Airport::Airport() {}
+Airport::~Airport() {}
 
 void Airport::update()
 {
@@ -22,6 +23,11 @@ void Airport::update()
         {
             rb->updateAirport(this);
         }
+    }
+
+    // This is for updating the build state (it should run once per game loop)
+    if (!isBuilt()) {
+        updateBuildState();
     }
 }
 

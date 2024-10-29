@@ -12,16 +12,16 @@ TEST_CASE("UtilityVisitorTest - Collect utilities output and handling capacity f
     City *city = City::instance();
 
     // Create utility entities and set their output manually
-    PowerPlant *powerPlant = new PowerPlant(EntityConfig(), Size::SMALL, 0, 0);
+    PowerPlant *powerPlant = new PowerPlant(EntityConfig(), Size::SMALL, 10, 10);
     powerPlant->setOutput(100); // 100 electricity
 
-    WaterSupply *waterSupply = new WaterSupply(EntityConfig(), Size::SMALL, 1, 0);
+    WaterSupply *waterSupply = new WaterSupply(EntityConfig(), Size::SMALL, 21, 20);
     waterSupply->setOutput(50); // 50 water
 
-    SewageSystem *sewageSystem = new SewageSystem(EntityConfig(), Size::SMALL, 2, 0);
+    SewageSystem *sewageSystem = new SewageSystem(EntityConfig(), Size::SMALL, 32, 30);
     sewageSystem->setOutput(200); // Can handle 200 sewage
 
-    WasteManagement *wasteManagement = new WasteManagement(EntityConfig(), Size::SMALL, 3, 0);
+    WasteManagement *wasteManagement = new WasteManagement(EntityConfig(), Size::SMALL, 43, 40);
     wasteManagement->setOutput(150); // Can handle 150 waste
 
     city->addEntity(powerPlant);

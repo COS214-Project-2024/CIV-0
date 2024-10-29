@@ -8,6 +8,11 @@ Theater::Theater(EntityConfig ec, Size size, int xPos, int yPos) : Amenity(ec, s
 
 }
 
+Theater::Theater(Theater* theater) : Amenity(theater)
+{
+    
+}
+
 void Theater::update()
 {
     for(Entity* o : observers)
@@ -19,14 +24,14 @@ void Theater::update()
             rb->updateAmenity(this);
         }
     }
+
+    // This is for updating the build state (it should run once per game loop)
+    if (!isBuilt()) {
+        updateBuildState();
+    }
 }
 
 Entity* Theater::clone()
 {
     return new Theater(this);
-}
-
-Theater::Theater(Theater* theater) : Amenity(theater)
-{
-
 }
