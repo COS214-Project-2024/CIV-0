@@ -131,6 +131,7 @@ TEST_CASE("Testing hasNext()"){
     CHECK(aIter->getCol() == 1);
     CHECK(aIter->getRow() == 1);
     CHECK(aIter->hasNext() == false);
+    delete testP;
     delete aIter;
     delete p;
     delete t;
