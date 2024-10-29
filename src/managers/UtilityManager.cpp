@@ -9,7 +9,6 @@ UtilityManager::~UtilityManager() {
 }
 
 void UtilityManager::buildUtility(EntityType type, Size size, int x, int y) {
-    City* c = City::instance();
     UtilityFactory utilityFactory = UtilityFactory();
     Utility* utility = nullptr;
 
@@ -22,51 +21,127 @@ void UtilityManager::buildUtility(EntityType type, Size size, int x, int y) {
     }
 
     if(utility != nullptr) {
-        c->addEntity(utility);
+        City::instance()->addEntity(utility);
     }
 }
 
 int UtilityManager::getElectricityProduction() {
-    City* c = City::instance();
-    return c->getElectricityConsumption();
+    return City::instance()->getElectricityProduction();
 }
 
 int UtilityManager::getElectricityConsumption() {
-    City* c = City::instance();
+    return City::instance()->getElectricityConsumption();
 }
 
 int UtilityManager::getWaterProduction() {
-    City* c = City::instance();
+    return City::instance()->getWaterProduction();
 }
 
 int UtilityManager::getWaterConsumption() {
-    City* c = City::instance();
+    return City::instance()->getWaterConsumption();
 }
 
 std::vector<Utility*> UtilityManager::getAllUtilities() {
-    City* c = City::instance();
+    std::vector<std::vector<Entity*>> grid = City::instance()->getGrid();
+    UtilityIterator utilityIterator = UtilityIterator(grid);
+    std::vector<Utility*> utilities = std::vector<Utility*>();
+
+    utilityIterator.first();
+    while (utilityIterator.hasNext()) {
+        Utility* utility = dynamic_cast<Utility*>(utilityIterator.current());
+
+        if (utility != nullptr) {
+            utilities.push_back(utility);
+        }
+
+        utilityIterator.next();
+    }
+
+    return utilities;
 }
 
 std::vector<Utility*> UtilityManager::getAllWaterSupplies() {
-    City* c = City::instance();
+    std::vector<std::vector<Entity*>> grid = City::instance()->getGrid();
+    WaterSupplyIterator waterSupplyIterator = WaterSupplyIterator(grid);
+    std::vector<Utility*> waterSupplies = std::vector<Utility*>();
+
+    waterSupplyIterator.first();
+    while (waterSupplyIterator.hasNext()) {
+        WaterSupply* waterSupply = dynamic_cast<WaterSupply*>(waterSupplyIterator.current());
+
+        if (waterSupply != nullptr) {
+            waterSupplies.push_back(waterSupply);
+        }
+        
+        waterSupplyIterator.next();
+    }
+
+    return waterSupplies;
 }
 
 std::vector<Utility*> UtilityManager::getAllPowerPlants() {
-    City* c = City::instance();
+    std::vector<std::vector<Entity*>> grid = City::instance()->getGrid();
+    PowerPlantIterator powerPlantIterator = PowerPlantIterator(grid);
+    std::vector<Utility*> powerPlants = std::vector<Utility*>();
+
+    powerPlantIterator.first();
+    while (powerPlantIterator.hasNext()) {
+        PowerPlant* powerPlant = dynamic_cast<PowerPlant*>(powerPlantIterator.current());
+
+        if (powerPlant != nullptr) {
+            powerPlants.push_back(powerPlant);
+        }
+        
+        powerPlantIterator.next();
+    }
+
+    return powerPlants;
 }
 
 std::vector<Utility*> UtilityManager::getAllWasteManagement() {
-    City* c = City::instance();
+    std::vector<std::vector<Entity*>> grid = City::instance()->getGrid();
+    WasteManagementIterator wasteManagementIterator = WasteManagementIterator(grid);
+    std::vector<Utility*> wasteManagements = std::vector<Utility*>();
+
+    wasteManagementIterator.first();
+    while (wasteManagementIterator.hasNext()) {
+        WasteManagement* wasteManagement = dynamic_cast<WasteManagement*>(wasteManagementIterator.current());
+
+        if (wasteManagement != nullptr) {
+            wasteManagements.push_back(wasteManagement);
+        }
+        
+        wasteManagementIterator.next();
+    }
+
+    return wasteManagements;
 }
 
 std::vector<Utility*> UtilityManager::getAllSewageSystems() {
-    City* c = City::instance();
+    std::vector<std::vector<Entity*>> grid = City::instance()->getGrid();
+    SewageSystemIterator sewageSystemIterator = SewageSystemIterator(grid);
+    std::vector<Utility*> sewageSystems = std::vector<Utility*>();
+
+    sewageSystemIterator.first();
+    while (sewageSystemIterator.hasNext()) {
+        SewageSystem* sewageSystem = dynamic_cast<SewageSystem*>(sewageSystemIterator.current());
+
+        if (sewageSystem != nullptr) {
+            sewageSystems.push_back(sewageSystem);
+        }
+        
+        sewageSystemIterator.next();
+    }
+
+    return sewageSystems;
 }
 
 bool UtilityManager::canAffordUpgrade(Utility* utility) {
-    City* c = City::instance();
+    //return utility->canAffordUpgrade();
 }
 
 bool UtilityManager::upgrade(Utility* utility) {
-    City* c = City::instance();
+    if(canAffordUpgrade(utility)) {
+        //utility->upgrade();
+    }
 }
