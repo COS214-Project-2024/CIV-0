@@ -1,5 +1,5 @@
 #include "doctest.h"
-#include "iterators/utility/StoneProducerIterator.h"
+#include "iterators/industry/StoneProducerIterator.h"
 #include "entities/industry/stoneproducer/StoneProducer.h"
 #include "entities/building/amenity/Theater.h"
 
