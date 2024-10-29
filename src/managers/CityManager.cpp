@@ -47,6 +47,10 @@ Entity* CityManager::getEntity(int x, int y)
 void CityManager::sellBuilding(int xPos, int yPos)
 {
     City* c = City::instance();   
+    if(dynamic_cast<Road*>(c->getEntity(xPos,yPos))!=nullptr)
+    {
+        return;
+    }
     c->deleteEntity(xPos, yPos);
 
 }
@@ -201,17 +205,57 @@ void CityManager::sellAllBuildingsOfType(EntityType type)
 
 std::vector<std::vector<int>> CityManager::getAvailiablePositions(EntityType type, Size size)
 {
+    std::vector<std::vector<int>> v;
 
+    City* c = City::instance();
+    for(int i = 0; i<c->getWidth(); i++)
+    {
+        for(int j = 0; j<c->getHeight(); j++)
+        {
+            if(canBuyAt(i, j, type, size))
+            {
+                std::vector<int> v2;
+                v2.push_back(i);
+                v2.push_back(j);
+                v.push_back(v2);
+            }
+        }
+    }
+    return v;
 }
 
 bool CityManager::canAffordToBuy(EntityType type, Size size)
 {
-
+    City* c = City::instance();
+    EntityConfig ec = ConfigManager::getEntityConfig(type, size);
+    if(ec.cost.concreteCost>c->getConcrete())
+    {
+        return false;
+    }
+    else if(ec.cost.woodCost>c->getWood())
+    {
+        return false;
+    }
+    else if(ec.cost.stoneCost>c->getStone())
+    {
+        return false;
+    }
+    else if(ec.cost.moneyCost>c->getMoney())
+    {
+        return false;
+    }
+    return true;
 }
 
 bool CityManager::canBuyAt(int xPos, int yPos, EntityType type, Size size)
 {
     City* c = City::instance();
+
+    if (xPos < 0 || xPos >= c->getWidth() || yPos < 0 || yPos >= c->getHeight())
+    {
+        return false;
+    }
+
     if(c->getEntity(xPos, yPos)!=nullptr)
     {
         return false;
@@ -224,6 +268,8 @@ bool CityManager::canBuyAt(int xPos, int yPos, EntityType type, Size size)
         return false;
     }
 
+    bool isRoad = false;
+
     for(int i = xPos; i<xPos+ec.width; i++)
     {
         for(int j = yPos-ec.height; j<yPos; j++)
@@ -232,13 +278,37 @@ bool CityManager::canBuyAt(int xPos, int yPos, EntityType type, Size size)
             {
                 return false;
             }
+            if(!isRoad)
+            {
+                if(dynamic_cast<Road*>(c->getEntity(i-1,j))!=nullptr){isRoad = true;}
+                else if(dynamic_cast<Road*>(c->getEntity(i+1,j))!=nullptr){isRoad = true;}
+                else if(dynamic_cast<Road*>(c->getEntity(i,j-1))!=nullptr){isRoad = true;}
+                else if(dynamic_cast<Road*>(c->getEntity(i,j+1))!=nullptr){isRoad = true;}
+            }
         }
     }
 
-    //TODO check if it is touching road
+    if(!isRoad)
+    {
+        return false;
+    }
 }
 
 bool CityManager::buyEntity(EntityType type, Size size)
 {
+    if (canAffordToBuy(type, size))
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(type, size);
+        City* city = City::instance();
 
+        city->setMoney(city->getMoney() - ec.cost.moneyCost);
+        city->setWood(city->getWood() - ec.cost.woodCost);
+        city->setConcrete(city->getConcrete() - ec.cost.concreteCost);
+        city->setStone(city->getStone() - ec.cost.stoneCost);
+
+
+        return true;
+    }
+
+    return false;
 }

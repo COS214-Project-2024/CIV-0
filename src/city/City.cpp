@@ -3,7 +3,7 @@
 #include <algorithm> // for std::fill
 
 City::City() : width(50), height(50), // Set default values
-               satisfaction(0), money(0), wood(0), steel(0), concrete(0),
+               satisfaction(0), money(0), wood(0), stone(0), concrete(0),
                populationCapacity(0), population(0), electricityProduction(0),
                electricityConsumption(0), waterProduction(0), waterConsumption(0),
                residentialTax(0), economicTax(0)
@@ -30,7 +30,7 @@ void City::reset()
     satisfaction = 0.0f;
     money = 0;
     wood = 0;
-    steel = 0;
+    stone = 0;
     concrete = 0;
     populationCapacity = 0;
     population = 0;
@@ -115,7 +115,7 @@ int City::getHeight() const { return height; }
 float City::getSatisfaction() const { return satisfaction; }
 int City::getMoney() const { return money; }
 int City::getWood() const { return wood; }
-int City::getSteel() const { return steel; }
+int City::getStone() const { return stone; }
 int City::getConcrete() const { return concrete; }
 int City::getPopulationCapacity() const { return populationCapacity; }
 int City::getPopulation() const { return population; }
@@ -136,7 +136,7 @@ void City::setHeight(int height) { this->height = height; }
 void City::setSatisfaction(float satisfaction) { this->satisfaction = satisfaction; }
 void City::setMoney(int money) { this->money = money; }
 void City::setWood(int wood) { this->wood = wood; }
-void City::setSteel(int steel) { this->steel = steel; }
+void City::setStone(int stone) { this->stone = stone; }
 void City::setConcrete(int concrete) { this->concrete = concrete; }
 void City::setPopulationCapacity(int populationCapacity) { this->populationCapacity = populationCapacity; }
 void City::setPopulation(int population) { this->population = population; }
