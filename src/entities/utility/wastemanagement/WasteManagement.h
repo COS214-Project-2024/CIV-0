@@ -3,6 +3,8 @@
 
 #include "entities/utility/base/Utility.h"
 
+class WasteManagementLevelOneUpgrade;
+
 /**
  * @class WasteManagement
  * @brief Represents a waste management facility in the city builder simulation.
@@ -29,9 +31,9 @@ public:
      * 
      * Creates a new WasteManagement object by copying the attributes of an existing WasteManagement.
      * 
-     * @param wasteManagement Pointer to the existing WasteManagement object to be copied.
+     * @param waste Pointer to the existing WasteManagement object to be copied.
      */
-    WasteManagement(WasteManagement* wasteManagement);
+    WasteManagement(WasteManagement* waste);
 
     /**
      * @brief Default constructor for the WasteManagement class.
@@ -60,6 +62,8 @@ public:
      * @return A pointer to the newly cloned WasteManagement object.
      */
     Entity* clone();
+
+    Entity* upgrade();
 };
 
 #endif // WASTEMANAGEMENT_H

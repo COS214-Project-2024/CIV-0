@@ -3,6 +3,8 @@
 
 #include "entities/utility/base/Utility.h"
 
+class SewageSystemLevelOneUpgrade;
+
 /**
  * @class SewageSystem
  * @brief Represents a sewage system in the city builder simulation.
@@ -29,9 +31,9 @@ public:
      * 
      * Creates a new SewageSystem object by copying the attributes of an existing SewageSystem.
      * 
-     * @param sewageSystem Pointer to the existing SewageSystem object to be copied.
+     * @param sewage Pointer to the existing SewageSystem object to be copied.
      */
-    SewageSystem(SewageSystem* sewageSystem);
+    SewageSystem(SewageSystem* sewage);
 
     /**
      * @brief Default constructor for the SewageSystem class.
@@ -60,6 +62,8 @@ public:
      * @return A pointer to the newly cloned SewageSystem object.
      */
     Entity* clone();
+
+    Entity* upgrade();
 };
 
 #endif // SEWAGESYSTEM_H

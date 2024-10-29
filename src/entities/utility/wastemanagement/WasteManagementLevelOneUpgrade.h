@@ -3,6 +3,8 @@
 
 #include "WasteManagementUpgrade.h"
 
+class WasteManagementLevelTwoUpgrade;
+
 /**
  * @class WasteManagementLevelOneUpgrade
  * @brief Represents the first level upgrade to a WasteManagement entity.
@@ -18,9 +20,9 @@ public:
      * 
      * Initializes the upgrade by enhancing the specified WasteManagement with a level one upgrade.
      * 
-     * @param wasteManagement Pointer to the original WasteManagement to be upgraded.
+     * @param waste Pointer to the original WasteManagement to be upgraded.
      */
-    WasteManagementLevelOneUpgrade(WasteManagement* wasteManagement);
+    WasteManagementLevelOneUpgrade(WasteManagement* waste);
 
     /**
      * @brief Copy constructor for WasteManagementLevelOneUpgrade.
@@ -54,6 +56,8 @@ public:
      * @return A pointer to the newly cloned WasteManagementLevelOneUpgrade object.
      */
     Entity* clone();
+
+    Entity* upgrade();
 
     /**
      * @brief Retrieves the upgraded waste management system's output.

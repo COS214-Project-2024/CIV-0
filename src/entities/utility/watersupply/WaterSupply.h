@@ -3,6 +3,8 @@
 
 #include "entities/utility/base/Utility.h"
 
+class WaterSupplyLevelOneUpgrade;
+
 /**
  * @class WaterSupply
  * @brief Represents a water supply system in the city builder simulation.
@@ -29,9 +31,9 @@ public:
      * 
      * Creates a new WaterSupply object by copying the attributes of an existing WaterSupply.
      * 
-     * @param waterSupply Pointer to the existing WaterSupply object to be copied.
+     * @param water Pointer to the existing WaterSupply object to be copied.
      */
-    WaterSupply(WaterSupply* waterSupply);
+    WaterSupply(WaterSupply* water);
 
     /**
      * @brief Default constructor for the WaterSupply class.
@@ -60,6 +62,8 @@ public:
      * @return A pointer to the newly cloned WaterSupply object.
      */
     Entity* clone();
+
+    Entity* upgrade();
 };
 
 #endif // WATERSUPPLY_H

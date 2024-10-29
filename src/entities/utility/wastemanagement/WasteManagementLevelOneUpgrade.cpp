@@ -1,6 +1,7 @@
 #include "WasteManagementLevelOneUpgrade.h"
+#include "entities/utility/wastemanagement/WasteManagementLevelTwoUpgrade.h"
 
-WasteManagementLevelOneUpgrade::WasteManagementLevelOneUpgrade(WasteManagement* wasteManagement) : WasteManagementUpgrade(wasteManagement) {
+WasteManagementLevelOneUpgrade::WasteManagementLevelOneUpgrade(WasteManagement* waste) : WasteManagementUpgrade(waste) {
 
 }
 
@@ -18,6 +19,10 @@ void WasteManagementLevelOneUpgrade::update() {
 
 Entity* WasteManagementLevelOneUpgrade::clone() {
     return new WasteManagementLevelOneUpgrade(this);
+}
+
+Entity* WasteManagementLevelOneUpgrade::upgrade() {
+    return new WasteManagementLevelTwoUpgrade(wasteManagement);
 }
 
 int WasteManagementLevelOneUpgrade::getOutput() {

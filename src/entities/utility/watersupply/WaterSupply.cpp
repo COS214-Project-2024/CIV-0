@@ -1,19 +1,23 @@
 #include "WaterSupply.h"
+#include "entities/utility/watersupply/WaterSupplyLevelOneUpgrade.h"
 
-WaterSupply::WaterSupply() : Utility() {}
-WaterSupply::~WaterSupply() {}
+WaterSupply::WaterSupply() : Utility() {
 
-WaterSupply::WaterSupply(EntityConfig ec, Size size, int xPos, int yPos) : Utility(ec, size, xPos, yPos)
-{
+}
+
+WaterSupply::~WaterSupply() {
+    
+}
+
+WaterSupply::WaterSupply(EntityConfig ec, Size size, int xPos, int yPos) : Utility(ec, size, xPos, yPos) {
     setOutput(20); //TODO - change value
 }
 
-WaterSupply::WaterSupply(WaterSupply* waterSupply) : Utility(waterSupply) {
+WaterSupply::WaterSupply(WaterSupply* water) : Utility(water) {
 
 }
 
-void WaterSupply::update()
-{
+void WaterSupply::update() {
     for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
@@ -30,7 +34,10 @@ void WaterSupply::update()
     }
 }
 
-Entity* WaterSupply::clone()
-{
+Entity* WaterSupply::clone() {
     return new WaterSupply(this);
+}
+
+Entity* WaterSupply::upgrade() {
+    return new WaterSupplyLevelOneUpgrade(this);
 }

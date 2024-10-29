@@ -18,9 +18,9 @@ public:
      * 
      * Initializes the upgrade by enhancing the specified PowerPlant with a level three upgrade.
      * 
-     * @param powerPlant Pointer to the original PowerPlant to be upgraded.
+     * @param power Pointer to the original PowerPlant to be upgraded.
      */
-    PowerPlantLevelThreeUpgrade(PowerPlant* powerPlant);
+    PowerPlantLevelThreeUpgrade(PowerPlant* power);
 
     /**
      * @brief Copy constructor for PowerPlantLevelThreeUpgrade.
@@ -54,6 +54,8 @@ public:
      * @return A pointer to the newly cloned PowerPlantLevelThreeUpgrade object.
      */
     Entity* clone();
+
+    Entity* upgrade();
 
     /**
      * @brief Retrieves the upgraded power plant's output.

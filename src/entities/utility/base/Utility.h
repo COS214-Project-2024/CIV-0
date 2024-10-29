@@ -21,8 +21,8 @@ public:
      * This constructor initializes a Utility instance with various attributes including output, 
      * resource consumption, effects, dimensions, and positioning.
      * 
-     * @param ec         EntityConfig.
-     * @param size    Size.
+     * @param ec        EntityConfig.
+     * @param size      Size.
      * @param xPos      xPosition
      * @param yPos      yPosition
      */
@@ -57,6 +57,17 @@ public:
     virtual void update() = 0;
 
     /**
+     * @brief Pure virtual function to clone the utility.
+     *
+     * Implement this method to create a copy of the current utility instance.
+     * 
+     * @return A pointer to a new cloned Utility object.
+     */
+    virtual Entity* clone() = 0;
+
+    virtual Entity* upgrade() = 0;
+
+    /**
      * @brief Retrieves the output of the utility.
      * 
      * @return The output value of the utility.
@@ -69,15 +80,6 @@ public:
      * @param output The new output value to be set.
      */
     void setOutput(int output);
-
-    /**
-     * @brief Pure virtual function to clone the utility.
-     *
-     * Implement this method to create a copy of the current utility instance.
-     * 
-     * @return A pointer to a new cloned Utility object.
-     */
-    virtual Entity* clone() = 0;
 
 private:
     int output; ///< The output value of the utility (e.g., electricity or water produced).

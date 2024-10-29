@@ -18,9 +18,9 @@ public:
      * 
      * Initializes the upgrade by enhancing the specified SewageSystem with a level three upgrade.
      * 
-     * @param sewageSystem Pointer to the original SewageSystem to be upgraded.
+     * @param sewage Pointer to the original SewageSystem to be upgraded.
      */
-    SewageSystemLevelThreeUpgrade(SewageSystem* sewageSystem);
+    SewageSystemLevelThreeUpgrade(SewageSystem* sewage);
 
     /**
      * @brief Copy constructor for SewageSystemLevelThreeUpgrade.
@@ -54,6 +54,8 @@ public:
      * @return A pointer to the newly cloned SewageSystemLevelThreeUpgrade object.
      */
     Entity* clone();
+
+    Entity* upgrade();
 
     /**
      * @brief Retrieves the upgraded sewage system's output.

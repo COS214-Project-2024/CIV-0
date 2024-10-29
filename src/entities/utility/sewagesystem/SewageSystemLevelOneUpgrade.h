@@ -3,6 +3,8 @@
 
 #include "SewageSystemUpgrade.h"
 
+class SewageSystemLevelTwoUpgrade;
+
 /**
  * @class SewageSystemLevelOneUpgrade
  * @brief Represents the first level upgrade to a SewageSystem entity.
@@ -18,9 +20,9 @@ public:
      * 
      * Initializes the upgrade by enhancing the specified SewageSystem with a level one upgrade.
      * 
-     * @param sewageSystem Pointer to the original SewageSystem to be upgraded.
+     * @param sewage Pointer to the original SewageSystem to be upgraded.
      */
-    SewageSystemLevelOneUpgrade(SewageSystem* sewageSystem);
+    SewageSystemLevelOneUpgrade(SewageSystem* sewage);
 
     /**
      * @brief Copy constructor for SewageSystemLevelOneUpgrade.
@@ -54,6 +56,8 @@ public:
      * @return A pointer to the newly cloned SewageSystemLevelOneUpgrade object.
      */
     Entity* clone();
+
+    Entity* upgrade();
 
     /**
      * @brief Retrieves the upgraded sewage system's output.

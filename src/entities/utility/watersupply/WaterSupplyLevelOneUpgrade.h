@@ -3,6 +3,8 @@
 
 #include "WaterSupplyUpgrade.h"
 
+class WaterSupplyLevelTwoUpgrade;
+
 /**
  * @class WaterSupplyLevelOneUpgrade
  * @brief Represents the first level upgrade to a WaterSupply entity.
@@ -18,9 +20,9 @@ public:
      * 
      * Initializes the upgrade by enhancing the specified WaterSupply with a level one upgrade.
      * 
-     * @param waterSupply Pointer to the original WaterSupply to be upgraded.
+     * @param water Pointer to the original WaterSupply to be upgraded.
      */
-    WaterSupplyLevelOneUpgrade(WaterSupply* waterSupply);
+    WaterSupplyLevelOneUpgrade(WaterSupply* water);
 
     /**
      * @brief Copy constructor for WaterSupplyLevelOneUpgrade.
@@ -54,6 +56,8 @@ public:
      * @return A pointer to the newly cloned WaterSupplyLevelOneUpgrade object.
      */
     Entity* clone();
+
+    Entity* upgrade();
 
     /**
      * @brief Retrieves the upgraded water supply system's output.

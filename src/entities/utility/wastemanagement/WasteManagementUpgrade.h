@@ -18,9 +18,9 @@ public:
      * 
      * Initializes the upgrade with a reference to an existing WasteManagement, enhancing its features.
      * 
-     * @param wasteManagement Pointer to the WasteManagement being upgraded.
+     * @param waste Pointer to the WasteManagement being upgraded.
      */
-    WasteManagementUpgrade(WasteManagement* wasteManagement);
+    WasteManagementUpgrade(WasteManagement* waste);
 
     /**
      * @brief Copy constructor for the WasteManagementUpgrade class.
@@ -47,6 +47,8 @@ public:
      * @return A pointer to a new cloned WasteManagementUpgrade object.
      */
     virtual Entity* clone() = 0;
+
+    virtual Entity* upgrade() = 0;
 
     /**
      * @brief Retrieves the output of the upgraded waste management system.

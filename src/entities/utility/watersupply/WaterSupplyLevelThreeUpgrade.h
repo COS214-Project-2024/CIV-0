@@ -18,9 +18,9 @@ public:
      * 
      * Initializes the upgrade by enhancing the specified WaterSupply with a level three upgrade.
      * 
-     * @param waterSupply Pointer to the original WaterSupply to be upgraded.
+     * @param water Pointer to the original WaterSupply to be upgraded.
      */
-    WaterSupplyLevelThreeUpgrade(WaterSupply* waterSupply);
+    WaterSupplyLevelThreeUpgrade(WaterSupply* water);
 
     /**
      * @brief Copy constructor for WaterSupplyLevelThreeUpgrade.
@@ -54,6 +54,8 @@ public:
      * @return A pointer to the newly cloned WaterSupplyLevelThreeUpgrade object.
      */
     Entity* clone();
+
+    Entity* upgrade();
 
     /**
      * @brief Retrieves the upgraded water supply system's output.

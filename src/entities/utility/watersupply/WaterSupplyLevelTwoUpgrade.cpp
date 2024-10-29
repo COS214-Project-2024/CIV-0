@@ -1,6 +1,7 @@
 #include "WaterSupplyLevelTwoUpgrade.h"
+#include "entities/utility/watersupply/WaterSupplyLevelThreeUpgrade.h"
 
-WaterSupplyLevelTwoUpgrade::WaterSupplyLevelTwoUpgrade(WaterSupply* waterSupply) : WaterSupplyUpgrade(waterSupply) {
+WaterSupplyLevelTwoUpgrade::WaterSupplyLevelTwoUpgrade(WaterSupply* water) : WaterSupplyUpgrade(water) {
 
 }
 
@@ -18,6 +19,10 @@ void WaterSupplyLevelTwoUpgrade::update() {
 
 Entity* WaterSupplyLevelTwoUpgrade::clone() {
     return new WaterSupplyLevelTwoUpgrade(this);
+}
+
+Entity* WaterSupplyLevelTwoUpgrade::upgrade() {
+    return new WaterSupplyLevelThreeUpgrade(waterSupply);
 }
 
 int WaterSupplyLevelTwoUpgrade::getOutput() {

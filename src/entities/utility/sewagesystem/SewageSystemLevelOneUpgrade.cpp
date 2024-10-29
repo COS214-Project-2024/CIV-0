@@ -1,6 +1,8 @@
 #include "SewageSystemLevelOneUpgrade.h"
+#include "entities/utility/sewagesystem/SewageSystemLevelTwoUpgrade.h"
+#include <iostream>
 
-SewageSystemLevelOneUpgrade::SewageSystemLevelOneUpgrade(SewageSystem* sewageSystem) : SewageSystemUpgrade(sewageSystem) {
+SewageSystemLevelOneUpgrade::SewageSystemLevelOneUpgrade(SewageSystem* sewage) : SewageSystemUpgrade(sewage) {
 
 }
 
@@ -18,6 +20,10 @@ void SewageSystemLevelOneUpgrade::update() {
 
 Entity* SewageSystemLevelOneUpgrade::clone() {
     return new SewageSystemLevelOneUpgrade(this);
+}
+
+Entity* SewageSystemLevelOneUpgrade::upgrade() {
+    return new SewageSystemLevelTwoUpgrade(sewageSystem);
 }
 
 int SewageSystemLevelOneUpgrade::getOutput() {

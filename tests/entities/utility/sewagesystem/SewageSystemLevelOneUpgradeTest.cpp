@@ -2,6 +2,7 @@
 #include "entities/utility/sewagesystem/SewageSystemLevelOneUpgrade.h"
 #include "entities/utility/sewagesystem/SewageSystem.h"
 #include "utils/ConfigManager.h"
+#include <iostream>
 
 TEST_SUITE("SewageSystemLevelOneUpgrade Tests") {
     TEST_CASE("SewageSystemLevelOneUpgrade constructor") {

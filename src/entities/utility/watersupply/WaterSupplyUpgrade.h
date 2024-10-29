@@ -18,9 +18,9 @@ public:
      * 
      * Initializes the upgrade with a reference to an existing WaterSupply, enhancing its features.
      * 
-     * @param waterSupply Pointer to the WaterSupply being upgraded.
+     * @param water Pointer to the WaterSupply being upgraded.
      */
-    WaterSupplyUpgrade(WaterSupply* waterSupply);
+    WaterSupplyUpgrade(WaterSupply* water);
 
     /**
      * @brief Copy constructor for the WaterSupplyUpgrade class.
@@ -47,6 +47,8 @@ public:
      * @return A pointer to a new cloned WaterSupplyUpgrade object.
      */
     virtual Entity* clone() = 0;
+
+    virtual Entity* upgrade() = 0;
 
     /**
      * @brief Retrieves the output of the upgraded water supply system.

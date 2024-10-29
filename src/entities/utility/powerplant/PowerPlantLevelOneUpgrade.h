@@ -3,6 +3,8 @@
 
 #include "PowerPlantUpgrade.h"
 
+class PowerPlantLevelTwo;
+
 /**
  * @class PowerPlantLevelOneUpgrade
  * @brief Represents the first level upgrade to a PowerPlant entity.
@@ -18,9 +20,9 @@ public:
      * 
      * Initializes the upgrade by enhancing the specified PowerPlant with a level one upgrade.
      * 
-     * @param powerPlant Pointer to the original PowerPlant to be upgraded.
+     * @param power Pointer to the original PowerPlant to be upgraded.
      */
-    PowerPlantLevelOneUpgrade(PowerPlant* powerPlant);
+    PowerPlantLevelOneUpgrade(PowerPlant* power);
 
     /**
      * @brief Copy constructor for PowerPlantLevelOneUpgrade.
@@ -54,6 +56,8 @@ public:
      * @return A pointer to the newly cloned PowerPlantLevelOneUpgrade object.
      */
     Entity* clone();
+
+    Entity* upgrade();
 
     /**
      * @brief Retrieves the upgraded power plant's output.

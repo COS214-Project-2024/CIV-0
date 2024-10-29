@@ -1,6 +1,6 @@
 #include "PowerPlantLevelThreeUpgrade.h"
 
-PowerPlantLevelThreeUpgrade::PowerPlantLevelThreeUpgrade(PowerPlant* powerPlant) : PowerPlantUpgrade(powerPlant) {
+PowerPlantLevelThreeUpgrade::PowerPlantLevelThreeUpgrade(PowerPlant* power) : PowerPlantUpgrade(power) {
 
 }
 
@@ -18,6 +18,11 @@ void PowerPlantLevelThreeUpgrade::update() {
 
 Entity* PowerPlantLevelThreeUpgrade::clone() {
     return new PowerPlantLevelThreeUpgrade(this);
+}
+
+Entity* PowerPlantLevelThreeUpgrade::upgrade() {
+    // Maximum level reached
+    return this;
 }
 
 int PowerPlantLevelThreeUpgrade::getOutput() {

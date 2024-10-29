@@ -1,6 +1,7 @@
 #include "PowerPlantLevelOneUpgrade.h"
+#include "entities/utility/powerplant/PowerPlantLevelTwoUpgrade.h"
 
-PowerPlantLevelOneUpgrade::PowerPlantLevelOneUpgrade(PowerPlant* powerPlant) : PowerPlantUpgrade(powerPlant) {
+PowerPlantLevelOneUpgrade::PowerPlantLevelOneUpgrade(PowerPlant* power) : PowerPlantUpgrade(power) {
 
 }
 
@@ -18,6 +19,10 @@ void PowerPlantLevelOneUpgrade::update() {
 
 Entity* PowerPlantLevelOneUpgrade::clone() {
     return new PowerPlantLevelOneUpgrade(this);
+}
+
+Entity* PowerPlantLevelOneUpgrade::upgrade() {
+    return new PowerPlantLevelTwoUpgrade(powerPlant);
 }
 
 int PowerPlantLevelOneUpgrade::getOutput() {

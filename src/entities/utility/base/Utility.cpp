@@ -12,7 +12,7 @@ Utility::Utility() : Entity() {
 
 Utility::Utility(Utility* utility) : Entity(utility) {
     this->output = utility->output;
-    subscribeToAllResidentialInRadius();
+    //subscribeToAllResidentialInRadius();
 }
 
 Utility::~Utility() {

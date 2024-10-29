@@ -1,6 +1,6 @@
 #include "SewageSystemLevelThreeUpgrade.h"
 
-SewageSystemLevelThreeUpgrade::SewageSystemLevelThreeUpgrade(SewageSystem* sewageSystem) : SewageSystemUpgrade(sewageSystem) {
+SewageSystemLevelThreeUpgrade::SewageSystemLevelThreeUpgrade(SewageSystem* sewage) : SewageSystemUpgrade(sewage) {
 
 }
 
@@ -18,6 +18,10 @@ void SewageSystemLevelThreeUpgrade::update() {
 
 Entity* SewageSystemLevelThreeUpgrade::clone() {
     return new SewageSystemLevelThreeUpgrade(this);
+}
+
+Entity* SewageSystemLevelThreeUpgrade::upgrade() {
+    return this;
 }
 
 int SewageSystemLevelThreeUpgrade::getOutput() {
