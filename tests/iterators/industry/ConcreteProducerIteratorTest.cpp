@@ -1,5 +1,5 @@
 #include "doctest.h"
-#include "iterators/utility/ConcreteProducerIterator.h"
+#include "iterators/industry/ConcreteProducerIterator.h"
 #include "entities/industry/concreteproducer/ConcreteProducer.h"
 #include "entities/building/amenity/Theater.h"
 
