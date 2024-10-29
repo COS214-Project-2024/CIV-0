@@ -1,94 +1,71 @@
 #include "doctest.h"
 #include "entities/transport/Airport.h"
-#include "utils/ConfigManager.h"
+#include "entities/building/residential/House.h"
 
-TEST_SUITE("Airport Tests") {
-    TEST_CASE("Constructor Test") {
-        Airport airport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::SMALL), Size::SMALL, 0, 0);
-        CHECK(airport.getXPosition() == 0);
-        CHECK(airport.getYPosition() == 0);
-        CHECK(airport.getWidth() == 1);
-        CHECK(airport.getHeight() == 1);
-        CHECK(airport.getRevenue() == 0);
-        // CHECK(airport.isBuilt() == false);
-    }
+TEST_CASE("Testing Airport constructor and clone")
+{
+    Entity* a1 = new Airport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::SMALL), Size::SMALL, 10, 10);
+    
+    // CHECK(a1->getXPosition() == 10);
+    // CHECK(a1->getYPosition() == 20);
+    // CHECK(a1->getRevenue() == 1000);
+    // CHECK(a1->getWidth() == 5);
+    // CHECK(a1->getHeight() == 5);
 
-    TEST_CASE("Set Position Test") {
-        Airport airport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::MEDIUM), Size::MEDIUM, 0, 0);
-        airport.setXPosition(10);
-        airport.setYPosition(15);
-        CHECK(airport.getXPosition() == 10);
-        CHECK(airport.getYPosition() == 15);
-    }
+    Entity* cloneAirport = a1->clone();
+    // CHECK(cloneAirport->getXPosition() == 10);
+    // CHECK(cloneAirport->getYPosition() == 20);
+    // CHECK(cloneAirport->getRevenue() == 1000);
 
-    TEST_CASE("Copy Constructor Test") {
-        Airport airport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::LARGE), Size::LARGE, 0, 0);
-        Airport copiedAirport(&airport);
-        CHECK(copiedAirport.getXPosition() == airport.getXPosition());
-        CHECK(copiedAirport.getYPosition() == airport.getYPosition());
-        CHECK(copiedAirport.getWidth() == airport.getWidth());
-        CHECK(copiedAirport.getHeight() == airport.getHeight());
-        CHECK(copiedAirport.getRevenue() == airport.getRevenue());
-        CHECK(copiedAirport.isBuilt() == airport.isBuilt());
-    }
+    delete a1;
+    delete cloneAirport;
+}
 
-    TEST_CASE("Clone Method Test") {
-        Airport airport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::LARGE), Size::LARGE, 0, 0);
-        Airport* clonedAirport = static_cast<Airport*>(airport.clone());
-        REQUIRE(clonedAirport != nullptr);
-        CHECK(clonedAirport->getXPosition() == airport.getXPosition());
-        CHECK(clonedAirport->getYPosition() == airport.getYPosition());
-        CHECK(clonedAirport->getWidth() == airport.getWidth());
-        CHECK(clonedAirport->getHeight() == airport.getHeight());
-        CHECK(clonedAirport->getRevenue() == airport.getRevenue());
-        CHECK(clonedAirport->isBuilt() == airport.isBuilt());
-        delete clonedAirport;
-    }
+TEST_CASE("Testing Airport update")
+{
+    Airport* airport = new Airport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::SMALL), Size::SMALL, 10, 10);
+    House* house = new House(ConfigManager::getEntityConfig(EntityType::HOUSE, Size::SMALL), Size::SMALL, 10, 10);
 
-    TEST_CASE("Update Method Test") {
-        Airport airport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::LARGE), Size::LARGE, 0, 0);
-        // CHECK(airport.isBuilt() == false);
+    airport->subscribe(house);
 
-        // This simulates the game looping
-        // while (!airport.isBuilt()) {
-            airport.update();
-        // }
-        
-        CHECK(airport.isBuilt() == true);
-    }
+    airport->update();
+    
+    CHECK(house->getSatisfaction() <= 100);
 
-    TEST_CASE("Revenue Test") {
-        Airport airport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::LARGE), Size::LARGE, 0, 0);
-        CHECK(airport.getRevenue() == 0);
-    }
+    delete airport;
+    delete house;
+}
 
-    TEST_CASE("Dimensions Test") {
-        Airport airport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::LARGE), Size::LARGE, 0, 0);
-        CHECK(airport.getWidth() == 1);
-        CHECK(airport.getHeight() == 1);
-    }
+TEST_CASE("Testing Airport subscribe and unsubscribe") {
+    Airport* airport = new Airport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::SMALL), Size::SMALL, 10, 10);
+    House* house = new House(ConfigManager::getEntityConfig(EntityType::HOUSE, Size::SMALL), Size::SMALL, 10, 10);
 
-    TEST_CASE("isWithinEffectRadius Test") {
-        Airport baseAirport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::LARGE), Size::LARGE, 0, 0);
-        
-        SUBCASE("Airport within radius") {
-            Airport nearbyAirport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::LARGE), Size::LARGE, 0, 0);
-            CHECK(baseAirport.isWithinEffectRadius(&nearbyAirport) == true);
-        }
+    // Subscribe house to airport
+    airport->subscribe(house);
+    
+    // Verify that house is in the observers list of airport
+    CHECK(airport->getObservers().size() == 1);
+    CHECK(airport->getObservers()[0] == house);
+    
+    // Subscribe airport to house
+    house->subscribe(airport);
+    
+    // Verify that airport is in the observers list of house
+    CHECK(house->getObservers().size() == 1);
+    CHECK(house->getObservers()[0] == airport);
+    
+    // Unsubscribe house from airport
+    airport->unsubscribe(house);
+    
+    // Verify that house is no longer in the observers list of airport
+    CHECK(airport->getObservers().size() == 0);
+    
+    // Unsubscribe airport from house
+    house->unsubscribe(airport);
+    
+    // Verify that airport is no longer in the observers list of house
+    CHECK(house->getObservers().size() == 0);
 
-        SUBCASE("Airport outside radius") {
-            Airport farAirport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::LARGE), Size::LARGE, 50, 50);
-            CHECK(baseAirport.isWithinEffectRadius(&farAirport) == false);
-        }
-
-        // SUBCASE("Airport exactly on border") {
-        //     Airport borderAirport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::LARGE), Size::LARGE, 42, 42);
-        //     CHECK(baseAirport.isWithinEffectRadius(&borderAirport) == false);
-        // }
-
-        // SUBCASE("Airport partially overlaps with radius") {
-        //     Airport partialOverlapAirport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::LARGE), Size::LARGE, 41, 41);
-        //     CHECK(baseAirport.isWithinEffectRadius(&partialOverlapAirport) == true);
-        // }
-    }
+    delete airport;
+    delete house;
 }

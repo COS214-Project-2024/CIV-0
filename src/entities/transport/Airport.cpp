@@ -13,10 +13,6 @@ Airport::Airport(Airport* airport) : Transport(airport)
 Airport::Airport() {}
 Airport::~Airport() {}
 
-Airport::Airport(Airport* airport) : Transport(airport) {
-
-}
-
 void Airport::update()
 {
     for(Entity* o : observers)
@@ -27,6 +23,11 @@ void Airport::update()
         {
             rb->updateAirport(this);
         }
+    }
+
+    // This is for updating the build state (it should run once per game loop)
+    if (!isBuilt()) {
+        updateBuildState();
     }
 }
 
