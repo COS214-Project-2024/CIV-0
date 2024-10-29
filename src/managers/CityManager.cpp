@@ -273,7 +273,7 @@ bool CityManager::canBuyAt(int xPos, int yPos, EntityType type, Size size)
 
     for(int i = xPos; i<xPos+ec.width; i++)
     {
-        for(int j = yPos-ec.height; j<=yPos; j++)
+        for(int j = yPos-ec.height+1; j<=yPos; j++)
         {
             if(c->getEntity(i, j)!=nullptr)
             {
