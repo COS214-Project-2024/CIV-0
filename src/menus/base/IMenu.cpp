@@ -179,7 +179,7 @@ void IMenu::displayMenu() const
         {"Money:", std::to_string(city->getMoney())},
         {"Population:", std::to_string(city->getPopulation()) + "/" + std::to_string(city->getPopulationCapacity())},
         {"Wood:", std::to_string(city->getWood())},
-        {"Steel:", std::to_string(city->getSteel())},
+        {"Stone:", std::to_string(city->getStone())},
         {"Concrete:", std::to_string(city->getConcrete())},
         {"Electricity Production:", std::to_string(city->getElectricityProduction())},
         {"Electricity Consumption:", std::to_string(city->getElectricityConsumption())},
