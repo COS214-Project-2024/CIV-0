@@ -4,16 +4,17 @@
 #include "iterators/base/Iterator.h"
 #include "entities/building/amenity/Amenity.h"
 
-class AmenityIterator : public Iterator{
+class AmenityIterator : public Iterator
+{
 public:
     AmenityIterator();
     ~AmenityIterator();
 
-    AmenityIterator(std::vector<std::vector<Entity*>> &grid);
-     void first();
-     void next();
-     bool hasNext();
-     Entity* current();
+    AmenityIterator(std::vector<std::vector<Entity *>> &grid);
+    void first() override;
+    void next() override;
+    bool hasNext() override;
+    Entity *current() override;
 };
 
 #endif // AMENITYITERATOR_H

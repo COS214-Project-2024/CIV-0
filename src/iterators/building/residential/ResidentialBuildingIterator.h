@@ -10,11 +10,11 @@ public:
     ResidentialBuildingIterator();
     ~ResidentialBuildingIterator();
 
-    ResidentialBuildingIterator(std::vector<std::vector<Entity*>> &grid);
+    ResidentialBuildingIterator(std::vector<std::vector<Entity *>> &grid);
     void first();
-     void next();
-     bool hasNext();
-     Entity* current();
+    void next();
+    bool hasNext();
+    Entity *current();
 };
 
 #endif // RESIDENTIALBUILDINGITERATOR_H
