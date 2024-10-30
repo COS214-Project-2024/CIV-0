@@ -4,11 +4,14 @@
 #include "utils/ConfigManager.h"
 
 TEST_SUITE("WasteManagementLevelOneUpgrade Tests") {
+    int const UPGRADE = 2;
+
     TEST_CASE("WasteManagementLevelOneUpgrade constructor") {
         WasteManagement basePlant(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
         WasteManagementLevelOneUpgrade upgrade(&basePlant);
 
-        CHECK(upgrade.getOutput() == 20 * 2);
+        CHECK(upgrade.getOutput() == 20 * UPGRADE);
+        CHECK(upgrade.getCost() == Cost(800 * UPGRADE, 400 * UPGRADE, 200 * UPGRADE, 100 * UPGRADE));
     }
 
     TEST_CASE("WasteManagementLevelOneUpgrade update()") {
@@ -16,7 +19,8 @@ TEST_SUITE("WasteManagementLevelOneUpgrade Tests") {
         WasteManagementLevelOneUpgrade upgrade(&basePlant);
 
         upgrade.update();
-        CHECK(upgrade.getOutput() == 20 * 2);
+        CHECK(upgrade.getOutput() == 20 * UPGRADE);
+        CHECK(upgrade.getCost() == Cost(1200 * UPGRADE, 600 * UPGRADE, 300 * UPGRADE, 200 * UPGRADE));
     }
 
     TEST_CASE("WasteManagementLevelOneUpgrade clone()") {
@@ -27,7 +31,8 @@ TEST_SUITE("WasteManagementLevelOneUpgrade Tests") {
         WasteManagementLevelOneUpgrade* cloned = dynamic_cast<WasteManagementLevelOneUpgrade*>(clonedUpgrade);
         
         REQUIRE(cloned != nullptr);
-        CHECK(cloned->getOutput() == 20 * 2);
+        CHECK(cloned->getOutput() == 20 * UPGRADE);
+        CHECK(cloned->getCost() == Cost(1800 * UPGRADE, 800 * UPGRADE, 400 * UPGRADE, 300 * UPGRADE));
 
         delete clonedUpgrade;
     }
@@ -36,6 +41,13 @@ TEST_SUITE("WasteManagementLevelOneUpgrade Tests") {
         WasteManagement basePlant(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
         WasteManagementLevelOneUpgrade upgrade(&basePlant);
 
-        CHECK(upgrade.getOutput() == 20 * 2);
+        CHECK(upgrade.getOutput() == 20 * UPGRADE);
+    }
+
+    TEST_CASE("WasteManagementLevelOneUpgrade getCost()") {
+        WasteManagement basePlant(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
+        WasteManagementLevelOneUpgrade upgrade(&basePlant);
+
+        CHECK(upgrade.getCost() == Cost(800 * UPGRADE, 400 * UPGRADE, 200 * UPGRADE, 100 * UPGRADE));
     }
 }
