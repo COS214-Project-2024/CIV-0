@@ -18,8 +18,12 @@ City::~City()
     {
         for (int j = 0; j < height; j++)
         {
-            if (grid[i][j])
-                delete grid[i][j];
+            if(grid[i][j]!=nullptr)
+            {
+                // delete grid[i][j];    // Free memory
+                deleteEntity(i,j);
+                grid[i][j] = nullptr; // Set to nullptr to avoid double-deletion
+            }
         }
     }
 }
