@@ -10,11 +10,11 @@ public:
     CityIterator();
     ~CityIterator();
 
-    CityIterator(std::vector<std::vector<Entity*>> &grid);
+    CityIterator(std::vector<std::vector<Entity *>> &grid);
     void first();
     void next();
     bool hasNext();
-    Entity* current();
+    Entity *current();
 };
 
 #endif // CITYITERATOR_H
