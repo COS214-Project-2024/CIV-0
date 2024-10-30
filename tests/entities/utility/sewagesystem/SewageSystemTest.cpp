@@ -1,5 +1,6 @@
 #include "doctest.h"
 #include "entities/utility/sewagesystem/SewageSystem.h"
+#include "entities/utility/sewagesystem/SewageSystemLevelOneUpgrade.h"
 #include "utils/ConfigManager.h"
 
 TEST_SUITE("SewageSystem Tests") {
@@ -11,6 +12,7 @@ TEST_SUITE("SewageSystem Tests") {
         CHECK(sewageSystem.getHeight() == 5);
         CHECK(sewageSystem.getRevenue() == 0);
         CHECK(sewageSystem.getOutput() == 20);
+        CHECK(sewageSystem.getCost() == Cost(1000, 500, 200, 150));
         CHECK(sewageSystem.isBuilt() == false);
     }
 
@@ -31,6 +33,7 @@ TEST_SUITE("SewageSystem Tests") {
         CHECK(copiedSewageSystem.getHeight() == sewageSystem.getHeight());
         CHECK(copiedSewageSystem.getRevenue() == sewageSystem.getRevenue());
         CHECK(copiedSewageSystem.getOutput() == sewageSystem.getOutput());
+        CHECK(copiedSewageSystem.getCost() == sewageSystem.getCost());
         CHECK(copiedSewageSystem.isBuilt() == sewageSystem.isBuilt());
     }
 
@@ -44,6 +47,7 @@ TEST_SUITE("SewageSystem Tests") {
         CHECK(clonedSewageSystem->getHeight() == sewageSystem.getHeight());
         CHECK(clonedSewageSystem->getRevenue() == sewageSystem.getRevenue());
         CHECK(clonedSewageSystem->getOutput() == sewageSystem.getOutput());
+        CHECK(clonedSewageSystem->getCost() == sewageSystem.getCost());
         CHECK(clonedSewageSystem->isBuilt() == sewageSystem.isBuilt());
         delete clonedSewageSystem;
     }
@@ -53,17 +57,22 @@ TEST_SUITE("SewageSystem Tests") {
         CHECK(sewageSystem.isBuilt() == false);
         
         // This simulates the game looping
-        while (!sewageSystem.isBuilt()) {
+        for(int i = 0; i < 3; i++) {
             sewageSystem.update();
         }
 
         CHECK(sewageSystem.isBuilt() == true);
     }
 
-    TEST_CASE("Set Output Test") {
+    TEST_CASE("Output Test") {
         SewageSystem sewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
         sewageSystem.setOutput(150);
         CHECK(sewageSystem.getOutput() == 150);
+    }
+
+    TEST_CASE("Cost Test") {
+        SewageSystem sewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::LARGE), Size::LARGE, 0, 0);
+        CHECK(sewageSystem.getCost() == Cost(2500, 1000, 400, 300));
     }
 
     TEST_CASE("Revenue Test") {
@@ -99,5 +108,13 @@ TEST_SUITE("SewageSystem Tests") {
             SewageSystem partialOverlapSewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 9, 9);
             CHECK(baseSewageSystem.isWithinEffectRadius(&partialOverlapSewageSystem) == true);
         }
+    }
+
+    TEST_CASE("Upgrade test") {
+        SewageSystem sewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 0, 0);
+        Entity* upgradedEntity = sewageSystem.upgrade();
+        REQUIRE(upgradedEntity != nullptr);
+        CHECK(dynamic_cast<SewageSystemLevelOneUpgrade*>(upgradedEntity) != nullptr);
+        delete upgradedEntity;
     }
 }

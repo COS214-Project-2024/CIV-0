@@ -1,7 +1,7 @@
 #include "WasteManagementUpgrade.h"
 
-WasteManagementUpgrade::WasteManagementUpgrade(WasteManagement* wasteManagement) : WasteManagement(wasteManagement) {
-    this->wasteManagement = wasteManagement;
+WasteManagementUpgrade::WasteManagementUpgrade(WasteManagement* waste) : WasteManagement(waste) {
+    this->wasteManagement = waste;
 }
 
 WasteManagementUpgrade::WasteManagementUpgrade(WasteManagementUpgrade* wasteManagementUpgrade) : WasteManagement(wasteManagementUpgrade) {

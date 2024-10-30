@@ -1,19 +1,23 @@
 #include "WasteManagement.h"
+#include "entities/utility/wastemanagement/WasteManagementLevelOneUpgrade.h"
 
-WasteManagement::WasteManagement() : Utility() {}
-WasteManagement::~WasteManagement() {}
+WasteManagement::WasteManagement() : Utility() {
 
-WasteManagement::WasteManagement(EntityConfig ec, Size size, int xPos, int yPos) : Utility(ec, size, xPos, yPos)
-{
+}
+
+WasteManagement::~WasteManagement() {
+
+}
+
+WasteManagement::WasteManagement(EntityConfig ec, Size size, int xPos, int yPos) : Utility(ec, size, xPos, yPos) {
     setOutput(20); //TODO - change value
 }
 
-WasteManagement::WasteManagement(WasteManagement* wasteManagement) : Utility(wasteManagement) {
+WasteManagement::WasteManagement(WasteManagement* waste) : Utility(waste) {
 
 }
 
-void WasteManagement::update()
-{
+void WasteManagement::update() {
     for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
@@ -30,7 +34,10 @@ void WasteManagement::update()
     }
 }
 
-Entity* WasteManagement::clone()
-{
+Entity* WasteManagement::clone() {
     return new WasteManagement(this);
+}
+
+Entity* WasteManagement::upgrade() {
+    return new WasteManagementLevelOneUpgrade(this);
 }

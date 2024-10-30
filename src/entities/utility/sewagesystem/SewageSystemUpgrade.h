@@ -18,9 +18,9 @@ public:
      * 
      * Initializes the upgrade with a reference to an existing SewageSystem, enhancing its features.
      * 
-     * @param sewageSystem Pointer to the SewageSystem being upgraded.
+     * @param sewage Pointer to the SewageSystem being upgraded.
      */
-    SewageSystemUpgrade(SewageSystem* sewageSystem);
+    SewageSystemUpgrade(SewageSystem* sewage);
 
     /**
      * @brief Copy constructor for the SewageSystemUpgrade class.
@@ -48,12 +48,16 @@ public:
      */
     virtual Entity* clone() = 0;
 
+    virtual Entity* upgrade() = 0;
+
     /**
      * @brief Retrieves the output of the upgraded sewage system.
      * 
      * @return The output value as an integer.
      */
     virtual int getOutput() = 0;
+
+    virtual Cost getCost() = 0;
 
 protected:
     SewageSystem* sewageSystem; ///< Pointer to the original SewageSystem that is being upgraded.

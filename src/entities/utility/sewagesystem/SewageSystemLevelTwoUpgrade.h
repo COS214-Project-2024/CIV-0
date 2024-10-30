@@ -3,6 +3,8 @@
 
 #include "SewageSystemUpgrade.h"
 
+class SewageSystemLevelThreeUpgrade;
+
 /**
  * @class SewageSystemLevelTwoUpgrade
  * @brief Represents the second level upgrade to a SewageSystem entity.
@@ -18,9 +20,9 @@ public:
      * 
      * Initializes the upgrade by enhancing the specified SewageSystem with a level two upgrade.
      * 
-     * @param sewageSystem Pointer to the original SewageSystem to be upgraded.
+     * @param sewage Pointer to the original SewageSystem to be upgraded.
      */
-    SewageSystemLevelTwoUpgrade(SewageSystem* sewageSystem);
+    SewageSystemLevelTwoUpgrade(SewageSystem* sewage);
 
     /**
      * @brief Copy constructor for SewageSystemLevelTwoUpgrade.
@@ -55,6 +57,8 @@ public:
      */
     Entity* clone();
 
+    Entity* upgrade();
+
     /**
      * @brief Retrieves the upgraded sewage system's output.
      * 
@@ -63,6 +67,8 @@ public:
      * @return The updated output as an integer.
      */
     int getOutput();
+
+    Cost getCost();
 
 private:
     const int UPGRADE = 4; ///< Multiplier applied to the original output for the level two upgrade.
