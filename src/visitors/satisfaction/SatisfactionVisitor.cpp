@@ -6,6 +6,8 @@ SatisfactionVisitor::SatisfactionVisitor() : totalSatisfaction(0), residentialCo
 
 void SatisfactionVisitor::visit(City *city)
 {
+    totalSatisfaction = 0;
+    residentialCount = 0;
     std::unordered_set<Entity*> visitedEntities;  // Track unique entities
     std::vector<std::vector<Entity *>> &grid = city->getGrid();
 

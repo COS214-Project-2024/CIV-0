@@ -8,6 +8,8 @@ TaxCalculationVisitor::~TaxCalculationVisitor() {}
 
 void TaxCalculationVisitor::visit(City *city)
 {
+    totalResidentialTax = 0;
+    totalEconomicTax = 0;
     std::unordered_set<Entity*> visitedEntities;  // Track unique entities
     std::vector<std::vector<Entity *>> &grid = city->getGrid();
 

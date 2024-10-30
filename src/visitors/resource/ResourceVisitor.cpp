@@ -9,6 +9,10 @@ ResourceVisitor::~ResourceVisitor() {}
 
 void ResourceVisitor::visit(City *city)
 {
+    totalWood = 0;
+    totalStone = 0;
+    totalConcrete = 0;
+    
     std::unordered_set<Entity*> visitedEntities;  // Track unique entities
     std::vector<std::vector<Entity *>> &grid = city->getGrid();
 
