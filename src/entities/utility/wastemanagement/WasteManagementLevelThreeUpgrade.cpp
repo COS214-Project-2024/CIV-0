@@ -21,9 +21,14 @@ Entity* WasteManagementLevelThreeUpgrade::clone() {
 }
 
 Entity* WasteManagementLevelThreeUpgrade::upgrade() {
+    // Maximum level reached
     return this;
 }
 
 int WasteManagementLevelThreeUpgrade::getOutput() {
     return wasteManagement->getOutput() * UPGRADE;
+}
+
+Cost WasteManagementLevelThreeUpgrade::getCost() {
+    return Cost(wasteManagement->getCost().moneyCost*UPGRADE, wasteManagement->getCost().woodCost*UPGRADE, wasteManagement->getCost().stoneCost*UPGRADE, wasteManagement->getCost().concreteCost*UPGRADE);
 }

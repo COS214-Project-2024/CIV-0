@@ -66,6 +66,8 @@ public:
      */
     int getOutput();
 
+    Cost getCost();
+
 private:
     const int UPGRADE = 6; ///< Multiplier applied to the original delivery capacity for the level three upgrade.
 };

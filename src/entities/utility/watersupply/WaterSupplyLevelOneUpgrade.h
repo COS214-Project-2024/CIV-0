@@ -68,6 +68,8 @@ public:
      */
     int getOutput();
 
+    Cost getCost();
+
 private:
     const int UPGRADE = 2; ///< Multiplier applied to the original water supply output for the level one upgrade.
 };

@@ -28,3 +28,7 @@ Entity* PowerPlantLevelThreeUpgrade::upgrade() {
 int PowerPlantLevelThreeUpgrade::getOutput() {
     return powerPlant->getOutput() * UPGRADE;
 }
+
+Cost PowerPlantLevelThreeUpgrade::getCost() {
+    return Cost(powerPlant->getCost().moneyCost*UPGRADE, powerPlant->getCost().woodCost*UPGRADE, powerPlant->getCost().stoneCost*UPGRADE, powerPlant->getCost().concreteCost*UPGRADE);
+}

@@ -28,3 +28,7 @@ Entity* WasteManagementLevelTwoUpgrade::upgrade() {
 int WasteManagementLevelTwoUpgrade::getOutput() {
     return wasteManagement->getOutput() * UPGRADE;
 }
+
+Cost WasteManagementLevelTwoUpgrade::getCost() {
+    return Cost(wasteManagement->getCost().moneyCost*UPGRADE, wasteManagement->getCost().woodCost*UPGRADE, wasteManagement->getCost().stoneCost*UPGRADE, wasteManagement->getCost().concreteCost*UPGRADE);
+}

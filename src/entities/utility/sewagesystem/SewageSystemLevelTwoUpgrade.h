@@ -68,6 +68,8 @@ public:
      */
     int getOutput();
 
+    Cost getCost();
+
 private:
     const int UPGRADE = 4; ///< Multiplier applied to the original output for the level two upgrade.
 };

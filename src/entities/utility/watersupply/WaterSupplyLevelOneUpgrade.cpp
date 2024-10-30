@@ -28,3 +28,7 @@ Entity* WaterSupplyLevelOneUpgrade::upgrade() {
 int WaterSupplyLevelOneUpgrade::getOutput() {
     return waterSupply->getOutput() * UPGRADE;
 }
+
+Cost WaterSupplyLevelOneUpgrade::getCost() {
+    return Cost(waterSupply->getCost().moneyCost*UPGRADE, waterSupply->getCost().woodCost*UPGRADE, waterSupply->getCost().stoneCost*UPGRADE, waterSupply->getCost().concreteCost*UPGRADE);
+}

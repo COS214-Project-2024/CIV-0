@@ -28,3 +28,7 @@ Entity* SewageSystemLevelTwoUpgrade::upgrade() {
 int SewageSystemLevelTwoUpgrade::getOutput() {
     return sewageSystem->getOutput() * UPGRADE;
 }
+
+Cost SewageSystemLevelTwoUpgrade::getCost() {
+    return Cost(sewageSystem->getCost().moneyCost*UPGRADE, sewageSystem->getCost().woodCost*UPGRADE, sewageSystem->getCost().stoneCost*UPGRADE, sewageSystem->getCost().concreteCost*UPGRADE);
+}

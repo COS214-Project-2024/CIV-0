@@ -81,8 +81,11 @@ public:
      */
     void setOutput(int output);
 
+    virtual Cost getCost();
+
 private:
     int output; ///< The output value of the utility (e.g., electricity or water produced).
+    Cost cost;
 };
 
 #endif // UTILITY_H

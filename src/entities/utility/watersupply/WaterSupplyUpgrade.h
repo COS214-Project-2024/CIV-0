@@ -57,6 +57,8 @@ public:
      */
     virtual int getOutput() = 0;
 
+    virtual Cost getCost() = 0;
+
 protected:
     WaterSupply* waterSupply; ///< Pointer to the original WaterSupply that is being upgraded.
 };

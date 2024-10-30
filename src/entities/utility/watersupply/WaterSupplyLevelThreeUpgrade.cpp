@@ -21,9 +21,14 @@ Entity* WaterSupplyLevelThreeUpgrade::clone() {
 }
 
 Entity* WaterSupplyLevelThreeUpgrade::upgrade() {
+    // Maximum level reached
     return this;
 }
 
 int WaterSupplyLevelThreeUpgrade::getOutput() {
     return waterSupply->getOutput() * UPGRADE;
+}
+
+Cost WaterSupplyLevelThreeUpgrade::getCost() {
+    return Cost(waterSupply->getCost().moneyCost*UPGRADE, waterSupply->getCost().woodCost*UPGRADE, waterSupply->getCost().stoneCost*UPGRADE, waterSupply->getCost().concreteCost*UPGRADE);
 }

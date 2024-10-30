@@ -57,6 +57,8 @@ public:
      */
     virtual int getOutput() = 0;
 
+    virtual Cost getCost() = 0;
+
 protected:
     SewageSystem* sewageSystem; ///< Pointer to the original SewageSystem that is being upgraded.
 };

@@ -57,6 +57,8 @@ public:
      */
     virtual int getOutput() = 0;
 
+    virtual Cost getCost() = 0;
+
 protected:
     WasteManagement* wasteManagement; ///< Pointer to the original WasteManagement that is being upgraded.
 };

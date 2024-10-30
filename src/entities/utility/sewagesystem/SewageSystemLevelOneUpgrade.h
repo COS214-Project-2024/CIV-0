@@ -68,6 +68,8 @@ public:
      */
     int getOutput();
 
+    Cost getCost();
+
 private:
     const int UPGRADE = 2; ///< Multiplier applied to the original sewage system output for the level one upgrade.
 };

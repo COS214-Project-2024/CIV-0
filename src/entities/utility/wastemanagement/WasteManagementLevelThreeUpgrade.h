@@ -66,6 +66,8 @@ public:
      */
     int getOutput();
 
+    Cost getCost();
+
 private:
     const int UPGRADE = 6; ///< Multiplier applied to the original efficiency output for the level three upgrade.
 };

@@ -52,6 +52,8 @@ public:
      */
     virtual Entity* clone() = 0;
 
+    virtual Entity* upgrade() = 0;
+
     /**
      * @brief Retrieves the output of the upgraded power plant.
      * 
@@ -59,7 +61,7 @@ public:
      */
     virtual int getOutput() = 0;
 
-    virtual Entity* upgrade() = 0;
+    virtual Cost getCost() = 0;
 
 protected:
     PowerPlant* powerPlant; ///< Pointer to the original PowerPlant that is being upgraded.
