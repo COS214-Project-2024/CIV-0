@@ -36,7 +36,7 @@ void CityManager::initializeCity()
 
 void CityManager::updateCity()
 {
-    //TODO
+    //TODO - I need to wait for the other managers
 }
 
 Entity* CityManager::getEntity(int x, int y)
