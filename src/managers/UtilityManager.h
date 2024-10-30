@@ -18,21 +18,6 @@ class UtilityManager
 public:
     UtilityManager();
     ~UtilityManager();
-
-    void buildUtility(EntityType type, Size size, int x, int y);
-
-    int getElectricityProduction();
-    int getElectricityConsumption();
-    int getWaterProduction();
-    int getWaterConsumption();
-
-    std::vector<Utility*> getAllUtilities();
-    std::vector<Utility*> getAllWaterSupplies();
-    std::vector<Utility*> getAllPowerPlants();
-    std::vector<Utility*> getAllWasteManagement();
-    std::vector<Utility*> getAllSewageSystems();
-    bool canAffordUpgrade(Utility* utility);
-    bool upgrade(Utility* utility);
 };
 
 #endif // UTILITYMANAGER_H

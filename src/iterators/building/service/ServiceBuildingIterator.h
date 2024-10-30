@@ -4,16 +4,17 @@
 #include "iterators/base/Iterator.h"
 #include "entities/building/service/ServiceBuilding.h"
 
-class ServiceBuildingIterator : public Iterator{
+class ServiceBuildingIterator : public Iterator
+{
 public:
     ServiceBuildingIterator();
     ~ServiceBuildingIterator();
 
-    ServiceBuildingIterator(std::vector<std::vector<Entity*>> &grid);
+    ServiceBuildingIterator(std::vector<std::vector<Entity *>> &grid);
     void first();
     void next();
     bool hasNext();
-    Entity* current();
+    Entity *current();
 };
 
 #endif // SERVICEBUILDINGITERATOR_H

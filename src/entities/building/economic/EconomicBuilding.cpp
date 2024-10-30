@@ -1,4 +1,5 @@
 #include "EconomicBuilding.h"
+#include <iostream>
 
 EconomicBuilding::EconomicBuilding() {}
 EconomicBuilding::~EconomicBuilding() {}

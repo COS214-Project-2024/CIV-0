@@ -4,16 +4,17 @@
 #include "iterators/base/Iterator.h"
 #include "entities/utility/wastemanagement/WasteManagement.h"
 
-class WasteManagementIterator : public Iterator{
+class WasteManagementIterator : public Iterator
+{
 public:
     WasteManagementIterator();
     ~WasteManagementIterator();
 
-    WasteManagementIterator(std::vector<std::vector<Entity*>> &grid);
+    WasteManagementIterator(std::vector<std::vector<Entity *>> &grid);
     void first();
     void next();
     bool hasNext();
-    Entity* current();
+    Entity *current();
 };
 
 #endif // WASTEMANAGEMENTITERATOR_H

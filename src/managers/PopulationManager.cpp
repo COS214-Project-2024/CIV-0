@@ -1,16 +1,13 @@
 #include "PopulationManager.h"
 
-//!DO NOT TOUCH MY CODE. I AM GOING TO EDIT THIS IN ANOTHER BRANCH
 PopulationManager::PopulationManager(int minimumIncrease, int maximumIncrease)
 {
     this->minimumIncrease = minimumIncrease;
     this->maximumIncrease = maximumIncrease;
 }
 
-//!DO NOT TOUCH MY CODE. I AM GOING TO EDIT THIS IN ANOTHER BRANCH
 PopulationManager::~PopulationManager() {}
 
-//!DO NOT TOUCH MY CODE. I AM GOING TO EDIT THIS IN ANOTHER BRANCH
 void PopulationManager::calculatePopulationCapacity()
 {
     City* c = City::instance();
@@ -18,9 +15,9 @@ void PopulationManager::calculatePopulationCapacity()
     pv->visit(c);
     int populationCapacity = pv->getTotalPopulationCapacity();
     c->setPopulationCapacity(populationCapacity);
+    delete pv;
 }
 
-//!DO NOT TOUCH MY CODE. I AM GOING TO EDIT THIS IN ANOTHER BRANCH
 void PopulationManager::growPopulation()
 {
     City* c = City::instance();
@@ -32,7 +29,6 @@ void PopulationManager::growPopulation()
     c->setPopulation(c->getPopulation()+increase);
 }
 
-//!DO NOT TOUCH MY CODE. I AM GOING TO EDIT THIS IN ANOTHER BRANCH
 void PopulationManager::decreasePopulation()
 {
     City* c = City::instance();
@@ -44,7 +40,6 @@ void PopulationManager::decreasePopulation()
     c->setPopulation(c->getPopulation()-decrease);
 }
 
-//!DO NOT TOUCH MY CODE. I AM GOING TO EDIT THIS IN ANOTHER BRANCH
 void PopulationManager::calculateSatisfaction()
 {
     City* c = City::instance();
@@ -64,12 +59,29 @@ void PopulationManager::calculateSatisfaction()
     pv->visit(c);
 
     c->setElectricityConsumption(pv->getTotalElectricityConsumption());
-    c->setWasteConsumption(pv->getTotalWaterConsumption());
+    c->setWaterConsumption(pv->getTotalWaterConsumption());
     
-    //Todo - waste and sewage
+    //Todo - consider adding waste and sewage (optional)
 
-    float electricityPercentage = (c->getElectricityProduction()/c->getElectricityProduction()) * 100;
-    float waterPercentage = (c->getWaterProduction()/c->getWaterConsumption()) * 100;
+    float electricityPercentage;
+    if(c->getElectricityConsumption()==0)
+    {
+        electricityPercentage = 100;
+    }
+    else
+    {
+        electricityPercentage = (c->getElectricityProduction()/c->getElectricityConsumption()) * 100;
+    }
+
+    float waterPercentage;
+    if(c->getWaterConsumption()==0)
+    {
+        waterPercentage = 100;
+    }
+    else
+    {
+        waterPercentage = (c->getWaterProduction()/c->getWaterConsumption()) * 100;
+    }
 
     if(satisfaction>electricityPercentage)
     {
@@ -79,6 +91,10 @@ void PopulationManager::calculateSatisfaction()
     {
         satisfaction = waterPercentage;
     }
+
+    delete sv;
+    delete uv;
+    delete pv;
 
     c->setSatisfaction(satisfaction);
 }

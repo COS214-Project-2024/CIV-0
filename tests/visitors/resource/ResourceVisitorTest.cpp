@@ -10,11 +10,11 @@ TEST_CASE("ResourceVisitorTest - Collect resources from entities")
     // Create a city instance
     City *city = City::instance();
 
-    city->addEntity(new WoodProducer(EntityConfig(), Size::SMALL, 0, 0));
-    city->addEntity(new ConcreteProducer(EntityConfig(), Size::MEDIUM, 0, 1));
-    city->addEntity(new StoneProducer(EntityConfig(), Size::LARGE, 1, 0));
-    city->addEntity(new WoodProducer(EntityConfig(), Size::LARGE, 2, 0));
-    city->addEntity(new StoneProducer(EntityConfig(), Size::SMALL, 2, 1));
+    city->addEntity(new WoodProducer(EntityConfig(), Size::SMALL, 10, 10));
+    city->addEntity(new ConcreteProducer(EntityConfig(), Size::MEDIUM, 20, 21));
+    city->addEntity(new StoneProducer(EntityConfig(), Size::LARGE, 31, 30));
+    city->addEntity(new WoodProducer(EntityConfig(), Size::LARGE, 42, 40));
+    city->addEntity(new StoneProducer(EntityConfig(), Size::SMALL, 42, 1));
 
     // Create a ResourceVisitor instance
     ResourceVisitor resourceVisitor;

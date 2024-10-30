@@ -10,11 +10,11 @@ public:
     BuildingIterator();
     ~BuildingIterator();
 
-    BuildingIterator(std::vector<std::vector<Entity*>> &grid);
+    BuildingIterator(std::vector<std::vector<Entity *>> &grid);
     void first();
     void next();
     bool hasNext();
-    Entity* current();
+    Entity *current();
 };
 
 #endif // BUILDINGITERATOR_H
