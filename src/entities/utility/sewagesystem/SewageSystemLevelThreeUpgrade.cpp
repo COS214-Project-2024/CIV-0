@@ -22,7 +22,7 @@ Entity* SewageSystemLevelThreeUpgrade::clone() {
 
 Entity* SewageSystemLevelThreeUpgrade::upgrade() {
     // Maximum level reached
-    return this;
+    return nullptr;
 }
 
 int SewageSystemLevelThreeUpgrade::getOutput() {

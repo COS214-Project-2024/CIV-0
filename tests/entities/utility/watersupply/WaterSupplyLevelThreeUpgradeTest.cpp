@@ -50,4 +50,11 @@ TEST_SUITE("WaterSupplyLevelThreeUpgrade Tests") {
 
         CHECK(upgrade.getCost() == Cost(1500 * UPGRADE, 700 * UPGRADE, 300 * UPGRADE, 200 * UPGRADE));
     }
+
+    TEST_CASE("Upgrade test") {
+        WaterSupply basePlant(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 0, 0);
+        WaterSupplyLevelThreeUpgrade upgrade(&basePlant);
+        Entity* upgradedEntity = upgrade.upgrade();
+        CHECK(upgradedEntity == nullptr);
+    }
 }

@@ -1,6 +1,7 @@
 #include "doctest.h"
 #include "entities/utility/watersupply/WaterSupplyLevelOneUpgrade.h"
 #include "entities/utility/watersupply/WaterSupply.h"
+#include "entities/utility/watersupply/WaterSupplyLevelTwoUpgrade.h"
 #include "utils/ConfigManager.h"
 
 TEST_SUITE("WaterSupplyLevelOneUpgrade Tests") {
@@ -49,5 +50,14 @@ TEST_SUITE("WaterSupplyLevelOneUpgrade Tests") {
         WaterSupplyLevelOneUpgrade upgrade(&basePlant);
 
         CHECK(upgrade.getCost() == Cost(1500 * UPGRADE, 700 * UPGRADE, 300 * UPGRADE, 200 * UPGRADE));
+    }
+
+    TEST_CASE("Upgrade test") {
+        WaterSupply basePlant(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 0, 0);
+        WaterSupplyLevelOneUpgrade upgrade(&basePlant);
+        Entity* upgradedEntity = upgrade.upgrade();
+        REQUIRE(upgradedEntity != nullptr);
+        CHECK(dynamic_cast<WaterSupplyLevelTwoUpgrade*>(upgradedEntity) != nullptr);
+        delete upgradedEntity;
     }
 }

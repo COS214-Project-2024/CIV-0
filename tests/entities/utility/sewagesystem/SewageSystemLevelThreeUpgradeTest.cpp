@@ -50,4 +50,11 @@ TEST_SUITE("SewageSystemLevelThreeUpgrade Tests") {
 
         CHECK(upgrade.getCost() == Cost(1000 * UPGRADE, 500 * UPGRADE, 200 * UPGRADE, 150 * UPGRADE));
     }
+
+    TEST_CASE("Upgrade test") {
+        SewageSystem basePlant(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 0, 0);
+        SewageSystemLevelThreeUpgrade upgrade(&basePlant);
+        Entity* upgradedEntity = upgrade.upgrade();
+        CHECK(upgradedEntity == nullptr);
+    }
 }

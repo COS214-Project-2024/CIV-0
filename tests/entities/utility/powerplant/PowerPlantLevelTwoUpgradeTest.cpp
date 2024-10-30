@@ -1,6 +1,7 @@
 #include "doctest.h"
 #include "entities/utility/powerplant/PowerPlantLevelTwoUpgrade.h"
 #include "entities/utility/powerplant/PowerPlant.h"
+#include "entities/utility/powerplant/PowerPlantLevelThreeUpgrade.h"
 #include "utils/ConfigManager.h"
 
 TEST_SUITE("PowerPlantLevelTwoUpgrade Tests") {
@@ -49,5 +50,14 @@ TEST_SUITE("PowerPlantLevelTwoUpgrade Tests") {
         PowerPlantLevelTwoUpgrade upgrade(&basePlant);
 
         CHECK(upgrade.getCost() == Cost(2000 * UPGRADE, 800 * UPGRADE, 500 * UPGRADE, 300 * UPGRADE));
+    }
+
+    TEST_CASE("Upgrade test") {
+        PowerPlant basePlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::SMALL), Size::SMALL, 0, 0);
+        PowerPlantLevelTwoUpgrade upgrade(&basePlant);
+        Entity* upgradedEntity = upgrade.upgrade();
+        REQUIRE(upgradedEntity != nullptr);
+        CHECK(dynamic_cast<PowerPlantLevelThreeUpgrade*>(upgradedEntity) != nullptr);
+        delete upgradedEntity;
     }
 }

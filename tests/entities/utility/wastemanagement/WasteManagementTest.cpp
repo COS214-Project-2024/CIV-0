@@ -1,5 +1,6 @@
 #include "doctest.h"
 #include "entities/utility/wastemanagement/WasteManagement.h"
+#include "entities/utility/wastemanagement/WasteManagementLevelOneUpgrade.h"
 #include "utils/ConfigManager.h"
 
 TEST_SUITE("WasteManagement Tests") {
@@ -107,5 +108,13 @@ TEST_SUITE("WasteManagement Tests") {
             WasteManagement partialOverlapWasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 9, 9);
             CHECK(baseWasteManagement.isWithinEffectRadius(&partialOverlapWasteManagement) == true);
         }
+    }
+
+    TEST_CASE("Upgrade test") {
+        WasteManagement wasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 0, 0);
+        Entity* upgradedEntity = wasteManagement.upgrade();
+        REQUIRE(upgradedEntity != nullptr);
+        CHECK(dynamic_cast<WasteManagementLevelOneUpgrade*>(upgradedEntity) != nullptr);
+        delete upgradedEntity;
     }
 }

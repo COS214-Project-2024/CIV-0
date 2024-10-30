@@ -50,4 +50,11 @@ TEST_SUITE("PowerPlantLevelThreeUpgrade Tests") {
 
         CHECK(upgrade.getCost() == Cost(2000 * UPGRADE, 800 * UPGRADE, 500 * UPGRADE, 300 * UPGRADE));
     }
+
+    TEST_CASE("Upgrade test") {
+        PowerPlant basePlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::SMALL), Size::SMALL, 0, 0);
+        PowerPlantLevelThreeUpgrade upgrade(&basePlant);
+        Entity* upgradedEntity = upgrade.upgrade();
+        CHECK(upgradedEntity == nullptr);
+    }
 }

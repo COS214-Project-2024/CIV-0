@@ -50,4 +50,11 @@ TEST_SUITE("WasteManagementLevelThreeUpgrade Tests") {
 
         CHECK(upgrade.getCost() == Cost(800 * UPGRADE, 400 * UPGRADE, 200 * UPGRADE, 100 * UPGRADE));
     }
+
+    TEST_CASE("Upgrade test") {
+        WasteManagement basePlant(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 0, 0);
+        WasteManagementLevelThreeUpgrade upgrade(&basePlant);
+        Entity* upgradedEntity = upgrade.upgrade();
+        CHECK(upgradedEntity == nullptr);
+    }
 }

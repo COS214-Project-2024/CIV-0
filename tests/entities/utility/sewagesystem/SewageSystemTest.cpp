@@ -1,5 +1,6 @@
 #include "doctest.h"
 #include "entities/utility/sewagesystem/SewageSystem.h"
+#include "entities/utility/sewagesystem/SewageSystemLevelOneUpgrade.h"
 #include "utils/ConfigManager.h"
 
 TEST_SUITE("SewageSystem Tests") {
@@ -107,5 +108,13 @@ TEST_SUITE("SewageSystem Tests") {
             SewageSystem partialOverlapSewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 9, 9);
             CHECK(baseSewageSystem.isWithinEffectRadius(&partialOverlapSewageSystem) == true);
         }
+    }
+
+    TEST_CASE("Upgrade test") {
+        SewageSystem sewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 0, 0);
+        Entity* upgradedEntity = sewageSystem.upgrade();
+        REQUIRE(upgradedEntity != nullptr);
+        CHECK(dynamic_cast<SewageSystemLevelOneUpgrade*>(upgradedEntity) != nullptr);
+        delete upgradedEntity;
     }
 }

@@ -1,6 +1,7 @@
 #include "doctest.h"
 #include "entities/utility/wastemanagement/WasteManagementLevelOneUpgrade.h"
 #include "entities/utility/wastemanagement/WasteManagement.h"
+#include "entities/utility/wastemanagement/WasteManagementLevelTwoUpgrade.h"
 #include "utils/ConfigManager.h"
 
 TEST_SUITE("WasteManagementLevelOneUpgrade Tests") {
@@ -49,5 +50,14 @@ TEST_SUITE("WasteManagementLevelOneUpgrade Tests") {
         WasteManagementLevelOneUpgrade upgrade(&basePlant);
 
         CHECK(upgrade.getCost() == Cost(800 * UPGRADE, 400 * UPGRADE, 200 * UPGRADE, 100 * UPGRADE));
+    }
+
+    TEST_CASE("Upgrade test") {
+        WasteManagement basePlant(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 0, 0);
+        WasteManagementLevelOneUpgrade upgrade(&basePlant);
+        Entity* upgradedEntity = upgrade.upgrade();
+        REQUIRE(upgradedEntity != nullptr);
+        CHECK(dynamic_cast<WasteManagementLevelTwoUpgrade*>(upgradedEntity) != nullptr);
+        delete upgradedEntity;
     }
 }

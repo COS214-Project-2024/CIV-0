@@ -1,6 +1,7 @@
 #include "doctest.h"
 #include "entities/utility/sewagesystem/SewageSystemLevelOneUpgrade.h"
 #include "entities/utility/sewagesystem/SewageSystem.h"
+#include "entities/utility/sewagesystem/SewageSystemLevelTwoUpgrade.h"
 #include "utils/ConfigManager.h"
 #include <iostream>
 
@@ -50,5 +51,14 @@ TEST_SUITE("SewageSystemLevelOneUpgrade Tests") {
         SewageSystemLevelOneUpgrade upgrade(&basePlant);
 
         CHECK(upgrade.getCost() == Cost(1000 * UPGRADE, 500 * UPGRADE, 200 * UPGRADE, 150 * UPGRADE));
+    }
+
+    TEST_CASE("Upgrade test") {
+        SewageSystem basePlant(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 0, 0);
+        SewageSystemLevelOneUpgrade upgrade(&basePlant);
+        Entity* upgradedEntity = upgrade.upgrade();
+        REQUIRE(upgradedEntity != nullptr);
+        CHECK(dynamic_cast<SewageSystemLevelTwoUpgrade*>(upgradedEntity) != nullptr);
+        delete upgradedEntity;
     }
 }

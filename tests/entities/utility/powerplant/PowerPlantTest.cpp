@@ -1,5 +1,6 @@
 #include "doctest.h"
 #include "entities/utility/powerplant/PowerPlant.h"
+#include "entities/utility/powerplant/PowerPlantLevelOneUpgrade.h"
 #include "utils/ConfigManager.h"
 
 TEST_SUITE("PowerPlant Tests") {
@@ -107,5 +108,13 @@ TEST_SUITE("PowerPlant Tests") {
             PowerPlant partialOverlapPowerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE), Size::LARGE, 41, 41);
             CHECK(basePowerPlant.isWithinEffectRadius(&partialOverlapPowerPlant) == true);
         }
+    }
+
+    TEST_CASE("Upgrade test") {
+        PowerPlant powerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::SMALL), Size::SMALL, 0, 0);
+        Entity* upgradedEntity = powerPlant.upgrade();
+        REQUIRE(upgradedEntity != nullptr);
+        CHECK(dynamic_cast<PowerPlantLevelOneUpgrade*>(upgradedEntity) != nullptr);
+        delete upgradedEntity;
     }
 }

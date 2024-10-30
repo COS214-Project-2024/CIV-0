@@ -1,5 +1,6 @@
 #include "doctest.h"
 #include "entities/utility/watersupply/WaterSupply.h"
+#include "entities/utility/watersupply/WaterSupplyLevelOneUpgrade.h"
 #include "utils/ConfigManager.h"
 
 TEST_SUITE("WaterSupply Tests") {
@@ -107,5 +108,13 @@ TEST_SUITE("WaterSupply Tests") {
             WaterSupply partialOverlapWaterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 13, 13);
             CHECK(baseWaterSupply.isWithinEffectRadius(&partialOverlapWaterSupply) == true);
         }
+    }
+
+    TEST_CASE("Upgrade test") {
+        WaterSupply waterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 0, 0);
+        Entity* upgradedEntity = waterSupply.upgrade();
+        REQUIRE(upgradedEntity != nullptr);
+        CHECK(dynamic_cast<WaterSupplyLevelOneUpgrade*>(upgradedEntity) != nullptr);
+        delete upgradedEntity;
     }
 }

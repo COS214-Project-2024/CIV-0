@@ -22,7 +22,7 @@ Entity* PowerPlantLevelThreeUpgrade::clone() {
 
 Entity* PowerPlantLevelThreeUpgrade::upgrade() {
     // Maximum level reached
-    return this;
+    return nullptr;
 }
 
 int PowerPlantLevelThreeUpgrade::getOutput() {

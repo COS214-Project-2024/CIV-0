@@ -22,7 +22,7 @@ Entity* WaterSupplyLevelThreeUpgrade::clone() {
 
 Entity* WaterSupplyLevelThreeUpgrade::upgrade() {
     // Maximum level reached
-    return this;
+    return nullptr;
 }
 
 int WaterSupplyLevelThreeUpgrade::getOutput() {

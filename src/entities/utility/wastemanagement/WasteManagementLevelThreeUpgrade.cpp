@@ -22,7 +22,7 @@ Entity* WasteManagementLevelThreeUpgrade::clone() {
 
 Entity* WasteManagementLevelThreeUpgrade::upgrade() {
     // Maximum level reached
-    return this;
+    return nullptr;
 }
 
 int WasteManagementLevelThreeUpgrade::getOutput() {
