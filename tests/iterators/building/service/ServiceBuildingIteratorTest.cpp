@@ -5,164 +5,170 @@
 #include "iterators/building/service/ServiceBuildingIterator.h"
 #include <vector>
 
-TEST_CASE("ServiceBuildingIterator test") {
-    std::vector<std::vector<Entity*>> grid;
+TEST_CASE("Testing ServiceBuildingIterator initial position")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    Hospital* h = new Hospital();
-    PoliceStation* p = new PoliceStation();
-    School* s = new School();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    Hospital *h = new Hospital();
+    PoliceStation *p = new PoliceStation();
+    School *s = new School();
 
     row1.push_back(h);
     row1.push_back(p);
-    row2.push_back(NULL);
+    row2.push_back(nullptr);
     row2.push_back(s);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    ServiceBuildingIterator* aIter = new ServiceBuildingIterator(grid);
-    CHECK(aIter->getCol() == 0);
+    ServiceBuildingIterator *aIter = new ServiceBuildingIterator(grid);
+    aIter->first();
     CHECK(aIter->getRow() == 0);
+    CHECK(aIter->getCol() == 0);
+
     delete aIter;
     delete h;
     delete p;
     delete s;
 }
 
-TEST_CASE("Testing next()"){
-        std::vector<std::vector<Entity*>> grid;
+TEST_CASE("Testing ServiceBuildingIterator next()")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    Hospital* h = new Hospital();
-    PoliceStation* p = new PoliceStation();
-    School* s = new School();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    Hospital *h = new Hospital();
+    PoliceStation *p = new PoliceStation();
+    School *s = new School();
 
     row1.push_back(s);
     row1.push_back(p);
-    row2.push_back(NULL);
+    row2.push_back(nullptr);
     row2.push_back(h);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    ServiceBuildingIterator* aIter = new ServiceBuildingIterator(grid);
-    aIter->next();
-    CHECK(aIter->getCol() == 1);
-    CHECK(aIter->getRow() == 0);
-    delete aIter;
-    delete h;
-    delete p;
-    delete s;
-}
-
-TEST_CASE("Testing first()"){
-        std::vector<std::vector<Entity*>> grid;
-
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    Hospital* h = new Hospital();
-    PoliceStation* p = new PoliceStation();
-    School* s = new School();
-
-    row1.push_back(h);
-    row1.push_back(s);
-    row2.push_back(NULL);
-    row2.push_back(p);
-
-    grid.push_back(row1);
-    grid.push_back(row2);
-
-    ServiceBuildingIterator* aIter = new ServiceBuildingIterator(grid);
+    ServiceBuildingIterator *aIter = new ServiceBuildingIterator(grid);
     aIter->first();
-    CHECK(aIter->getCol() == 0);
+    CHECK(aIter->hasNext() == true);
     CHECK(aIter->getRow() == 0);
-    delete aIter;
-    delete h;
-    delete p;
-    delete s;
-}
+    CHECK(aIter->getCol() == 0);
 
-TEST_CASE("Testing hasNext()"){
-        std::vector<std::vector<Entity*>> grid;
-
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    Hospital* h = new Hospital();
-    PoliceStation* p = new PoliceStation();
-    School* s = new School();
-
-    row1.push_back(s);
-    row1.push_back(h);
-    row2.push_back(NULL);
-    row2.push_back(p);
-
-    grid.push_back(row1);
-    grid.push_back(row2);
-
-    ServiceBuildingIterator* aIter = new ServiceBuildingIterator(grid);
     aIter->next();
     CHECK(aIter->hasNext() == true);
+    CHECK(aIter->getRow() == 0);
+    CHECK(aIter->getCol() == 1);
+
+    aIter->next();
+    CHECK(aIter->hasNext() == true);
+    CHECK(aIter->getRow() == 1);
+    CHECK(aIter->getCol() == 1);
+
+    aIter->next();
+    CHECK(aIter->hasNext() == false);
+
     delete aIter;
     delete h;
     delete p;
     delete s;
 }
 
-TEST_CASE("Testing hasNext()"){
-        std::vector<std::vector<Entity*>> grid;
+TEST_CASE("Testing ServiceBuildingIterator first()")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    Hospital* h = new Hospital();
-    PoliceStation* p = new PoliceStation();
-    School* s = new School();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    Hospital *h = new Hospital();
+    PoliceStation *p = new PoliceStation();
+    School *s = new School();
+
+    row1.push_back(h);
+    row1.push_back(s);
+    row2.push_back(nullptr);
+    row2.push_back(p);
+
+    grid.push_back(row1);
+    grid.push_back(row2);
+
+    ServiceBuildingIterator *aIter = new ServiceBuildingIterator(grid);
+    aIter->first();
+    CHECK(aIter->getRow() == 0);
+    CHECK(aIter->getCol() == 0);
+    CHECK(aIter->hasNext() == true);
+
+    delete aIter;
+    delete h;
+    delete p;
+    delete s;
+}
+
+TEST_CASE("Testing ServiceBuildingIterator hasNext() with multiple buildings")
+{
+    std::vector<std::vector<Entity *>> grid;
+
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    Hospital *h = new Hospital();
+    PoliceStation *p = new PoliceStation();
+    School *s = new School();
+
+    row1.push_back(s);
+    row1.push_back(h);
+    row2.push_back(nullptr);
+    row2.push_back(p);
+
+    grid.push_back(row1);
+    grid.push_back(row2);
+
+    ServiceBuildingIterator *aIter = new ServiceBuildingIterator(grid);
+    aIter->first();
+    CHECK(aIter->hasNext() == true);
+    CHECK(aIter->getRow() == 0);
+    CHECK(aIter->getCol() == 0);
+
+    aIter->next();
+    CHECK(aIter->hasNext() == true);
+    CHECK(aIter->getRow() == 0);
+    CHECK(aIter->getCol() == 1);
+
+    delete aIter;
+    delete h;
+    delete p;
+    delete s;
+}
+
+TEST_CASE("Testing ServiceBuildingIterator hasNext() reaching the end")
+{
+    std::vector<std::vector<Entity *>> grid;
+
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    Hospital *h = new Hospital();
+    PoliceStation *p = new PoliceStation();
+    School *s = new School();
 
     row1.push_back(s);
     row1.push_back(p);
-    row2.push_back(NULL);
-    row2.push_back(NULL);
+    row2.push_back(nullptr);
+    row2.push_back(nullptr);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    ServiceBuildingIterator* aIter = new ServiceBuildingIterator(grid);
+    ServiceBuildingIterator *aIter = new ServiceBuildingIterator(grid);
+    aIter->first();
+    aIter->next();
     aIter->next();
     aIter->next();
     CHECK(aIter->hasNext() == false);
+
     delete aIter;
     delete h;
     delete p;
     delete s;
 }
-
-TEST_CASE("Testing next()"){
-        std::vector<std::vector<Entity*>> grid;
-
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    Hospital* h = new Hospital();
-    PoliceStation* p = new PoliceStation();
-    School* s = new School();
-
-    row1.push_back(h);
-    row1.push_back(p);
-    row2.push_back(NULL);
-    row2.push_back(NULL);
-
-    grid.push_back(row1);
-    grid.push_back(row2);
-
-    ServiceBuildingIterator* aIter = new ServiceBuildingIterator(grid);
-    aIter->next();
-    aIter->next();
-    aIter->next();
-    CHECK(aIter->getCol() == 1);
-    delete aIter;
-    delete h;
-    delete p;
-    delete s;
-}
-

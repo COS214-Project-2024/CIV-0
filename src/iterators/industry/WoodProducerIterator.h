@@ -4,16 +4,17 @@
 #include "iterators/base/Iterator.h"
 #include "entities/industry/woodproducer/WoodProducer.h"
 
-class WoodProducerIterator : public Iterator{
+class WoodProducerIterator : public Iterator
+{
 public:
     WoodProducerIterator();
     ~WoodProducerIterator();
 
-    WoodProducerIterator(std::vector<std::vector<Entity*>> &grid);
+    WoodProducerIterator(std::vector<std::vector<Entity *>> &grid);
     void first();
     void next();
     bool hasNext();
-    Entity* current();
+    Entity *current();
 };
 
 #endif // WOODPRODUCERITERATOR_H

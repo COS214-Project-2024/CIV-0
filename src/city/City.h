@@ -54,7 +54,6 @@ public:
     // Accept method for the visitor pattern
     void accept(CityVisitor &visitor);
 
-
     // Getters
     int getWidth() const;
     int getHeight() const;

@@ -1,99 +1,106 @@
 #include "RoadIterator.h"
-/**
- * @brief Construct a new Road Iterator:: Road Iterator object
- * 
- */
-RoadIterator::RoadIterator():Iterator(){}
-
-/**
- * @brief Destroy the Road Iterator:: Road Iterator object
- * 
- */
-RoadIterator::~RoadIterator() {}
 
 /**
  * @brief Construct a new Road Iterator:: Road Iterator object
- * 
- * @param grid 
  */
-RoadIterator::RoadIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
-    this->grid = grid;
-    this->currRow = this->grid.begin();
-    this->curr = currRow->begin();
+RoadIterator::RoadIterator() : Iterator()
+{
     this->row = 0;
     this->col = 0;
 }
 
 /**
- * @brief Goes to first Road
- * 
+ * @brief Destroy the Road Iterator:: Road Iterator object
  */
-void RoadIterator::first(){
-    bool found = false;
+RoadIterator::~RoadIterator() {}
 
-    for(currRow = grid.begin();currRow != this->grid.end(); currRow++){
-        col = 0;
-        for(curr = currRow->begin(); curr != currRow->end(); curr++){
-            Road* e = dynamic_cast<Road*>(*curr);
-            if(e){found = true;break;}
-            col+=1;
-        }
-        if(found)break;
-        row+=1;
-    }
+/**
+ * @brief Construct a new Road Iterator:: Road Iterator object
+ *
+ * @param grid
+ */
+RoadIterator::RoadIterator(std::vector<std::vector<Entity *>> &grid) : Iterator(grid)
+{
+    this->currRow = this->grid.begin();
+    this->curr = currRow->begin();
+    this->row = 0;
+    this->col = 0;
+    first();
 }
 
 /**
- * @brief Goes to next Road
- * 
+ * @brief Sets the iterator to the first unvisited Road
  */
-void RoadIterator::next(){
-    bool found = false;
-    int Tcol = this->col;
-    int Trow = this->row;
-    if(hasNext()){
-        col = 0;
-        row = 0;
-    for(currRow = grid.begin();currRow != this->grid.end();++currRow){
-        col = 0;
-        for(curr = currRow->begin(); curr != currRow->end();++curr){
-            Road* e = dynamic_cast<Road*>(*curr);
-            if(e && (Tcol<col || Trow<row)){found = true;break;}
-            col+=1;
+void RoadIterator::first()
+{
+    visitedEntities.clear(); // Clear visited set for reuse
+    row = 0;
+    col = 0;
+
+    for (row = 0; row < grid.size(); ++row)
+    {
+        for (col = 0; col < grid[row].size(); ++col)
+        {
+            Road *road = dynamic_cast<Road *>(grid[row][col]);
+            if (road && !isVisited(road))
+            {
+                markVisited(road);
+                currRow = grid.begin() + row;
+                curr = currRow->begin() + col;
+                return;
+            }
         }
-        if(found)break;
-        row+=1;
     }
-    }//hasNext
+
+    // Set to end if no roads are found
+    currRow = grid.end();
+    curr = {};
 }
 
 /**
- * @brief Determines if there is next Road
- * 
- * @return true 
- * @return false 
+ * @brief Advances to the next unvisited Road
  */
-bool RoadIterator::hasNext(){
-    int tr = 0;
-    int tc = 0;
-    for(std::vector<std::vector<Entity*>>::iterator itRow = grid.begin();itRow != grid.end();  itRow++){
-        tc=0;
-        for(std::vector<Entity*>::iterator itCol = itRow->begin();itCol != itRow->end();  itCol++){
-            Road* a = dynamic_cast<Road*>(*itCol);
-            if((a) && (tr>row)){return true;}
-            if((a) && (tr>=row && tc>col)){return true;}
-            tc+=1;
+void RoadIterator::next()
+{
+    if (currRow == grid.end())
+        return;
+
+    for (++col; row < grid.size(); ++row, col = 0)
+    {
+        for (; col < grid[row].size(); ++col)
+        {
+            Road *road = dynamic_cast<Road *>(grid[row][col]);
+            if (road && !isVisited(road))
+            {
+                markVisited(road);
+                currRow = grid.begin() + row;
+                curr = currRow->begin() + col;
+                return;
+            }
         }
-        tr+=1;
     }
-    return false;
+
+    // If no further roads, set iterator to the end
+    currRow = grid.end();
+    curr = {};
 }
 
 /**
- * @brief Returns current Road
- * 
- * @return Entity* 
+ * @brief Checks if there is another unvisited Road
+ *
+ * @return true if there is another unvisited Road, false otherwise
  */
-Entity* RoadIterator::current(){
-    return (*this->curr);
+bool RoadIterator::hasNext()
+{
+    return currRow != grid.end() && curr != currRow->end();
+}
+
+/**
+ * @brief Returns the current Road
+ *
+ * @return Entity*
+ */
+Entity *RoadIterator::current()
+{
+    return (currRow != grid.end() && curr != currRow->end()) ? *curr : nullptr;
 }

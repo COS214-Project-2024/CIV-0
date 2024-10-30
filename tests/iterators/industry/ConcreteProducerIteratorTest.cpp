@@ -2,158 +2,156 @@
 #include "iterators/industry/ConcreteProducerIterator.h"
 #include "entities/industry/concreteproducer/ConcreteProducer.h"
 #include "entities/building/amenity/Theater.h"
+#include <iostream>
+#include <vector>
 
-TEST_CASE("ConcreteProducerIteratorTest test"){
-std::vector<std::vector<Entity*>> grid;
+TEST_CASE("Testing ConcreteProducerIterator initial position")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    ConcreteProducer* c = new ConcreteProducer();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    ConcreteProducer *producer = new ConcreteProducer();
 
-    row1.push_back(c);
-    row1.push_back(c);
-    row2.push_back(NULL);
-    row2.push_back(c);
-
-    grid.push_back(row1);
-    grid.push_back(row2);
-
-    ConcreteProducerIterator* aIter = new ConcreteProducerIterator(grid);
-    CHECK(aIter->getCol() == 0);
-    CHECK(aIter->getRow() == 0);
-    delete aIter;
-    delete c;
-}
-
-TEST_CASE("Testing next()"){
-        std::vector<std::vector<Entity*>> grid;
-
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    ConcreteProducer* c = new ConcreteProducer();
-    Theater* t = new Theater();
-
-    row1.push_back(c);
-    row1.push_back(c);
-    row2.push_back(NULL);
-    row2.push_back(t);
+    row1.push_back(producer);
+    row1.push_back(nullptr);
+    row2.push_back(producer);
+    row2.push_back(producer);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    ConcreteProducerIterator* aIter = new ConcreteProducerIterator(grid);
-    aIter->next();
-    CHECK(aIter->getCol() == 1);
-    CHECK(aIter->getRow() == 0);
-    delete aIter;
-    delete c;
-    delete t;
+    ConcreteProducerIterator *cIter = new ConcreteProducerIterator(grid);
+    cIter->first();
+    CHECK(cIter->getRow() == 0);
+    CHECK(cIter->getCol() == 0);
+
+    delete cIter;
+    delete producer;
 }
 
-TEST_CASE("Testing first()"){
-        std::vector<std::vector<Entity*>> grid;
+TEST_CASE("Testing ConcreteProducerIterator next()")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    ConcreteProducer* c = new ConcreteProducer();
-    Theater* t = new Theater();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    ConcreteProducer *producer = new ConcreteProducer();
+    Theater *theater = new Theater();
 
-    row1.push_back(c);
-    row1.push_back(c);
-    row2.push_back(NULL);
-    row2.push_back(t);
+    row1.push_back(producer);
+    row1.push_back(nullptr);
+    row2.push_back(theater);
+    row2.push_back(producer);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    ConcreteProducerIterator* aIter = new ConcreteProducerIterator(grid);
-    aIter->first();
-    CHECK(aIter->getCol() == 0);
-    CHECK(aIter->getRow() == 0);
-    delete aIter;
-    delete c;
-    delete t;
+    ConcreteProducerIterator *cIter = new ConcreteProducerIterator(grid);
+    cIter->first();
+    CHECK(cIter->getRow() == 0);
+    CHECK(cIter->getCol() == 0);
+    CHECK(cIter->hasNext() == true);
+
+    cIter->next();
+
+    CHECK(cIter->getRow() == 2);
+    CHECK(cIter->getCol() == 0);
+    CHECK(cIter->hasNext() == false);
+
+    delete cIter;
+    delete producer;
+    delete theater;
 }
 
-TEST_CASE("Testing hasNext()"){
-        std::vector<std::vector<Entity*>> grid;
+TEST_CASE("Testing ConcreteProducerIterator first()")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    ConcreteProducer* c = new ConcreteProducer();
-    Theater* t = new Theater();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    ConcreteProducer *producer1 = new ConcreteProducer();
+    ConcreteProducer *producer2 = new ConcreteProducer();
+    Theater *theater = new Theater();
 
-    row1.push_back(c);
-    row1.push_back(c);
-    row2.push_back(NULL);
-    row2.push_back(t);
+    row1.push_back(producer1);
+    row1.push_back(theater);
+    row2.push_back(nullptr);
+    row2.push_back(producer2);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    ConcreteProducerIterator* aIter = new ConcreteProducerIterator(grid);
-    aIter->next();
-    CHECK(aIter->hasNext() == false);
-    CHECK(aIter->getCol() == 1);
-    CHECK(aIter->getRow() == 0);
-    delete aIter;
-    delete c;
-    delete t;
+    ConcreteProducerIterator *cIter = new ConcreteProducerIterator(grid);
+    cIter->first();
+    CHECK(cIter->getRow() == 0);
+    CHECK(cIter->getCol() == 0);
+    CHECK(cIter->hasNext() == true);
+
+    delete cIter;
+    delete producer1;
+    delete producer2;
+    delete theater;
 }
 
-TEST_CASE("Testing hasNext()"){
-        std::vector<std::vector<Entity*>> grid;
+TEST_CASE("Testing ConcreteProducerIterator hasNext() with multiple producers")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    ConcreteProducer* c = new ConcreteProducer();
-    Theater* t = new Theater();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    ConcreteProducer *producer1 = new ConcreteProducer();
+    ConcreteProducer *producer2 = new ConcreteProducer();
+    Theater *theater = new Theater();
 
-    row1.push_back(c);
-    row1.push_back(NULL);
-    row2.push_back(c);
-    row2.push_back(c);
+    row1.push_back(producer1);
+    row1.push_back(nullptr);
+    row2.push_back(theater);
+    row2.push_back(producer2);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    ConcreteProducerIterator* aIter = new ConcreteProducerIterator(grid);
-    //aIter->next();
-    //aIter->next();
-    //aIter->next();
-    CHECK(aIter->getCol() == 0);
-    CHECK(aIter->getRow() == 0);
-    //CHECK(aIter->hasNext() == true);
-    delete aIter;
-    delete c;
-    delete t;
+    ConcreteProducerIterator *cIter = new ConcreteProducerIterator(grid);
+    cIter->first();
+    CHECK(cIter->hasNext() == true);
+    CHECK(cIter->getRow() == 0);
+    CHECK(cIter->getCol() == 0);
+
+    cIter->next();
+    CHECK(cIter->hasNext() == true);
+    CHECK(cIter->getRow() == 1);
+    CHECK(cIter->getCol() == 1);
+
+    delete cIter;
+    delete producer1;
+    delete producer2;
+    delete theater;
 }
 
-TEST_CASE("Testing next()"){
-        std::vector<std::vector<Entity*>> grid;
+TEST_CASE("Testing ConcreteProducerIterator hasNext() reaching the end")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    ConcreteProducer* c = new ConcreteProducer();
-    Theater* t = new Theater();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    ConcreteProducer *producer = new ConcreteProducer();
+    Theater *theater = new Theater();
 
-    row1.push_back(c);
-    row1.push_back(c);
-    row2.push_back(NULL);
-    row2.push_back(NULL);
+    row1.push_back(producer);
+    row1.push_back(theater);
+    row2.push_back(nullptr);
+    row2.push_back(nullptr);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    ConcreteProducerIterator* aIter = new ConcreteProducerIterator(grid);
-    aIter->next();
-    aIter->next();
-    aIter->next();
-    CHECK(aIter->getCol() == 1);
-    delete aIter;
-    delete c;
-    delete t;
+    ConcreteProducerIterator *cIter = new ConcreteProducerIterator(grid);
+    cIter->first();
+    cIter->next();
+    CHECK(cIter->hasNext() == false);
+
+    delete cIter;
+    delete producer;
+    delete theater;
 }
-
-
-
