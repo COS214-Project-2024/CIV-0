@@ -18,9 +18,9 @@ public:
      * 
      * Initializes the upgrade by enhancing the specified WasteManagement with a level three upgrade.
      * 
-     * @param wasteManagement Pointer to the original WasteManagement to be upgraded.
+     * @param waste Pointer to the original WasteManagement to be upgraded.
      */
-    WasteManagementLevelThreeUpgrade(WasteManagement* wasteManagement);
+    WasteManagementLevelThreeUpgrade(WasteManagement* waste);
 
     /**
      * @brief Copy constructor for WasteManagementLevelThreeUpgrade.
@@ -54,6 +54,8 @@ public:
      * @return A pointer to the newly cloned WasteManagementLevelThreeUpgrade object.
      */
     Entity* clone();
+    
+    Entity* upgrade();
 
     /**
      * @brief Retrieves the upgraded waste management system's output.
@@ -63,6 +65,8 @@ public:
      * @return The updated efficiency output as an integer.
      */
     int getOutput();
+
+    Cost getCost();
 
 private:
     const int UPGRADE = 6; ///< Multiplier applied to the original efficiency output for the level three upgrade.

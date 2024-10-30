@@ -1,7 +1,7 @@
 #include "WaterSupplyUpgrade.h"
 
-WaterSupplyUpgrade::WaterSupplyUpgrade(WaterSupply* waterSupply) : WaterSupply(waterSupply) {
-    this->waterSupply = waterSupply;
+WaterSupplyUpgrade::WaterSupplyUpgrade(WaterSupply* water) : WaterSupply(water) {
+    this->waterSupply = water;
 }
 
 WaterSupplyUpgrade::WaterSupplyUpgrade(WaterSupplyUpgrade* waterSupplyUpgrade) : WaterSupply(waterSupplyUpgrade) {

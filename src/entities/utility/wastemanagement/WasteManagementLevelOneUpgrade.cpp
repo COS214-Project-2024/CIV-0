@@ -1,6 +1,7 @@
 #include "WasteManagementLevelOneUpgrade.h"
+#include "entities/utility/wastemanagement/WasteManagementLevelTwoUpgrade.h"
 
-WasteManagementLevelOneUpgrade::WasteManagementLevelOneUpgrade(WasteManagement* wasteManagement) : WasteManagementUpgrade(wasteManagement) {
+WasteManagementLevelOneUpgrade::WasteManagementLevelOneUpgrade(WasteManagement* waste) : WasteManagementUpgrade(waste) {
 
 }
 
@@ -20,6 +21,14 @@ Entity* WasteManagementLevelOneUpgrade::clone() {
     return new WasteManagementLevelOneUpgrade(this);
 }
 
+Entity* WasteManagementLevelOneUpgrade::upgrade() {
+    return new WasteManagementLevelTwoUpgrade(wasteManagement);
+}
+
 int WasteManagementLevelOneUpgrade::getOutput() {
     return wasteManagement->getOutput() * UPGRADE;
+}
+
+Cost WasteManagementLevelOneUpgrade::getCost() {
+    return Cost(wasteManagement->getCost().moneyCost*UPGRADE, wasteManagement->getCost().woodCost*UPGRADE, wasteManagement->getCost().stoneCost*UPGRADE, wasteManagement->getCost().concreteCost*UPGRADE);
 }

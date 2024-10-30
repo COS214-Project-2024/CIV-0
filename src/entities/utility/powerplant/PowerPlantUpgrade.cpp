@@ -1,7 +1,7 @@
 #include "PowerPlantUpgrade.h"
 
-PowerPlantUpgrade::PowerPlantUpgrade(PowerPlant* powerPlant) : PowerPlant(powerPlant) {
-    this->powerPlant = powerPlant;
+PowerPlantUpgrade::PowerPlantUpgrade(PowerPlant* power) : PowerPlant(power) {
+    this->powerPlant = power;
 }
 
 PowerPlantUpgrade::PowerPlantUpgrade(PowerPlantUpgrade* powerPlantUpgrade) : PowerPlant(powerPlantUpgrade) {
