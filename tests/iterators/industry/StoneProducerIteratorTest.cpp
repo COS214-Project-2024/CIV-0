@@ -2,155 +2,159 @@
 #include "iterators/industry/StoneProducerIterator.h"
 #include "entities/industry/stoneproducer/StoneProducer.h"
 #include "entities/building/amenity/Theater.h"
+#include <vector>
 
- TEST_CASE("StoneProducerIteratorTest test") {
-std::vector<std::vector<Entity*>> grid;
+TEST_CASE("Testing StoneProducerIterator initial position")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    StoneProducer* c = new StoneProducer();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    StoneProducer *producer = new StoneProducer();
 
-    row1.push_back(c);
-    row1.push_back(c);
-    row2.push_back(NULL);
-    row2.push_back(c);
+    row1.push_back(producer);
+    row1.push_back(nullptr);
+    row2.push_back(producer);
+    row2.push_back(producer);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    StoneProducerIterator* aIter = new StoneProducerIterator(grid);
-    CHECK(aIter->getCol() == 0);
-    CHECK(aIter->getRow() == 0);
-    delete aIter;
-    delete c;
+    StoneProducerIterator *sIter = new StoneProducerIterator(grid);
+    sIter->first();
+    CHECK(sIter->getRow() == 0);
+    CHECK(sIter->getCol() == 0);
+
+    delete sIter;
+    delete producer;
 }
 
-TEST_CASE("Testing next()"){
-        std::vector<std::vector<Entity*>> grid;
+TEST_CASE("Testing StoneProducerIterator next()")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    StoneProducer* c = new StoneProducer();
-    Theater* t = new Theater();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    StoneProducer *producer = new StoneProducer();
+    Theater *theater = new Theater();
 
-    row1.push_back(c);
-    row1.push_back(c);
-    row2.push_back(NULL);
-    row2.push_back(t);
+    row1.push_back(producer);
+    row1.push_back(nullptr);
+    row2.push_back(theater);
+    row2.push_back(producer);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    StoneProducerIterator* aIter = new StoneProducerIterator(grid);
-    aIter->next();
-    CHECK(aIter->getCol() == 1);
-    CHECK(aIter->getRow() == 0);
-    delete aIter;
-    delete c;
-    delete t;
+    StoneProducerIterator *sIter = new StoneProducerIterator(grid);
+    sIter->first();
+    CHECK(sIter->getRow() == 0);
+    CHECK(sIter->getCol() == 0);
+    CHECK(sIter->hasNext() == true);
+
+    sIter->next();
+    CHECK(sIter->getRow() == 2);
+    CHECK(sIter->getCol() == 0);
+    CHECK(sIter->hasNext() == false);
+
+    delete sIter;
+    delete producer;
+    delete theater;
 }
 
-TEST_CASE("Testing first()"){
-        std::vector<std::vector<Entity*>> grid;
+TEST_CASE("Testing StoneProducerIterator first()")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    StoneProducer* c = new StoneProducer();
-    Theater* t = new Theater();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    StoneProducer *producer1 = new StoneProducer();
+    StoneProducer *producer2 = new StoneProducer();
+    Theater *theater = new Theater();
 
-    row1.push_back(c);
-    row1.push_back(c);
-    row2.push_back(NULL);
-    row2.push_back(t);
+    row1.push_back(producer1);
+    row1.push_back(theater);
+    row2.push_back(nullptr);
+    row2.push_back(producer2);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    StoneProducerIterator* aIter = new StoneProducerIterator(grid);
-    aIter->first();
-    CHECK(aIter->getCol() == 0);
-    CHECK(aIter->getRow() == 0);
-    delete aIter;
-    delete c;
-    delete t;
+    StoneProducerIterator *sIter = new StoneProducerIterator(grid);
+    sIter->first();
+    CHECK(sIter->getRow() == 0);
+    CHECK(sIter->getCol() == 0);
+    CHECK(sIter->hasNext() == true);
+
+    delete sIter;
+    delete producer1;
+    delete producer2;
+    delete theater;
 }
 
-TEST_CASE("Testing hasNext()"){
-        std::vector<std::vector<Entity*>> grid;
+TEST_CASE("Testing StoneProducerIterator hasNext() with multiple producers")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    StoneProducer* c = new StoneProducer();
-    Theater* t = new Theater();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    StoneProducer *producer1 = new StoneProducer();
+    StoneProducer *producer2 = new StoneProducer();
+    Theater *theater = new Theater();
 
-    row1.push_back(c);
-    row1.push_back(c);
-    row2.push_back(NULL);
-    row2.push_back(t);
+    row1.push_back(producer1);
+    row1.push_back(nullptr);
+    row2.push_back(theater);
+    row2.push_back(producer2);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    StoneProducerIterator* aIter = new StoneProducerIterator(grid);
-    aIter->next();
-    CHECK(aIter->hasNext() == false);
-    CHECK(aIter->getCol() == 1);
-    CHECK(aIter->getRow() == 0);
-    delete aIter;
-    delete c;
-    delete t;
+    StoneProducerIterator *sIter = new StoneProducerIterator(grid);
+    sIter->first();
+    CHECK(sIter->hasNext() == true);
+    CHECK(sIter->getRow() == 0);
+    CHECK(sIter->getCol() == 0);
+
+    sIter->next();
+    CHECK(sIter->hasNext() == true);
+    CHECK(sIter->getRow() == 1);
+    CHECK(sIter->getCol() == 1);
+
+    sIter->next();
+    CHECK(sIter->hasNext() == false);
+    CHECK(sIter->getRow() == 2);
+    CHECK(sIter->getCol() == 0);
+
+    delete sIter;
+    delete producer1;
+    delete producer2;
+    delete theater;
 }
 
-TEST_CASE("Testing hasNext()"){
-        std::vector<std::vector<Entity*>> grid;
+TEST_CASE("Testing StoneProducerIterator hasNext() reaching the end")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    StoneProducer* c = new StoneProducer();
-    Theater* t = new Theater();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    StoneProducer *producer = new StoneProducer();
+    Theater *theater = new Theater();
 
-    row1.push_back(c);
-    row1.push_back(NULL);
-    row2.push_back(c);
-    row2.push_back(c);
-
-    grid.push_back(row1);
-    grid.push_back(row2);
-
-    StoneProducerIterator* aIter = new StoneProducerIterator(grid);
-    //aIter->next();
-    //aIter->next();
-    //aIter->next();
-    CHECK(aIter->getCol() == 0);
-    CHECK(aIter->getRow() == 0);
-    //CHECK(aIter->hasNext() == true);
-    delete aIter;
-    delete c;
-    delete t;
-}
-
-TEST_CASE("Testing next()"){
-        std::vector<std::vector<Entity*>> grid;
-
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    StoneProducer* c = new StoneProducer();
-    Theater* t = new Theater();
-
-    row1.push_back(c);
-    row1.push_back(c);
-    row2.push_back(NULL);
-    row2.push_back(NULL);
+    row1.push_back(producer);
+    row1.push_back(theater);
+    row2.push_back(nullptr);
+    row2.push_back(nullptr);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    StoneProducerIterator* aIter = new StoneProducerIterator(grid);
-    aIter->next();
-    aIter->next();
-    aIter->next();
-    CHECK(aIter->getCol() == 1);
-    delete aIter;
-    delete c;
-    delete t;
+    StoneProducerIterator *sIter = new StoneProducerIterator(grid);
+    sIter->first();
+    sIter->next();
+    CHECK(sIter->hasNext() == false);
+
+    delete sIter;
+    delete producer;
+    delete theater;
 }
