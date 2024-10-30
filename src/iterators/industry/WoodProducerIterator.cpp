@@ -1,102 +1,107 @@
 #include "WoodProducerIterator.h"
-/**
- * @brief Construct a new Wood Producer Iterator:: Wood Producer Iterator object
- * 
- */
-WoodProducerIterator::WoodProducerIterator():Iterator(){}
-
-/**
- * @brief Destroy the Wood Producer Iterator:: Wood Producer Iterator object
- * 
- */
-WoodProducerIterator::~WoodProducerIterator() {}
 
 /**
  * @brief Construct a new Wood Producer Iterator:: Wood Producer Iterator object
- * 
- * @param grid 
  */
-WoodProducerIterator::WoodProducerIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
-    this->grid = grid;
-    this->currRow = this->grid.begin();
-    this->curr = currRow->begin();
+WoodProducerIterator::WoodProducerIterator() : Iterator()
+{
     this->row = 0;
     this->col = 0;
 }
 
 /**
- * @brief Resets the iterator to the first WoodProducer instance in the grid.
- * 
- * Sets the iterator to the first WoodProducer found in the grid. If no instance is found, it will 
- * position at the end of the grid.
+ * @brief Destroy the Wood Producer Iterator:: Wood Producer Iterator object
  */
-void WoodProducerIterator::first(){
-    bool found = false;
+WoodProducerIterator::~WoodProducerIterator() {}
 
-    for(currRow = grid.begin();currRow != this->grid.end(); currRow++){
-        col = 0;
-        for(curr = currRow->begin(); curr != currRow->end(); curr++){
-            WoodProducer* e = dynamic_cast<WoodProducer*>(*curr);
-            if(e){found = true;break;}
-            col+=1;
-        }
-        if(found)break;
-        row+=1;
-    }
+/**
+ * @brief Construct a new Wood Producer Iterator:: Wood Producer Iterator object
+ *
+ * @param grid
+ */
+WoodProducerIterator::WoodProducerIterator(std::vector<std::vector<Entity *>> &grid) : Iterator(grid)
+{
+    this->currRow = this->grid.begin();
+    this->curr = currRow->begin();
+    this->row = 0;
+    this->col = 0;
+    first();
 }
 
 /**
- * @brief Advances the iterator to the next WoodProducer instance in the grid.
- * 
- * Moves to the next WoodProducer in the grid based on the current position.
- * If no more instances are found, resets the iterator.
+ * @brief Sets the iterator to the first unvisited WoodProducer
  */
-void WoodProducerIterator::next(){
-    bool found = false;
-    int Tcol = this->col;
-    int Trow = this->row;
-    if(hasNext()){
-        col = 0;
-        row = 0;
-    for(currRow = grid.begin();currRow != this->grid.end();++currRow){
-        col = 0;
-        for(curr = currRow->begin(); curr != currRow->end();++curr){
-            WoodProducer* e = dynamic_cast<WoodProducer*>(*curr);
-            if(e && (Tcol<col || Trow<row)){found = true;break;}
-            col+=1;
+void WoodProducerIterator::first()
+{
+    visitedEntities.clear(); // Clear visited set for reuse
+    row = 0;
+    col = 0;
+
+    for (row = 0; row < grid.size(); ++row)
+    {
+        for (col = 0; col < grid[row].size(); ++col)
+        {
+            WoodProducer *producer = dynamic_cast<WoodProducer *>(grid[row][col]);
+            if (producer && !isVisited(producer))
+            {
+                markVisited(producer);
+                currRow = grid.begin() + row;
+                curr = currRow->begin() + col;
+                return;
+            }
         }
-        if(found)break;
-        row+=1;
     }
-    }//hasNext
+
+    // Set to end if no WoodProducer instances are found
+    currRow = grid.end();
+    curr = {};
 }
 
 /**
- * @brief Checks if there is another WoodProducer instance in the grid after the current position.
- * 
- * @return true if another WoodProducer exists, false otherwise.
+ * @brief Advances to the next unvisited WoodProducer
  */
-bool WoodProducerIterator::hasNext(){
-    int tr = 0;
-    int tc = 0;
-    for(std::vector<std::vector<Entity*>>::iterator itRow = grid.begin();itRow != grid.end();  itRow++){
-        tc=0;
-        for(std::vector<Entity*>::iterator itCol = itRow->begin();itCol != itRow->end();  itCol++){
-            WoodProducer* a = dynamic_cast<WoodProducer*>(*itCol);
-            if((a) && (tr>row)){return true;}
-            if((a) && (tr>=row && tc>col)){return true;}
-            tc+=1;
+void WoodProducerIterator::next()
+{
+    if (currRow == grid.end())
+        return;
+
+    // Find the next WoodProducer in the grid
+    for (++col; row < grid.size(); ++row, col = 0)
+    {
+        for (; col < grid[row].size(); ++col)
+        {
+            WoodProducer *producer = dynamic_cast<WoodProducer *>(grid[row][col]);
+            if (producer && !isVisited(producer))
+            {
+                markVisited(producer);
+                currRow = grid.begin() + row;
+                curr = currRow->begin() + col;
+                return;
+            }
         }
-        tr+=1;
     }
-    return false;
+
+    // If no further WoodProducers, set iterator to the end
+    currRow = grid.end();
+    curr = {};
 }
 
 /**
- * @brief Returns the current Entity instance pointed to by the iterator.
- * 
- * @return A pointer to the current Entity instance.
+ * @brief Checks if there is another unvisited WoodProducer
+ *
+ * @return true if there is another unvisited WoodProducer, false otherwise
  */
-Entity* WoodProducerIterator::current(){
-    return (*this->curr);
+bool WoodProducerIterator::hasNext()
+{
+    return currRow != grid.end() && curr != currRow->end();
+}
+
+/**
+ * @brief Returns the current WoodProducer
+ *
+ * @return Entity*
+ */
+Entity *WoodProducerIterator::current()
+{
+    return (currRow != grid.end() && curr != currRow->end()) ? *curr : nullptr;
 }

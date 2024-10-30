@@ -10,11 +10,11 @@ public:
     StoneProducerIterator();
     ~StoneProducerIterator();
 
-    StoneProducerIterator(std::vector<std::vector<Entity*>> &grid);
+    StoneProducerIterator(std::vector<std::vector<Entity *>> &grid);
     void first();
     void next();
     bool hasNext();
-    Entity* current();
+    Entity *current();
 };
 
 #endif // STONEPRODUCERITERATOR_H

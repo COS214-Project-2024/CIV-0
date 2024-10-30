@@ -1,99 +1,107 @@
 #include "UtilityIterator.h"
-/**
- * @brief Construct a new Utility Iterator:: Utility Iterator object
- * 
- */
-UtilityIterator::UtilityIterator():Iterator(){}
 
 /**
- * @brief Destroy the Utility Iterator:: Utility Iterator object
- * 
+ * @brief Construct a new Utility Iterator object
  */
-UtilityIterator::~UtilityIterator() {}
-
-/**
- * @brief Construct a new Utility Iterator:: Utility Iterator object
- * 
- * @param grid 
- */
-UtilityIterator::UtilityIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
-    this->grid = grid;
-    this->currRow = this->grid.begin();
-    this->curr = currRow->begin();
+UtilityIterator::UtilityIterator() : Iterator()
+{
     this->row = 0;
     this->col = 0;
 }
 
 /**
- * @brief Finds first Utility
- * 
+ * @brief Destroy the Utility Iterator object
  */
-void UtilityIterator::first(){
-    bool found = false;
+UtilityIterator::~UtilityIterator() {}
 
-    for(currRow = grid.begin();currRow != this->grid.end(); currRow++){
-        col = 0;
-        for(curr = currRow->begin(); curr != currRow->end(); curr++){
-            Utility* e = dynamic_cast<Utility*>(*curr);
-            if(e){found = true;break;}
-            col+=1;
-        }
-        if(found)break;
-        row+=1;
-    }
+/**
+ * @brief Construct a new Utility Iterator object with grid
+ *
+ * @param grid
+ */
+UtilityIterator::UtilityIterator(std::vector<std::vector<Entity *>> &grid) : Iterator(grid)
+{
+    this->currRow = this->grid.begin();
+    this->curr = currRow->begin();
+    this->row = 0;
+    this->col = 0;
+    first();
 }
 
 /**
- * @brief Finds next Utility
- * 
+ * @brief Resets the iterator to the first unvisited Utility instance
  */
-void UtilityIterator::next(){
-    bool found = false;
-    int Tcol = this->col;
-    int Trow = this->row;
-    if(hasNext()){
-        col = 0;
-        row = 0;
-    for(currRow = grid.begin();currRow != this->grid.end();++currRow){
-        col = 0;
-        for(curr = currRow->begin(); curr != currRow->end();++curr){
-            Utility* e = dynamic_cast<Utility*>(*curr);
-            if(e && (Tcol<col || Trow<row)){found = true;break;}
-            col+=1;
+void UtilityIterator::first()
+{
+    visitedEntities.clear(); // Clear visited set for reuse
+    row = 0;
+    col = 0;
+
+    for (row = 0; row < grid.size(); ++row)
+    {
+        for (col = 0; col < grid[row].size(); ++col)
+        {
+            Utility *util = dynamic_cast<Utility *>(grid[row][col]);
+            if (util && !isVisited(util))
+            {
+                markVisited(util);
+                currRow = grid.begin() + row;
+                curr = currRow->begin() + col;
+                return;
+            }
         }
-        if(found)break;
-        row+=1;
     }
-    }//hasNext
+
+    // Set to end if no Utility instances are found
+    currRow = grid.end();
+    curr = {};
 }
 
 /**
- * @brief Determines if there is next Utility
- * 
- * @return true 
- * @return false 
+ * @brief Advances to the next unvisited Utility instance
  */
-bool UtilityIterator::hasNext(){
-    int tr = 0;
-    int tc = 0;
-    for(std::vector<std::vector<Entity*>>::iterator itRow = grid.begin();itRow != grid.end();  itRow++){
-        tc=0;
-        for(std::vector<Entity*>::iterator itCol = itRow->begin();itCol != itRow->end();  itCol++){
-            Utility* a = dynamic_cast<Utility*>(*itCol);
-            if((a) && (tr>row)){return true;}
-            if((a) && (tr>=row && tc>col)){return true;}
-            tc+=1;
+void UtilityIterator::next()
+{
+    if (currRow == grid.end())
+        return;
+
+    // Find the next unvisited Utility in the grid
+    for (++col; row < grid.size(); ++row, col = 0)
+    {
+        for (; col < grid[row].size(); ++col)
+        {
+            Utility *util = dynamic_cast<Utility *>(grid[row][col]);
+            if (util && !isVisited(util))
+            {
+                markVisited(util);
+                currRow = grid.begin() + row;
+                curr = currRow->begin() + col;
+                return;
+            }
         }
-        tr+=1;
     }
-    return false;
+
+    // If no further Utility instances, set iterator to the end
+    currRow = grid.end();
+    curr = {};
 }
 
 /**
- * @brief 
- * 
- * @return Entity* 
+ * @brief Checks if there is another unvisited Utility instance
+ *
+ * @return true if there is another unvisited Utility, false otherwise
  */
-Entity* UtilityIterator::current(){
-    return (*this->curr);
+bool UtilityIterator::hasNext()
+{
+    return currRow != grid.end() && curr != currRow->end();
+}
+
+/**
+ * @brief Returns the current Utility instance pointed to by the iterator
+ *
+ * @return A pointer to the current Utility instance
+ */
+Entity *UtilityIterator::current()
+{
+    return (currRow != grid.end() && curr != currRow->end()) ? *curr : nullptr;
 }

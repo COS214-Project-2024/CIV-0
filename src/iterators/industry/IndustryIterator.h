@@ -4,16 +4,17 @@
 #include "iterators/base/Iterator.h"
 #include "entities/industry/base/Industry.h"
 
-class IndustryIterator : public Iterator {
+class IndustryIterator : public Iterator
+{
 public:
     IndustryIterator();
     ~IndustryIterator();
 
-    IndustryIterator(std::vector<std::vector<Entity*>> &grid);
+    IndustryIterator(std::vector<std::vector<Entity *>> &grid);
     void first();
     void next();
     bool hasNext();
-    Entity* current();
+    Entity *current();
 };
 
 #endif // INDUSTRYITERATOR_H
