@@ -51,6 +51,14 @@ public:
      * @return true if the public transit system was successfully built, false otherwise.
      */
     bool buildPublicTransit(EntityType type, Size size, int x, int y);
+    /**
+     * @brief Determines if public transit can be afforded based on the entity type and size.
+     * 
+     * @param type The type of the entity (e.g., individual, organization).
+     * @param size The size of the entity (e.g., small, medium, large).
+     * @return true if public transit can be afforded, false otherwise.
+     */
+    bool canAffordPublicTransit(EntityType type, Size size);
 };
 
 #endif // TRANSPORTMANAGER_H

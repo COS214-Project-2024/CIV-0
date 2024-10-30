@@ -23,20 +23,32 @@ bool TransportManager::buildRoad(int x, int y) {
 	}
 	return false;
 }
+bool TransportManager::canAffordPublicTransit(EntityType type, Size size) {
+	EntityConfig entityConfig = ConfigManager::getEntityConfig(type, size);
+	City* city = City::instance();
+	if (entityConfig.cost.moneyCost <= city->getMoney() && entityConfig.cost.woodCost <= city->getWood() && entityConfig.cost.stoneCost <= city->getStone() && entityConfig.cost.concreteCost <= city->getConcrete()) {
+		return true;
+	}
+	return false;
+}
 
 bool TransportManager::buildPublicTransit(EntityType type, Size size, int x, int y) {
-    TransportFactory * fact = new TransportFactory();
-    City* city = City::instance();
-    switch (size){
-        case Size::SMALL:
-            city->addEntity(fact->createSmallEntity(type, x, y));
-            break;
-        case Size::MEDIUM:
-            city->addEntity(fact->createMediumEntity(type, x, y));
-            break;
-        case Size::LARGE:
-            city->addEntity(fact->createLargeEntity(type, x, y));
-            break;
-    }
-    delete fact;
+	if (!canAffordPublicTransit(type, size)) {
+		return false;
+	}
+	TransportFactory* fact = new TransportFactory();
+	City* city = City::instance();
+	switch (size) {
+		case Size::SMALL:
+			city->addEntity(fact->createSmallEntity(type, x, y));
+			break;
+		case Size::MEDIUM:
+			city->addEntity(fact->createMediumEntity(type, x, y));
+			break;
+		case Size::LARGE:
+			city->addEntity(fact->createLargeEntity(type, x, y));
+			break;
+	}
+	delete fact;
+	return true;
 }
