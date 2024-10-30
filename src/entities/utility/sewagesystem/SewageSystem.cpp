@@ -1,19 +1,23 @@
 #include "SewageSystem.h"
+#include "entities/utility/sewagesystem/SewageSystemLevelOneUpgrade.h"
 
-SewageSystem::SewageSystem() : Utility() {}
-SewageSystem::~SewageSystem() {}
+SewageSystem::SewageSystem() : Utility() {
 
-SewageSystem::SewageSystem(EntityConfig ec, Size size, int xPos, int yPos) : Utility(ec, size, xPos, yPos)
-{
+}
+
+SewageSystem::~SewageSystem() {
+
+}
+
+SewageSystem::SewageSystem(EntityConfig ec, Size size, int xPos, int yPos) : Utility(ec, size, xPos, yPos) {
     setOutput(20); //TODO - change value
 }
 
-SewageSystem::SewageSystem(SewageSystem* sewageSystem) : Utility(sewageSystem) {
+SewageSystem::SewageSystem(SewageSystem* sewage) : Utility(sewage) {
 
 }
 
-void SewageSystem::update()
-{
+void SewageSystem::update() {
     for(Entity* o : observers)
     {
         ResidentialBuilding* rb = dynamic_cast<ResidentialBuilding*>(o);
@@ -30,7 +34,10 @@ void SewageSystem::update()
     }
 }
 
-Entity* SewageSystem::clone()
-{
+Entity* SewageSystem::clone() {
     return new SewageSystem(this);
+}
+
+Entity* SewageSystem::upgrade() {
+    return new SewageSystemLevelOneUpgrade(this);
 }

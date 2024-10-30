@@ -18,9 +18,9 @@ public:
      * 
      * Initializes the upgrade with a reference to an existing PowerPlant, enhancing its features.
      * 
-     * @param powerPlant Pointer to the PowerPlant being upgraded.
+     * @param power Pointer to the PowerPlant being upgraded.
      */
-    PowerPlantUpgrade(PowerPlant* powerPlant);
+    PowerPlantUpgrade(PowerPlant* power);
 
     /**
      * @brief Copy constructor for the PowerPlantUpgrade class.
@@ -52,12 +52,16 @@ public:
      */
     virtual Entity* clone() = 0;
 
+    virtual Entity* upgrade() = 0;
+
     /**
      * @brief Retrieves the output of the upgraded power plant.
      * 
      * @return The power output as an integer.
      */
     virtual int getOutput() = 0;
+
+    virtual Cost getCost() = 0;
 
 protected:
     PowerPlant* powerPlant; ///< Pointer to the original PowerPlant that is being upgraded.

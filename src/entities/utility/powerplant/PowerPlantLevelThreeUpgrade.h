@@ -18,9 +18,9 @@ public:
      * 
      * Initializes the upgrade by enhancing the specified PowerPlant with a level three upgrade.
      * 
-     * @param powerPlant Pointer to the original PowerPlant to be upgraded.
+     * @param power Pointer to the original PowerPlant to be upgraded.
      */
-    PowerPlantLevelThreeUpgrade(PowerPlant* powerPlant);
+    PowerPlantLevelThreeUpgrade(PowerPlant* power);
 
     /**
      * @brief Copy constructor for PowerPlantLevelThreeUpgrade.
@@ -55,6 +55,8 @@ public:
      */
     Entity* clone();
 
+    Entity* upgrade();
+
     /**
      * @brief Retrieves the upgraded power plant's output.
      * 
@@ -63,6 +65,8 @@ public:
      * @return The updated power output as an integer.
      */
     int getOutput();
+
+    Cost getCost();
 
 private:
     const int UPGRADE = 6; ///< Multiplier applied to the original power output for the level three upgrade.

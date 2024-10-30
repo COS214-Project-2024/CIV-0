@@ -3,6 +3,8 @@
 
 #include "PowerPlantUpgrade.h"
 
+class PowerPlantLevelThree;
+
 /**
  * @class PowerPlantLevelTwoUpgrade
  * @brief Represents the second level upgrade to a PowerPlant entity.
@@ -18,9 +20,9 @@ public:
      * 
      * Initializes the upgrade by enhancing the specified PowerPlant with a level two upgrade.
      * 
-     * @param powerPlant Pointer to the original PowerPlant to be upgraded.
+     * @param power Pointer to the original PowerPlant to be upgraded.
      */
-    PowerPlantLevelTwoUpgrade(PowerPlant* powerPlant);
+    PowerPlantLevelTwoUpgrade(PowerPlant* power);
 
     /**
      * @brief Copy constructor for PowerPlantLevelTwoUpgrade.
@@ -55,6 +57,8 @@ public:
      */
     Entity* clone();
 
+    Entity* upgrade();
+
     /**
      * @brief Retrieves the upgraded power plant's output.
      * 
@@ -63,6 +67,8 @@ public:
      * @return The updated power output as an integer.
      */
     int getOutput();
+
+    Cost getCost();
 
 private:
     const int UPGRADE = 4; ///< Multiplier applied to the original power output for the level two upgrade.
