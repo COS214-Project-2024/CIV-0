@@ -13,6 +13,7 @@ Utility::Utility() : Entity() {
 
 Utility::Utility(Utility* utility) : Entity(utility) {
     this->output = utility->output;
+    this->cost = utility->cost;
     subscribeToAllResidentialInRadius();
 }
 
