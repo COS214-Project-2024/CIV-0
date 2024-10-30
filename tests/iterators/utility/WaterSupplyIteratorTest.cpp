@@ -3,167 +3,156 @@
 #include "entities/utility/watersupply/WaterSupply.h"
 #include "entities/building/amenity/Theater.h"
 
-TEST_CASE("WaterSupplyIteratorTest test") {
-std::vector<std::vector<Entity*>> grid;
+TEST_CASE("WaterSupplyIterator initial position")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    WaterSupply* p = new WaterSupply();
-    Theater* t = new Theater();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    WaterSupply *ws1 = new WaterSupply();
+    Theater *t = new Theater();
 
-    row1.push_back(p);
-    row1.push_back(p);
-    row2.push_back(NULL);
-    row2.push_back(p);
+    row1.push_back(ws1);
+    row1.push_back(ws1);
+    row2.push_back(nullptr);
+    row2.push_back(ws1);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    WaterSupplyIterator* aIter = new WaterSupplyIterator(grid);
-    CHECK(aIter->getCol() == 0);
-    CHECK(aIter->getRow() == 0);
-    delete aIter;
-    delete p;
+    WaterSupplyIterator *wsIter = new WaterSupplyIterator(grid);
+    wsIter->first();
+    CHECK(wsIter->getRow() == 0);
+    CHECK(wsIter->getCol() == 0);
+
+    delete wsIter;
+    delete ws1;
     delete t;
 }
 
-TEST_CASE("Testing next()"){
-        std::vector<std::vector<Entity*>> grid;
+TEST_CASE("WaterSupplyIterator next()")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    WaterSupply* p = new WaterSupply();
-    Theater* t = new Theater();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    WaterSupply *ws1 = new WaterSupply();
+    Theater *t = new Theater();
 
-    row1.push_back(p);
-    row1.push_back(p);
-    row2.push_back(NULL);
+    row1.push_back(ws1);
+    row1.push_back(nullptr);
     row2.push_back(t);
+    row2.push_back(ws1);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    WaterSupplyIterator* aIter = new WaterSupplyIterator(grid);
-    aIter->next();
-    CHECK(aIter->getCol() == 1);
-    CHECK(aIter->getRow() == 0);
-    delete aIter;
-    delete p;
+    WaterSupplyIterator *wsIter = new WaterSupplyIterator(grid);
+    wsIter->first();
+    CHECK(wsIter->getRow() == 0);
+    CHECK(wsIter->getCol() == 0);
+
+    wsIter->next();
+    CHECK(wsIter->getRow() == 2);
+    CHECK(wsIter->getCol() == 0);
+    CHECK(wsIter->hasNext() == false);
+
+    delete wsIter;
+    delete ws1;
     delete t;
 }
 
-TEST_CASE("Testing first()"){
-        std::vector<std::vector<Entity*>> grid;
+TEST_CASE("WaterSupplyIterator first()")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    WaterSupply* p = new WaterSupply();
-    Theater* t = new Theater();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    WaterSupply *ws1 = new WaterSupply();
+    Theater *t = new Theater();
 
-    row1.push_back(p);
-    row1.push_back(p);
-    row2.push_back(NULL);
-    row2.push_back(t);
-
-    grid.push_back(row1);
-    grid.push_back(row2);
-
-    WaterSupplyIterator* aIter = new WaterSupplyIterator(grid);
-    aIter->first();
-    CHECK(aIter->getCol() == 0);
-    CHECK(aIter->getRow() == 0);
-    delete aIter;
-    delete p;
-    delete t;
-}
-
-TEST_CASE("Testing hasNext()"){
-        std::vector<std::vector<Entity*>> grid;
-
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    WaterSupply* p = new WaterSupply();
-    Theater* t = new Theater();
-
-    row1.push_back(p);
-    row1.push_back(p);
-    row2.push_back(NULL);
-    row2.push_back(t);
-
-    grid.push_back(row1);
-    grid.push_back(row2);
-
-    WaterSupplyIterator* aIter = new WaterSupplyIterator(grid);
-    aIter->next();
-    CHECK(aIter->hasNext() == false);
-    CHECK(aIter->getCol() == 1);
-    CHECK(aIter->getRow() == 0);
-    delete aIter;
-    delete p;
-    delete t;
-}
-
-TEST_CASE("Testing hasNext()"){
-        std::vector<std::vector<Entity*>> grid;
-
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    WaterSupply* p = new WaterSupply();
-    Theater* t = new Theater();
-
-    row1.push_back(p);
+    row1.push_back(ws1);
     row1.push_back(t);
-    row2.push_back(p);
-    row2.push_back(p);
+    row2.push_back(nullptr);
+    row2.push_back(ws1);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    WaterSupplyIterator* aIter = new WaterSupplyIterator(grid);
+    WaterSupplyIterator *wsIter = new WaterSupplyIterator(grid);
+    wsIter->first();
+    CHECK(wsIter->getRow() == 0);
+    CHECK(wsIter->getCol() == 0);
+    CHECK(wsIter->hasNext() == true);
 
-    WaterSupply* testP = new WaterSupply();
-    Utility* castCheck1 = dynamic_cast<Utility*>(testP);
-    WaterSupply* castCheck2 = dynamic_cast<WaterSupply*>(castCheck1);
-    CHECK(castCheck2 != NULL);
-    aIter->next();
-    aIter->next();   
-    //aIter->next();
-    CHECK(aIter->getCol() == 1);
-    CHECK(aIter->getRow() == 1);
-    CHECK(aIter->hasNext() == false);
-    delete testP;
-    delete aIter;
-    delete p;
+    delete wsIter;
+    delete ws1;
     delete t;
 }
 
-TEST_CASE("Testing next()"){
-        std::vector<std::vector<Entity*>> grid;
+TEST_CASE("WaterSupplyIterator hasNext() with multiple WaterSupply instances")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    WaterSupply* p = new WaterSupply();
-    Theater* t = new Theater();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    WaterSupply *ws1 = new WaterSupply();
+    WaterSupply *ws2 = new WaterSupply();
+    Theater *t = new Theater();
 
-    row1.push_back(p);
-    row1.push_back(p);
-    row2.push_back(NULL);
-    row2.push_back(NULL);
+    row1.push_back(ws1);
+    row1.push_back(nullptr);
+    row2.push_back(t);
+    row2.push_back(ws2);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    WaterSupplyIterator* aIter = new WaterSupplyIterator(grid);
-    aIter->next();
-    aIter->next();
-    aIter->next();
-    CHECK(aIter->getCol() == 1);
-    delete aIter;
-    delete p;
+    WaterSupplyIterator *wsIter = new WaterSupplyIterator(grid);
+    wsIter->first();
+    CHECK(wsIter->hasNext() == true);
+    CHECK(wsIter->getRow() == 0);
+    CHECK(wsIter->getCol() == 0);
+
+    wsIter->next();
+    CHECK(wsIter->getRow() == 1);
+    CHECK(wsIter->getCol() == 1);
+    CHECK(wsIter->hasNext() == true);
+
+    wsIter->next();
+    CHECK(wsIter->getRow() == 2);
+    CHECK(wsIter->getCol() == 0);
+    CHECK(wsIter->hasNext() == false);
+
+    delete wsIter;
+    delete ws1;
+    delete ws2;
     delete t;
 }
 
+TEST_CASE("WaterSupplyIterator reaching the end")
+{
+    std::vector<std::vector<Entity *>> grid;
 
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    WaterSupply *ws1 = new WaterSupply();
+    Theater *t = new Theater();
 
+    row1.push_back(ws1);
+    row1.push_back(t);
+    row2.push_back(nullptr);
+    row2.push_back(nullptr);
 
+    grid.push_back(row1);
+    grid.push_back(row2);
 
+    WaterSupplyIterator *wsIter = new WaterSupplyIterator(grid);
+    wsIter->first();
+    wsIter->next();
+    CHECK(wsIter->hasNext() == false);
+
+    delete wsIter;
+    delete ws1;
+    delete t;
+}

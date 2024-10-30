@@ -22,8 +22,12 @@ City::~City()
     {
         for (int j = 0; j < height; j++)
         {
-            if (grid[i][j])
-                delete grid[i][j];
+            if (grid[i][j] != nullptr)
+            {
+                // delete grid[i][j];    // Free memory
+                deleteEntity(i, j);
+                grid[i][j] = nullptr; // Set to nullptr to avoid double-deletion
+            }
         }
     }
 }
@@ -130,7 +134,13 @@ void City::addEntity(Entity *entity)
 
     if (x >= 0 && x + entity->getWidth() <= width && y - entity->getHeight() >= 0 && y < height)
     {
-        grid[x][y] = entity;
+        for (int i = x; i < x + entity->getWidth(); i++)
+        {
+            for (int j = y - entity->getHeight() + 1; j <= y; j++)
+            {
+                grid[j][i] = entity;
+            }
+        }
     }
 }
 
@@ -152,7 +162,6 @@ void City::createRandomRoad()
 
     grid[y][x] = new Road(ConfigManager::getEntityConfig(EntityType::ROAD, Size::SMALL), Size::SMALL, x, y); // Place a new Road entity at the random position
 }
-
 // Getters
 int City::getWidth() const { return width; }
 int City::getHeight() const { return height; }

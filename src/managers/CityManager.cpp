@@ -36,7 +36,7 @@ void CityManager::initializeCity()
 
 void CityManager::updateCity()
 {
-    // TODO
+    // TODO - I need to wait for the other managers
 }
 
 Entity *CityManager::getEntity(int x, int y)
@@ -48,6 +48,7 @@ Entity *CityManager::getEntity(int x, int y)
 void CityManager::sellBuilding(int xPos, int yPos)
 {
     City *c = City::instance();
+    // Can't sell a road
     if (dynamic_cast<Road *>(c->getEntity(xPos, yPos)) != nullptr)
     {
         return;
@@ -175,6 +176,7 @@ void CityManager::sellAllBuildingsOfType(EntityType type)
             case (EntityType::ROAD):
                 if (dynamic_cast<Road *>(c->getEntity(i, j)) != nullptr)
                 {
+                    //! Cant sell a road
                     return;
                 }
                 break;
