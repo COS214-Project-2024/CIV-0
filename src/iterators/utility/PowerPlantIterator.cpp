@@ -1,102 +1,106 @@
 #include "PowerPlantIterator.h"
 
 /**
- * @brief Construct a new Power Plant Iterator:: Power Plant Iterator object
- * 
+ * @brief Construct a new PowerPlantIterator object
  */
-PowerPlantIterator::PowerPlantIterator():Iterator(){}
-/**
- * @brief Destroy the Power Plant Iterator:: Power Plant Iterator object
- * 
- */
-PowerPlantIterator::~PowerPlantIterator() {}
-
-/**
- * @brief Construct a new Power Plant Iterator:: Power Plant Iterator object
- * 
- * @param grid 
- */
-PowerPlantIterator::PowerPlantIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
-    this->grid = grid;
-    this->currRow = this->grid.begin();
-    this->curr = currRow->begin();
+PowerPlantIterator::PowerPlantIterator() : Iterator()
+{
     this->row = 0;
     this->col = 0;
 }
 
 /**
- * @brief Resets the iterator to the first PowerPlant instance in the grid.
- * 
- * Sets the iterator to the first PowerPlant found in the grid. If no instance is found, it will 
- * position at the end of the grid.
+ * @brief Destroy the PowerPlantIterator object
  */
-void PowerPlantIterator::first(){
-    bool found = false;
+PowerPlantIterator::~PowerPlantIterator() {}
 
-    for(currRow = grid.begin();currRow != this->grid.end(); currRow++){
-        col = 0;
-        for(curr = currRow->begin(); curr != currRow->end(); curr++){
-            PowerPlant* e = dynamic_cast<PowerPlant*>(*curr);
-            if(e){found = true;break;}
-            col+=1;
-        }
-        if(found)break;
-        row+=1;
-    }
+/**
+ * @brief Construct a new PowerPlantIterator object with grid
+ *
+ * @param grid
+ */
+PowerPlantIterator::PowerPlantIterator(std::vector<std::vector<Entity *>> &grid) : Iterator(grid)
+{
+    this->currRow = this->grid.begin();
+    this->curr = currRow->begin();
+    this->row = 0;
+    this->col = 0;
+    first();
 }
 
 /**
- * @brief Advances the iterator to the next PowerPlant instance in the grid.
- * 
- * Moves to the next PowerPlant in the grid based on the current position.
- * If no more instances are found, resets the iterator.
+ * @brief Sets the iterator to the first unvisited PowerPlant
  */
-void PowerPlantIterator::next(){
-    bool found = false;
-    int Tcol = this->col;
-    int Trow = this->row;
-    if(hasNext()){
-        col = 0;
-        row = 0;
-    for(currRow = grid.begin();currRow != this->grid.end();++currRow){
-        col = 0;
-        for(curr = currRow->begin(); curr != currRow->end();++curr){
-            PowerPlant* e = dynamic_cast<PowerPlant*>(*curr);
-            if(e && (Tcol<col || Trow<row)){found = true;break;}
-            col+=1;
+void PowerPlantIterator::first()
+{
+    visitedEntities.clear(); // Clear visited set for reuse
+    row = 0;
+    col = 0;
+
+    for (row = 0; row < grid.size(); ++row)
+    {
+        for (col = 0; col < grid[row].size(); ++col)
+        {
+            PowerPlant *plant = dynamic_cast<PowerPlant *>(grid[row][col]);
+            if (plant && !isVisited(plant))
+            {
+                markVisited(plant);
+                currRow = grid.begin() + row;
+                curr = currRow->begin() + col;
+                return;
+            }
         }
-        if(found)break;
-        row+=1;
     }
-    }//hasNext
+
+    // Set to end if no PowerPlant instances are found
+    currRow = grid.end();
+    curr = {};
 }
 
 /**
- * @brief Checks if there is another PowerPlant instance in the grid after the current position.
- * 
- * @return true if another PowerPlant exists, false otherwise.
+ * @brief Advances to the next unvisited PowerPlant
  */
-bool PowerPlantIterator::hasNext(){
-    int tr = 0;
-    int tc = 0;
-    for(std::vector<std::vector<Entity*>>::iterator itRow = grid.begin();itRow != grid.end();  itRow++){
-        tc=0;
-        for(std::vector<Entity*>::iterator itCol = itRow->begin();itCol != itRow->end();  itCol++){
-            PowerPlant* a = dynamic_cast<PowerPlant*>(*itCol);
-            if((a) && (tr>row)){return true;}
-            if((a) && (tr>=row && tc>col)){return true;}
-            tc+=1;
+void PowerPlantIterator::next()
+{
+    if (currRow == grid.end())
+        return;
+
+    for (++col; row < grid.size(); ++row, col = 0)
+    {
+        for (; col < grid[row].size(); ++col)
+        {
+            PowerPlant *plant = dynamic_cast<PowerPlant *>(grid[row][col]);
+            if (plant && !isVisited(plant))
+            {
+                markVisited(plant);
+                currRow = grid.begin() + row;
+                curr = currRow->begin() + col;
+                return;
+            }
         }
-        tr+=1;
     }
-    return false;
+
+    // If no further PowerPlants, set iterator to the end
+    currRow = grid.end();
+    curr = {};
 }
 
 /**
- * @brief Returns the current Entity instance pointed to by the iterator.
- * 
- * @return A pointer to the current Entity instance.
+ * @brief Checks if there is another unvisited PowerPlant
+ *
+ * @return true if there is another unvisited PowerPlant, false otherwise
  */
-Entity* PowerPlantIterator::current(){
-    return (*this->curr);
+bool PowerPlantIterator::hasNext()
+{
+    return currRow != grid.end() && curr != currRow->end();
+}
+
+/**
+ * @brief Returns the current PowerPlant
+ *
+ * @return Entity*
+ */
+Entity *PowerPlantIterator::current()
+{
+    return (currRow != grid.end() && curr != currRow->end()) ? *curr : nullptr;
 }

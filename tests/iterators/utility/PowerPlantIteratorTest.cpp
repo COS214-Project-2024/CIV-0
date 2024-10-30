@@ -3,165 +3,157 @@
 #include "entities/utility/powerplant/PowerPlant.h"
 #include "entities/building/amenity/Theater.h"
 
-TEST_CASE("PowerPlantIteratorTest test"){
-std::vector<std::vector<Entity*>> grid;
+TEST_CASE("Testing PowerPlantIterator initial position")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    PowerPlant* p = new PowerPlant();
-    Theater* t = new Theater();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    PowerPlant *p = new PowerPlant();
+    Theater *t = new Theater();
 
     row1.push_back(p);
     row1.push_back(p);
-    row2.push_back(NULL);
+    row2.push_back(nullptr);
+    row2.push_back(t);
+
+    grid.push_back(row1);
+    grid.push_back(row2);
+
+    PowerPlantIterator *aIter = new PowerPlantIterator(grid);
+    aIter->first();
+    CHECK(aIter->getRow() == 0);
+    CHECK(aIter->getCol() == 0);
+    CHECK(aIter->hasNext() == true);
+
+    delete aIter;
+    delete p;
+    delete t;
+}
+
+TEST_CASE("Testing PowerPlantIterator next()")
+{
+    std::vector<std::vector<Entity *>> grid;
+
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    PowerPlant *p = new PowerPlant();
+    Theater *t = new Theater();
+
+    row1.push_back(p);
+    row1.push_back(nullptr);
+    row2.push_back(t);
     row2.push_back(p);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    PowerPlantIterator* aIter = new PowerPlantIterator(grid);
-    CHECK(aIter->getCol() == 0);
-    CHECK(aIter->getRow() == 0);
-    delete aIter;
-    delete p;
-    delete t;
-}
-
-TEST_CASE("Testing next()"){
-        std::vector<std::vector<Entity*>> grid;
-
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    PowerPlant* p = new PowerPlant();
-    Theater* t = new Theater();
-
-    row1.push_back(p);
-    row1.push_back(p);
-    row2.push_back(NULL);
-    row2.push_back(t);
-
-    grid.push_back(row1);
-    grid.push_back(row2);
-
-    PowerPlantIterator* aIter = new PowerPlantIterator(grid);
-    aIter->next();
-    CHECK(aIter->getCol() == 1);
-    CHECK(aIter->getRow() == 0);
-    delete aIter;
-    delete p;
-    delete t;
-}
-
-TEST_CASE("Testing first()"){
-        std::vector<std::vector<Entity*>> grid;
-
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    PowerPlant* p = new PowerPlant();
-    Theater* t = new Theater();
-
-    row1.push_back(p);
-    row1.push_back(p);
-    row2.push_back(NULL);
-    row2.push_back(t);
-
-    grid.push_back(row1);
-    grid.push_back(row2);
-
-    PowerPlantIterator* aIter = new PowerPlantIterator(grid);
+    PowerPlantIterator *aIter = new PowerPlantIterator(grid);
     aIter->first();
+    CHECK(aIter->getRow() == 0);
     CHECK(aIter->getCol() == 0);
-    CHECK(aIter->getRow() == 0);
-    delete aIter;
-    delete p;
-    delete t;
-}
 
-TEST_CASE("Testing hasNext()"){
-        std::vector<std::vector<Entity*>> grid;
-
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    PowerPlant* p = new PowerPlant();
-    Theater* t = new Theater();
-
-    row1.push_back(p);
-    row1.push_back(p);
-    row2.push_back(NULL);
-    row2.push_back(t);
-
-    grid.push_back(row1);
-    grid.push_back(row2);
-
-    PowerPlantIterator* aIter = new PowerPlantIterator(grid);
     aIter->next();
+    CHECK(aIter->getRow() == 2);
+    CHECK(aIter->getCol() == 0);
     CHECK(aIter->hasNext() == false);
-    CHECK(aIter->getCol() == 1);
-    CHECK(aIter->getRow() == 0);
+
     delete aIter;
     delete p;
     delete t;
 }
 
-TEST_CASE("Testing hasNext()"){
-        std::vector<std::vector<Entity*>> grid;
+TEST_CASE("Testing PowerPlantIterator first()")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    PowerPlant* p = new PowerPlant();
-    Theater* t = new Theater();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    PowerPlant *p = new PowerPlant();
+    Theater *t = new Theater();
 
     row1.push_back(p);
     row1.push_back(t);
-    row2.push_back(p);
+    row2.push_back(nullptr);
     row2.push_back(p);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    PowerPlantIterator* aIter = new PowerPlantIterator(grid);
+    PowerPlantIterator *aIter = new PowerPlantIterator(grid);
+    aIter->first();
+    CHECK(aIter->getRow() == 0);
+    CHECK(aIter->getCol() == 0);
+    CHECK(aIter->hasNext() == true);
 
-    PowerPlant* testP = p;
-    Utility* castCheck1 = dynamic_cast<Utility*>(testP);
-    PowerPlant* castCheck2 = dynamic_cast<PowerPlant*>(castCheck1);
-    CHECK(castCheck2 != NULL);
+    delete aIter;
+    delete p;
+    delete t;
+}
+
+TEST_CASE("Testing PowerPlantIterator hasNext() with multiple PowerPlants")
+{
+    std::vector<std::vector<Entity *>> grid;
+
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    PowerPlant *p1 = new PowerPlant();
+    PowerPlant *p2 = new PowerPlant();
+    Theater *t = new Theater();
+
+    row1.push_back(p1);
+    row1.push_back(nullptr);
+    row2.push_back(t);
+    row2.push_back(p2);
+
+    grid.push_back(row1);
+    grid.push_back(row2);
+
+    PowerPlantIterator *aIter = new PowerPlantIterator(grid);
+    aIter->first();
+    CHECK(aIter->hasNext() == true);
+    CHECK(aIter->getRow() == 0);
+    CHECK(aIter->getCol() == 0);
+
     aIter->next();
-    aIter->next();   
-    //aIter->next();
-    CHECK(aIter->getCol() == 1);
     CHECK(aIter->getRow() == 1);
+    CHECK(aIter->getCol() == 1);
+    CHECK(aIter->hasNext() == true);
+
+    aIter->next();
+    CHECK(aIter->getRow() == 2);
+    CHECK(aIter->getCol() == 0);
     CHECK(aIter->hasNext() == false);
+
     delete aIter;
-    delete p;
+    delete p1;
+    delete p2;
     delete t;
 }
 
-TEST_CASE("Testing next()"){
-        std::vector<std::vector<Entity*>> grid;
+TEST_CASE("Testing PowerPlantIterator reaching the end")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    PowerPlant* p = new PowerPlant();
-    Theater* t = new Theater();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    PowerPlant *p = new PowerPlant();
+    Theater *t = new Theater();
 
     row1.push_back(p);
-    row1.push_back(p);
-    row2.push_back(NULL);
-    row2.push_back(NULL);
+    row1.push_back(t);
+    row2.push_back(nullptr);
+    row2.push_back(nullptr);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    PowerPlantIterator* aIter = new PowerPlantIterator(grid);
+    PowerPlantIterator *aIter = new PowerPlantIterator(grid);
+    aIter->first();
     aIter->next();
-    aIter->next();
-    aIter->next();
-    CHECK(aIter->getCol() == 1);
+    CHECK(aIter->hasNext() == false);
+
     delete aIter;
     delete p;
     delete t;
 }
-
-
-
-
