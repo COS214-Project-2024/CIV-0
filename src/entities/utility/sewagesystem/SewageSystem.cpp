@@ -1,5 +1,5 @@
 #include "SewageSystem.h"
-#include "entities/utility/SewageSystem/SewageSystemLevelOneUpgrade.h"
+#include "entities/utility/sewagesystem/SewageSystemLevelOneUpgrade.h"
 
 SewageSystem::SewageSystem() : Utility() {
 
