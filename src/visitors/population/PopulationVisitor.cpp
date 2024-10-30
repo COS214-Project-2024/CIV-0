@@ -9,6 +9,8 @@ PopulationVisitor::PopulationVisitor()
 
 void PopulationVisitor::visit(City *city)
 {
+    totalElectricityConsumption = 0;
+    totalWaterConsumption = 0;
     std::unordered_set<Entity*> visitedEntities;  // Track unique entities
     std::vector<std::vector<Entity *>> &grid = city->getGrid();
     for (auto &row : city->getGrid())
