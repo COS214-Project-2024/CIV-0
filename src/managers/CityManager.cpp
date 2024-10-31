@@ -265,7 +265,7 @@ bool CityManager::canBuyAt(int xPos, int yPos, EntityType type, Size size)
 
     EntityConfig ec = ConfigManager::getEntityConfig(type, size);
 
-    if (xPos + ec.width > c->getWidth() || yPos - ec.height < 0)
+    if (xPos + ec.width > c->getWidth() || yPos - ec.height + 1 < 0)
     {
         return false;
     }

@@ -89,9 +89,9 @@ void BuyRoadMenu::confirmPurchase(int xPos, int yPos)
     {
         if (transportManager.canAffordRoad())
         {
-            cityManager.buyEntity(EntityType::ROAD, Size::SMALL);
             if (transportManager.buildRoad(xPos, yPos))
             {
+                cityManager.buyEntity(EntityType::ROAD, Size::SMALL);
                 displaySuccessMessage("Road successfully built!");
             }
             else
