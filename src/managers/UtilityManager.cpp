@@ -186,38 +186,16 @@ bool UtilityManager::upgrade(Utility*& utility) {
 
         // upgradedUtility returns nullptr if the utility is already at the maximum level
         if (upgradedUtility != nullptr) {
-            utility->~Utility();
+            std::vector<std::vector<Entity*>>& grid = City::instance()->getGrid();
 
-            // Use dynamic_cast to determine the specific type of upgradedUtility
-            if (PowerPlantLevelOneUpgrade* powerPlantUpgrade = dynamic_cast<PowerPlantLevelOneUpgrade*>(upgradedUtility)) {
-                utility = new (utility) PowerPlantLevelOneUpgrade(powerPlantUpgrade);
-            } else if (auto* powerPlantUpgrade = dynamic_cast<PowerPlantLevelTwoUpgrade*>(upgradedUtility)) {
-                utility = new (utility) PowerPlantLevelTwoUpgrade(powerPlantUpgrade);
-            } else if (auto* powerPlantUpgrade = dynamic_cast<PowerPlantLevelThreeUpgrade*>(upgradedUtility)) {
-                utility = new (utility) PowerPlantLevelThreeUpgrade(powerPlantUpgrade);
-            } else if (auto* waterSupplyUpgrade = dynamic_cast<WaterSupplyLevelOneUpgrade*>(upgradedUtility)) {
-                utility = new (utility) WaterSupplyLevelOneUpgrade(waterSupplyUpgrade);
-            } else if (auto* waterSupplyUpgrade = dynamic_cast<WaterSupplyLevelTwoUpgrade*>(upgradedUtility)) {
-                utility = new (utility) WaterSupplyLevelTwoUpgrade(waterSupplyUpgrade);
-            } else if (auto* waterSupplyUpgrade = dynamic_cast<WaterSupplyLevelThreeUpgrade*>(upgradedUtility)) {
-                utility = new (utility) WaterSupplyLevelThreeUpgrade(waterSupplyUpgrade);
-            } else if (auto* wasteManagementUpgrade = dynamic_cast<WasteManagementLevelOneUpgrade*>(upgradedUtility)) {
-                utility = new (utility) WasteManagementLevelOneUpgrade(wasteManagementUpgrade);
-            } else if (auto* wasteManagementUpgrade = dynamic_cast<WasteManagementLevelTwoUpgrade*>(upgradedUtility)) {
-                utility = new (utility) WasteManagementLevelTwoUpgrade(wasteManagementUpgrade);
-            } else if (auto* wasteManagementUpgrade = dynamic_cast<WasteManagementLevelThreeUpgrade*>(upgradedUtility)) {
-                utility = new (utility) WasteManagementLevelThreeUpgrade(wasteManagementUpgrade);
-            } else if (auto* sewageSystemUpgrade = dynamic_cast<SewageSystemLevelOneUpgrade*>(upgradedUtility)) {
-                utility = new (utility) SewageSystemLevelOneUpgrade(sewageSystemUpgrade);
-            } else if (auto* sewageSystemUpgrade = dynamic_cast<SewageSystemLevelTwoUpgrade*>(upgradedUtility)) {
-                utility = new (utility) SewageSystemLevelTwoUpgrade(sewageSystemUpgrade);
-            } else if (auto* sewageSystemUpgrade = dynamic_cast<SewageSystemLevelThreeUpgrade*>(upgradedUtility)) {
-                utility = new (utility) SewageSystemLevelThreeUpgrade(sewageSystemUpgrade);
-            } else {
-                return false;
+            for (int i = utility->getXPosition(); i < utility->getXPosition() + utility->getWidth(); i++) {
+                for (int j = utility->getYPosition() - utility->getHeight() + 1; j <= utility->getYPosition(); j++) {
+                    grid[i][j] = upgradedUtility;
+                }
             }
 
-            delete upgradedUtility;
+            delete utility;
+            utility = (Utility*) upgradedUtility;
 
             // Subtract cost?
 

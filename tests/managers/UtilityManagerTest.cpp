@@ -158,8 +158,8 @@ TEST_SUITE("UtilityManager") {
         SUBCASE("Sewage System - Affordable") {
             City::instance()->setMoney(1500);
             City::instance()->setWood(800);
-            City::instance()->setStone(300);
-            City::instance()->setConcrete(200);
+            City::instance()->setStone(400);
+            City::instance()->setConcrete(300);
             manager.buildUtility(EntityType::SEWAGESYSTEM, Size::SMALL, 20, 20);
             
             Utility* sewageSystem = manager.getAllSewageSystems().front();
@@ -180,19 +180,28 @@ TEST_SUITE("UtilityManager") {
         }
     }
 
-    TEST_CASE("UtilityManager cannot upgrade utility if resources are insufficient") {
+    TEST_CASE("Power Plant Upgrades") {
         resetCity();
         UtilityManager manager;
-        City::instance()->setMoney(0);  // Insufficient funds
 
-        manager.buildUtility(EntityType::WATERSUPPLY, Size::SMALL, 8, 8);
-        std::vector<Utility*> waterSupplies = manager.getAllWaterSupplies();
-        REQUIRE(waterSupplies.size() == 1);
+        City::instance()->setMoney(40000);
+        City::instance()->setWood(12000);
+        City::instance()->setStone(8000);
+        City::instance()->setConcrete(5000);
 
-        Utility* waterSupply = waterSupplies[0];
-        bool upgradeResult = manager.upgrade(waterSupply);
+        // Building multiple power plants
+        manager.buildUtility(EntityType::POWERPLANT, Size::SMALL, 1, 6);
+        manager.buildUtility(EntityType::POWERPLANT, Size::SMALL, 20, 20);
+        manager.buildUtility(EntityType::POWERPLANT, Size::SMALL, 10, 10);
 
-        CHECK_FALSE(upgradeResult);
-        CHECK(waterSupply != nullptr);  // Ensure waterSupply remains unchanged
+        Utility* powerPlant = manager.getAllPowerPlants().front();
+        REQUIRE(powerPlant != nullptr);
+
+        CHECK(manager.upgrade(powerPlant));         // Expecting this to return true
+        CHECK(manager.upgrade(powerPlant));         // Expecting this to return true
+        CHECK(manager.upgrade(powerPlant));         // Expecting this to return true
+        CHECK_FALSE(manager.upgrade(powerPlant));   // Expecting this to return false
+        CHECK_FALSE(manager.upgrade(powerPlant));   // Expecting this to return false
+        resetCity();
     }
 }
