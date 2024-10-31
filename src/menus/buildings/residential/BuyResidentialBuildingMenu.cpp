@@ -72,4 +72,5 @@ EntityType BuyResidentialBuildingMenu::chooseEntityType()
 
 void BuyResidentialBuildingMenu::buildEntity(EntityType type, Size size, int xPos, int yPos)
 {
+    buildingManager.buildBuilding(type, size, xPos, yPos);
 }

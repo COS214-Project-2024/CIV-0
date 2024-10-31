@@ -4,7 +4,7 @@
 #include "entities/road/Road.h"
 #include <algorithm> // for std::fill
 
-City::City() : width(50), height(50), // Set default values
+City::City() : width(25), height(25), // Set default values
                satisfaction(0), money(500), wood(500), stone(500), concrete(500),
                populationCapacity(0), population(0), electricityProduction(0),
                electricityConsumption(0), waterProduction(0), waterConsumption(0),
@@ -132,7 +132,7 @@ void City::addEntity(Entity *entity)
     int x = entity->getXPosition();
     int y = entity->getYPosition();
 
-    if (x >= 0 && x + entity->getWidth() <= width && y - entity->getHeight() >= 0 && y < height)
+    if (x >= 0 && x + entity->getWidth() <= width && y - entity->getHeight() + 1 >= 0 && y < height)
     {
         for (int i = x; i < x + entity->getWidth(); i++)
         {

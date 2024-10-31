@@ -217,7 +217,25 @@ void Entity::residentialBuildingPlaced()
 
 std::string Entity::getSymbol()
 {
-    return symbol;
+    if (dynamic_cast<ResidentialBuilding *>(this))
+    {
+        std::string color;
+        ResidentialBuilding *building = dynamic_cast<ResidentialBuilding *>(this);
+        if (building->getSatisfaction() >= 70)
+        {
+            color = "\033[32m"; // Green
+        }
+        else if (building->getSatisfaction() >= 40)
+        {
+            color = "\033[33m"; // Yellow
+        }
+        else
+        {
+            color = "\033[31m"; // Red
+        }
+        return color + this->symbol + "\033[0m";
+    }
+    return this->symbol;
 }
 
 float Entity::getElectricityConsumption()

@@ -18,6 +18,7 @@ public:
     void quit();
 
 private:
+    static int const GRID_SIZE = 50;
     // Private constructor and destructor
     CivZero(); // Constructor is private for singleton pattern
     ~CivZero();

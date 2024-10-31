@@ -121,6 +121,7 @@ void DisplayCityMenu::displayCity() const
     }
     std::cout << std::endl
               << "  ";
+
     printTopBorder(width * 2 + 1);
 
     // Loop over each row and column in the grid
@@ -140,6 +141,7 @@ void DisplayCityMenu::displayCity() const
                 std::cout << DARK_GRAY << ". " << RESET;
             }
         }
+
         std::cout << DARK_GRAY << "║" << RESET << std::endl;
     }
 
@@ -238,7 +240,5 @@ void DisplayCityMenu::handleInput()
             displayInvalidChoice();
             break;
         }
-
-        displayPressEnterToContinue(); // Pause before redisplaying
     }
 }

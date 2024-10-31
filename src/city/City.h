@@ -108,6 +108,11 @@ public:
     void reset(int width, int height);
 
     CityIterator createIterator();
+
+    /**
+     * @brief Generates a random city layout with roads and buildings.
+     */
+    void generateRandomCity();
 };
 
 #endif // CITY_H

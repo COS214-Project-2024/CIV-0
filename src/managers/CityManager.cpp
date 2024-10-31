@@ -322,3 +322,145 @@ bool CityManager::buyEntity(EntityType type, Size size)
 
     return false;
 }
+
+void CityManager::generateRandomCity()
+{
+    City *city = City::instance();
+    city->reset(city->getWidth(), city->getHeight()); // Reset city dimensions
+
+    // Step 1: Create main roads along a grid
+    int mainRoadSpacing = 15; // Spacing between main roads
+    for (int x = 0; x < city->getWidth(); x += mainRoadSpacing)
+    {
+        for (int y = 0; y < city->getHeight(); ++y)
+        {
+            if (city->getEntity(x, y) == nullptr) // Place road if no other entity is present
+            {
+                Road *road = new Road(ConfigManager::getEntityConfig(EntityType::ROAD, Size::SMALL), Size::SMALL, x, y);
+                city->addEntity(road);
+            }
+        }
+    }
+
+    for (int y = 0; y < city->getHeight(); y += mainRoadSpacing)
+    {
+        for (int x = 0; x < city->getWidth(); ++x)
+        {
+            if (city->getEntity(x, y) == nullptr)
+            {
+                Road *road = new Road(ConfigManager::getEntityConfig(EntityType::ROAD, Size::SMALL), Size::SMALL, x, y);
+                city->addEntity(road);
+            }
+        }
+    }
+
+    // Step 2: Add secondary roads branching from main roads
+    int branchRoadFrequency = 10; // Frequency of branching roads
+    for (int x = 0; x < city->getWidth(); x += mainRoadSpacing)
+    {
+        for (int y = 0; y < city->getHeight(); y += branchRoadFrequency)
+        {
+            if (city->getEntity(x, y) == nullptr && rand() % 2) // 50% chance to create a branching road
+            {
+                int length = rand() % 5 + 3; // Random length for branching roads
+                for (int i = 0; i < length && x + i < city->getWidth(); ++i)
+                {
+                    if (city->getEntity(x + i, y) == nullptr)
+                    {
+                        Road *road = new Road(ConfigManager::getEntityConfig(EntityType::ROAD, Size::SMALL), Size::SMALL, x + i, y);
+                        city->addEntity(road);
+                    }
+                }
+            }
+        }
+    }
+
+    for (int y = 0; y < city->getHeight(); y += mainRoadSpacing)
+    {
+        for (int x = 0; x < city->getWidth(); x += branchRoadFrequency)
+        {
+            if (city->getEntity(x, y) == nullptr && rand() % 2)
+            {
+                int length = rand() % 5 + 3;
+                for (int i = 0; i < length && y + i < city->getHeight(); ++i)
+                {
+                    if (city->getEntity(x, y + i) == nullptr)
+                    {
+                        Road *road = new Road(ConfigManager::getEntityConfig(EntityType::ROAD, Size::SMALL), Size::SMALL, x, y + i);
+                        city->addEntity(road);
+                    }
+                }
+            }
+        }
+    }
+
+    // Step 3: Clustered building placement by zones (e.g., residential, commercial, industrial)
+    std::vector<EntityType> residentialBuildings = {EntityType::HOUSE, EntityType::APARTMENT};
+    std::vector<EntityType> commercialBuildings = {EntityType::OFFICE, EntityType::SHOPPINGMALL, EntityType::THEATER};
+    std::vector<EntityType> industrialBuildings = {EntityType::FACTORY, EntityType::POWERPLANT};
+
+    // Define building zones
+    int zoneSize = city->getWidth() / 3;
+    for (int zone = 0; zone < 3; ++zone)
+    {
+        int startX = zone * zoneSize;
+        int endX = (zone + 1) * zoneSize;
+
+        std::vector<EntityType> selectedBuildings;
+        if (zone == 0)
+            selectedBuildings = residentialBuildings;
+        else if (zone == 1)
+            selectedBuildings = commercialBuildings;
+        else
+            selectedBuildings = industrialBuildings;
+
+        int buildingDensity = 100; // Density of buildings per zone
+        for (int i = 0; i < buildingDensity; ++i)
+        {
+            int x = startX + rand() % (endX - startX);
+            int y = rand() % city->getHeight();
+            Size buildingSize = static_cast<Size>(rand() % 3); // Choose random size
+
+            // Check if we can place the building at (x, y)
+            if (city->getEntity(x, y) == nullptr && canBuyAt(x, y, selectedBuildings[rand() % selectedBuildings.size()], buildingSize))
+            {
+                EntityType buildingType = selectedBuildings[rand() % selectedBuildings.size()];
+                Entity *building = nullptr;
+
+                switch (buildingType)
+                {
+                case EntityType::HOUSE:
+                    building = new House(ConfigManager::getEntityConfig(EntityType::HOUSE, buildingSize), buildingSize, x, y);
+                    break;
+                case EntityType::APARTMENT:
+                    building = new Apartment(ConfigManager::getEntityConfig(EntityType::APARTMENT, buildingSize), buildingSize, x, y);
+                    break;
+                case EntityType::OFFICE:
+                    building = new Office(ConfigManager::getEntityConfig(EntityType::OFFICE, buildingSize), buildingSize, x, y);
+                    break;
+                case EntityType::SHOPPINGMALL:
+                    building = new ShoppingMall(ConfigManager::getEntityConfig(EntityType::SHOPPINGMALL, buildingSize), buildingSize, x, y);
+                    break;
+                case EntityType::THEATER:
+                    building = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, buildingSize), buildingSize, x, y);
+                    break;
+                case EntityType::FACTORY:
+                    building = new Factory(ConfigManager::getEntityConfig(EntityType::FACTORY, buildingSize), buildingSize, x, y);
+                    break;
+                case EntityType::POWERPLANT:
+                    building = new PowerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, buildingSize), buildingSize, x, y);
+                    break;
+                default:
+                    continue;
+                }
+
+                if (building != nullptr)
+                {
+                    city->addEntity(building);
+                }
+            }
+        }
+    }
+
+    std::cout << "Random city generation complete.\n";
+}

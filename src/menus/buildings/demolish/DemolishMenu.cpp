@@ -91,7 +91,7 @@ void DemolishMenu::demolishSpecificBuilding()
     for (cityIterator.first(); cityIterator.hasNext(); cityIterator.next())
     {
         Entity *entity = cityIterator.current();
-        if (entity)
+        if (entity && dynamic_cast<Road *>(entity) == nullptr)
         {
             buildingPositions.push_back({cityIterator.getRow(), cityIterator.getCol()});
             std::string buildingLabel = entityTypeToString(entity->getType()) + " (" + coordinatesToLabel(cityIterator.getRow(), cityIterator.getCol()) + ")";
