@@ -3,6 +3,9 @@
 
 #include "src/entities/industry/base/Industry.h"
 #include "src/iterators/industry/ConcreteProducerIterator.h"
+#include "src/iterators/industry/StoneProducerIterator.h"
+#include "src/iterators/industry/IndustryIterator.h"
+#include "src/iterators/industry/WoodProducerIterator.h"
 class ResourceManager
 {
 public:
