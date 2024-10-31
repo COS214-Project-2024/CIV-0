@@ -19,12 +19,12 @@ DisplayCityMenu::DisplayCityMenu() : IMenu("Display City")
 {
     sections = {
         {"Display Options",
-         {{'1', "🏠", "Display All Residential Buildings"},
-          {'2', "🏢", "Display All Economic Buildings"},
-          {'3', "🛠️ ", "Display All Services"},
-          {'4', "⚡", "Display All Utilities"},
-          {'5', "🏭", "Display All Industries"},
-          {'6', "🌆", "Display Whole City"}}},
+         {{'r', "🏠", "Display All Residential Buildings"},
+          {'e', "🏢", "Display All Economic Buildings"},
+          {'s', "🛠️ ", "Display All Services"},
+          {'u', "⚡", "Display All Utilities"},
+          {'i', "🏭", "Display All Industries"},
+          {'d', "🌆", "Display Whole City"}}},
         {"Navigation", {{'q', "⬅️ ", "Back to Main Menu "}}}};
 }
 
@@ -172,22 +172,22 @@ void DisplayCityMenu::handleInput()
 
         switch (choice)
         {
-        case '1': // Display All Residential Buildings
+        case 'r': // Display All Residential Buildings
             currentDisplayMode = DisplayMode::RESIDENTIAL;
             break;
-        case '2': // Display All Economic Buildings
+        case 'e': // Display All Economic Buildings
             currentDisplayMode = DisplayMode::ECONOMIC;
             break;
-        case '3': // Display All Services
+        case 's': // Display All Services
             currentDisplayMode = DisplayMode::SERVICE;
             break;
-        case '4': // Display All Utilities
+        case 'u': // Display All Utilities
             currentDisplayMode = DisplayMode::UTILITY;
             break;
-        case '5': // Display All Industries
+        case 'i': // Display All Industries
             currentDisplayMode = DisplayMode::INDUSTRY;
             break;
-        case '6': // Display Whole City
+        case 'd': // Display Whole City
             currentDisplayMode = DisplayMode::WHOLE_CITY;
             break;
         case 'q':
