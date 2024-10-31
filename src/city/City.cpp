@@ -2,9 +2,10 @@
 #include "entities/base/Entity.h"
 #include "iterators/city/CityIterator.h"
 #include "entities/road/Road.h"
+#include <iostream>
 #include <algorithm> // for std::fill
 
-City::City() : width(25), height(25), // Set default values
+City::City() : width(50), height(50), // Set default values
                satisfaction(0), money(500), wood(500), stone(500), concrete(500),
                populationCapacity(0), population(0), electricityProduction(0),
                electricityConsumption(0), waterProduction(0), waterConsumption(0),
@@ -138,6 +139,26 @@ void City::addEntity(Entity *entity)
                 grid[i][j] = entity;
             }
         }
+    }
+}
+
+void City::displayCity() const
+{
+    for (int y = 0; y < height; ++y)
+    {
+        for (int x = 0; x < width; ++x)
+        {
+            Entity *entity = grid[x][y];
+            if (entity != nullptr)
+            {
+                std::cout << entity->getSymbol() << " ";
+            }
+            else
+            {
+                std::cout << ". ";
+            }
+        }
+        std::cout << "\n";
     }
 }
 
