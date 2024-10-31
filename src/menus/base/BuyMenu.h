@@ -37,6 +37,24 @@ public:
 
 protected:
     /**
+     * @brief Converts x and y coordinates to a labeled string (e.g., "A, 1").
+     *
+     * @param x The x-coordinate.
+     * @param y The y-coordinate.
+     * @return A formatted string representing the labeled coordinates.
+     */
+    std::string coordinatesToLabel(int x, int y) const;
+
+    /**
+     * @brief Displays available positions for the building on the city grid.
+     * Positions are marked based on availability for the given building type and size.
+     * @param positions Vector of available positions.
+     * @param width Width of the city grid.
+     * @param height Height of the city grid.
+     */
+    void displayAvailablePositions(const std::vector<std::vector<int>> &positions) const;
+
+    /**
      * @brief Pure virtual function to choose the entity type.
      * Must be implemented by derived classes to allow dynamic selection of entity types.
      * @return EntityType The type of the entity chosen.
@@ -56,7 +74,7 @@ protected:
      * @param xPos Reference to the x-coordinate for the building's position.
      * @param yPos Reference to the y-coordinate for the building's position.
      */
-    void chooseBuildingPosition(int &xPos, int &yPos);
+    void chooseBuildingPosition(int &xPos, int &yPos, EntityType type, Size size);
 
     /**
      * @brief Confirms the purchase of the selected building.
@@ -67,6 +85,8 @@ protected:
      * @param yPos The y-coordinate for the building's position.
      */
     void confirmPurchase(EntityType type, Size size, int xPos, int yPos);
+
+    virtual void buildEntity(EntityType type, Size size, int xPos, int yPos) = 0;
 
     int availableMoney;    ///< Available money for purchasing buildings.
     int availableWood;     ///< Available wood for purchasing buildings.

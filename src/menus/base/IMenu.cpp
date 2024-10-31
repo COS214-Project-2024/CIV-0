@@ -6,6 +6,32 @@
 #include <sstream>
 #include <regex>
 
+char IMenu::indexToExtendedChar(int index) const
+{
+    if (index >= 0 && index <= 9)
+    {
+        return '0' + index;
+    }
+    else if (index >= 10 && index <= 35)
+    {
+        return 'A' + (index - 10);
+    }
+    else if (index >= 36 && index <= 61)
+    {
+        return 'a' + (index - 36);
+    }
+    else
+    {
+        const char specialChars[] = "!@#$%^&*()_+-=`~|\\{}[]:\";'<>?,./";
+        int specialIndex = index - 62;
+        if (specialIndex >= 0 && specialIndex < sizeof(specialChars) - 1)
+        {
+            return specialChars[specialIndex];
+        }
+    }
+    throw std::out_of_range("Index out of range for extended character conversion");
+}
+
 /**
  * @brief Constructs a menu with the specified heading.
  * @param heading The heading of the menu.

@@ -5,7 +5,7 @@
 #include <algorithm> // for std::fill
 
 City::City() : width(50), height(50), // Set default values
-               satisfaction(0), money(10000), wood(1000), stone(1000), concrete(1000),
+               satisfaction(0), money(500), wood(500), stone(500), concrete(500),
                populationCapacity(0), population(0), electricityProduction(0),
                electricityConsumption(0), waterProduction(0), waterConsumption(0),
                residentialTax(0), economicTax(0)
@@ -36,10 +36,10 @@ void City::reset(int newWidth, int newHeight)
 {
     // Reset scalar properties to default values
     satisfaction = 100.0f;
-    money = 10000;
-    wood = 1000;
-    stone = 1000;
-    concrete = 1000;
+    money = 500;
+    wood = 500;
+    stone = 500;
+    concrete = 500;
     populationCapacity = 0;
     population = 0;
     electricityProduction = 0;
@@ -112,7 +112,7 @@ void City::deleteEntity(int x, int y)
         {
             for (int j = e->getYPosition() - e->getHeight() + 1; j <= e->getYPosition(); j++)
             {
-                grid[j][i] = nullptr;
+                grid[i][j] = nullptr;
             }
         }
 
@@ -138,7 +138,7 @@ void City::addEntity(Entity *entity)
         {
             for (int j = y - entity->getHeight() + 1; j <= y; j++)
             {
-                grid[j][i] = entity;
+                grid[i][j] = entity;
             }
         }
     }
@@ -155,12 +155,12 @@ void City::createRandomRoad()
     int y = rand() % height; // Random y coordinate within grid bounds
 
     // Delete any existing entity at the random position
-    if (grid[y][x] != nullptr)
+    if (grid[x][y] != nullptr)
     {
-        delete grid[y][x];
+        delete grid[x][y];
     }
 
-    grid[y][x] = new Road(ConfigManager::getEntityConfig(EntityType::ROAD, Size::SMALL), Size::SMALL, x, y); // Place a new Road entity at the random position
+    grid[x][y] = new Road(ConfigManager::getEntityConfig(EntityType::ROAD, Size::SMALL), Size::SMALL, x, y); // Place a new Road entity at the random position
 }
 // Getters
 int City::getWidth() const { return width; }

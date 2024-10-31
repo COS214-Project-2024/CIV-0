@@ -79,3 +79,7 @@ EntityType BuyUtilityMenu::chooseEntityType()
 
     return type;
 }
+
+void BuyUtilityMenu::buildEntity(EntityType type, Size size, int xPos, int yPos)
+{
+}

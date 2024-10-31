@@ -11,7 +11,7 @@
 class ConfigManager
 {
 public:
-     static EntityConfig getEntityConfig(EntityType entityType, Size size)
+    static EntityConfig getEntityConfig(EntityType entityType, Size size)
     {
         static ConfigManager instance;
         auto key = std::make_pair(entityType, size);
@@ -126,7 +126,7 @@ private:
         entityConfigTable.emplace(std::make_pair(EntityType::WOODPRODUCER, Size::LARGE), EntityConfig(Cost(2500, 1000, 400, 300), 15, 10, "W", 10, 12, 10, 9, 9, 0, 3));
 
         // Concrete Producer
-        entityConfigTable.emplace(std::make_pair(EntityType::CONCRETEPRODUCER, Size::SMALL), EntityConfig(Cost(1000, 500, 200, 150), 8, 5, "C", 5, 6, 5, 5, 5, 0, 3));
+        entityConfigTable.emplace(std::make_pair(EntityType::CONCRETEPRODUCER, Size::SMALL), EntityConfig(Cost(1000, 500, 200, 150), 8, 5, "C", 5, 6, 5, 2, 2, 0, 3));
         entityConfigTable.emplace(std::make_pair(EntityType::CONCRETEPRODUCER, Size::MEDIUM), EntityConfig(Cost(1500, 800, 300, 200), 12, 8, "C", 8, 10, 7, 7, 7, 0, 3));
         entityConfigTable.emplace(std::make_pair(EntityType::CONCRETEPRODUCER, Size::LARGE), EntityConfig(Cost(2500, 1000, 400, 300), 15, 10, "C", 10, 12, 10, 9, 9, 0, 3));
 

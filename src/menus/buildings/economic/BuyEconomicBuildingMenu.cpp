@@ -74,3 +74,7 @@ EntityType BuyEconomicBuildingMenu::chooseEntityType()
 
     return type;
 }
+
+void BuyEconomicBuildingMenu::buildEntity(EntityType type, Size size, int xPos, int yPos)
+{
+}

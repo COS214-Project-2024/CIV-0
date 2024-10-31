@@ -69,3 +69,7 @@ EntityType BuyResidentialBuildingMenu::chooseEntityType()
 
     return type;
 }
+
+void BuyResidentialBuildingMenu::buildEntity(EntityType type, Size size, int xPos, int yPos)
+{
+}

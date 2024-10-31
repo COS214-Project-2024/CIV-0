@@ -72,3 +72,8 @@ EntityType BuyServiceMenu::chooseEntityType()
 
     return type;
 }
+
+void BuyServiceMenu::buildEntity(EntityType type, Size size, int xPos, int yPos)
+{
+    serviceManager.buildService(type, size, xPos, yPos);
+}

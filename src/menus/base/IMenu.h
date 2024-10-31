@@ -6,6 +6,7 @@
 #include <iostream>
 #include <algorithm>
 #include <limits>
+#include "managers/CityManager.h"
 
 /**
  * @brief Represents a menu option with a custom key, icon, and text.
@@ -69,6 +70,7 @@ protected:
     std::vector<Section> sections; ///< List of sections in the menu.
     std::string menuHeading;       ///< The heading of the menu.
     bool hasExited;
+    CityManager cityManager;
 
     // Utility functions and color constants for inherited classes.
 
@@ -85,6 +87,14 @@ protected:
     static constexpr const char *BOLD_CYAN = "\033[1;36m";
 
     static constexpr int MIN_MENU_WIDTH = 50; ///< Minimum width for the menu.
+
+    /**
+     * @brief Converts a numeric index (0-99) to a single character in an extended set.
+     *
+     * @param index Numeric index to convert (0-99).
+     * @return char Corresponding character.
+     */
+    char indexToExtendedChar(int index) const;
 
     /**
      * @brief Utility function to repeat a string multiple times.

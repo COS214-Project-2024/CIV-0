@@ -124,11 +124,11 @@ void DisplayCityMenu::displayCity() const
     printTopBorder(width * 2 + 1);
 
     // Loop over each row and column in the grid
-    for (int row = 0; row < height; ++row)
+    for (int col = 0; col < height; ++col)
     {
-        std::cout << indexToExtendedChar(row) << DARK_GRAY << " ║ " << RESET;
+        std::cout << indexToExtendedChar(col) << DARK_GRAY << " ║ " << RESET;
 
-        for (int col = 0; col < width; ++col)
+        for (int row = 0; row < width; ++row)
         {
             Entity *entity = grid[row][col];
             if (entity != nullptr)
@@ -180,7 +180,7 @@ void DisplayCityMenu::displayCityByType() const
             // Only display if entity is of type T
             if (entity != nullptr && (dynamic_cast<T *>(entity) || dynamic_cast<Road *>(entity)))
             {
-                std::cout << entity->getSymbol() << " ";
+                std::cout << entity->getSymbol() << "";
             }
             else
             {

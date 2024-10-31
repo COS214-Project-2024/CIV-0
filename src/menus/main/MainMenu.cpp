@@ -78,6 +78,9 @@ void MainMenu::handleInput()
             break;
         case '5':
             // Logic for continuing the game can be added here
+            cityManager.updateCity();
+            displaySuccessMessage("The Sun has risen for another day :)");
+            displayPressEnterToContinue();
             break;
         case 'd':
             // Switch to the Display City Menu

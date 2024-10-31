@@ -74,3 +74,7 @@ EntityType BuyTransportMenu::chooseEntityType()
 
     return type;
 }
+
+void BuyTransportMenu::buildEntity(EntityType type, Size size, int xPos, int yPos)
+{
+}
