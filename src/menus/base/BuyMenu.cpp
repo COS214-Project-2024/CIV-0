@@ -67,11 +67,8 @@ Size BuyMenu::chooseBuildingSize(EntityType type)
     {
         EntityConfig config = ConfigManager::getEntityConfig(type, size);
 
-        // Affordability check using city's resources
-        bool canAfford = (City::instance()->getMoney() >= config.cost.moneyCost &&
-                          City::instance()->getWood() >= config.cost.woodCost &&
-                          City::instance()->getStone() >= config.cost.stoneCost &&
-                          City::instance()->getConcrete() >= config.cost.concreteCost);
+        // Use cityManager.canAffordToBuy to check affordability
+        bool canAfford = cityManager.canAffordToBuy(type, size);
 
         std::string moneyColor = (City::instance()->getMoney() >= config.cost.moneyCost) ? BOLD_WHITE : BOLD_RED;
         std::string woodColor = (City::instance()->getWood() >= config.cost.woodCost) ? BOLD_WHITE : BOLD_RED;
@@ -104,12 +101,7 @@ Size BuyMenu::chooseBuildingSize(EntityType type)
         switch (choice)
         {
         case '1':
-        {
-            EntityConfig smallConfig = ConfigManager::getEntityConfig(type, Size::SMALL);
-            if (City::instance()->getMoney() < smallConfig.cost.moneyCost ||
-                City::instance()->getWood() < smallConfig.cost.woodCost ||
-                City::instance()->getStone() < smallConfig.cost.stoneCost ||
-                City::instance()->getConcrete() < smallConfig.cost.concreteCost)
+            if (!cityManager.canAffordToBuy(type, Size::SMALL))
             {
                 displayErrorMessage("You cannot afford the SMALL size!");
                 break;
@@ -117,14 +109,8 @@ Size BuyMenu::chooseBuildingSize(EntityType type)
             size = Size::SMALL;
             choosing = false;
             break;
-        }
         case '2':
-        {
-            EntityConfig mediumConfig = ConfigManager::getEntityConfig(type, Size::MEDIUM);
-            if (City::instance()->getMoney() < mediumConfig.cost.moneyCost ||
-                City::instance()->getWood() < mediumConfig.cost.woodCost ||
-                City::instance()->getStone() < mediumConfig.cost.stoneCost ||
-                City::instance()->getConcrete() < mediumConfig.cost.concreteCost)
+            if (!cityManager.canAffordToBuy(type, Size::MEDIUM))
             {
                 displayErrorMessage("You cannot afford the MEDIUM size!");
                 break;
@@ -132,14 +118,8 @@ Size BuyMenu::chooseBuildingSize(EntityType type)
             size = Size::MEDIUM;
             choosing = false;
             break;
-        }
         case '3':
-        {
-            EntityConfig largeConfig = ConfigManager::getEntityConfig(type, Size::LARGE);
-            if (City::instance()->getMoney() < largeConfig.cost.moneyCost ||
-                City::instance()->getWood() < largeConfig.cost.woodCost ||
-                City::instance()->getStone() < largeConfig.cost.stoneCost ||
-                City::instance()->getConcrete() < largeConfig.cost.concreteCost)
+            if (!cityManager.canAffordToBuy(type, Size::LARGE))
             {
                 displayErrorMessage("You cannot afford the LARGE size!");
                 break;
@@ -147,7 +127,6 @@ Size BuyMenu::chooseBuildingSize(EntityType type)
             size = Size::LARGE;
             choosing = false;
             break;
-        }
         case 'b':
             MenuManager::instance().setCurrentMenu(Menu::BUILDINGS);
             choosing = false;
