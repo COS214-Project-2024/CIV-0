@@ -6,16 +6,17 @@
 #include <iostream>
 #include <algorithm>
 #include <limits>
+#include <variant>
 #include "managers/CityManager.h"
 
 /**
- * @brief Represents a menu option with a custom key, icon, and text.
+ * @brief Represents a menu option with a custom key (char or int), icon, and text.
  */
 struct Option
 {
-    char key;         ///< Custom key for this option.
-    std::string icon; ///< Icon for this option.
-    std::string text; ///< The actual text of the option.
+    std::variant<char, int> key; // Custom key can be either char or int.
+    std::string icon;            // Icon for this option.
+    std::string text;            // The actual text of the option.
 };
 
 /**
