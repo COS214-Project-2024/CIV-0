@@ -19,28 +19,66 @@ AmenityManager::~AmenityManager() {}
  * @param xPos 
  * @param yPos 
  */
-Amenity* AmenityManager::buildAmenity(EntityType type, Size size, int xPos, int yPos){
-    AmenityFactory* aFactory = new AmenityFactory();
+void AmenityManager::buildAmenity(EntityType type, Size size, int xPos, int yPos){
+    AmenityFactory aFactory;
 
-    switch (size)
-    {
-    case Size::SMALL:
-            return dynamic_cast<Amenity*>(aFactory->createSmallEntity(type,xPos,yPos));
-        break;
+    if(size == Size::SMALL){
+        if(type == EntityType::PARK){
+            City* c = City::instance();
+            c->addEntity(aFactory.createSmallEntity(type,xPos,yPos));
+            return;
+        }
 
-    case Size::MEDIUM:
-            return dynamic_cast<Amenity*>(aFactory->createMediumEntity(type,xPos,yPos));
-        break;
+        if(type == EntityType::THEATER){
+            City* c = City::instance();
+            c->addEntity(aFactory.createSmallEntity(type,xPos,yPos));
+            return;
+        }
 
-    case Size::LARGE:
-            return dynamic_cast<Amenity*>(aFactory->createLargeEntity(type,xPos,yPos));
-        break;
-    
-    default:
-            return NULL;
-        break;
-    }
+        if(type == EntityType::MONUMENT){
+            City* c = City::instance();
+            c->addEntity(aFactory.createSmallEntity(type,xPos,yPos));
+            return;
+        }
+    }//small
 
+    if(size == Size::MEDIUM){
+        if(type == EntityType::PARK){
+            City* c = City::instance();
+            c->addEntity(aFactory.createMediumEntity(type,xPos,yPos));
+            return;
+        }
 
-    delete aFactory;
+        if(type == EntityType::THEATER){
+            City* c = City::instance();
+            c->addEntity(aFactory.createMediumEntity(type,xPos,yPos));
+            return;
+        }
+
+        if(type == EntityType::MONUMENT){
+            City* c = City::instance();
+            c->addEntity(aFactory.createMediumEntity(type,xPos,yPos));
+            return;
+        }
+    }//medium
+
+    if(size == Size::LARGE){
+        if(type == EntityType::PARK){
+            City* c = City::instance();
+            c->addEntity(aFactory.createLargeEntity(type,xPos,yPos));
+            return;
+        }
+
+        if(type == EntityType::THEATER){
+            City* c = City::instance();
+            c->addEntity(aFactory.createLargeEntity(type,xPos,yPos));
+            return;
+        }
+
+        if(type == EntityType::MONUMENT){
+            City* c = City::instance();
+            c->addEntity(aFactory.createLargeEntity(type,xPos,yPos));
+            return;
+        }
+    }//large
 }

@@ -5,7 +5,7 @@
 #include "utils/Size.h"
 #include "entities/building/service/ServiceBuilding.h"
 #include "factory/building/ServiceBuildingFactory.h"
-
+#include "city/City.h"
 /**
  * @class ServiceManager
  * @brief Manages the creation and handling of service buildings within the system.
@@ -39,7 +39,7 @@ public:
      * @param yPos The y-coordinate position of the service building.
      * @return A pointer to the created ServiceBuilding object.
      */
-    ServiceBuilding* buildService(EntityType type, Size size, int xPos, int yPos);
+    void buildService(EntityType type, Size size, int xPos, int yPos);
 };
 
 #endif // SERVICEMANAGER_H

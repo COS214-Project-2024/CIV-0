@@ -20,28 +20,59 @@ ServiceManager::~ServiceManager(){}
  * @param yPos 
  * @return ServiceBuilding* 
  */
-ServiceBuilding* ServiceManager::buildService(EntityType type, Size size, int xPos, int yPos){
-    ServiceBuildingFactory* sb = new ServiceBuildingFactory();
+void ServiceManager::buildService(EntityType type, Size size, int xPos, int yPos){
+    ServiceBuildingFactory sb;
+    if(size == Size::SMALL){
+        if(type == EntityType::POLICESTATION){
+            City* c = City::instance();
+            c->addEntity(sb.createSmallEntity(type,xPos,yPos));
+            return;
+        }
+        if(type == EntityType::HOSPITAL){
+            City* c = City::instance();
+            c->addEntity(sb.createSmallEntity(type,xPos,yPos));
+            return;
+        }
+        if(type == EntityType::SCHOOL){
+            City* c = City::instance();
+            c->addEntity(sb.createSmallEntity(type,xPos,yPos));
+            return;
+        }
+    }//small
 
-switch (size)
-    {
-    case Size::SMALL:
-            return dynamic_cast<ServiceBuilding*>(sb->createSmallEntity(type,xPos,yPos));
-        break;
+    if(size == Size::MEDIUM){
+        if(type == EntityType::POLICESTATION){
+            City* c = City::instance();
+            c->addEntity(sb.createMediumEntity(type,xPos,yPos));
+            return;
+        }
+        if(type == EntityType::HOSPITAL){
+            City* c = City::instance();
+            c->addEntity(sb.createMediumEntity(type,xPos,yPos));
+            return;
+        }
+        if(type == EntityType::SCHOOL){
+            City* c = City::instance();
+            c->addEntity(sb.createMediumEntity(type,xPos,yPos));
+            return;
+        }
+    }//medium
 
-    case Size::MEDIUM:
-            return dynamic_cast<ServiceBuilding*>(sb->createMediumEntity(type,xPos,yPos));
-        break;
-
-    case Size::LARGE:
-            return dynamic_cast<ServiceBuilding*>(sb->createLargeEntity(type,xPos,yPos));
-        break;
-    
-    default:
-            return NULL;
-        break;
-    }
-
-    delete sb;
-
+    if(size == Size::LARGE){
+        if(type == EntityType::POLICESTATION){
+            City* c = City::instance();
+            c->addEntity(sb.createLargeEntity(type,xPos,yPos));
+            return;
+        }
+        if(type == EntityType::HOSPITAL){
+            City* c = City::instance();
+            c->addEntity(sb.createLargeEntity(type,xPos,yPos));
+            return;
+        }
+        if(type == EntityType::SCHOOL){
+            City* c = City::instance();
+            c->addEntity(sb.createLargeEntity(type,xPos,yPos));
+            return;
+        }
+    }//large
 }

@@ -6,9 +6,11 @@
 #ifndef AMENITYMANAGER_H
 #define AMENITYMANAGER_H
 
+#include "entities/building/amenity/Amenity.h"
 #include "factory/building/AmenityFactory.h"
 #include "utils/EntityType.h"
 #include "utils/Size.h"
+#include "city/City.h"
 
 /**
  * @class AmenityManager
@@ -37,7 +39,7 @@ public:
      * @param yPos The y-coordinate for the amenity's position.
      * @return A pointer to the created Amenity object.
      */
-    Amenity* buildAmenity(EntityType type, Size size, int xPos, int yPos);
+    void buildAmenity(EntityType type, Size size, int xPos, int yPos);
 };
 
 #endif // AMENITYMANAGER_H
