@@ -28,6 +28,8 @@ protected:
      * @return The selected EntityType corresponding to the chosen utility building.
      */
     EntityType chooseEntityType() override;
+
+    void buildEntity(EntityType type, Size size, int xPos, int yPos) override;
 };
 
 #endif // BUYUTILITYMENU_H

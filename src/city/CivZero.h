@@ -27,7 +27,6 @@ private:
 
     // Internal game state flag (to stop game loop)
     bool running;
-    City *city;
 };
 
 #endif // CIVZERO_H

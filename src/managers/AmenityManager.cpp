@@ -1,84 +1,54 @@
 #include "AmenityManager.h"
+#include "city/City.h"
+#include <iostream>
+
 /**
  * @brief Construct a new Amenity Manager:: Amenity Manager object
- * 
+ *
  */
 AmenityManager::AmenityManager() {}
 
 /**
  * @brief Destroy the Amenity Manager:: Amenity Manager object
- * 
+ *
  */
 AmenityManager::~AmenityManager() {}
 
 /**
  * @brief Construct a new Amenity
- * 
- * @param type 
- * @param size 
- * @param xPos 
- * @param yPos 
+ *
+ * @param type
+ * @param size
+ * @param xPos
+ * @param yPos
  */
-void AmenityManager::buildAmenity(EntityType type, Size size, int xPos, int yPos){
-    AmenityFactory aFactory;
 
-    if(size == Size::SMALL){
-        if(type == EntityType::PARK){
-            City* c = City::instance();
-            c->addEntity(aFactory.createSmallEntity(type,xPos,yPos));
-            return;
-        }
+void AmenityManager::buildAmenity(EntityType type, Size size, int xPos, int yPos)
+{
+    AmenityFactory *aFactory = new AmenityFactory();
+    Entity *newAmenity;
 
-        if(type == EntityType::THEATER){
-            City* c = City::instance();
-            c->addEntity(aFactory.createSmallEntity(type,xPos,yPos));
-            return;
-        }
+    switch (size)
+    {
+    case Size::SMALL:
+        newAmenity = aFactory->createSmallEntity(type, xPos, yPos);
+        City::instance()->addEntity(newAmenity);
+        break;
 
-        if(type == EntityType::MONUMENT){
-            City* c = City::instance();
-            c->addEntity(aFactory.createSmallEntity(type,xPos,yPos));
-            return;
-        }
-    }//small
+    case Size::MEDIUM:
+        newAmenity = aFactory->createMediumEntity(type, xPos, yPos);
+        City::instance()->addEntity(newAmenity);
+        break;
 
-    if(size == Size::MEDIUM){
-        if(type == EntityType::PARK){
-            City* c = City::instance();
-            c->addEntity(aFactory.createMediumEntity(type,xPos,yPos));
-            return;
-        }
+    case Size::LARGE:
+        newAmenity = aFactory->createLargeEntity(type, xPos, yPos);
+        City::instance()->addEntity(newAmenity);
+        break;
 
-        if(type == EntityType::THEATER){
-            City* c = City::instance();
-            c->addEntity(aFactory.createMediumEntity(type,xPos,yPos));
-            return;
-        }
+    default:
+        std::cout << "Failed to build Amenity." << std::endl;
+        break;
+    }
 
-        if(type == EntityType::MONUMENT){
-            City* c = City::instance();
-            c->addEntity(aFactory.createMediumEntity(type,xPos,yPos));
-            return;
-        }
-    }//medium
-
-    if(size == Size::LARGE){
-        if(type == EntityType::PARK){
-            City* c = City::instance();
-            c->addEntity(aFactory.createLargeEntity(type,xPos,yPos));
-            return;
-        }
-
-        if(type == EntityType::THEATER){
-            City* c = City::instance();
-            c->addEntity(aFactory.createLargeEntity(type,xPos,yPos));
-            return;
-        }
-
-        if(type == EntityType::MONUMENT){
-            City* c = City::instance();
-            c->addEntity(aFactory.createLargeEntity(type,xPos,yPos));
-            return;
-        }
-    }//large
+    delete aFactory;
 }

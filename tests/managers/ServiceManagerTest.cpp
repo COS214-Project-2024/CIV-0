@@ -1,5 +1,5 @@
-#include "doctest.h"
-#include "managers/ServiceManager.h"
+ #include "doctest.h"
+ #include "managers/ServiceManager.h"
 
 TEST_CASE("ServiceManagerTest buildSchool") {
     ServiceManager sm;
@@ -21,3 +21,4 @@ TEST_CASE("ServiceManagerTest buildPoliceStation") {
     sm.buildService(EntityType::POLICESTATION,Size::SMALL,5,5);
     CHECK(dynamic_cast<PoliceStation*>(c->getEntity(5,5)) != NULL);
 }
+

@@ -1,5 +1,6 @@
 #include "BuyAmenityMenu.h"
 #include "menus/base/MenuManager.h"
+#include <iostream>
 
 /**
  * @brief Allows the user to choose an amenity type from the options available.
@@ -14,8 +15,8 @@ EntityType BuyAmenityMenu::chooseEntityType()
           {'2', "🎭", "Theater"},
           {'3', "🗽", "Monument"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Buildings Menu"},
-          {'q', "🔙", "Back to Main Menu"}}}};
+         {{'b', "⬅️ ", "Back to Buildings Menu"},
+          {'q', "⬅️ ", "Back to Main Menu"}}}};
     setHeading("Select Amenity Type");
     clearScreen();
     displayMenu();
@@ -60,4 +61,9 @@ EntityType BuyAmenityMenu::chooseEntityType()
     }
 
     return type;
+}
+
+void BuyAmenityMenu::buildEntity(EntityType type, Size size, int xPos, int yPos)
+{
+    amenityManager.buildAmenity(type, size, xPos, yPos);
 }

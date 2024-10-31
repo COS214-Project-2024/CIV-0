@@ -29,10 +29,10 @@ public:
 
     /**
      * @brief Builds a new service building.
-     * 
+     *
      * Creates and initializes a service building of the specified type and size at the given
      * position coordinates.
-     * 
+     *
      * @param type The entity type of the service building to create.
      * @param size The size of the service building.
      * @param xPos The x-coordinate position of the service building.

@@ -56,7 +56,7 @@ protected:
      * @param xPos Reference to the x-coordinate for the building's position.
      * @param yPos Reference to the y-coordinate for the building's position.
      */
-    void chooseBuildingPosition(int &xPos, int &yPos);
+    void chooseBuildingPosition(int &xPos, int &yPos, EntityType type, Size size);
 
     /**
      * @brief Confirms the purchase of the selected building.
@@ -67,6 +67,8 @@ protected:
      * @param yPos The y-coordinate for the building's position.
      */
     void confirmPurchase(EntityType type, Size size, int xPos, int yPos);
+
+    virtual void buildEntity(EntityType type, Size size, int xPos, int yPos) = 0;
 
     int availableMoney;    ///< Available money for purchasing buildings.
     int availableWood;     ///< Available wood for purchasing buildings.

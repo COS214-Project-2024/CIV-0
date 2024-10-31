@@ -10,8 +10,8 @@ PopulationManager::~PopulationManager() {}
 
 void PopulationManager::calculatePopulationCapacity()
 {
-    City* c = City::instance();
-    PopulationVisitor* pv = new PopulationVisitor();
+    City *c = City::instance();
+    PopulationVisitor *pv = new PopulationVisitor();
     pv->visit(c);
     int populationCapacity = pv->getTotalPopulationCapacity();
     c->setPopulationCapacity(populationCapacity);
@@ -20,34 +20,34 @@ void PopulationManager::calculatePopulationCapacity()
 
 void PopulationManager::growPopulation()
 {
-    City* c = City::instance();
+    City *c = City::instance();
 
     int increase = std::rand();
-    increase = increase % (minimumIncrease+maximumIncrease);
-    increase+=minimumIncrease;
+    increase = increase % (maximumIncrease - minimumIncrease);
+    increase += minimumIncrease;
 
-    c->setPopulation(c->getPopulation()+increase);
+    c->setPopulation(c->getPopulation() + increase);
 }
 
 void PopulationManager::decreasePopulation()
 {
-    City* c = City::instance();
+    City *c = City::instance();
 
     int decrease = std::rand();
-    decrease = decrease % (minimumIncrease+maximumIncrease);
-    decrease+=minimumIncrease;
+    decrease = decrease % (maximumIncrease - minimumIncrease);
+    decrease += minimumIncrease;
 
-    c->setPopulation(c->getPopulation()-decrease);
+    c->setPopulation(c->getPopulation() - decrease);
 }
 
 void PopulationManager::calculateSatisfaction()
 {
-    City* c = City::instance();
-    SatisfactionVisitor* sv = new SatisfactionVisitor();
+    City *c = City::instance();
+    SatisfactionVisitor *sv = new SatisfactionVisitor();
     sv->visit(c);
     float satisfaction = sv->getAverageSatisfaction();
 
-    UtilityVisitor* uv = new UtilityVisitor();
+    UtilityVisitor *uv = new UtilityVisitor();
     uv->visit(c);
 
     c->setWaterProduction(uv->getTotalWater());
@@ -55,39 +55,39 @@ void PopulationManager::calculateSatisfaction()
     c->setWasteProduction(uv->getTotalWasteHandled());
     c->setSewageProduction(uv->getTotalSewageHandled());
 
-    PopulationVisitor* pv = new PopulationVisitor();
+    PopulationVisitor *pv = new PopulationVisitor();
     pv->visit(c);
 
     c->setElectricityConsumption(pv->getTotalElectricityConsumption());
     c->setWaterConsumption(pv->getTotalWaterConsumption());
-    
-    //Todo - consider adding waste and sewage (optional)
+
+    // Todo - consider adding waste and sewage (optional)
 
     float electricityPercentage;
-    if(c->getElectricityConsumption()==0)
+    if (c->getElectricityConsumption() == 0)
     {
         electricityPercentage = 100;
     }
     else
     {
-        electricityPercentage = (c->getElectricityProduction()/c->getElectricityConsumption()) * 100;
+        electricityPercentage = (c->getElectricityProduction() / c->getElectricityConsumption()) * 100;
     }
 
     float waterPercentage;
-    if(c->getWaterConsumption()==0)
+    if (c->getWaterConsumption() == 0)
     {
         waterPercentage = 100;
     }
     else
     {
-        waterPercentage = (c->getWaterProduction()/c->getWaterConsumption()) * 100;
+        waterPercentage = (c->getWaterProduction() / c->getWaterConsumption()) * 100;
     }
 
-    if(satisfaction>electricityPercentage)
+    if (satisfaction > electricityPercentage)
     {
         satisfaction = electricityPercentage;
     }
-    if(satisfaction>waterPercentage)
+    if (satisfaction > waterPercentage)
     {
         satisfaction = waterPercentage;
     }

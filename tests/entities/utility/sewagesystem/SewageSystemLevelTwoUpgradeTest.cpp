@@ -4,60 +4,72 @@
 #include "entities/utility/sewagesystem/SewageSystemLevelThreeUpgrade.h"
 #include "utils/ConfigManager.h"
 
-TEST_SUITE("SewageSystemLevelTwoUpgrade Tests") {
+TEST_SUITE("SewageSystemLevelTwoUpgrade Tests")
+{
     int const UPGRADE = 4;
 
-    TEST_CASE("SewageSystemLevelTwoUpgrade constructor") {
+    TEST_CASE("SewageSystemLevelTwoUpgrade constructor")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL);
         SewageSystem basePlant(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
         SewageSystemLevelTwoUpgrade upgrade(&basePlant);
 
-        CHECK(upgrade.getOutput() == 20 * UPGRADE);
-        CHECK(upgrade.getCost() == Cost(1000 * UPGRADE, 500 * UPGRADE, 200 * UPGRADE, 150 * UPGRADE));
+        CHECK(upgrade.getOutput() == basePlant.getOutput() * UPGRADE);
+        CHECK(upgrade.getCost() == Cost(ec.cost.moneyCost * UPGRADE, ec.cost.woodCost * UPGRADE, ec.cost.stoneCost * UPGRADE, ec.cost.concreteCost * UPGRADE));
     }
 
-    TEST_CASE("SewageSystemLevelTwoUpgrade update()") {
+    TEST_CASE("SewageSystemLevelTwoUpgrade update()")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::MEDIUM);
         SewageSystem basePlant(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::MEDIUM), Size::MEDIUM, 10, 10);
         SewageSystemLevelTwoUpgrade upgrade(&basePlant);
 
         upgrade.update();
-        CHECK(upgrade.getOutput() == 20 * UPGRADE);
-        CHECK(upgrade.getCost() == Cost(1500 * UPGRADE, 800 * UPGRADE, 300 * UPGRADE, 200 * UPGRADE));
+        CHECK(upgrade.getOutput() == basePlant.getOutput() * UPGRADE);
+        CHECK(upgrade.getCost() == Cost(ec.cost.moneyCost * UPGRADE, ec.cost.woodCost * UPGRADE, ec.cost.stoneCost * UPGRADE, ec.cost.concreteCost * UPGRADE));
     }
 
-    TEST_CASE("SewageSystemLevelTwoUpgrade clone()") {
+    TEST_CASE("SewageSystemLevelTwoUpgrade clone()")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::LARGE);
         SewageSystem basePlant(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::LARGE), Size::LARGE, 10, 10);
         SewageSystemLevelTwoUpgrade upgrade(&basePlant);
 
-        Entity* clonedUpgrade = upgrade.clone();
-        SewageSystemLevelTwoUpgrade* cloned = dynamic_cast<SewageSystemLevelTwoUpgrade*>(clonedUpgrade);
-        
+        Entity *clonedUpgrade = upgrade.clone();
+        SewageSystemLevelTwoUpgrade *cloned = dynamic_cast<SewageSystemLevelTwoUpgrade *>(clonedUpgrade);
+
         REQUIRE(cloned != nullptr);
-        CHECK(cloned->getOutput() == 20 * UPGRADE);
-        CHECK(cloned->getCost() == Cost(2500 * UPGRADE, 1000 * UPGRADE, 400 * UPGRADE, 300 * UPGRADE));
+        CHECK(cloned->getOutput() == basePlant.getOutput() * UPGRADE);
+        CHECK(cloned->getCost() == Cost(ec.cost.moneyCost * UPGRADE, ec.cost.woodCost * UPGRADE, ec.cost.stoneCost * UPGRADE, ec.cost.concreteCost * UPGRADE));
 
         delete clonedUpgrade;
     }
 
-    TEST_CASE("SewageSystemLevelTwoUpgrade getOutput()") {
+    TEST_CASE("SewageSystemLevelTwoUpgrade getOutput()")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL);
         SewageSystem basePlant(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
         SewageSystemLevelTwoUpgrade upgrade(&basePlant);
 
-        CHECK(upgrade.getOutput() == 20 * UPGRADE);
+        CHECK(upgrade.getOutput() == basePlant.getOutput() * UPGRADE);
     }
 
-    TEST_CASE("SewageSystemLevelTwoUpgrade getCost()") {
+    TEST_CASE("SewageSystemLevelTwoUpgrade getCost()")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL);
         SewageSystem basePlant(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
         SewageSystemLevelTwoUpgrade upgrade(&basePlant);
 
-        CHECK(upgrade.getCost() == Cost(1000 * UPGRADE, 500 * UPGRADE, 200 * UPGRADE, 150 * UPGRADE));
+        CHECK(upgrade.getCost() == Cost(ec.cost.moneyCost * UPGRADE, ec.cost.woodCost * UPGRADE, ec.cost.stoneCost * UPGRADE, ec.cost.concreteCost * UPGRADE));
     }
 
-    TEST_CASE("Upgrade test") {
+    TEST_CASE("Upgrade test")
+    {
         SewageSystem basePlant(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 0, 0);
         SewageSystemLevelTwoUpgrade upgrade(&basePlant);
-        Entity* upgradedEntity = upgrade.upgrade();
+        Entity *upgradedEntity = upgrade.upgrade();
         REQUIRE(upgradedEntity != nullptr);
-        CHECK(dynamic_cast<SewageSystemLevelThreeUpgrade*>(upgradedEntity) != nullptr);
+        CHECK(dynamic_cast<SewageSystemLevelThreeUpgrade *>(upgradedEntity) != nullptr);
         delete upgradedEntity;
     }
 }
