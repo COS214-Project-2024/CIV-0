@@ -2,6 +2,7 @@
 #define RESOURCEMANAGER_H
 
 #include "src/entities/industry/base/Industry.h"
+#include "src/iterators/industry/ConcreteProducerIterator.h"
 class ResourceManager
 {
 public:
@@ -19,7 +20,7 @@ public:
     std::vector<Industry*> getAllWoodProducers();
     bool canAffordUpgrade(Industry* industry);
     bool canUpgrade(Industry* industry);
-    bool upgrade(Industry* industry);
+    void upgrade(Industry* industry);
 
 };
 
