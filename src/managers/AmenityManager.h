@@ -6,9 +6,11 @@
 #ifndef AMENITYMANAGER_H
 #define AMENITYMANAGER_H
 
+#include "entities/building/amenity/Amenity.h"
 #include "factory/building/AmenityFactory.h"
 #include "utils/EntityType.h"
 #include "utils/Size.h"
+#include "city/City.h"
 
 /**
  * @class AmenityManager
