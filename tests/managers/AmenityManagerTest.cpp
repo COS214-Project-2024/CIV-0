@@ -1,35 +1,27 @@
-// #include "doctest.h"
-// #include "managers/AmenityManager.h"
+#include "doctest.h"
+#include "managers/AmenityManager.h"
+#include "city/City.h"
 
-// TEST_CASE("AmenityManagerTest buildPark")
-// {
-//     AmenityManager *am = new AmenityManager();
-//     Park *p = dynamic_cast<Park *>(am->buildAmenity(EntityType::PARK, Size::MEDIUM, 1, 1));
-//     CHECK(p != NULL);
-//     CHECK(p->getSymbol() == "P");
+TEST_CASE("AmenityManagerTest buildPark") {
+    City* c = City::instance();
+    c->reset();
+    AmenityManager am;
+    am.buildAmenity(EntityType::PARK,Size::SMALL,5,5);
+    CHECK(dynamic_cast<Park*>(c->getEntity(5,5)) != nullptr);
+}
 
-//     delete am;
-//     delete p;
-// }
+TEST_CASE("AmenityManagerTest buildMonument") {
+    City* c = City::instance();
+    c->reset();
+    AmenityManager am;
+    am.buildAmenity(EntityType::MONUMENT,Size::LARGE,24,24);
+    CHECK(dynamic_cast<Monument*>(c->getEntity(24,24)) != nullptr);
+}
 
-// TEST_CASE("AmenityManagerTest buildMonument")
-// {
-//     AmenityManager *am = new AmenityManager();
-//     Monument *p = dynamic_cast<Monument *>(am->buildAmenity(EntityType::MONUMENT, Size::MEDIUM, 1, 1));
-//     CHECK(p != NULL);
-//     CHECK(p->getSymbol() == "M");
-
-//     delete am;
-//     delete p;
-// }
-
-// TEST_CASE("AmenityManagerTest buildTheater")
-// {
-//     AmenityManager *am = new AmenityManager();
-//     Theater *p = dynamic_cast<Theater *>(am->buildAmenity(EntityType::THEATER, Size::MEDIUM, 1, 1));
-//     CHECK(p != NULL);
-//     CHECK(p->getSymbol() == "T");
-
-//     delete am;
-//     delete p;
-// }
+TEST_CASE("AmenityManagerTest buildTheater") {
+    City* c = City::instance();
+    c->reset();
+    AmenityManager am;
+    am.buildAmenity(EntityType::THEATER,Size::MEDIUM,11,11);
+    CHECK(dynamic_cast<Theater*>(c->getEntity(11,11)) != nullptr);
+}
