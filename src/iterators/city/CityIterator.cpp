@@ -1,98 +1,137 @@
 #include "CityIterator.h"
-/**
- * @brief Construct a new City Iterator:: City Iterator object
- *
- */
-CityIterator::CityIterator() : Iterator()
-{
-    this->row = 0;
-    this->col = 0;
-}
-/**
- * @brief Destroy the City Iterator:: City Iterator object
- *
- */
-CityIterator::~CityIterator() {}
 
 /**
- * @brief Construct a new City Iterator:: City Iterator object
+ * @brief Construct a new City Iterator with grid and iterateUnique set to true by default
  *
  * @param grid
  */
-CityIterator::CityIterator(std::vector<std::vector<Entity *>> &grid) : Iterator()
+CityIterator::CityIterator(std::vector<std::vector<Entity *>> &grid)
+    : Iterator(grid), iterateUnique(true)
 {
-    this->grid = grid;
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
     this->row = 0;
     this->col = 0;
+    first();
+}
+
+CityIterator::~CityIterator() {}
+
+/**
+ * @brief Construct a new City Iterator with option for iterateUnique
+ *
+ * @param grid
+ * @param iterateUnique
+ */
+CityIterator::CityIterator(std::vector<std::vector<Entity *>> &grid, bool iterateUnique)
+    : Iterator(grid), iterateUnique(iterateUnique)
+{
+    this->currRow = this->grid.begin();
+    this->curr = currRow->begin();
+    this->row = 0;
+    this->col = 0;
+    first();
 }
 
 /**
- * @brief Goes to first Entity
+ * @brief Sets the iterator to the first unvisited entity if iterateUnique is enabled
  *
  */
 void CityIterator::first()
 {
-    this->currRow = this->grid.begin();
-    this->curr = currRow->begin();
+    visitedEntities.clear(); // Clear visited set if reusing the iterator
+    row = 0;
+    col = 0;
+
+    // Iterate through the grid to find the first valid entity
+    for (row = 0; row < grid.size(); ++row)
+    {
+        for (col = 0; col < grid[row].size(); ++col)
+        {
+            Entity *entity = grid[row][col];
+            if ((!iterateUnique || !isVisited(entity)) && entity)
+            {
+                if (iterateUnique)
+                    markVisited(entity);
+                currRow = grid.begin() + row;
+                curr = currRow->begin() + col;
+                return;
+            }
+        }
+    }
+
+    // If no valid entity is found, set to end
+    currRow = grid.end();
+    curr = {};
 }
 
 /**
- * @brief Goes to next Entity
+ * @brief Advances to the next unvisited entity if iterateUnique is enabled
  *
  */
 void CityIterator::next()
 {
-    ++this->curr;
-    col += 1;
-    if (curr == currRow->end())
+    if (currRow == grid.end())
+        return;
+
+    // Continue iterating from the current position to find the next entity
+    for (++col; row < grid.size(); ++row, col = 0)
     {
-        ++currRow;
-        row += 1;
-        if (currRow == grid.end())
+        for (; col < grid[row].size(); ++col)
         {
-            --currRow;
-            curr = currRow->end();
-            --curr;
-            row -= 1;
-            col -= 1;
-            return;
+            Entity *entity = grid[row][col];
+            if ((!iterateUnique || !isVisited(entity)) && entity)
+            {
+                if (iterateUnique)
+                    markVisited(entity);
+                currRow = grid.begin() + row;
+                curr = currRow->begin() + col;
+                return;
+            }
         }
-        curr = currRow->begin();
-        col = 0;
     }
+
+    // Set iterator to the end if no further entities are found
+    currRow = grid.end();
+    curr = {};
 }
 
 /**
- * @brief Determines if there is next Entity
+ * @brief Checks if there is another entity to iterate over
  *
- * @return true
- * @return false
+ * @return true if there is another entity, false otherwise
  */
 bool CityIterator::hasNext()
 {
-    bool found = true;
-    std::vector<std::vector<Entity *>>::iterator tempRow = this->currRow;
-    std::vector<Entity *>::iterator tempCurr = this->curr;
-    ++tempCurr;
-    if (tempCurr == tempRow->end())
+    if (currRow == grid.end())
+        return false;
+
+    // Save the current state
+    auto tempRow = currRow;
+    auto tempCurr = curr;
+    int tempRowIdx = row;
+    int tempColIdx = col;
+
+    // Look ahead to find if there's another entity
+    for (++tempColIdx; tempRowIdx < grid.size(); ++tempRowIdx, tempColIdx = 0)
     {
-        ++tempRow;
-        if (tempRow == grid.end())
+        for (; tempColIdx < grid[tempRowIdx].size(); ++tempColIdx)
         {
-            found = false;
+            Entity *entity = grid[tempRowIdx][tempColIdx];
+            if ((!iterateUnique || !isVisited(entity)) && entity)
+                return true;
         }
     }
-    return found;
+
+    return false;
 }
 
 /**
- * @brief Returns current space
+ * @brief Returns the current entity
  *
  * @return Entity*
  */
 Entity *CityIterator::current()
 {
-    return (*this->curr);
+    return (currRow != grid.end() && curr != currRow->end()) ? *curr : nullptr;
 }

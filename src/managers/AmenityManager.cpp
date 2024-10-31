@@ -1,5 +1,7 @@
 #include "AmenityManager.h"
 #include "city/City.h"
+#include <iostream>
+
 /**
  * @brief Construct a new Amenity Manager:: Amenity Manager object
  *
@@ -43,6 +45,7 @@ void AmenityManager::buildAmenity(EntityType type, Size size, int xPos, int yPos
         break;
 
     default:
+        std::cout << "Failed to build Amenity." << std::endl;
         break;
     }
 

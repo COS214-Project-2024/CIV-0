@@ -2,8 +2,10 @@
 #include "entities/building/amenity/Monument.h"
 #include "utils/ConfigManager.h"
 
-TEST_SUITE("Monument Tests") {
-    TEST_CASE("Constructor Test") {
+TEST_SUITE("Monument Tests")
+{
+    TEST_CASE("Constructor Test")
+    {
         Monument monument(ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::SMALL), Size::SMALL, 0, 0);
         CHECK(monument.getXPosition() == 0);
         CHECK(monument.getYPosition() == 0);
@@ -13,7 +15,8 @@ TEST_SUITE("Monument Tests") {
         CHECK(monument.isBuilt() == false);
     }
 
-    TEST_CASE("Set Position Test") {
+    TEST_CASE("Set Position Test")
+    {
         Monument monument(ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::MEDIUM), Size::MEDIUM, 0, 0);
         monument.setXPosition(10);
         monument.setYPosition(15);
@@ -21,7 +24,8 @@ TEST_SUITE("Monument Tests") {
         CHECK(monument.getYPosition() == 15);
     }
 
-    TEST_CASE("Copy Constructor Test") {
+    TEST_CASE("Copy Constructor Test")
+    {
         Monument monument(ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::LARGE), Size::LARGE, 0, 0);
         Monument copiedMonument(&monument);
         CHECK(copiedMonument.getXPosition() == monument.getXPosition());
@@ -32,9 +36,10 @@ TEST_SUITE("Monument Tests") {
         CHECK(copiedMonument.isBuilt() == monument.isBuilt());
     }
 
-    TEST_CASE("Clone Method Test") {
+    TEST_CASE("Clone Method Test")
+    {
         Monument monument(ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::LARGE), Size::LARGE, 0, 0);
-        Monument* clonedMonument = static_cast<Monument*>(monument.clone());
+        Monument *clonedMonument = static_cast<Monument *>(monument.clone());
         REQUIRE(clonedMonument != nullptr);
         CHECK(clonedMonument->getXPosition() == monument.getXPosition());
         CHECK(clonedMonument->getYPosition() == monument.getYPosition());
@@ -45,48 +50,57 @@ TEST_SUITE("Monument Tests") {
         delete clonedMonument;
     }
 
-    TEST_CASE("Update Method Test") {
+    TEST_CASE("Update Method Test")
+    {
         Monument monument(ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::LARGE), Size::LARGE, 0, 0);
         CHECK(monument.isBuilt() == false);
 
         // This simulates the game looping
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++)
+        {
             monument.update();
         }
-        
+
         CHECK(monument.isBuilt() == true);
     }
 
-    TEST_CASE("Revenue Test") {
+    TEST_CASE("Revenue Test")
+    {
         Monument monument(ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::LARGE), Size::LARGE, 0, 0);
         CHECK(monument.getRevenue() == 0);
     }
 
-    TEST_CASE("Dimensions Test") {
+    TEST_CASE("Dimensions Test")
+    {
         Monument monument(ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::LARGE), Size::LARGE, 0, 0);
         CHECK(monument.getWidth() == 10);
         CHECK(monument.getHeight() == 10);
     }
 
-    TEST_CASE("isWithinEffectRadius Test") {
+    TEST_CASE("isWithinEffectRadius Test")
+    {
         Monument baseMonument(ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::LARGE), Size::LARGE, 0, 0);
-        
-        SUBCASE("Monument within radius") {
+
+        SUBCASE("Monument within radius")
+        {
             Monument nearbyMonument(ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::LARGE), Size::LARGE, 15, 15);
             CHECK(baseMonument.isWithinEffectRadius(&nearbyMonument) == true);
         }
 
-        SUBCASE("Monument outside radius") {
+        SUBCASE("Monument outside radius")
+        {
             Monument farMonument(ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::LARGE), Size::LARGE, 50, 50);
             CHECK(baseMonument.isWithinEffectRadius(&farMonument) == false);
         }
 
-        SUBCASE("Monument exactly on border") {
+        SUBCASE("Monument exactly on border")
+        {
             Monument borderMonument(ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::LARGE), Size::LARGE, 30, 30);
             CHECK(baseMonument.isWithinEffectRadius(&borderMonument) == false);
         }
 
-        SUBCASE("Monument partially overlaps with radius") {
+        SUBCASE("Monument partially overlaps with radius")
+        {
             Monument partialOverlapMonument(ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::LARGE), Size::LARGE, 29, 29);
             CHECK(baseMonument.isWithinEffectRadius(&partialOverlapMonument) == true);
         }
