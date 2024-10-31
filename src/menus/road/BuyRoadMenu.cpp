@@ -35,32 +35,26 @@ void BuyRoadMenu::chooseRoadPosition(int &xPos, int &yPos)
     sections.clear();
     sections.push_back({"Options", {}});
 
-    char optionKey = '1';
+    int optionKey = 1; // Start option keys from 1
     for (int i = 0; i < positions.size(); ++i)
     {
         std::string posStr = "Position " + coordinatesToLabel(positions[i][0], positions[i][1]);
         sections[0].options.push_back(Option{optionKey++, "📍", posStr});
     }
 
-    sections.push_back({"Navigation", {{'b', "⬅️ ", "Back to Main Menu"}}});
+    sections.push_back({"Navigation", {{0, "⬅️ ", "Back to Main Menu"}}}); // 0 for 'Back'
     displayMenu();
     displayAvailablePositions(positions);
 
     bool choosing = true;
     while (choosing)
     {
-        char choice;
         displayChoicePrompt();
-        std::cin >> choice;
+        std::string choiceStr;
+        std::cin >> choiceStr;
 
-        int index = choice - '1';
-        if (index >= 0 && index < positions.size())
-        {
-            xPos = positions[index][0];
-            yPos = positions[index][1];
-            choosing = false;
-        }
-        else if (choice == 'b')
+        // Check if user entered 'q' to quit
+        if (choiceStr == "q")
         {
             MenuManager::instance().setCurrentMenu(Menu::MAIN);
             hasExited = true;
@@ -68,7 +62,33 @@ void BuyRoadMenu::chooseRoadPosition(int &xPos, int &yPos)
         }
         else
         {
-            displayInvalidChoice();
+            try
+            {
+                int choice = std::stoi(choiceStr); // Convert input to integer
+
+                if (choice > 0 && choice <= positions.size())
+                {
+                    xPos = positions[choice - 1][0];
+                    yPos = positions[choice - 1][1];
+                    choosing = false;
+                }
+                else if (choice == 0) // Back option
+                {
+                    MenuManager::instance().setCurrentMenu(Menu::MAIN);
+                    hasExited = true;
+                    choosing = false;
+                }
+                else
+                {
+                    displayInvalidChoice();
+                }
+            }
+            catch (std::invalid_argument &)
+            {
+                displayInvalidChoice();                                             // If conversion fails, display an invalid choice message
+                std::cin.clear();                                                   // Clear the error state
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore invalid input
+            }
         }
     }
 }

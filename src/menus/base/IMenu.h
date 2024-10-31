@@ -219,7 +219,7 @@ protected:
      *
      * @param positions Vector of available positions.
      */
-    void displayAvailablePositions(const std::vector<std::vector<int>> &positions) const;
+    virtual void displayAvailablePositions(const std::vector<std::vector<int>> &positions) const;
 };
 
 #endif // IMENU_H

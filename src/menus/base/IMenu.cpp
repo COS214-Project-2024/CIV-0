@@ -54,7 +54,7 @@ void IMenu::displayAvailablePositions(const std::vector<std::vector<int>> &posit
             }
             else if (positionMarkers[row][col])
             {
-                std::cout << BOLD_YELLOW << "✔ " << RESET;
+                std::cout << BOLD_YELLOW << "□ " << RESET;
             }
             else
             {
