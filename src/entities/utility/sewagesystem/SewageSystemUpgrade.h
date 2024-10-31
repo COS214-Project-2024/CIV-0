@@ -48,6 +48,10 @@ public:
      */
     virtual Entity* clone() = 0;
 
+    /**
+     * @brief Upgrades the current utility to the next level.
+     * @return A pointer to the upgraded utility instance, or nullptr if already at maximum level.
+     */
     virtual Entity* upgrade() = 0;
 
     /**
@@ -57,6 +61,10 @@ public:
      */
     virtual int getOutput() = 0;
 
+    /**
+     * @brief Retrieves the cost of the utility or its upgraded version.
+     * @return A Cost object representing the monetary and material costs.
+     */
     virtual Cost getCost() = 0;
 
 protected:

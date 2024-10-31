@@ -6,8 +6,6 @@
 #include <vector>
 
 TEST_SUITE("UtilityManager") {
-
-    // Setup: Ensure a fresh instance of City is used for each test
     void resetCity() {
         City::instance()->reset();
     }
