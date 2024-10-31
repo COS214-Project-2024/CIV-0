@@ -1,7 +1,8 @@
 #include "CivZero.h"
 #include "menus/base/MenuManager.h"
 #include <iostream>
-#include <cstdlib> // For system()
+#include <cstdlib>  // For system()
+#include <optional> // For std::optional
 
 // Access to the single instance
 CivZero &CivZero::instance()
@@ -11,27 +12,27 @@ CivZero &CivZero::instance()
 }
 
 // Private constructor
-CivZero::CivZero() : running(false)
-{
-    // this->city = new City();
-}
+CivZero::CivZero() : running(false) {}
 
 // Private destructor
-CivZero::~CivZero()
-{
-    // if (city)
-    //     delete city;
-}
+CivZero::~CivZero() {}
 
 // Start the game, which initializes the game loop
-void CivZero::startGame()
+void CivZero::startGame(bool generateRandomCity, std::optional<unsigned int> seed)
 {
     running = true;
 
     City::instance()->reset(GRID_SIZE, GRID_SIZE);
 
     CityManager manager;
-    // manager.generateRandomCity();
+    if (generateRandomCity)
+    {
+        manager.generateCity(seed);
+    }
+    else
+    {
+        manager.initializeCity();
+    }
 
     gameLoop(); // Call the internal game loop method
 }

@@ -92,10 +92,11 @@ public:
      */
     bool buyEntity(EntityType type, Size size);
 
-    /**
-     * @brief Generates a random city layout with roads and buildings.
-     */
-    void generateRandomCity();
+    void generateCity(std::optional<unsigned int> seed = std::nullopt);
+
+    void generateRandomRoads(int gridWidth, int gridHeight, int minWidth, int minHeight, int roadGap);
+
+    void generateRandomBuildings(int placementProbability);
 };
 
 #endif // CITYMANAGER_H

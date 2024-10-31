@@ -13,7 +13,6 @@ City::City() : width(25), height(25), // Set default values
     // Initialize grid with default width and height
     srand(static_cast<unsigned int>(time(0))); // Seed random number generator
     grid.resize(height, std::vector<Entity *>(width, nullptr));
-    createRandomRoad();
 }
 
 City::~City()
@@ -68,8 +67,6 @@ void City::reset(int newWidth, int newHeight)
     height = newHeight;
     grid.clear();
     grid.resize(height, std::vector<Entity *>(width, nullptr));
-
-    createRandomRoad(); // Create a new random road upon reset
 }
 
 void City::reset()

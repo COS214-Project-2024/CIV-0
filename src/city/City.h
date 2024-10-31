@@ -37,11 +37,6 @@ private:
     City();
     ~City();
 
-    /**
-     * @brief Creates a road entity at a random position within the city grid.
-     */
-    void createRandomRoad();
-
 public:
     /**
      * @brief Returns a pointer to the singleton instance of City.
@@ -110,9 +105,9 @@ public:
     CityIterator createIterator();
 
     /**
-     * @brief Generates a random city layout with roads and buildings.
+     * @brief Creates a road entity at a random position within the city grid.
      */
-    void generateRandomCity();
+    void createRandomRoad();
 };
 
 #endif // CITY_H
