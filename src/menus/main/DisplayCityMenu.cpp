@@ -173,28 +173,32 @@ void DisplayCityMenu::displayCityByType() const
               << "  ";
     printTopBorder(width * 2 + 1);
 
-    for (int row = 0; row < height; ++row)
+    // Loop over each row and column in the grid
+    for (int col = 0; col < height; ++col)
     {
-        std::cout << indexToExtendedChar(row) << DARK_GRAY << " ║ " << RESET;
-        for (int col = 0; col < width; ++col)
+        std::cout << indexToExtendedChar(col) << DARK_GRAY << " ║ " << RESET;
+
+        for (int row = 0; row < width; ++row)
         {
             Entity *entity = grid[row][col];
-            // Only display if entity is of type T
+            // Only display if entity is of type T or is a Road
             if (entity != nullptr && (dynamic_cast<T *>(entity) || dynamic_cast<Road *>(entity)))
             {
-                std::cout << entity->getSymbol() << "";
+                std::cout << entity->getSymbol() << " ";
             }
             else
             {
                 std::cout << DARK_GRAY << ". " << RESET;
             }
         }
+
         std::cout << DARK_GRAY << "║" << RESET << std::endl;
     }
 
     // Close the bottom border
     std::cout << "  ";
     printBottomBorder(width * 2 + 1);
+    displayPressEnterToContinue();
 }
 
 /**

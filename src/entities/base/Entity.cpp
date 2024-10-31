@@ -217,6 +217,13 @@ void Entity::residentialBuildingPlaced()
 
 std::string Entity::getSymbol()
 {
+    // Check if the entity is a Road and apply dark gray color
+    if (dynamic_cast<Road *>(this))
+    {
+        return "\033[90m" + this->symbol + "\033[0m"; // Dark gray
+    }
+
+    // Check if the entity is a ResidentialBuilding and apply color based on satisfaction
     if (dynamic_cast<ResidentialBuilding *>(this))
     {
         std::string color;
@@ -235,6 +242,8 @@ std::string Entity::getSymbol()
         }
         return color + this->symbol + "\033[0m";
     }
+
+    // Default case: no color modification
     return this->symbol;
 }
 
