@@ -26,8 +26,8 @@ EntityType BuyEconomicBuildingMenu::chooseEntityType()
           {'2', "🏬", "Shopping Mall"},
           {'3', "🏭", "Factory"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Buildings Menu"},
-          {'q', "🔙", "Back to Main Menu"}}}};
+         {{'b', "⬅️ ", "Back to Buildings Menu"},
+          {'q', "⬅️ ", "Back to Main Menu"}}}};
 
     setHeading("Select Economic Building Type");
     clearScreen();
@@ -73,4 +73,8 @@ EntityType BuyEconomicBuildingMenu::chooseEntityType()
     }
 
     return type;
+}
+
+void BuyEconomicBuildingMenu::buildEntity(EntityType type, Size size, int xPos, int yPos)
+{
 }

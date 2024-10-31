@@ -37,7 +37,7 @@ public:
      * @param yPos The y-coordinate for the amenity's position.
      * @return A pointer to the created Amenity object.
      */
-    Amenity* buildAmenity(EntityType type, Size size, int xPos, int yPos);
+    void buildAmenity(EntityType type, Size size, int xPos, int yPos);
 };
 
 #endif // AMENITYMANAGER_H

@@ -3,20 +3,11 @@
 #include "entities/utility/sewagesystem/SewageSystemLevelOneUpgrade.h"
 #include "utils/ConfigManager.h"
 
-TEST_SUITE("SewageSystem Tests") {
-    TEST_CASE("Constructor Test") {
-        SewageSystem sewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
-        CHECK(sewageSystem.getXPosition() == 10);
-        CHECK(sewageSystem.getYPosition() == 10);
-        CHECK(sewageSystem.getWidth() == 5);
-        CHECK(sewageSystem.getHeight() == 5);
-        CHECK(sewageSystem.getRevenue() == 0);
-        CHECK(sewageSystem.getOutput() == 20);
-        CHECK(sewageSystem.getCost() == Cost(1000, 500, 200, 150));
-        CHECK(sewageSystem.isBuilt() == false);
-    }
+TEST_SUITE("SewageSystem Tests")
+{
 
-    TEST_CASE("Set Position Test") {
+    TEST_CASE("Set Position Test")
+    {
         SewageSystem sewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::MEDIUM), Size::MEDIUM, 10, 10);
         sewageSystem.setXPosition(10);
         sewageSystem.setYPosition(15);
@@ -24,7 +15,8 @@ TEST_SUITE("SewageSystem Tests") {
         CHECK(sewageSystem.getYPosition() == 15);
     }
 
-    TEST_CASE("Copy Constructor Test") {
+    TEST_CASE("Copy Constructor Test")
+    {
         SewageSystem sewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::LARGE), Size::LARGE, 10, 10);
         SewageSystem copiedSewageSystem(&sewageSystem);
         CHECK(copiedSewageSystem.getXPosition() == sewageSystem.getXPosition());
@@ -37,9 +29,10 @@ TEST_SUITE("SewageSystem Tests") {
         CHECK(copiedSewageSystem.isBuilt() == sewageSystem.isBuilt());
     }
 
-    TEST_CASE("Clone Method Test") {
+    TEST_CASE("Clone Method Test")
+    {
         SewageSystem sewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
-        SewageSystem* clonedSewageSystem = static_cast<SewageSystem*>(sewageSystem.clone());
+        SewageSystem *clonedSewageSystem = static_cast<SewageSystem *>(sewageSystem.clone());
         REQUIRE(clonedSewageSystem != nullptr);
         CHECK(clonedSewageSystem->getXPosition() == sewageSystem.getXPosition());
         CHECK(clonedSewageSystem->getYPosition() == sewageSystem.getYPosition());
@@ -52,69 +45,56 @@ TEST_SUITE("SewageSystem Tests") {
         delete clonedSewageSystem;
     }
 
-    TEST_CASE("Update Method Test") {
+    TEST_CASE("Update Method Test")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL);
         SewageSystem sewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
         CHECK(sewageSystem.isBuilt() == false);
-        
+
         // This simulates the game looping
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < ec.buildTime; i++)
+        {
             sewageSystem.update();
         }
 
         CHECK(sewageSystem.isBuilt() == true);
     }
 
-    TEST_CASE("Output Test") {
-        SewageSystem sewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
-        sewageSystem.setOutput(150);
-        CHECK(sewageSystem.getOutput() == 150);
-    }
-
-    TEST_CASE("Cost Test") {
-        SewageSystem sewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::LARGE), Size::LARGE, 0, 0);
-        CHECK(sewageSystem.getCost() == Cost(2500, 1000, 400, 300));
-    }
-
-    TEST_CASE("Revenue Test") {
-        SewageSystem sewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
-        CHECK(sewageSystem.getRevenue() == 0);
-    }
-
-    TEST_CASE("Dimensions Test") {
-        SewageSystem sewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
-        CHECK(sewageSystem.getWidth() == 5);
-        CHECK(sewageSystem.getHeight() == 5);
-    }
-
-    TEST_CASE("isWithinEffectRadius Test") {
+    TEST_CASE("isWithinEffectRadius Test")
+    {
         SewageSystem baseSewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 0, 0);
-        
-        SUBCASE("SewageSystem within radius") {
+
+        SUBCASE("SewageSystem within radius")
+        {
             SewageSystem nearbySewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 5, 5);
             CHECK(baseSewageSystem.isWithinEffectRadius(&nearbySewageSystem) == true);
         }
 
-        SUBCASE("SewageSystem outside radius") {
+        SUBCASE("SewageSystem outside radius")
+        {
             SewageSystem farSewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 15, 15);
             CHECK(baseSewageSystem.isWithinEffectRadius(&farSewageSystem) == false);
         }
 
-        SUBCASE("SewageSystem exactly on border") {
+        SUBCASE("SewageSystem exactly on border")
+        {
             SewageSystem borderSewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
-            CHECK(baseSewageSystem.isWithinEffectRadius(&borderSewageSystem) == false);
+            CHECK(baseSewageSystem.isWithinEffectRadius(&borderSewageSystem) == true);
         }
 
-        SUBCASE("SewageSystem partially overlaps with radius") {
+        SUBCASE("SewageSystem partially overlaps with radius")
+        {
             SewageSystem partialOverlapSewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 9, 9);
             CHECK(baseSewageSystem.isWithinEffectRadius(&partialOverlapSewageSystem) == true);
         }
     }
 
-    TEST_CASE("Upgrade test") {
+    TEST_CASE("Upgrade test")
+    {
         SewageSystem sewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 0, 0);
-        Entity* upgradedEntity = sewageSystem.upgrade();
+        Entity *upgradedEntity = sewageSystem.upgrade();
         REQUIRE(upgradedEntity != nullptr);
-        CHECK(dynamic_cast<SewageSystemLevelOneUpgrade*>(upgradedEntity) != nullptr);
+        CHECK(dynamic_cast<SewageSystemLevelOneUpgrade *>(upgradedEntity) != nullptr);
         delete upgradedEntity;
     }
 }

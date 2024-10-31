@@ -1,46 +1,53 @@
 #include "AmenityManager.h"
+#include "city/City.h"
+#include <iostream>
+
 /**
  * @brief Construct a new Amenity Manager:: Amenity Manager object
- * 
+ *
  */
 AmenityManager::AmenityManager() {}
 
 /**
  * @brief Destroy the Amenity Manager:: Amenity Manager object
- * 
+ *
  */
 AmenityManager::~AmenityManager() {}
 
 /**
  * @brief Construct a new Amenity
- * 
- * @param type 
- * @param size 
- * @param xPos 
- * @param yPos 
+ *
+ * @param type
+ * @param size
+ * @param xPos
+ * @param yPos
  */
-Amenity* AmenityManager::buildAmenity(EntityType type, Size size, int xPos, int yPos){
-    AmenityFactory* aFactory = new AmenityFactory();
+void AmenityManager::buildAmenity(EntityType type, Size size, int xPos, int yPos)
+{
+    AmenityFactory *aFactory = new AmenityFactory();
+    Entity *newAmenity;
 
     switch (size)
     {
     case Size::SMALL:
-            return dynamic_cast<Amenity*>(aFactory->createSmallEntity(type,xPos,yPos));
+        newAmenity = aFactory->createSmallEntity(type, xPos, yPos);
+        City::instance()->addEntity(newAmenity);
         break;
 
     case Size::MEDIUM:
-            return dynamic_cast<Amenity*>(aFactory->createMediumEntity(type,xPos,yPos));
+        newAmenity = aFactory->createMediumEntity(type, xPos, yPos);
+        City::instance()->addEntity(newAmenity);
         break;
 
     case Size::LARGE:
-            return dynamic_cast<Amenity*>(aFactory->createLargeEntity(type,xPos,yPos));
+        newAmenity = aFactory->createLargeEntity(type, xPos, yPos);
+        City::instance()->addEntity(newAmenity);
         break;
-    
+
     default:
-            return NULL;
+        std::cout << "Failed to build Amenity." << std::endl;
         break;
     }
-
 
     delete aFactory;
 }

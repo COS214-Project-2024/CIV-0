@@ -20,8 +20,8 @@ BuildingsMenu::BuildingsMenu() : IMenu("Buildings Menu")
           {'5', "🌳", "Buy Amenity"},
           {'6', "⚡", "Buy Utility"},
           {'7', "🛠️ ", "Buy Resource"}}},
-        {"Sell Buildings", // Section for selling buildings
-         {{'8', "🏚️ ", "Sell Building"}}},
+        {"Demolish Buildings", // Section for demolishing buildings
+         {{'8', "🏚️ ", "Demolish Building"}}},
         {"View Building Stats", // Section for viewing stats of different building types
          {{'a', "🔍", "View Transport Stats"},
           {'b', "🔍", "View Economic Building Stats"},
@@ -31,7 +31,7 @@ BuildingsMenu::BuildingsMenu() : IMenu("Buildings Menu")
           {'f', "🔍", "View Utility Stats"},
           {'g', "🔍", "View Resource Stats"}}},
         {"Navigation", // Section for navigating back to the main menu
-         {{'q', "🔙", "Back to Main Menu"}}}};
+         {{'q', "⬅️ ", "Back to Main Menu"}}}};
 }
 
 /**
@@ -94,7 +94,7 @@ void BuildingsMenu::handleInput()
             choosing = false;
             break;
         case '8': // Sell Building(s)
-            MenuManager::instance().setCurrentMenu(Menu::SELL);
+            MenuManager::instance().setCurrentMenu(Menu::DEMOLISH);
             choosing = false;
             break;
         case 'a': // View Transport Stats

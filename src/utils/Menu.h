@@ -21,7 +21,9 @@ enum class Menu
     BUY_UTILITY,              /// < The Menu for buying utilities
     BUY_RESOURCE,             /// < The Menu for buying resource plants
     BUY_SERVICE,              /// < The Menu for buying a service building
-    SELL,                     /// < This Menu is for selling building(s)
+    BUY_ROAD,                 /// < This Menu is for buying roads
+    DEMOLISH,                 /// < This Menu is for selling building(s)
+
 };
 
 #endif // MENU_H

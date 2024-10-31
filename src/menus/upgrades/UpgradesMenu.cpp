@@ -15,7 +15,7 @@ void UpgradesMenu::handleInput()
          {{'1', "🔧", "Upgrade Utilities"},
           {'2', "🏭", "Upgrade Industries"}}},
         {"Navigation",
-         {{'q', "🔙", "Back to Main Menu"}}}};
+         {{'q', "⬅️ ", "Back to Main Menu"}}}};
     setHeading("Upgrades Menu");
     clearScreen();
     displayMenu();
@@ -59,7 +59,7 @@ void UpgradesMenu::upgradeUtilities()
           {'3', "🚮", "Waste Management"},
           {'4', "🚰", "Sewage System"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Upgrades Menu"}, {'q', "🔙", "Back to Main Menu"}}}};
+         {{'b', "⬅️ ", "Back to Upgrades Menu"}, {'q', "⬅️ ", "Back to Main Menu"}}}};
 
     displayMenu();
 
@@ -119,7 +119,7 @@ void UpgradesMenu::upgradeIndustries()
           {'2', "🏗️ ", "Concrete Producer"},
           {'3', "🌲", "Wood Producer"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Upgrades Menu"}, {'q', "🔙", "Back to Main Menu"}}}};
+         {{'b', "⬅️ ", "Back to Upgrades Menu"}, {'q', "⬅️ ", "Back to Main Menu"}}}};
 
     displayMenu();
 
@@ -178,7 +178,7 @@ void UpgradesMenu::selectSpecificUtilityOrIndustry(const std::string &type, cons
         sections[0].options.push_back(Option{optionKey++, "🔧", option});
     }
 
-    sections.push_back({"Navigation", {{'b', "🔙", "Back to " + type + " Menu"}, {'q', "🔙", "Back to Main Menu"}}});
+    sections.push_back({"Navigation", {{'b', "⬅️ ", "Back to " + type + " Menu"}, {'q', "⬅️ ", "Back to Main Menu"}}});
     displayMenu();
 
     bool choosing = true;
