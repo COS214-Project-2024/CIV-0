@@ -22,6 +22,7 @@ AmenityManager::~AmenityManager() {}
  * @param xPos
  * @param yPos
  */
+
 void AmenityManager::buildAmenity(EntityType type, Size size, int xPos, int yPos)
 {
     AmenityFactory *aFactory = new AmenityFactory();
