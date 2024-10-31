@@ -31,7 +31,7 @@ void CivZero::startGame()
     City::instance()->reset(GRID_SIZE, GRID_SIZE);
 
     CityManager manager;
-    manager.generateRandomCity();
+    // manager.generateRandomCity();
 
     gameLoop(); // Call the internal game loop method
 }
