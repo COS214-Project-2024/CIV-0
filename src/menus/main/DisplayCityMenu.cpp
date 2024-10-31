@@ -1,8 +1,79 @@
 #include "DisplayCityMenu.h"
 #include "menus/base/MenuManager.h"
 #include "city/CivZero.h"
-#include <cstdlib> // For rand()
-#include <ctime>   // For time()
+#include "iterators/city/CityIterator.h"
+#include "entities/building/residential/ResidentialBuilding.h"
+#include "entities/building/economic/EconomicBuilding.h"
+#include "entities/building/service/ServiceBuilding.h"
+#include "entities/industry/base/Industry.h"
+#include "entities/utility/base/Utility.h"
+#include "entities/road/Road.h"
+#include <iostream>
+#include <stdexcept>
+
+/**
+ * @brief Converts a numeric index (0-99) to a single character in an extended set.
+ *
+ * @param index Numeric index to convert (0-99).
+ * @return char Corresponding character.
+ */
+char indexToExtendedChar(int index)
+{
+    if (index >= 0 && index <= 9)
+    {
+        return '0' + index;
+    }
+    else if (index >= 10 && index <= 35)
+    {
+        return 'A' + (index - 10);
+    }
+    else if (index >= 36 && index <= 61)
+    {
+        return 'a' + (index - 36);
+    }
+    else
+    {
+        const char specialChars[] = "!@#$%^&*()_+-=`~|\\{}[]:\";'<>?,./";
+        int specialIndex = index - 62;
+        if (specialIndex >= 0 && specialIndex < sizeof(specialChars) - 1)
+        {
+            return specialChars[specialIndex];
+        }
+    }
+    throw std::out_of_range("Index out of range for extended character conversion");
+}
+
+/**
+ * @brief Converts a single character in an extended set to a numeric index.
+ *
+ * @param ch Character to convert.
+ * @return int Corresponding numeric index.
+ */
+int extendedCharToIndex(char ch)
+{
+    if (ch >= '0' && ch <= '9')
+    {
+        return ch - '0';
+    }
+    else if (ch >= 'A' && ch <= 'Z')
+    {
+        return ch - 'A' + 10;
+    }
+    else if (ch >= 'a' && ch <= 'z')
+    {
+        return ch - 'a' + 36;
+    }
+    else
+    {
+        const std::string specialChars = "!@#$%^&*()_+-=`~|\\{}[]:\";'<>?,./";
+        size_t pos = specialChars.find(ch);
+        if (pos != std::string::npos)
+        {
+            return 62 + pos;
+        }
+    }
+    throw std::invalid_argument("Invalid character for extended character conversion");
+}
 
 /**
  * @brief Constructor for DisplayCityMenu.
@@ -11,7 +82,13 @@
 DisplayCityMenu::DisplayCityMenu() : IMenu("Display City")
 {
     sections = {
-        {"Display City Menu", {{'q', "🔙", "Back to Main Menu"}}}};
+        {"Display Options",
+         {{'1', "🏠", "Display All Residential Buildings"},
+          {'2', "🏢", "Display All Economic Buildings"},
+          {'3', "🛠️ ", "Display All Services"},
+          {'4', "⚡", "Display All Utilities"},
+          {'5', "🏭", "Display All Industries"}}},
+        {"Navigation", {{'q', "⬅️ ", "Back to Main Menu "}}}};
 }
 
 /**
@@ -29,151 +106,98 @@ void DisplayCityMenu::display() const
     displayCity(); // Display the city layout
 }
 
-/**
- * @brief Displays the city grid with streets, houses, apartments, and factories.
- *
- * The function generates a random walk for streets, ensuring that buildings
- * are placed next to streets. Buildings are either houses (1x1), apartments (2x2),
- * or factories (3x3). The grid is displayed using box-drawing characters for
- * borders, and letters to label the rows and columns.
- */
 void DisplayCityMenu::displayCity() const
 {
-    const int width = 26;
-    const int height = 13;
+    City *city = City::instance();
+    const auto &grid = city->getGrid();
+    int width = city->getWidth();
+    int height = city->getHeight();
 
-    // Use std::string for grid cells to hold multi-byte characters
-    std::vector<std::vector<std::string>> cityGrid(height, std::vector<std::string>(width, " "));
-
-    // Seed the random number generator
-    srand(static_cast<unsigned>(time(0)));
-
-    // Random walk for streets, but with more grid-like structure
-    int x = width / 2;
-    int y = height / 2;
-    cityGrid[y][x] = "█"; // Start street from the middle of the grid
-
-    int direction = rand() % 4; // Initially pick a random direction
-    int walkLength = 5;         // This controls how long the road goes in a straight line
-
-    // Generate streets
-    for (int i = 0; i < 200; ++i) // Adjust total iterations to create more streets
-    {
-        if (walkLength == 0 || rand() % 10 == 0) // Occasionally change direction
-        {
-            direction = rand() % 4;       // Pick a new direction
-            walkLength = 5 + rand() % 10; // Continue in a new direction for a random length
-        }
-
-        // Move in the current direction and mark the street
-        if (direction == 0 && x > 0)
-            x--; // Move left
-        else if (direction == 1 && x < width - 1)
-            x++; // Move right
-        else if (direction == 2 && y > 0)
-            y--; // Move up
-        else if (direction == 3 && y < height - 1)
-            y++; // Move down
-
-        cityGrid[y][x] = "█";
-    }
-
-    // Helper function to check if a cell is adjacent to a street
-    auto isNextToStreet = [&](int x, int y) -> bool
-    {
-        if (x > 0 && cityGrid[y][x - 1] == "█")
-            return true;
-        if (x < width - 1 && cityGrid[y][x + 1] == "█")
-            return true;
-        if (y > 0 && cityGrid[y - 1][x] == "█")
-            return true;
-        if (y < height - 1 && cityGrid[y + 1][x] == "█")
-            return true;
-        return false;
-    };
-
-    // Place buildings next to streets
-    for (int i = 0; i < 50; ++i)
-    {
-        int bx = rand() % width;
-        int by = rand() % height;
-
-        // Ensure building is placed next to a street
-        if (cityGrid[by][bx] == " " && isNextToStreet(bx, by))
-        {
-            int buildingSize = rand() % 3; // 0: House, 1: Apartment, 2: Factory
-            if (buildingSize == 1 && bx < width - 1 && by < height - 1)
-            {
-                // Apartment (2x2)
-                if (cityGrid[by + 1][bx] == " " && cityGrid[by][bx + 1] == " " && cityGrid[by + 1][bx + 1] == " ")
-                {
-                    cityGrid[by][bx] = cityGrid[by + 1][bx] = cityGrid[by][bx + 1] = cityGrid[by + 1][bx + 1] = "A";
-                }
-            }
-            else if (buildingSize == 2 && bx < width - 2 && by < height - 2)
-            {
-                // Factory (3x3)
-                bool canPlaceFactory = true;
-                for (int fy = by; fy < by + 3 && canPlaceFactory; ++fy)
-                {
-                    for (int fx = bx; fx < bx + 3 && canPlaceFactory; ++fx)
-                    {
-                        if (cityGrid[fy][fx] != " ")
-                            canPlaceFactory = false;
-                    }
-                }
-                if (canPlaceFactory)
-                {
-                    for (int fy = by; fy < by + 3; ++fy)
-                    {
-                        for (int fx = bx; fx < bx + 3; ++fx)
-                        {
-                            cityGrid[fy][fx] = "F";
-                        }
-                    }
-                }
-            }
-            else
-            {
-                // House (1x1)
-                cityGrid[by][bx] = "H";
-            }
-        }
-    }
-
-    // Display the city grid with borders and labels
-    std::cout << "   ";
+    // Display the grid headers with extended character labels
+    std::cout << "    ";
     for (int i = 0; i < width; ++i)
     {
-        std::cout << static_cast<char>('A' + i % 26) << "";
+        std::cout << indexToExtendedChar(i) << " ";
     }
     std::cout << std::endl
               << "  ";
+    printTopBorder(width * 2 + 1);
 
-    printTopBorder(width);
-    for (int i = 0; i < height; ++i)
+    // Loop over each row and column in the grid
+    for (int col = 0; col < height; ++col)
     {
-        std::cout << static_cast<char>('A' + i % 26) << DARK_GRAY << " ║" << RESET;
-        for (int j = 0; j < width; ++j)
+        std::cout << indexToExtendedChar(col) << DARK_GRAY << " ║ " << RESET;
+
+        for (int row = 0; row < width; ++row)
         {
-            if (cityGrid[i][j] == "█")
+            Entity *entity = grid[row][col];
+            if (entity != nullptr)
             {
-                std::cout << DARK_GRAY << "█" << RESET << "";
+                std::cout << entity->getSymbol() << " ";
             }
             else
             {
-                std::cout << cityGrid[i][j] << "";
+                std::cout << DARK_GRAY << ". " << RESET;
             }
         }
         std::cout << DARK_GRAY << "║" << RESET << std::endl;
     }
+
+    // Close the bottom border
     std::cout << "  ";
-    printBottomBorder(width);
+    printBottomBorder(width * 2 + 1);
+}
+
+/**
+ * @brief Displays the city grid, filtering by entity type if specified.
+ *
+ * @tparam T The type of entity to display (e.g., ResidentialBuilding).
+ */
+template <typename T>
+void DisplayCityMenu::displayCityByType() const
+{
+    City *city = City::instance();
+    const auto &grid = city->getGrid();
+    int width = city->getWidth();
+    int height = city->getHeight();
+
+    // Display the grid headers with extended character labels
+    std::cout << "    ";
+    for (int i = 0; i < width; ++i)
+    {
+        std::cout << indexToExtendedChar(i) << " ";
+    }
+    std::cout << std::endl
+              << "  ";
+    printTopBorder(width * 2 + 1);
+
+    for (int row = 0; row < height; ++row)
+    {
+        std::cout << indexToExtendedChar(row) << DARK_GRAY << " ║ " << RESET;
+        for (int col = 0; col < width; ++col)
+        {
+            Entity *entity = grid[row][col];
+            // Only display if entity is of type T
+            if (entity != nullptr && (dynamic_cast<T *>(entity) || dynamic_cast<Road *>(entity)))
+            {
+                std::cout << entity->getSymbol() << "";
+            }
+            else
+            {
+                std::cout << DARK_GRAY << ". " << RESET;
+            }
+        }
+        std::cout << DARK_GRAY << "║" << RESET << std::endl;
+    }
+
+    // Close the bottom border
+    std::cout << "  ";
+    printBottomBorder(width * 2 + 1);
 }
 
 /**
  * @brief Handles user input in the "Display City" menu.
- * Allows the user to return to the main menu or display error for invalid choices.
+ * Allows the user to filter by entity type or return to the main menu.
  */
 void DisplayCityMenu::handleInput()
 {
@@ -181,19 +205,40 @@ void DisplayCityMenu::handleInput()
 
     while (choosing)
     {
+        clearScreen(); // Clear screen at the start of each choice
+        display();     // Display city and menu options
         char choice;
         displayChoicePrompt();
         std::cin >> choice;
 
+        clearScreen(); // Clear screen again before showing the filtered view
+
         switch (choice)
         {
+        case '1': // Display All Residential Buildings
+            displayCityByType<ResidentialBuilding>();
+            break;
+        case '2': // Display All Economic Buildings
+            displayCityByType<EconomicBuilding>();
+            break;
+        case '3': // Display All Services
+            displayCityByType<ServiceBuilding>();
+            break;
+        case '4': // Display All Utilities
+            displayCityByType<Utility>();
+            break;
+        case '5': // Display All Industries
+            displayCityByType<Industry>();
+            break;
         case 'q':
             MenuManager::instance().setCurrentMenu(Menu::MAIN);
             choosing = false;
             break;
         default:
-            displayInvalidChoice(); // Display error for invalid input
+            displayInvalidChoice();
             break;
         }
+
+        displayPressEnterToContinue(); // Pause before redisplaying
     }
 }

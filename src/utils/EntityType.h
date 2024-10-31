@@ -28,6 +28,7 @@ enum class EntityType
     WOODPRODUCER,
     STONEPRODUCER,
     CONCRETEPRODUCER,
+    UNKNOWN,
 };
 
 /**

@@ -6,15 +6,20 @@
 
 class CityIterator : public Iterator
 {
+private:
+    bool unique;
+
 public:
     CityIterator();
     ~CityIterator();
 
-    CityIterator(std::vector<std::vector<Entity *>> &grid);
-    void first();
-    void next();
-    bool hasNext();
-    Entity *current();
+    // Constructor with unique iteration option
+    CityIterator(std::vector<std::vector<Entity *>> &grid, bool unique = true);
+
+    void first() override;
+    void next() override;
+    bool hasNext() override;
+    Entity *current() override;
 };
 
 #endif // CITYITERATOR_H

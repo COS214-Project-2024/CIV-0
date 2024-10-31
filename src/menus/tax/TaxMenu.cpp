@@ -12,7 +12,7 @@ TaxMenu::TaxMenu() : IMenu("Tax Menu")
          {{'3', "📉", "Decrease economic tax by 1%"},
           {'4', "📉", "Decrease residential tax by 1%"}}},
         {"Navigation",
-         {{'q', "🔙", "Back to Main Menu"}}}};
+         {{'q', "⬅️ ", "Back to Main Menu"}}}};
 }
 
 TaxMenu::~TaxMenu() {}

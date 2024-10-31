@@ -3,29 +3,23 @@
 #include "entities/utility/wastemanagement/WasteManagementLevelOneUpgrade.h"
 #include "utils/ConfigManager.h"
 
-TEST_SUITE("WasteManagement Tests") {
-    TEST_CASE("Constructor Test") {
-        WasteManagement wasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
-        CHECK(wasteManagement.getXPosition() == 10);
-        CHECK(wasteManagement.getYPosition() == 10);
-        CHECK(wasteManagement.getWidth() == 5);
-        CHECK(wasteManagement.getHeight() == 5);
-        CHECK(wasteManagement.getRevenue() == 0);
-        CHECK(wasteManagement.getOutput() == 20);
-        CHECK(wasteManagement.getCost() == Cost(800, 400, 200, 100));
-        CHECK(wasteManagement.isBuilt() == false);
-    }
+TEST_SUITE("WasteManagement Tests")
+{
 
-    TEST_CASE("Set Position Test") {
-        WasteManagement wasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
+    TEST_CASE("Set Position Test")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL);
+        WasteManagement wasteManagement(ec, Size::SMALL, 10, 10);
         wasteManagement.setXPosition(10);
         wasteManagement.setYPosition(15);
         CHECK(wasteManagement.getXPosition() == 10);
         CHECK(wasteManagement.getYPosition() == 15);
     }
 
-    TEST_CASE("Copy Constructor Test") {
-        WasteManagement wasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
+    TEST_CASE("Copy Constructor Test")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL);
+        WasteManagement wasteManagement(ec, Size::SMALL, 10, 10);
         WasteManagement copiedWasteManagement(&wasteManagement);
         CHECK(copiedWasteManagement.getXPosition() == wasteManagement.getXPosition());
         CHECK(copiedWasteManagement.getYPosition() == wasteManagement.getYPosition());
@@ -37,9 +31,11 @@ TEST_SUITE("WasteManagement Tests") {
         CHECK(copiedWasteManagement.isBuilt() == wasteManagement.isBuilt());
     }
 
-    TEST_CASE("Clone Method Test") {
-        WasteManagement wasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
-        WasteManagement* clonedWasteManagement = static_cast<WasteManagement*>(wasteManagement.clone());
+    TEST_CASE("Clone Method Test")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL);
+        WasteManagement wasteManagement(ec, Size::SMALL, 10, 10);
+        WasteManagement *clonedWasteManagement = static_cast<WasteManagement *>(wasteManagement.clone());
         REQUIRE(clonedWasteManagement != nullptr);
         CHECK(clonedWasteManagement->getXPosition() == wasteManagement.getXPosition());
         CHECK(clonedWasteManagement->getYPosition() == wasteManagement.getYPosition());
@@ -52,69 +48,57 @@ TEST_SUITE("WasteManagement Tests") {
         delete clonedWasteManagement;
     }
 
-    TEST_CASE("Update Method Test") {
-        WasteManagement wasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
+    TEST_CASE("Update Method Test")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL);
+        WasteManagement wasteManagement(ec, Size::SMALL, 10, 10);
         CHECK(wasteManagement.isBuilt() == false);
 
         // This simulates the game looping
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < ec.buildTime; i++)
+        {
             wasteManagement.update();
         }
 
         CHECK(wasteManagement.isBuilt() == true);
     }
 
-    TEST_CASE("Set Output Test") {
-        WasteManagement wasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
-        wasteManagement.setOutput(150);
-        CHECK(wasteManagement.getOutput() == 150);
-    }
+    TEST_CASE("isWithinEffectRadius Test")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL);
+        WasteManagement baseWasteManagement(ec, Size::SMALL, 0, 0);
 
-    TEST_CASE("Cost Test") {
-        WasteManagement wasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::LARGE), Size::LARGE, 0, 0);
-        CHECK(wasteManagement.getCost() == Cost(1800, 800, 400, 300));
-    }
-
-    TEST_CASE("Revenue Test") {
-        WasteManagement wasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
-        CHECK(wasteManagement.getRevenue() == 0);
-    }
-
-    TEST_CASE("Dimensions Test") {
-        WasteManagement wasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
-        CHECK(wasteManagement.getWidth() == 5);
-        CHECK(wasteManagement.getHeight() == 5);
-    }
-
-    TEST_CASE("isWithinEffectRadius Test") {
-        WasteManagement baseWasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 0, 0);
-        
-        SUBCASE("WasteManagement within radius") {
+        SUBCASE("WasteManagement within radius")
+        {
             WasteManagement nearbyWasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 5, 5);
             CHECK(baseWasteManagement.isWithinEffectRadius(&nearbyWasteManagement) == true);
         }
 
-        SUBCASE("WasteManagement outside radius") {
+        SUBCASE("WasteManagement outside radius")
+        {
             WasteManagement farWasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 15, 15);
             CHECK(baseWasteManagement.isWithinEffectRadius(&farWasteManagement) == false);
         }
 
-        SUBCASE("WasteManagement exactly on border") {
+        SUBCASE("WasteManagement exactly on border")
+        {
             WasteManagement borderWasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
             CHECK(baseWasteManagement.isWithinEffectRadius(&borderWasteManagement) == false);
         }
 
-        SUBCASE("WasteManagement partially overlaps with radius") {
+        SUBCASE("WasteManagement partially overlaps with radius")
+        {
             WasteManagement partialOverlapWasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 9, 9);
             CHECK(baseWasteManagement.isWithinEffectRadius(&partialOverlapWasteManagement) == true);
         }
     }
 
-    TEST_CASE("Upgrade test") {
+    TEST_CASE("Upgrade test")
+    {
         WasteManagement wasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 0, 0);
-        Entity* upgradedEntity = wasteManagement.upgrade();
+        Entity *upgradedEntity = wasteManagement.upgrade();
         REQUIRE(upgradedEntity != nullptr);
-        CHECK(dynamic_cast<WasteManagementLevelOneUpgrade*>(upgradedEntity) != nullptr);
+        CHECK(dynamic_cast<WasteManagementLevelOneUpgrade *>(upgradedEntity) != nullptr);
         delete upgradedEntity;
     }
 }

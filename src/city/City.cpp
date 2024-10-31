@@ -1,15 +1,19 @@
 #include "City.h"
 #include "entities/base/Entity.h"
+#include "iterators/city/CityIterator.h"
+#include "entities/road/Road.h"
 #include <algorithm> // for std::fill
 
 City::City() : width(50), height(50), // Set default values
-               satisfaction(0), money(0), wood(0), stone(0), concrete(0),
+               satisfaction(0), money(500), wood(500), stone(500), concrete(500),
                populationCapacity(0), population(0), electricityProduction(0),
                electricityConsumption(0), waterProduction(0), waterConsumption(0),
                residentialTax(0), economicTax(0)
 {
     // Initialize grid with default width and height
+    srand(static_cast<unsigned int>(time(0))); // Seed random number generator
     grid.resize(height, std::vector<Entity *>(width, nullptr));
+    createRandomRoad();
 }
 
 City::~City()
@@ -28,14 +32,14 @@ City::~City()
     }
 }
 
-void City::reset()
+void City::reset(int newWidth, int newHeight)
 {
     // Reset scalar properties to default values
-    satisfaction = 0.0f;
-    money = 0;
-    wood = 0;
-    stone = 0;
-    concrete = 0;
+    satisfaction = 100.0f;
+    money = 20000;
+    wood = 20000;
+    stone = 20000;
+    concrete = 20000;
     populationCapacity = 0;
     population = 0;
     electricityProduction = 0;
@@ -45,7 +49,7 @@ void City::reset()
     residentialTax = 0;
     economicTax = 0;
 
-    // Safely delete and nullify all entities in the grid
+    // Delete existing entities and clear the grid
     for (int i = 0; i < height; ++i)
     {
         for (int j = 0; j < width; ++j)
@@ -59,9 +63,18 @@ void City::reset()
         }
     }
 
-    // Resize and reinitialize grid with nullptr entities
+    // Resize grid based on new dimensions
+    width = newWidth;
+    height = newHeight;
     grid.clear();
     grid.resize(height, std::vector<Entity *>(width, nullptr));
+
+    createRandomRoad(); // Create a new random road upon reset
+}
+
+void City::reset()
+{
+    reset(width, height); // Use current dimensions to reset
 }
 
 /**
@@ -99,7 +112,7 @@ void City::deleteEntity(int x, int y)
         {
             for (int j = e->getYPosition() - e->getHeight() + 1; j <= e->getYPosition(); j++)
             {
-                grid[j][i] = nullptr;
+                grid[i][j] = nullptr;
             }
         }
 
@@ -125,12 +138,30 @@ void City::addEntity(Entity *entity)
         {
             for (int j = y - entity->getHeight() + 1; j <= y; j++)
             {
-                grid[j][i] = entity;
+                grid[i][j] = entity;
             }
         }
     }
 }
 
+CityIterator City::createIterator()
+{
+    return CityIterator(grid); // Pass the grid to the iterator
+}
+
+void City::createRandomRoad()
+{
+    int x = rand() % width;  // Random x coordinate within grid bounds
+    int y = rand() % height; // Random y coordinate within grid bounds
+
+    // Delete any existing entity at the random position
+    if (grid[x][y] != nullptr)
+    {
+        delete grid[x][y];
+    }
+
+    grid[x][y] = new Road(ConfigManager::getEntityConfig(EntityType::ROAD, Size::SMALL), Size::SMALL, x, y); // Place a new Road entity at the random position
+}
 // Getters
 int City::getWidth() const { return width; }
 int City::getHeight() const { return height; }

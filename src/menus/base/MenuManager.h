@@ -17,7 +17,8 @@
 #include "menus/buildings/utility/BuyUtilityMenu.h"
 #include "menus/buildings/resource/BuyResourceMenu.h"
 #include "menus/buildings/service/BuyServiceMenu.h"
-#include "menus/buildings/sell/SellMenu.h"
+#include "menus/buildings/demolish/DemolishMenu.h"
+#include "menus/road/BuyRoadMenu.h"
 #include <memory>
 #include <unordered_map>
 #include <string>

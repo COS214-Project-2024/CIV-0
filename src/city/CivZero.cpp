@@ -28,7 +28,7 @@ void CivZero::startGame()
 {
     running = true;
 
-    MenuManager::instance().setCity(city);
+    City::instance()->reset(25, 25);
 
     gameLoop(); // Call the internal game loop method
 }

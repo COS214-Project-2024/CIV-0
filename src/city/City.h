@@ -3,8 +3,11 @@
 
 #include "visitors/base/CityVisitor.h"
 #include <vector>
+#include <cstdlib> // For rand and srand
+#include <ctime>   // For time
 
 class Entity;
+class CityIterator;
 
 class City
 {
@@ -33,6 +36,11 @@ private:
     // Private constructor and destructor to enforce the singleton pattern
     City();
     ~City();
+
+    /**
+     * @brief Creates a road entity at a random position within the city grid.
+     */
+    void createRandomRoad();
 
 public:
     /**
@@ -97,6 +105,9 @@ public:
     void setEconomicTax(int economicTax);
 
     void reset();
+    void reset(int width, int height);
+
+    CityIterator createIterator();
 };
 
 #endif // CITY_H

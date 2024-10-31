@@ -3,29 +3,36 @@
 #include "entities/utility/powerplant/PowerPlantLevelOneUpgrade.h"
 #include "utils/ConfigManager.h"
 
-TEST_SUITE("PowerPlant Tests") {
-    TEST_CASE("Constructor Test") {
-        PowerPlant powerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::SMALL), Size::SMALL, 0, 0);
+TEST_SUITE("PowerPlant Tests")
+{
+    TEST_CASE("Constructor Test")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::SMALL);
+        PowerPlant powerPlant(ec, Size::SMALL, 0, 0);
         CHECK(powerPlant.getXPosition() == 0);
         CHECK(powerPlant.getYPosition() == 0);
-        CHECK(powerPlant.getWidth() == 8);
-        CHECK(powerPlant.getHeight() == 8);
-        CHECK(powerPlant.getRevenue() == 0);
+        CHECK(powerPlant.getWidth() == ec.width);
+        CHECK(powerPlant.getHeight() == ec.height);
+        CHECK(powerPlant.getRevenue() == ec.revenue);
         CHECK(powerPlant.getOutput() == 20);
-        CHECK(powerPlant.getCost() == Cost(2000, 800, 500, 300));
+        CHECK(powerPlant.getCost() == ec.cost);
         CHECK(powerPlant.isBuilt() == false);
     }
 
-    TEST_CASE("Set Position Test") {
-        PowerPlant powerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::MEDIUM), Size::MEDIUM, 0, 0);
+    TEST_CASE("Set Position Test")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::MEDIUM);
+        PowerPlant powerPlant(ec, Size::MEDIUM, 0, 0);
         powerPlant.setXPosition(10);
         powerPlant.setYPosition(15);
         CHECK(powerPlant.getXPosition() == 10);
         CHECK(powerPlant.getYPosition() == 15);
     }
 
-    TEST_CASE("Copy Constructor Test") {
-        PowerPlant powerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE), Size::LARGE, 0, 0);
+    TEST_CASE("Copy Constructor Test")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE);
+        PowerPlant powerPlant(ec, Size::LARGE, 0, 0);
         PowerPlant copiedPowerPlant(&powerPlant);
         CHECK(copiedPowerPlant.getXPosition() == powerPlant.getXPosition());
         CHECK(copiedPowerPlant.getYPosition() == powerPlant.getYPosition());
@@ -37,9 +44,11 @@ TEST_SUITE("PowerPlant Tests") {
         CHECK(copiedPowerPlant.isBuilt() == powerPlant.isBuilt());
     }
 
-    TEST_CASE("Clone Method Test") {
-        PowerPlant powerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE), Size::LARGE, 0, 0);
-        PowerPlant* clonedPowerPlant = static_cast<PowerPlant*>(powerPlant.clone());
+    TEST_CASE("Clone Method Test")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE);
+        PowerPlant powerPlant(ec, Size::LARGE, 0, 0);
+        PowerPlant *clonedPowerPlant = static_cast<PowerPlant *>(powerPlant.clone());
         REQUIRE(clonedPowerPlant != nullptr);
         CHECK(clonedPowerPlant->getXPosition() == powerPlant.getXPosition());
         CHECK(clonedPowerPlant->getYPosition() == powerPlant.getYPosition());
@@ -52,69 +61,91 @@ TEST_SUITE("PowerPlant Tests") {
         delete clonedPowerPlant;
     }
 
-    TEST_CASE("Update Method Test") {
-        PowerPlant powerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE), Size::LARGE, 0, 0);
+    TEST_CASE("Update Method Test")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE);
+        PowerPlant powerPlant(ec, Size::LARGE, 0, 0);
         CHECK(powerPlant.isBuilt() == false);
 
         // This simulates the game looping
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < ec.buildTime; i++)
+        {
             powerPlant.update();
         }
-        
+
         CHECK(powerPlant.isBuilt() == true);
     }
 
-    TEST_CASE("Output Test") {
-        PowerPlant powerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE), Size::LARGE, 0, 0);
+    TEST_CASE("Output Test")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE);
+        PowerPlant powerPlant(ec, Size::LARGE, 0, 0);
         powerPlant.setOutput(150);
         CHECK(powerPlant.getOutput() == 150);
     }
 
-    TEST_CASE("Cost Test") {
-        PowerPlant powerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE), Size::LARGE, 0, 0);
-        CHECK(powerPlant.getCost() == Cost(6000, 1600, 1000, 700));
+    TEST_CASE("Cost Test")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE);
+        PowerPlant powerPlant(ec, Size::LARGE, 0, 0);
+        CHECK(powerPlant.getCost() == ec.cost);
     }
 
-    TEST_CASE("Revenue Test") {
-        PowerPlant powerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE), Size::LARGE, 0, 0);
-        CHECK(powerPlant.getRevenue() == 0);
+    TEST_CASE("Revenue Test")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE);
+        PowerPlant powerPlant(ec, Size::LARGE, 0, 0);
+        CHECK(powerPlant.getRevenue() == ec.revenue);
     }
 
-    TEST_CASE("Dimensions Test") {
-        PowerPlant powerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE), Size::LARGE, 0, 0);
-        CHECK(powerPlant.getWidth() == 12);
-        CHECK(powerPlant.getHeight() == 12);
+    TEST_CASE("Dimensions Test")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE);
+        PowerPlant powerPlant(ec, Size::LARGE, 0, 0);
+        CHECK(powerPlant.getWidth() == ec.width);
+        CHECK(powerPlant.getHeight() == ec.height);
     }
 
-    TEST_CASE("isWithinEffectRadius Test") {
-        PowerPlant basePowerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE), Size::LARGE, 0, 0);
-        
-        SUBCASE("PowerPlant within radius") {
-            PowerPlant nearbyPowerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE), Size::LARGE, 5, 5);
+    TEST_CASE("isWithinEffectRadius Test")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE);
+        PowerPlant basePowerPlant(ec, Size::LARGE, 0, 0);
+
+        SUBCASE("PowerPlant within radius")
+        {
+            PowerPlant nearbyPowerPlant(ec, Size::LARGE, 5, 5);
             CHECK(basePowerPlant.isWithinEffectRadius(&nearbyPowerPlant) == true);
         }
 
-        SUBCASE("PowerPlant outside radius") {
-            PowerPlant farPowerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE), Size::LARGE, 50, 50);
+        SUBCASE("PowerPlant outside radius")
+        {
+            EntityConfig ec = ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE);
+            PowerPlant farPowerPlant(ec, Size::LARGE, 50, 50);
             CHECK(basePowerPlant.isWithinEffectRadius(&farPowerPlant) == false);
         }
 
-        SUBCASE("PowerPlant exactly on border") {
-            PowerPlant borderPowerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE), Size::LARGE, 42, 42);
+        SUBCASE("PowerPlant exactly on border")
+        {
+            EntityConfig ec = ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE);
+            PowerPlant borderPowerPlant(ec, Size::LARGE, 42, 42);
             CHECK(basePowerPlant.isWithinEffectRadius(&borderPowerPlant) == false);
         }
 
-        SUBCASE("PowerPlant partially overlaps with radius") {
-            PowerPlant partialOverlapPowerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE), Size::LARGE, 41, 41);
-            CHECK(basePowerPlant.isWithinEffectRadius(&partialOverlapPowerPlant) == true);
+        SUBCASE("PowerPlant partially overlaps with radius")
+        {
+            EntityConfig ec = ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE);
+            PowerPlant partialOverlapPowerPlant(ec, Size::LARGE, 41, 41);
+            CHECK(basePowerPlant.isWithinEffectRadius(&partialOverlapPowerPlant) == false);
         }
     }
 
-    TEST_CASE("Upgrade test") {
-        PowerPlant powerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::SMALL), Size::SMALL, 0, 0);
-        Entity* upgradedEntity = powerPlant.upgrade();
+    TEST_CASE("Upgrade test")
+    {
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::SMALL);
+        PowerPlant powerPlant(ec, Size::SMALL, 0, 0);
+        Entity *upgradedEntity = powerPlant.upgrade();
         REQUIRE(upgradedEntity != nullptr);
-        CHECK(dynamic_cast<PowerPlantLevelOneUpgrade*>(upgradedEntity) != nullptr);
+        CHECK(dynamic_cast<PowerPlantLevelOneUpgrade *>(upgradedEntity) != nullptr);
         delete upgradedEntity;
     }
 }

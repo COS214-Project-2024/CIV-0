@@ -1,6 +1,7 @@
 #include "BuyMenu.h"
 #include "menus/base/MenuManager.h"
 #include "utils/ConfigManager.h"
+#include "entities/road/Road.h"
 
 /**
  * @brief Constructs a new BuyMenu with default available resources.
@@ -36,7 +37,7 @@ void BuyMenu::handleInput()
 
     int xPos = 0;
     int yPos = 0;
-    chooseBuildingPosition(xPos, yPos);
+    chooseBuildingPosition(xPos, yPos, type, size);
     if (hasExited)
         return;
 
@@ -59,16 +60,13 @@ Size BuyMenu::chooseBuildingSize(EntityType type)
     {
         EntityConfig config = ConfigManager::getEntityConfig(type, size);
 
-        // Affordability check for each size
-        bool canAfford = (availableMoney >= config.cost.moneyCost &&
-                          availableWood >= config.cost.woodCost &&
-                          availableStone >= config.cost.stoneCost &&
-                          availableConcrete >= config.cost.concreteCost);
+        // Use cityManager.canAffordToBuy to check affordability
+        bool canAfford = cityManager.canAffordToBuy(type, size);
 
-        std::string moneyColor = (availableMoney >= config.cost.moneyCost) ? BOLD_WHITE : BOLD_RED;
-        std::string woodColor = (availableWood >= config.cost.woodCost) ? BOLD_WHITE : BOLD_RED;
-        std::string stoneColor = (availableStone >= config.cost.stoneCost) ? BOLD_WHITE : BOLD_RED;
-        std::string concreteColor = (availableConcrete >= config.cost.concreteCost) ? BOLD_WHITE : BOLD_RED;
+        std::string moneyColor = (City::instance()->getMoney() >= config.cost.moneyCost) ? BOLD_WHITE : BOLD_RED;
+        std::string woodColor = (City::instance()->getWood() >= config.cost.woodCost) ? BOLD_WHITE : BOLD_RED;
+        std::string stoneColor = (City::instance()->getStone() >= config.cost.stoneCost) ? BOLD_WHITE : BOLD_RED;
+        std::string concreteColor = (City::instance()->getConcrete() >= config.cost.concreteCost) ? BOLD_WHITE : BOLD_RED;
 
         std::string costStr = " (Cost: " + moneyColor + std::to_string(config.cost.moneyCost) + RESET + " money, " +
                               woodColor + std::to_string(config.cost.woodCost) + RESET + " wood, " +
@@ -80,7 +78,7 @@ Size BuyMenu::chooseBuildingSize(EntityType type)
         sections[0].options.push_back(Option{optionKey++, "📏", displayText});
     }
 
-    sections.push_back({"Navigation", {{'b', "🔙", "Back to Buildings Menu"}, {'q', "🔙", "Back to Main Menu"}}});
+    sections.push_back({"Navigation", {{'b', "⬅️ ", "Back to Buildings Menu"}, {'q', "⬅️ ", "Back to Main Menu"}}});
     setHeading("Select Size of the " + entityTypeToString(type));
     clearScreen();
     displayMenu();
@@ -96,12 +94,7 @@ Size BuyMenu::chooseBuildingSize(EntityType type)
         switch (choice)
         {
         case '1':
-        {
-            EntityConfig smallConfig = ConfigManager::getEntityConfig(type, Size::SMALL);
-            if (availableMoney < smallConfig.cost.moneyCost ||
-                availableWood < smallConfig.cost.woodCost ||
-                availableStone < smallConfig.cost.stoneCost ||
-                availableConcrete < smallConfig.cost.concreteCost)
+            if (!cityManager.canAffordToBuy(type, Size::SMALL))
             {
                 displayErrorMessage("You cannot afford the SMALL size!");
                 break;
@@ -109,14 +102,8 @@ Size BuyMenu::chooseBuildingSize(EntityType type)
             size = Size::SMALL;
             choosing = false;
             break;
-        }
         case '2':
-        {
-            EntityConfig mediumConfig = ConfigManager::getEntityConfig(type, Size::MEDIUM);
-            if (availableMoney < mediumConfig.cost.moneyCost ||
-                availableWood < mediumConfig.cost.woodCost ||
-                availableStone < mediumConfig.cost.stoneCost ||
-                availableConcrete < mediumConfig.cost.concreteCost)
+            if (!cityManager.canAffordToBuy(type, Size::MEDIUM))
             {
                 displayErrorMessage("You cannot afford the MEDIUM size!");
                 break;
@@ -124,14 +111,8 @@ Size BuyMenu::chooseBuildingSize(EntityType type)
             size = Size::MEDIUM;
             choosing = false;
             break;
-        }
         case '3':
-        {
-            EntityConfig largeConfig = ConfigManager::getEntityConfig(type, Size::LARGE);
-            if (availableMoney < largeConfig.cost.moneyCost ||
-                availableWood < largeConfig.cost.woodCost ||
-                availableStone < largeConfig.cost.stoneCost ||
-                availableConcrete < largeConfig.cost.concreteCost)
+            if (!cityManager.canAffordToBuy(type, Size::LARGE))
             {
                 displayErrorMessage("You cannot afford the LARGE size!");
                 break;
@@ -139,7 +120,6 @@ Size BuyMenu::chooseBuildingSize(EntityType type)
             size = Size::LARGE;
             choosing = false;
             break;
-        }
         case 'b':
             MenuManager::instance().setCurrentMenu(Menu::BUILDINGS);
             choosing = false;
@@ -165,28 +145,27 @@ Size BuyMenu::chooseBuildingSize(EntityType type)
  * @param xPos Reference to the x-coordinate for the building's position.
  * @param yPos Reference to the y-coordinate for the building's position.
  */
-void BuyMenu::chooseBuildingPosition(int &xPos, int &yPos)
+void BuyMenu::chooseBuildingPosition(int &xPos, int &yPos, EntityType type, Size size)
 {
-    int positions[4][2] = {
-        {1, 1},
-        {2, 2},
-        {3, 3},
-        {4, 6}};
+    std::vector<std::vector<int>> positions = cityManager.getAvailiablePositions(type, size);
 
     sections.clear();
     sections.push_back({"Options", {}});
 
     char optionKey = '1';
-    for (int i = 0; i < 4; ++i)
+    for (int i = 0; i < positions.size(); ++i)
     {
-        std::string posStr = "Position (" + std::to_string(positions[i][0]) + "," + std::to_string(positions[i][1]) + ")";
+        std::string posStr = "Position " + coordinatesToLabel(positions[i][0], positions[i][1]);
         sections[0].options.push_back(Option{optionKey++, "📍", posStr});
     }
 
-    sections.push_back({"Navigation", {{'b', "🔙", "Back to Buildings Menu"}, {'q', "🔙", "Back to Main Menu"}}});
+    sections.push_back({"Navigation", {{'b', "⬅️ ", "Back to Buildings Menu"}, {'q', "⬅️ ", "Back to Main Menu"}}});
     setHeading("Select Position for the Building");
     clearScreen();
     displayMenu();
+
+    // Display available positions on the grid after the menu
+    displayAvailablePositions(positions);
 
     bool choosing = true;
     while (choosing)
@@ -197,7 +176,7 @@ void BuyMenu::chooseBuildingPosition(int &xPos, int &yPos)
 
         int index = choice - '1';
 
-        if (index >= 0 && index < 4)
+        if (index >= 0 && index < positions.size())
         {
             xPos = positions[index][0];
             yPos = positions[index][1];
@@ -313,6 +292,8 @@ void BuyMenu::confirmPurchase(EntityType type, Size size, int xPos, int yPos)
 
     if (confirmation == 'y')
     {
+        buildEntity(type, size, xPos, yPos);
+        cityManager.buyEntity(type, size);
         displaySuccessMessage("Purchase successfull!");
         displayPressEnterToContinue();
         MenuManager::instance().setCurrentMenu(Menu::MAIN);
