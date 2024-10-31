@@ -1,5 +1,6 @@
 #include "doctest.h"
 #include "entities/utility/wastemanagement/WasteManagement.h"
+#include "entities/utility/wastemanagement/WasteManagementLevelOneUpgrade.h"
 #include "utils/ConfigManager.h"
 
 TEST_SUITE("WasteManagement Tests") {
@@ -11,6 +12,7 @@ TEST_SUITE("WasteManagement Tests") {
         CHECK(wasteManagement.getHeight() == 5);
         CHECK(wasteManagement.getRevenue() == 0);
         CHECK(wasteManagement.getOutput() == 20);
+        CHECK(wasteManagement.getCost() == Cost(800, 400, 200, 100));
         CHECK(wasteManagement.isBuilt() == false);
     }
 
@@ -31,6 +33,7 @@ TEST_SUITE("WasteManagement Tests") {
         CHECK(copiedWasteManagement.getHeight() == wasteManagement.getHeight());
         CHECK(copiedWasteManagement.getRevenue() == wasteManagement.getRevenue());
         CHECK(copiedWasteManagement.getOutput() == wasteManagement.getOutput());
+        CHECK(copiedWasteManagement.getCost() == wasteManagement.getCost());
         CHECK(copiedWasteManagement.isBuilt() == wasteManagement.isBuilt());
     }
 
@@ -44,6 +47,7 @@ TEST_SUITE("WasteManagement Tests") {
         CHECK(clonedWasteManagement->getHeight() == wasteManagement.getHeight());
         CHECK(clonedWasteManagement->getRevenue() == wasteManagement.getRevenue());
         CHECK(clonedWasteManagement->getOutput() == wasteManagement.getOutput());
+        CHECK(clonedWasteManagement->getCost() == wasteManagement.getCost());
         CHECK(clonedWasteManagement->isBuilt() == wasteManagement.isBuilt());
         delete clonedWasteManagement;
     }
@@ -53,7 +57,7 @@ TEST_SUITE("WasteManagement Tests") {
         CHECK(wasteManagement.isBuilt() == false);
 
         // This simulates the game looping
-        while (!wasteManagement.isBuilt()) {
+        for(int i = 0; i < 3; i++) {
             wasteManagement.update();
         }
 
@@ -64,6 +68,11 @@ TEST_SUITE("WasteManagement Tests") {
         WasteManagement wasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
         wasteManagement.setOutput(150);
         CHECK(wasteManagement.getOutput() == 150);
+    }
+
+    TEST_CASE("Cost Test") {
+        WasteManagement wasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::LARGE), Size::LARGE, 0, 0);
+        CHECK(wasteManagement.getCost() == Cost(1800, 800, 400, 300));
     }
 
     TEST_CASE("Revenue Test") {
@@ -99,5 +108,13 @@ TEST_SUITE("WasteManagement Tests") {
             WasteManagement partialOverlapWasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 9, 9);
             CHECK(baseWasteManagement.isWithinEffectRadius(&partialOverlapWasteManagement) == true);
         }
+    }
+
+    TEST_CASE("Upgrade test") {
+        WasteManagement wasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 0, 0);
+        Entity* upgradedEntity = wasteManagement.upgrade();
+        REQUIRE(upgradedEntity != nullptr);
+        CHECK(dynamic_cast<WasteManagementLevelOneUpgrade*>(upgradedEntity) != nullptr);
+        delete upgradedEntity;
     }
 }

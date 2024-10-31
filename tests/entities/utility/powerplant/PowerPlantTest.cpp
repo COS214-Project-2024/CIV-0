@@ -1,5 +1,6 @@
 #include "doctest.h"
 #include "entities/utility/powerplant/PowerPlant.h"
+#include "entities/utility/powerplant/PowerPlantLevelOneUpgrade.h"
 #include "utils/ConfigManager.h"
 
 TEST_SUITE("PowerPlant Tests") {
@@ -11,6 +12,7 @@ TEST_SUITE("PowerPlant Tests") {
         CHECK(powerPlant.getHeight() == 8);
         CHECK(powerPlant.getRevenue() == 0);
         CHECK(powerPlant.getOutput() == 20);
+        CHECK(powerPlant.getCost() == Cost(2000, 800, 500, 300));
         CHECK(powerPlant.isBuilt() == false);
     }
 
@@ -31,6 +33,7 @@ TEST_SUITE("PowerPlant Tests") {
         CHECK(copiedPowerPlant.getHeight() == powerPlant.getHeight());
         CHECK(copiedPowerPlant.getRevenue() == powerPlant.getRevenue());
         CHECK(copiedPowerPlant.getOutput() == powerPlant.getOutput());
+        CHECK(copiedPowerPlant.getCost() == powerPlant.getCost());
         CHECK(copiedPowerPlant.isBuilt() == powerPlant.isBuilt());
     }
 
@@ -44,6 +47,7 @@ TEST_SUITE("PowerPlant Tests") {
         CHECK(clonedPowerPlant->getHeight() == powerPlant.getHeight());
         CHECK(clonedPowerPlant->getRevenue() == powerPlant.getRevenue());
         CHECK(clonedPowerPlant->getOutput() == powerPlant.getOutput());
+        CHECK(clonedPowerPlant->getCost() == powerPlant.getCost());
         CHECK(clonedPowerPlant->isBuilt() == powerPlant.isBuilt());
         delete clonedPowerPlant;
     }
@@ -53,17 +57,22 @@ TEST_SUITE("PowerPlant Tests") {
         CHECK(powerPlant.isBuilt() == false);
 
         // This simulates the game looping
-        while (!powerPlant.isBuilt()) {
+        for(int i = 0; i < 3; i++) {
             powerPlant.update();
         }
         
         CHECK(powerPlant.isBuilt() == true);
     }
 
-    TEST_CASE("Set Output Test") {
+    TEST_CASE("Output Test") {
         PowerPlant powerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE), Size::LARGE, 0, 0);
         powerPlant.setOutput(150);
         CHECK(powerPlant.getOutput() == 150);
+    }
+
+    TEST_CASE("Cost Test") {
+        PowerPlant powerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE), Size::LARGE, 0, 0);
+        CHECK(powerPlant.getCost() == Cost(6000, 1600, 1000, 700));
     }
 
     TEST_CASE("Revenue Test") {
@@ -99,5 +108,13 @@ TEST_SUITE("PowerPlant Tests") {
             PowerPlant partialOverlapPowerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::LARGE), Size::LARGE, 41, 41);
             CHECK(basePowerPlant.isWithinEffectRadius(&partialOverlapPowerPlant) == true);
         }
+    }
+
+    TEST_CASE("Upgrade test") {
+        PowerPlant powerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::SMALL), Size::SMALL, 0, 0);
+        Entity* upgradedEntity = powerPlant.upgrade();
+        REQUIRE(upgradedEntity != nullptr);
+        CHECK(dynamic_cast<PowerPlantLevelOneUpgrade*>(upgradedEntity) != nullptr);
+        delete upgradedEntity;
     }
 }

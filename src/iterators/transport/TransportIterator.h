@@ -10,11 +10,11 @@ public:
     TransportIterator();
     ~TransportIterator();
 
-    TransportIterator(std::vector<std::vector<Entity*>> &grid);
+    TransportIterator(std::vector<std::vector<Entity *>> &grid);
     void first();
     void next();
     bool hasNext();
-    Entity* current();
+    Entity *current();
 };
 
 #endif // TRANSPORTITERATOR_H

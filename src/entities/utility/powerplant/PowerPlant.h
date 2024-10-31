@@ -3,6 +3,8 @@
 
 #include "entities/utility/base/Utility.h"
 
+class PowerPlantLevelOneUpgrade;
+
 /**
  * @class PowerPlant
  * @brief Represents a power plant in the city builder simulation.
@@ -29,9 +31,9 @@ public:
      * 
      * Creates a new PowerPlant object by copying the attributes of an existing PowerPlant.
      * 
-     * @param powerPlant Pointer to the existing PowerPlant object to be copied.
+     * @param power Pointer to the existing PowerPlant object to be copied.
      */
-    PowerPlant(PowerPlant* powerPlant);
+    PowerPlant(PowerPlant* power);
 
     /**
      * @brief Default constructor for the PowerPlant class.
@@ -60,6 +62,8 @@ public:
      * @return A pointer to the newly cloned PowerPlant object.
      */
     Entity* clone();
+
+    Entity* upgrade();
 };
 
 #endif // POWERPLANT_H

@@ -18,9 +18,9 @@ public:
      * 
      * Initializes the upgrade by enhancing the specified SewageSystem with a level three upgrade.
      * 
-     * @param sewageSystem Pointer to the original SewageSystem to be upgraded.
+     * @param sewage Pointer to the original SewageSystem to be upgraded.
      */
-    SewageSystemLevelThreeUpgrade(SewageSystem* sewageSystem);
+    SewageSystemLevelThreeUpgrade(SewageSystem* sewage);
 
     /**
      * @brief Copy constructor for SewageSystemLevelThreeUpgrade.
@@ -55,6 +55,8 @@ public:
      */
     Entity* clone();
 
+    Entity* upgrade();
+
     /**
      * @brief Retrieves the upgraded sewage system's output.
      * 
@@ -63,6 +65,8 @@ public:
      * @return The updated processing output as an integer.
      */
     int getOutput();
+
+    Cost getCost();
 
 private:
     const int UPGRADE = 6; ///< Multiplier applied to the original processing output for the level three upgrade.

@@ -3,7 +3,11 @@
 /**
  * @brief Construct a new Industry Iterator:: Industry Iterator object
  */
-IndustryIterator::IndustryIterator() : Iterator() {}
+IndustryIterator::IndustryIterator() : Iterator()
+{
+    this->row = 0;
+    this->col = 0;
+}
 
 /**
  * @brief Destroy the Industry Iterator:: Industry Iterator object
@@ -12,85 +16,91 @@ IndustryIterator::~IndustryIterator() {}
 
 /**
  * @brief Construct a new Industry Iterator:: Industry Iterator object
- * 
- * @param grid 
+ *
+ * @param grid
  */
-IndustryIterator::IndustryIterator(std::vector<std::vector<Entity*>> &grid) : Iterator() {
-    this->grid = grid;
+IndustryIterator::IndustryIterator(std::vector<std::vector<Entity *>> &grid) : Iterator(grid)
+{
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
     this->row = 0;
     this->col = 0;
+    first();
 }
 
 /**
- * @brief Finds first Industry
+ * @brief Sets the iterator to the first unvisited Industry
  */
-void IndustryIterator::first() {
-    bool found = false;
+void IndustryIterator::first()
+{
+    visitedEntities.clear(); // Clear visited set for reuse
+    row = 0;
+    col = 0;
 
-    for (currRow = grid.begin(); currRow != this->grid.end(); currRow++) {
-        col = 0;
-        for (curr = currRow->begin(); curr != currRow->end(); curr++) {
-            Industry* e = dynamic_cast<Industry*>(*curr);
-            if (e) { found = true; break; }
-            col += 1;
-        }
-        if (found) break;
-        row += 1;
-    }
-}
-
-/**
- * @brief Finds next Industry
- */
-void IndustryIterator::next() {
-    bool found = false;
-    int Tcol = this->col;
-    int Trow = this->row;
-    if (hasNext()) {
-        col = 0;
-        row = 0;
-        for (currRow = grid.begin(); currRow != this->grid.end(); ++currRow) {
-            col = 0;
-            for (curr = currRow->begin(); curr != currRow->end(); ++curr) {
-                Industry* e = dynamic_cast<Industry*>(*curr);
-                if (e && (Tcol < col || Trow < row)) { found = true; break; }
-                col += 1;
+    for (row = 0; row < grid.size(); ++row)
+    {
+        for (col = 0; col < grid[row].size(); ++col)
+        {
+            Industry *industry = dynamic_cast<Industry *>(grid[row][col]);
+            if (industry && !isVisited(industry))
+            {
+                markVisited(industry);
+                currRow = grid.begin() + row;
+                curr = currRow->begin() + col;
+                return;
             }
-            if (found) break;
-            row += 1;
         }
     }
+
+    // Set to end if no industry entities are found
+    currRow = grid.end();
+    curr = {};
 }
 
 /**
- * @brief Determines if there is next Industry
- * 
- * @return true 
- * @return false 
+ * @brief Advances to the next unvisited Industry
  */
-bool IndustryIterator::hasNext() {
-    int tr = 0;
-    int tc = 0;
-    for (std::vector<std::vector<Entity*>>::iterator itRow = grid.begin(); itRow != grid.end(); itRow++) {
-        tc = 0;
-        for (std::vector<Entity*>::iterator itCol = itRow->begin(); itCol != itRow->end(); itCol++) {
-            Industry* a = dynamic_cast<Industry*>(*itCol);
-            if ((a) && (tr > row)) { return true; }
-            if ((a) && (tr >= row && tc > col)) { return true; }
-            tc += 1;
+void IndustryIterator::next()
+{
+    if (currRow == grid.end())
+        return;
+
+    for (++col; row < grid.size(); ++row, col = 0)
+    {
+        for (; col < grid[row].size(); ++col)
+        {
+            Industry *industry = dynamic_cast<Industry *>(grid[row][col]);
+            if (industry && !isVisited(industry))
+            {
+                markVisited(industry);
+                currRow = grid.begin() + row;
+                curr = currRow->begin() + col;
+                return;
+            }
         }
-        tr += 1;
     }
-    return false;
+
+    // If no further industry entities, set iterator to the end
+    currRow = grid.end();
+    curr = {};
 }
 
 /**
- * @brief 
- * 
- * @return Entity* 
+ * @brief Checks if there is another unvisited Industry
+ *
+ * @return true if there is another unvisited Industry, false otherwise
  */
-Entity* IndustryIterator::current() {
-    return (*this->curr);
+bool IndustryIterator::hasNext()
+{
+    return currRow != grid.end() && curr != currRow->end();
+}
+
+/**
+ * @brief Returns the current Industry
+ *
+ * @return Entity*
+ */
+Entity *IndustryIterator::current()
+{
+    return (currRow != grid.end() && curr != currRow->end()) ? *curr : nullptr;
 }

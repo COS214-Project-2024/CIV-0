@@ -9,12 +9,12 @@ class PowerPlantIterator : public Iterator
 public:
     PowerPlantIterator();
     ~PowerPlantIterator();
-    
-    PowerPlantIterator(std::vector<std::vector<Entity*>> &grid);
+
+    PowerPlantIterator(std::vector<std::vector<Entity *>> &grid);
     void first();
     void next();
     bool hasNext();
-    Entity* current();
+    Entity *current();
 };
 
 #endif // POWERPLANTITERATOR_H
