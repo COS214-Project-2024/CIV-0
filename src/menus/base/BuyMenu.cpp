@@ -44,13 +44,6 @@ void BuyMenu::handleInput()
     confirmPurchase(type, size, xPos, yPos);
 }
 
-std::string BuyMenu::coordinatesToLabel(int x, int y) const
-{
-    char xLabel = indexToExtendedChar(x);
-    char yLabel = indexToExtendedChar(y);
-    return "(" + std::string(1, xLabel) + ", " + std::string(1, yLabel) + ")";
-}
-
 /**
  * @brief Allows the user to choose the size of the building based on available resources.
  * Displays an error message if the user cannot afford the selected size.
@@ -204,68 +197,6 @@ void BuyMenu::chooseBuildingPosition(int &xPos, int &yPos, EntityType type, Size
             displayInvalidChoice();
         }
     }
-}
-
-void BuyMenu::displayAvailablePositions(const std::vector<std::vector<int>> &positions) const
-{
-    City *city = City::instance();
-    const auto &grid = city->getGrid();
-    int width = city->getWidth();
-    int height = city->getHeight();
-
-    // Initialize position markers for quick lookup
-    std::vector<std::vector<bool>> positionMarkers(height, std::vector<bool>(width, false));
-    for (const auto &pos : positions)
-    {
-        int x = pos[0];
-        int y = pos[1];
-        if (x >= 0 && x < width && y >= 0 && y < height)
-        {
-            positionMarkers[x][y] = true;
-        }
-    }
-
-    // Display column headers
-    std::cout << "    ";
-    for (int i = 0; i < width; ++i)
-    {
-        std::cout << indexToExtendedChar(i) << " ";
-    }
-    std::cout << std::endl
-              << "  ";
-    printTopBorder(width * 2 + 1);
-
-    // Loop through each row in the grid
-    for (int col = 0; col < height; ++col)
-    {
-        std::cout << indexToExtendedChar(col) << DARK_GRAY << " ║ " << RESET;
-
-        for (int row = 0; row < width; ++row)
-        {
-            Entity *entity = grid[row][col];
-
-            if (entity != nullptr && dynamic_cast<Road *>(entity))
-            {
-                // Display road symbols
-                std::cout << entity->getSymbol() << " ";
-            }
-            else if (positionMarkers[row][col])
-            {
-                // Display available positions for the building
-                std::cout << BOLD_YELLOW << "✔ " << RESET;
-            }
-            else
-            {
-                // Display empty cells
-                std::cout << DARK_GRAY << ". " << RESET;
-            }
-        }
-        std::cout << DARK_GRAY << "║" << RESET << std::endl;
-    }
-
-    // Print the bottom border
-    std::cout << "  ";
-    printBottomBorder(width * 2 + 1);
 }
 
 /**

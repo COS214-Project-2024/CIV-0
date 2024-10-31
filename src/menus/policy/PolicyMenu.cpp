@@ -17,7 +17,7 @@ void PolicyMenu::handleInput()
         {"Policy History",
          {{'3', "📜", "Show all policy history"}}},
         {"Navigation",
-         {{'q', "⬅️", "Back to Main Menu"}}}};
+         {{'q', "⬅️ ", "Back to Main Menu"}}}};
     setHeading("Policy Menu");
     clearScreen();
     displayMenu();

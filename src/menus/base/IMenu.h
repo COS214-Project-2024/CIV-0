@@ -202,6 +202,23 @@ protected:
      * @return A plain string with color codes removed.
      */
     std::string stripColorCodes(const std::string &input) const;
+
+    /**
+     * @brief Converts x and y coordinates to a labeled string (e.g., "A, 1").
+     *
+     * @param x The x-coordinate.
+     * @param y The y-coordinate.
+     * @return A formatted string representing the labeled coordinates.
+     */
+    std::string coordinatesToLabel(int x, int y) const;
+
+    /**
+     * @brief Displays available positions for an entity on the city grid.
+     * Positions are marked based on availability for a given type and size.
+     *
+     * @param positions Vector of available positions.
+     */
+    void displayAvailablePositions(const std::vector<std::vector<int>> &positions) const;
 };
 
 #endif // IMENU_H

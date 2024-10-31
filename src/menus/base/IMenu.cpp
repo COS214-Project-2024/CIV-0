@@ -1,10 +1,72 @@
 #include "IMenu.h"
 #include "city/City.h"
+#include "entities/road/Road.h"
 #include <algorithm> // For std::max
 #include <iostream>
 #include <iomanip>
 #include <sstream>
 #include <regex>
+
+std::string IMenu::coordinatesToLabel(int x, int y) const
+{
+    char xLabel = indexToExtendedChar(x);
+    char yLabel = indexToExtendedChar(y);
+    return "(" + std::string(1, xLabel) + ", " + std::string(1, yLabel) + ")";
+}
+
+void IMenu::displayAvailablePositions(const std::vector<std::vector<int>> &positions) const
+{
+    City *city = City::instance();
+    const auto &grid = city->getGrid();
+    int width = city->getWidth();
+    int height = city->getHeight();
+
+    std::vector<std::vector<bool>> positionMarkers(height, std::vector<bool>(width, false));
+    for (const auto &pos : positions)
+    {
+        int x = pos[0];
+        int y = pos[1];
+        if (x >= 0 && x < width && y >= 0 && y < height)
+        {
+            positionMarkers[x][y] = true;
+        }
+    }
+
+    std::cout << "    ";
+    for (int i = 0; i < width; ++i)
+    {
+        std::cout << indexToExtendedChar(i) << " ";
+    }
+    std::cout << std::endl
+              << "  ";
+    printTopBorder(width * 2 + 1);
+
+    for (int col = 0; col < height; ++col)
+    {
+        std::cout << indexToExtendedChar(col) << DARK_GRAY << " ║ " << RESET;
+
+        for (int row = 0; row < width; ++row)
+        {
+            Entity *entity = grid[row][col];
+            if (entity != nullptr && dynamic_cast<Road *>(entity))
+            {
+                std::cout << entity->getSymbol() << " ";
+            }
+            else if (positionMarkers[row][col])
+            {
+                std::cout << BOLD_YELLOW << "✔ " << RESET;
+            }
+            else
+            {
+                std::cout << DARK_GRAY << ". " << RESET;
+            }
+        }
+        std::cout << DARK_GRAY << "║" << RESET << std::endl;
+    }
+
+    std::cout << "  ";
+    printBottomBorder(width * 2 + 1);
+}
 
 char IMenu::indexToExtendedChar(int index) const
 {

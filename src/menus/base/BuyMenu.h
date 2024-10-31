@@ -37,24 +37,6 @@ public:
 
 protected:
     /**
-     * @brief Converts x and y coordinates to a labeled string (e.g., "A, 1").
-     *
-     * @param x The x-coordinate.
-     * @param y The y-coordinate.
-     * @return A formatted string representing the labeled coordinates.
-     */
-    std::string coordinatesToLabel(int x, int y) const;
-
-    /**
-     * @brief Displays available positions for the building on the city grid.
-     * Positions are marked based on availability for the given building type and size.
-     * @param positions Vector of available positions.
-     * @param width Width of the city grid.
-     * @param height Height of the city grid.
-     */
-    void displayAvailablePositions(const std::vector<std::vector<int>> &positions) const;
-
-    /**
      * @brief Pure virtual function to choose the entity type.
      * Must be implemented by derived classes to allow dynamic selection of entity types.
      * @return EntityType The type of the entity chosen.
