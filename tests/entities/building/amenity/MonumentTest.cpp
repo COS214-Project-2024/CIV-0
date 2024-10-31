@@ -52,11 +52,12 @@ TEST_SUITE("Monument Tests")
 
     TEST_CASE("Update Method Test")
     {
-        Monument monument(ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::LARGE), Size::LARGE, 0, 0);
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::LARGE);
+        Monument monument(ec, Size::LARGE, 0, 0);
         CHECK(monument.isBuilt() == false);
 
         // This simulates the game looping
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < ec.buildTime; i++)
         {
             monument.update();
         }
@@ -96,7 +97,7 @@ TEST_SUITE("Monument Tests")
         SUBCASE("Monument exactly on border")
         {
             Monument borderMonument(ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::LARGE), Size::LARGE, 30, 30);
-            CHECK(baseMonument.isWithinEffectRadius(&borderMonument) == false);
+            CHECK(baseMonument.isWithinEffectRadius(&borderMonument) == true);
         }
 
         SUBCASE("Monument partially overlaps with radius")

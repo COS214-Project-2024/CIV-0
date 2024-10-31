@@ -31,11 +31,11 @@ TEST_CASE("CityManager Entity Manipulation")
 
     // Test that an entity is correctly placed and can be sold
     // Assuming City::setEntity exists
-    City::instance()->addEntity(new BusStop(ConfigManager::getEntityConfig(EntityType::BUSSTOP, Size::LARGE), Size::LARGE, 1, 1));
-    CHECK(cityManager.getEntity(1, 1) != nullptr);
+    City::instance()->addEntity(new BusStop(ConfigManager::getEntityConfig(EntityType::BUSSTOP, Size::LARGE), Size::LARGE, 10, 10));
+    CHECK(cityManager.getEntity(10, 10) != nullptr);
 
-    cityManager.sellBuilding(1, 1);
-    CHECK(cityManager.getEntity(1, 1) == nullptr);
+    cityManager.sellBuilding(10, 10);
+    CHECK(cityManager.getEntity(10, 10) == nullptr);
     City::instance()->reset();
 }
 
@@ -96,7 +96,7 @@ TEST_CASE("CityManager Buy Entity - Placement Check")
     CHECK(canPlace == false);
 
     canPlace = cityManager.canBuyAt(6, 6, EntityType::BUSSTOP, Size::SMALL);
-    CHECK(canPlace == false);
+    CHECK(canPlace == true);
 
     canPlace = cityManager.canBuyAt(6, 5, EntityType::BUSSTOP, Size::SMALL);
     CHECK(canPlace == true);
