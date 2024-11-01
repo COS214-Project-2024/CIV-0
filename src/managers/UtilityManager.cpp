@@ -197,7 +197,13 @@ bool UtilityManager::upgrade(Utility*& utility) {
             delete utility;
             utility = (Utility*) upgradedUtility;
 
-            // Subtract cost?
+            // Subtract cost
+            Cost cost = utility->getCost();
+            City* city = City::instance();
+            city->setMoney(city->getMoney() - cost.moneyCost);
+            city->setWood(city->getWood() - cost.woodCost);
+            city->setStone(city->getStone() - cost.stoneCost);
+            city->setConcrete(city->getConcrete() - cost.concreteCost);
 
             return true;
         }
