@@ -31,6 +31,7 @@ void DemolishMenu::display() const
  */
 void DemolishMenu::handleInput()
 {
+    // Set up menu with only two options for specific and all types demolition
     sections = {
         {"Options",
          {{'1', "🔨", "Demolish a Specific Building"},
@@ -38,6 +39,7 @@ void DemolishMenu::handleInput()
         {"Navigation",
          {{'b', "⬅️ ", "Back to Buildings Menu"},
           {'q', "⬅️ ", "Back to Main Menu"}}}};
+
     clearScreen();
     displayMenu();
 
@@ -85,13 +87,13 @@ void DemolishMenu::demolishSpecificBuilding()
     City *city = City::instance();
     CityIterator cityIterator(city->getGrid());
     std::vector<std::pair<int, int>> buildingPositions;
-    char optionKey = '1';
+    int optionKey = 1; // Start with 1
 
     // Populate menu with buildings currently in the city
     for (cityIterator.first(); cityIterator.hasNext(); cityIterator.next())
     {
         Entity *entity = cityIterator.current();
-        if (entity)
+        if (entity && dynamic_cast<Road *>(entity) == nullptr)
         {
             buildingPositions.push_back({cityIterator.getRow(), cityIterator.getCol()});
             std::string buildingLabel = entityTypeToString(entity->getType()) + " (" + coordinatesToLabel(cityIterator.getRow(), cityIterator.getCol()) + ")";
@@ -107,29 +109,32 @@ void DemolishMenu::demolishSpecificBuilding()
     bool choosing = true;
     while (choosing)
     {
-        char choice;
+        std::string choice;
         displayChoicePrompt();
         std::cin >> choice;
 
-        int index = choice - '1';
-        if (index >= 0 && index < buildingPositions.size())
-        {
-            std::vector<std::pair<int, int>> positionToDemolish = {buildingPositions[index]};
-            confirmDemolish(positionToDemolish);
-            choosing = false;
-        }
-        else if (choice == 'b')
+        if (choice == "b")
         {
             choosing = false;
         }
-        else if (choice == 'q')
+        else if (choice == "q")
         {
             MenuManager::instance().setCurrentMenu(Menu::MAIN);
             choosing = false;
         }
         else
         {
-            displayInvalidChoice();
+            int index = std::stoi(choice) - 1; // Convert string input to an integer index
+            if (index >= 0 && index < buildingPositions.size())
+            {
+                std::vector<std::pair<int, int>> positionToDemolish = {buildingPositions[index]};
+                confirmDemolish(positionToDemolish);
+                choosing = false;
+            }
+            else
+            {
+                displayInvalidChoice();
+            }
         }
     }
 }
@@ -140,12 +145,19 @@ void DemolishMenu::demolishSpecificBuilding()
 void DemolishMenu::demolishAllBuildingsOfType()
 {
     sections.clear();
-    sections.push_back({"Select Building Type", {}});
+    sections.push_back({"Select Building Type to Demolish All", {}});
 
-    std::vector<EntityType> buildingTypes = {EntityType::HOUSE, EntityType::APARTMENT, EntityType::FACTORY};
-    char optionKey = '1';
+    // Populate menu with all possible building types
+    std::vector<EntityType> buildingTypes = {
+        EntityType::HOUSE, EntityType::APARTMENT, EntityType::OFFICE,
+        EntityType::SHOPPINGMALL, EntityType::FACTORY, EntityType::HOSPITAL,
+        EntityType::POLICESTATION, EntityType::SCHOOL, EntityType::PARK,
+        EntityType::THEATER, EntityType::MONUMENT, EntityType::POWERPLANT,
+        EntityType::WATERSUPPLY, EntityType::WASTEMANAGMENT, EntityType::SEWAGESYSTEM,
+        EntityType::WOODPRODUCER, EntityType::STONEPRODUCER, EntityType::CONCRETEPRODUCER};
 
-    for (EntityType type : buildingTypes)
+    int optionKey = 1; // Start with option key 1
+    for (const auto &type : buildingTypes)
     {
         sections[0].options.push_back(Option{optionKey++, "🏚️ ", entityTypeToString(type)});
     }
@@ -158,42 +170,51 @@ void DemolishMenu::demolishAllBuildingsOfType()
     bool choosing = true;
     while (choosing)
     {
-        char choice;
+        std::string choice;
         displayChoicePrompt();
         std::cin >> choice;
 
-        int index = choice - '1';
-        if (index >= 0 && index < buildingTypes.size())
-        {
-            EntityType selectedType = buildingTypes[index];
-
-            // Use CityManager to get positions of all buildings of the selected type
-            std::vector<std::pair<int, int>> positionsToDemolish;
-            CityIterator cityIterator(City::instance()->getGrid());
-            for (cityIterator.first(); cityIterator.hasNext(); cityIterator.next())
-            {
-                Entity *entity = cityIterator.current();
-                if (entity && entity->getType() == selectedType)
-                {
-                    positionsToDemolish.push_back({cityIterator.getRow(), cityIterator.getCol()});
-                }
-            }
-
-            confirmDemolish(positionsToDemolish);
-            choosing = false;
-        }
-        else if (choice == 'b')
+        if (choice == "b")
         {
             choosing = false;
         }
-        else if (choice == 'q')
+        else if (choice == "q")
         {
             MenuManager::instance().setCurrentMenu(Menu::MAIN);
             choosing = false;
         }
         else
         {
-            displayInvalidChoice();
+            int index = std::stoi(choice) - 1;
+            if (index >= 0 && index < buildingTypes.size())
+            {
+                // Get the selected EntityType
+                EntityType selectedType = buildingTypes[index];
+
+                // Confirm demolition
+                displayChoiceMessagePrompt("Confirm demolition of all " + entityTypeToString(selectedType) + " buildings (y/n): ");
+                char confirm;
+                std::cin >> confirm;
+
+                if (confirm == 'y')
+                {
+                    cityManager.sellAllBuildingsOfType(selectedType);
+
+                    // Success message
+                    displaySuccessMessage("All buildings of type " + entityTypeToString(selectedType) + " demolished successfully.");
+                }
+                else
+                {
+                    displayErrorMessage("Demolition cancelled.");
+                }
+
+                displayPressEnterToContinue();
+                choosing = false;
+            }
+            else
+            {
+                displayInvalidChoice();
+            }
         }
     }
 }

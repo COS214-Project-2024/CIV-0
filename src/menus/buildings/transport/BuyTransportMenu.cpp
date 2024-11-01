@@ -77,4 +77,5 @@ EntityType BuyTransportMenu::chooseEntityType()
 
 void BuyTransportMenu::buildEntity(EntityType type, Size size, int xPos, int yPos)
 {
+    transportManager.buildPublicTransit(type, size, xPos, yPos);
 }

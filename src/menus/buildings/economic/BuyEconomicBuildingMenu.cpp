@@ -77,4 +77,5 @@ EntityType BuyEconomicBuildingMenu::chooseEntityType()
 
 void BuyEconomicBuildingMenu::buildEntity(EntityType type, Size size, int xPos, int yPos)
 {
+    buildingManager.buildBuilding(type, size, xPos, yPos);
 }

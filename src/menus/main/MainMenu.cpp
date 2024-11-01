@@ -85,7 +85,7 @@ void MainMenu::handleInput()
         case 'c':
             // Logic for continuing the game can be added here
             cityManager.updateCity();
-            displaySuccessMessage("The Sun has risen for another day :)");
+            displaySuccessMessage("The Sun has risen for another day 🌅 :)");
             displayPressEnterToContinue();
             break;
         case 'd':
@@ -95,7 +95,7 @@ void MainMenu::handleInput()
             break;
         case 'q':
             char confirm;
-            displayChoiceMessagePrompt("Are you sure you want to quit the game (y/n):");
+            displayChoiceMessagePrompt("Are you sure you want to quit the game (y/n): ");
             std::cin >> confirm;
             if (confirm == 'y')
             {

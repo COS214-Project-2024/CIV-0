@@ -23,6 +23,12 @@
 #include "entities/building/service/PoliceStation.h"
 #include "entities/building/service/School.h"
 #include <iostream>
+#include <random>
+#include <cmath>
+#include "utils/BSPPartitioner.h"
+#include <cstdlib>
+#include <optional>
+#include <map>
 
 // Brother what are these includes - does anyone want to fix this?
 
@@ -31,7 +37,7 @@ CityManager::~CityManager() {}
 
 void CityManager::initializeCity()
 {
-    City::instance();
+    City::instance()->createRandomRoad();
 }
 
 void CityManager::updateCity()
@@ -321,4 +327,182 @@ bool CityManager::buyEntity(EntityType type, Size size)
     }
 
     return false;
+}
+
+void CityManager::generateCity(std::optional<unsigned int> seed)
+{
+    // Set default values for internal parameters
+    int placementProbability = 50; // Probability of placing a building
+    int roadCoverage = 60;         // Percentage of the grid to be covered by roads
+    int minPartitionWidth = 7;     // Minimum width for BSP partitions
+    int minPartitionHeight = 7;    // Minimum height for BSP partitions
+    int roadGap = 1;               // Gap width between partitions for roads
+
+    // Seed the random generator with the provided seed or the current time
+    if (seed.has_value())
+    {
+        std::srand(seed.value());
+    }
+    else
+    {
+        std::srand(std::time(nullptr));
+    }
+
+    City *city = City::instance();
+
+    // Generate roads and buildings
+    generateRandomRoads(city->getWidth(), city->getHeight(), minPartitionWidth, minPartitionHeight, roadGap);
+    generateRandomBuildings(placementProbability);
+}
+
+void CityManager::generateRandomRoads(int gridWidth, int gridHeight, int minWidth, int minHeight, int roadGap)
+{
+    City *city = City::instance();
+    std::vector<std::vector<Entity *>> &grid = city->getGrid();
+
+    // Initialize BSPPartitioner with minWidth, minHeight, and gap
+    BSPPartitioner bsp(gridWidth, gridHeight, minWidth, minHeight, roadGap);
+    bsp.partition();
+
+    // Place roads in the gaps created by BSP
+    const std::vector<Rectangle> &gaps = bsp.getGaps();
+    for (const Rectangle &gap : gaps)
+    {
+        // Place roads within the gap rectangle
+        for (int x = gap.x; x < gap.x + gap.width; ++x)
+        {
+            for (int y = gap.y; y < gap.y + gap.height; ++y)
+            {
+                if (city->getEntity(x, y) == nullptr)
+                { // Only place if no existing entity
+                    Entity *road = new Road(ConfigManager::getEntityConfig(EntityType::ROAD, Size::SMALL), Size::SMALL, x, y);
+                    city->addEntity(road);
+                }
+            }
+        }
+    }
+}
+
+#include <map>
+#include <vector>
+
+void CityManager::generateRandomBuildings(int placementProbability)
+{
+    City *city = City::instance();
+    std::vector<std::vector<Entity *>> &grid = city->getGrid();
+    int width = city->getWidth();
+    int height = city->getHeight();
+
+    // Create a weighted list of building types
+    std::vector<EntityType> weightedBuildingTypes = {
+        EntityType::HOUSE, EntityType::HOUSE, EntityType::HOUSE, EntityType::HOUSE, EntityType::HOUSE, EntityType::HOUSE, // Higher weight for houses
+        EntityType::APARTMENT, EntityType::APARTMENT, EntityType::APARTMENT,
+        EntityType::OFFICE, EntityType::OFFICE,
+        EntityType::SHOPPINGMALL,
+        EntityType::FACTORY,
+        EntityType::HOSPITAL,
+        EntityType::SCHOOL,
+        EntityType::PARK, EntityType::PARK, // Higher weight for parks
+        EntityType::THEATER,
+        EntityType::MONUMENT,
+        EntityType::POWERPLANT,
+        EntityType::WATERSUPPLY,
+        EntityType::WASTEMANAGMENT,
+        EntityType::SEWAGESYSTEM,
+        EntityType::WOODPRODUCER,
+        EntityType::STONEPRODUCER,
+        EntityType::CONCRETEPRODUCER};
+
+    for (int x = 0; x < width; ++x)
+    {
+        for (int y = 0; y < height; ++y)
+        {
+            // Skip cells with existing entities
+            if (city->getEntity(x, y) != nullptr)
+            {
+                continue;
+            }
+
+            // Decide to place a building based on probability
+            if (rand() % 100 >= placementProbability)
+            {
+                continue;
+            }
+
+            // Randomly select a building type from the weighted list
+            EntityType buildingType = weightedBuildingTypes[rand() % weightedBuildingTypes.size()];
+            Size defaultSize = Size::SMALL;
+
+            // Check if the building can be placed here
+            if (canBuyAt(x, y, buildingType, defaultSize))
+            {
+                EntityConfig config = ConfigManager::getEntityConfig(buildingType, defaultSize);
+
+                // Create specific building based on EntityType
+                Entity *building = nullptr;
+                switch (buildingType)
+                {
+                case EntityType::HOUSE:
+                    building = new House(config, defaultSize, x, y);
+                    break;
+                case EntityType::APARTMENT:
+                    building = new Apartment(config, defaultSize, x, y);
+                    break;
+                case EntityType::OFFICE:
+                    building = new Office(config, defaultSize, x, y);
+                    break;
+                case EntityType::SHOPPINGMALL:
+                    building = new ShoppingMall(config, defaultSize, x, y);
+                    break;
+                case EntityType::FACTORY:
+                    building = new Factory(config, defaultSize, x, y);
+                    break;
+                case EntityType::HOSPITAL:
+                    building = new Hospital(config, defaultSize, x, y);
+                    break;
+                case EntityType::SCHOOL:
+                    building = new School(config, defaultSize, x, y);
+                    break;
+                case EntityType::PARK:
+                    building = new Park(config, defaultSize, x, y);
+                    break;
+                case EntityType::THEATER:
+                    building = new Theater(config, defaultSize, x, y);
+                    break;
+                case EntityType::MONUMENT:
+                    building = new Monument(config, defaultSize, x, y);
+                    break;
+                case EntityType::POWERPLANT:
+                    building = new PowerPlant(config, defaultSize, x, y);
+                    break;
+                case EntityType::WATERSUPPLY:
+                    building = new WaterSupply(config, defaultSize, x, y);
+                    break;
+                case EntityType::WASTEMANAGMENT:
+                    building = new WasteManagement(config, defaultSize, x, y);
+                    break;
+                case EntityType::SEWAGESYSTEM:
+                    building = new SewageSystem(config, defaultSize, x, y);
+                    break;
+                case EntityType::WOODPRODUCER:
+                    building = new WoodProducer(config, defaultSize, x, y);
+                    break;
+                case EntityType::STONEPRODUCER:
+                    building = new StoneProducer(config, defaultSize, x, y);
+                    break;
+                case EntityType::CONCRETEPRODUCER:
+                    building = new ConcreteProducer(config, defaultSize, x, y);
+                    break;
+                default:
+                    break;
+                }
+
+                // Add the building to the city if successfully created
+                if (building != nullptr)
+                {
+                    city->addEntity(building);
+                }
+            }
+        }
+    }
 }

@@ -2,6 +2,7 @@
 #define BUYRESIDENTIALBUILDINGMENU_H
 
 #include "menus/base/BuyMenu.h"
+#include "managers/BuildingManager.h"
 
 /**
  * @brief Menu for purchasing residential buildings.
@@ -30,6 +31,9 @@ protected:
     EntityType chooseEntityType() override;
 
     void buildEntity(EntityType type, Size size, int xPos, int yPos) override;
+
+private:
+    BuildingManager buildingManager;
 };
 
 #endif // BUYRESIDENTIALBUILDINGMENU_H

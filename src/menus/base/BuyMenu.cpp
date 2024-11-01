@@ -6,7 +6,7 @@
 /**
  * @brief Constructs a new BuyMenu with default available resources.
  */
-BuyMenu::BuyMenu() : IMenu(), availableMoney(10000), availableWood(50000), availableStone(10000), availableConcrete(10000) {}
+BuyMenu::BuyMenu() : IMenu() {}
 
 /**
  * @brief Destructor for BuyMenu.
@@ -28,10 +28,12 @@ void BuyMenu::handleInput()
     hasExited = false;
 
     EntityType type = chooseEntityType();
+    selectedType = type;
     if (hasExited)
         return;
 
     Size size = chooseBuildingSize(type);
+    selectedSize = size;
     if (hasExited)
         return;
 
@@ -152,13 +154,14 @@ void BuyMenu::chooseBuildingPosition(int &xPos, int &yPos, EntityType type, Size
     sections.clear();
     sections.push_back({"Options", {}});
 
-    char optionKey = '1';
+    int optionKey = 1; // Start with integer 1 for option keys
     for (int i = 0; i < positions.size(); ++i)
     {
         std::string posStr = "Position " + coordinatesToLabel(positions[i][0], positions[i][1]);
         sections[0].options.push_back(Option{optionKey++, "📍", posStr});
     }
 
+    // Keep 'b' and 'q' for navigation
     sections.push_back({"Navigation", {{'b', "⬅️ ", "Back to Buildings Menu"}, {'q', "⬅️ ", "Back to Main Menu"}}});
     setHeading("Select Position for the Building");
     clearScreen();
@@ -170,33 +173,138 @@ void BuyMenu::chooseBuildingPosition(int &xPos, int &yPos, EntityType type, Size
     bool choosing = true;
     while (choosing)
     {
-        char choice;
+        std::string choiceStr;
         displayChoicePrompt();
-        std::cin >> choice;
+        std::cin >> choiceStr;
 
-        int index = choice - '1';
-
-        if (index >= 0 && index < positions.size())
-        {
-            xPos = positions[index][0];
-            yPos = positions[index][1];
-            choosing = false;
-        }
-        else if (choice == 'b')
+        if (choiceStr == "b") // Back to Buildings Menu
         {
             MenuManager::instance().setCurrentMenu(Menu::BUILDINGS);
+            hasExited = true;
+            choosing = false;
         }
-        else if (choice == 'q')
+        else if (choiceStr == "q") // Back to Main Menu
         {
             MenuManager::instance().setCurrentMenu(Menu::MAIN);
-            choosing = false;
             hasExited = true;
+            choosing = false;
         }
         else
         {
-            displayInvalidChoice();
+            try
+            {
+                int choice = std::stoi(choiceStr); // Convert input to integer
+
+                if (choice > 0 && choice <= positions.size())
+                {
+                    xPos = positions[choice - 1][0];
+                    yPos = positions[choice - 1][1];
+                    choosing = false;
+                }
+                else
+                {
+                    displayInvalidChoice();
+                }
+            }
+            catch (std::invalid_argument &)
+            {
+                displayInvalidChoice(); // Handle invalid input
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear invalid input
+            }
         }
     }
+}
+
+void BuyMenu::displayAvailablePositions(const std::vector<std::vector<int>> &positions) const
+{
+    City *city = City::instance();
+    const auto &grid = city->getGrid();
+    int width = city->getWidth();
+    int height = city->getHeight();
+
+    // Get selected entity dimensions
+    EntityConfig config = ConfigManager::getEntityConfig(selectedType, selectedSize);
+    int entityWidth = config.width;
+    int entityHeight = config.height;
+
+    // Initialize a 2D array to hold display strings for each cell
+    std::vector<std::vector<std::string>> displayGrid(height, std::vector<std::string>(width, std::string(DARK_GRAY) + "." + RESET));
+
+    // Mark available positions and entity footprint for display
+    for (const auto &pos : positions)
+    {
+        int x = pos[0];
+        int y = pos[1];
+
+        // Place check mark in the bottom-left corner of the entity
+        int checkX = x;
+        int checkY = y;
+
+        if (checkX >= 0 && checkX < width && checkY >= 0 && checkY < height)
+        {
+            displayGrid[checkX][checkY] = std::string(BOLD_YELLOW) + "□" + RESET;
+        }
+
+        // Fill the rest of the entity's footprint with empty rectangles
+        for (int h = 0; h < entityHeight; ++h)
+        {
+            for (int w = 0; w < entityWidth; ++w)
+            {
+                int posX = x + w;
+                int posY = y - h;
+
+                // Skip the bottom-left corner (already marked with check mark) and check boundaries
+                if ((posX < width && posY < height) && (posX != checkX || posY != checkY))
+                {
+                    // Only place an empty rectangle if the cell is not marked with a check
+                    if (displayGrid[posX][posY] != (std::string(BOLD_YELLOW) + "□" + RESET))
+                    {
+                        displayGrid[posX][posY] = std::string(BOLD_CYAN) + "□" + RESET;
+                    }
+                }
+            }
+        }
+    }
+
+    // Populate grid with existing entities, if any
+    for (int col = 0; col < height; ++col)
+    {
+        for (int row = 0; row < width; ++row)
+        {
+            Entity *entity = grid[row][col];
+            if (entity != nullptr && dynamic_cast<Road *>(entity))
+            {
+                displayGrid[row][col] = entity->getSymbol();
+            }
+        }
+    }
+
+    // Display the header for columns
+    std::cout << "    ";
+    for (int i = 0; i < width; ++i)
+    {
+        std::cout << indexToExtendedChar(i) << " ";
+    }
+    std::cout << std::endl
+              << "  ";
+    printTopBorder(width * 2 + 1);
+
+    // Render the grid row by row
+    for (int col = 0; col < height; ++col)
+    {
+        std::cout << indexToExtendedChar(col) << DARK_GRAY << " ║ " << RESET;
+
+        for (int row = 0; row < width; ++row)
+        {
+            std::cout << displayGrid[row][col] << " ";
+        }
+        std::cout << DARK_GRAY << "║" << RESET << std::endl;
+    }
+
+    // Display the bottom border
+    std::cout << "  ";
+    printBottomBorder(width * 2 + 1);
 }
 
 /**

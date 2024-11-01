@@ -36,6 +36,9 @@ public:
     void handleInput() override;
 
 protected:
+    EntityType selectedType; ///< The currently selected entity type.
+    Size selectedSize;       ///< The currently selected size of the entity.
+
     /**
      * @brief Pure virtual function to choose the entity type.
      * Must be implemented by derived classes to allow dynamic selection of entity types.
@@ -52,7 +55,7 @@ protected:
     Size chooseBuildingSize(EntityType type);
 
     /**
-     * @brief Allows the user to choose the position of the building to be placed.
+     * @brief Allows the user to choose the position of the building on the grid.
      * @param xPos Reference to the x-coordinate for the building's position.
      * @param yPos Reference to the y-coordinate for the building's position.
      */
@@ -70,10 +73,8 @@ protected:
 
     virtual void buildEntity(EntityType type, Size size, int xPos, int yPos) = 0;
 
-    int availableMoney;    ///< Available money for purchasing buildings.
-    int availableWood;     ///< Available wood for purchasing buildings.
-    int availableStone;    ///< Available stone for purchasing buildings.
-    int availableConcrete; ///< Available concrete for purchasing buildings.
+    // Override for custom position display with entity size
+    void displayAvailablePositions(const std::vector<std::vector<int>> &positions) const override;
 };
 
 #endif // BUYMENU_H

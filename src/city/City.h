@@ -137,6 +137,13 @@ public:
     void reset(int width, int height);
 
     CityIterator createIterator();
+
+    /**
+     * @brief Creates a road entity at a random position within the city grid.
+     */
+    void createRandomRoad();
+
+    void displayCity() const;
 };
 
 #endif // CITY_H
