@@ -6,12 +6,12 @@
 class StoneProducerUpgrade : public StoneProducer
 {
 public:
-    StoneProducerUpgrade(StoneProducer* stoneProd);
-    StoneProducerUpgrade(StoneProducerUpgrade* stoneProd);
+    StoneProducerUpgrade(StoneProducer *stoneProd);
+    StoneProducerUpgrade(StoneProducerUpgrade *stoneProd);
     ~StoneProducerUpgrade();
 
     virtual void update() = 0;
-    virtual Entity* clone() = 0;
+    virtual Entity *clone() = 0;
     virtual int getOutput() = 0;
     virtual Entity* upgrade() = 0;
 

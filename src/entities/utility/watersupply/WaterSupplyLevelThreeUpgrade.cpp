@@ -1,25 +1,44 @@
 #include "WaterSupplyLevelThreeUpgrade.h"
 
-WaterSupplyLevelThreeUpgrade::WaterSupplyLevelThreeUpgrade(WaterSupply* waterSupply) : WaterSupplyUpgrade(waterSupply) {
-
+WaterSupplyLevelThreeUpgrade::WaterSupplyLevelThreeUpgrade(WaterSupply *water) : WaterSupplyUpgrade(water)
+{
 }
 
-WaterSupplyLevelThreeUpgrade::WaterSupplyLevelThreeUpgrade(WaterSupplyLevelThreeUpgrade* waterSupplyLevelThreeUpgrade) : WaterSupplyUpgrade(waterSupplyLevelThreeUpgrade) {
-
+WaterSupplyLevelThreeUpgrade::WaterSupplyLevelThreeUpgrade(WaterSupplyLevelThreeUpgrade *waterSupplyLevelThreeUpgrade) : WaterSupplyUpgrade(waterSupplyLevelThreeUpgrade)
+{
 }
 
-WaterSupplyLevelThreeUpgrade::~WaterSupplyLevelThreeUpgrade() {
-    
+WaterSupplyLevelThreeUpgrade::~WaterSupplyLevelThreeUpgrade()
+{
 }
 
-void WaterSupplyLevelThreeUpgrade::update() {
+void WaterSupplyLevelThreeUpgrade::update()
+{
     waterSupply->update();
 }
 
-Entity* WaterSupplyLevelThreeUpgrade::clone() {
+int WaterSupplyLevelThreeUpgrade::getLevel()
+{
+    return 3;
+}
+
+Entity *WaterSupplyLevelThreeUpgrade::clone()
+{
     return new WaterSupplyLevelThreeUpgrade(this);
 }
 
-int WaterSupplyLevelThreeUpgrade::getOutput() {
+Entity *WaterSupplyLevelThreeUpgrade::upgrade()
+{
+    // Maximum level reached
+    return nullptr;
+}
+
+int WaterSupplyLevelThreeUpgrade::getOutput()
+{
     return waterSupply->getOutput() * UPGRADE;
+}
+
+Cost WaterSupplyLevelThreeUpgrade::getCost()
+{
+    return Cost(waterSupply->getCost().moneyCost * UPGRADE, waterSupply->getCost().woodCost * UPGRADE, waterSupply->getCost().stoneCost * UPGRADE, waterSupply->getCost().concreteCost * UPGRADE);
 }

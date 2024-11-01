@@ -10,11 +10,11 @@ public:
     RoadIterator();
     ~RoadIterator();
 
-    RoadIterator(std::vector<std::vector<Entity*>> &grid);
+    RoadIterator(std::vector<std::vector<Entity *>> &grid);
     void first();
     void next();
     bool hasNext();
-    Entity* current();
+    Entity *current();
 };
 
 #endif // ROADITERATOR_H

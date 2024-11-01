@@ -1,7 +1,98 @@
 #include "IMenu.h"
+#include "city/City.h"
+#include "entities/road/Road.h"
 #include <algorithm> // For std::max
-#include <iostream>  // For std::setw
+#include <iostream>
+#include <iomanip>
+#include <sstream>
 #include <regex>
+
+std::string IMenu::coordinatesToLabel(int x, int y) const
+{
+    char xLabel = indexToExtendedChar(x);
+    char yLabel = indexToExtendedChar(y);
+    return "(" + std::string(1, xLabel) + ", " + std::string(1, yLabel) + ")";
+}
+
+void IMenu::displayAvailablePositions(const std::vector<std::vector<int>> &positions) const
+{
+    City *city = City::instance();
+    const auto &grid = city->getGrid();
+    int width = city->getWidth();
+    int height = city->getHeight();
+
+    std::vector<std::vector<bool>> positionMarkers(height, std::vector<bool>(width, false));
+    for (const auto &pos : positions)
+    {
+        int x = pos[0];
+        int y = pos[1];
+        if (x >= 0 && x < width && y >= 0 && y < height)
+        {
+            positionMarkers[x][y] = true;
+        }
+    }
+
+    std::cout << "    ";
+    for (int i = 0; i < width; ++i)
+    {
+        std::cout << indexToExtendedChar(i) << " ";
+    }
+    std::cout << std::endl
+              << "  ";
+    printTopBorder(width * 2 + 1);
+
+    for (int col = 0; col < height; ++col)
+    {
+        std::cout << indexToExtendedChar(col) << DARK_GRAY << " ║ " << RESET;
+
+        for (int row = 0; row < width; ++row)
+        {
+            Entity *entity = grid[row][col];
+            if (entity != nullptr && dynamic_cast<Road *>(entity))
+            {
+                std::cout << entity->getSymbol() << " ";
+            }
+            else if (positionMarkers[row][col])
+            {
+                std::cout << BOLD_YELLOW << "□ " << RESET;
+            }
+            else
+            {
+                std::cout << DARK_GRAY << ". " << RESET;
+            }
+        }
+        std::cout << DARK_GRAY << "║" << RESET << std::endl;
+    }
+
+    std::cout << "  ";
+    printBottomBorder(width * 2 + 1);
+}
+
+char IMenu::indexToExtendedChar(int index) const
+{
+    if (index >= 0 && index <= 9)
+    {
+        return '0' + index;
+    }
+    else if (index >= 10 && index <= 35)
+    {
+        return 'A' + (index - 10);
+    }
+    else if (index >= 36 && index <= 61)
+    {
+        return 'a' + (index - 36);
+    }
+    else
+    {
+        const char specialChars[] = "!@#$%^&*()_+-=`~|\\{}[]:\";'<>?,./";
+        int specialIndex = index - 62;
+        if (specialIndex >= 0 && specialIndex < sizeof(specialChars) - 1)
+        {
+            return specialChars[specialIndex];
+        }
+    }
+    throw std::out_of_range("Index out of range for extended character conversion");
+}
 
 /**
  * @brief Constructs a menu with the specified heading.
@@ -146,54 +237,149 @@ std::string IMenu::stripColorCodes(const std::string &input) const
  */
 void IMenu::displayMenu() const
 {
-    // Calculate the maximum width based on the longest piece of text (ignoring color codes)
-    int maxWidth = calculateMaxWidth(menuHeading, sections);
+    // Access the city instance
+    City *city = City::instance();
 
-    // Print the menu heading if it exists
+    // Calculate the maximum width of the menu based on all sections and options
+    int maxWidth = calculateMaxWidth(menuHeading, sections);
+    maxWidth = std::max(maxWidth, calculateMaxWidth("City Resources", {}));
+
+    clearScreen(); // Clear screen at the start of each display
+
+    // Display the main menu heading at the top
     if (!menuHeading.empty())
     {
         printTopBorder(maxWidth);
-        // Use centerTextWithChar to pad the heading with "█" characters
-        std::cout << DARK_GRAY << "║ " << BOLD_WHITE << centerTextWithChar(menuHeading, maxWidth - 2, "█") << DARK_GRAY << " ║" << RESET << std::endl;
-        printDoubleLineDivider(maxWidth); // Double line divider after the heading
+        std::cout << DARK_GRAY << "║ " << BOLD_WHITE
+                  << centerTextWithChar(menuHeading, maxWidth - 2, "█")
+                  << DARK_GRAY << " ║" << RESET << std::endl;
+        printDoubleLineDivider(maxWidth);
     }
 
-    // Determine whether to display section headings
-    bool showSections = sections.size() > 1;
+    // Display City Resources section with the correct heading format
+    std::cout << DARK_GRAY << "║ " << NORMAL_WHITE
+              << centerTextWithChar("City Resources", maxWidth - 2, "•")
+              << DARK_GRAY << " ║" << RESET << "\n";
+    printSectionDivider(maxWidth);
 
-    // Loop through the sections and display them
+    // Gather city resources with alignment and color
+    std::vector<std::pair<std::string, std::string>> resourceLines = {
+        {"Money:", std::to_string(city->getMoney())},
+        {"Population:", std::to_string(city->getPopulation()) + "/" + std::to_string(city->getPopulationCapacity())},
+        {"Wood:", std::to_string(city->getWood())},
+        {"Stone:", std::to_string(city->getStone())},
+        {"Concrete:", std::to_string(city->getConcrete())},
+        {"Electricity Production:", std::to_string(city->getElectricityProduction())},
+        {"Electricity Consumption:", std::to_string(city->getElectricityConsumption())},
+        {"Water Production:", std::to_string(city->getWaterProduction())},
+        {"Water Consumption:", std::to_string(city->getWaterConsumption())}};
+
+    // Get satisfaction value and prepare it for conditional color display
+    int satisfaction = static_cast<int>(city->getSatisfaction());
+    std::string satisfactionColor;
+    if (satisfaction >= 70)
+    {
+        satisfactionColor = BOLD_GREEN;
+    }
+    else if (satisfaction >= 30)
+    {
+        satisfactionColor = BOLD_YELLOW;
+    }
+    else
+    {
+        satisfactionColor = BOLD_RED;
+    }
+    resourceLines.push_back({"Satisfaction:", satisfactionColor + std::to_string(satisfaction) + "%" + RESET});
+
+    // Display each resource line with color formatting
+    for (const auto &line : resourceLines)
+    {
+        std::ostringstream formattedLine;
+        formattedLine << BOLD_WHITE << std::left << std::setw(25) << line.first << RESET;
+
+        // Apply different colors to values based on resource type
+        if (line.first == "Money:")
+        {
+            formattedLine << BOLD_GREEN << line.second << RESET; // Green for money
+        }
+        else if (line.first.find("Production") != std::string::npos)
+        {
+            formattedLine << BOLD_YELLOW << line.second << RESET; // Yellow for production values
+        }
+        else if (line.first.find("Consumption") != std::string::npos)
+        {
+            formattedLine << BOLD_RED << line.second << RESET; // Red for consumption values
+        }
+        else if (line.first == "Satisfaction:")
+        {
+            formattedLine << line.second; // Satisfaction is already colored
+        }
+        else
+        {
+            formattedLine << BOLD_CYAN << line.second << RESET; // Cyan for other resources
+        }
+
+        int padding = maxWidth - 4 - stripColorCodes(formattedLine.str()).size(); // Calculate right padding for alignment
+        std::cout << DARK_GRAY << "║ " << RESET << formattedLine.str()
+                  << std::string(std::max(0, padding), ' ') << DARK_GRAY << "   ║" << RESET << "\n";
+    }
+
+    printSectionDivider(maxWidth); // Divider between City Resources and the rest of the menu
+
+    // Display each section and its options
+    bool showSections = sections.size() > 1;
     for (size_t sectionIndex = 0; sectionIndex < sections.size(); ++sectionIndex)
     {
         const auto &section = sections[sectionIndex];
 
-        // Display the section heading only if there is more than one section
         if (showSections)
         {
-            std::cout << DARK_GRAY << "║ " << NORMAL_WHITE << centerTextWithChar(section.heading, maxWidth - 2, "•") << DARK_GRAY << " ║" << RESET << std::endl;
+            std::cout << DARK_GRAY << "║ " << NORMAL_WHITE
+                      << centerTextWithChar(section.heading, maxWidth - 2, "•")
+                      << DARK_GRAY << " ║" << RESET << "\n";
             printSectionDivider(maxWidth);
         }
 
-        // Display each option in the section with its custom key and proper padding
         for (const auto &option : section.options)
         {
-            std::string plainText = stripColorCodes(option.text); // Remove color codes for proper alignment
-            int iconWidth = 2;                                    // Assume each icon takes 2 characters
-            int keyAndIconWidth = 6 + iconWidth;                  // Key (1 char), space (1 char), icon, and space (1 char)
-            int padding = maxWidth - static_cast<int>(plainText.size()) - keyAndIconWidth;
+            std::string plainText = stripColorCodes(option.text);
+            int iconWidth = 2; // Icon width is assumed to be 2 characters
 
-            // Print the option with dynamically calculated padding
-            std::cout << DARK_GRAY << "║ " << BOLD_YELLOW << option.key << RESET << ". " << option.icon << " "
-                      << option.text << std::string(std::max(0, padding), ' ') << DARK_GRAY << " ║" << RESET << std::endl;
+            // Determine the width of the key (character or integer)
+            int keyWidth = 1;
+            if (auto keyChar = std::get_if<char>(&option.key))
+            {
+                keyWidth = 1; // single character width for char keys
+            }
+            else if (auto keyInt = std::get_if<int>(&option.key))
+            {
+                keyWidth = std::to_string(*keyInt).size(); // calculate width of integer key
+            }
+
+            int keyAndIconWidth = keyWidth + 5 + iconWidth; // Key, icon, and additional space
+            int padding = maxWidth - plainText.size() - keyAndIconWidth;
+
+            // Display the key based on its type (char or int)
+            std::cout << DARK_GRAY << "║ ";
+            if (auto keyChar = std::get_if<char>(&option.key))
+            {
+                std::cout << BOLD_YELLOW << *keyChar; // Display char as-is
+            }
+            else if (auto keyInt = std::get_if<int>(&option.key))
+            {
+                std::cout << BOLD_YELLOW << *keyInt; // Display int as-is
+            }
+            std::cout << RESET << ". " << option.icon << " " << option.text
+                      << std::string(std::max(0, padding), ' ') << DARK_GRAY << " ║" << RESET << std::endl;
         }
 
-        // Print the bottom border only after the last section
         if (sectionIndex == sections.size() - 1)
         {
-            printBottomBorder(maxWidth);
+            printBottomBorder(maxWidth); // Bottom border after the last section
         }
         else
         {
-            printSectionDivider(maxWidth); // No extra spacing, just a section divider
+            printSectionDivider(maxWidth);
         }
     }
 }
@@ -204,7 +390,6 @@ void IMenu::displayMenu() const
 void IMenu::displayChoicePrompt() const
 {
     std::string prompt = "Enter your choice: ";
-
     displayChoiceMessagePrompt(prompt);
 }
 

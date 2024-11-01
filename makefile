@@ -118,7 +118,7 @@ leaks: test
 	    export MallocStackLogging=1; \
 	    leaks -atExit --list -- $(TEST_TARGET) | awk 'BEGIN { print "Memory Leak Summary:\\n" } /^Process/ { print } /^Leak/ { print }'; \
 	elif [ "$(OS)" = "Linux" ]; then \
-	    valgrind --leak-check=full --track-origins=yes $(TEST_TARGET); \
+	    valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all $(TEST_TARGET); \
 	else \
 	    echo "Unsupported OS for memory leak check. Please use macOS or Linux."; \
 	fi

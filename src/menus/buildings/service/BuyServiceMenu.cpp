@@ -24,8 +24,8 @@ EntityType BuyServiceMenu::chooseEntityType()
           {'2', "🏫", "School"},
           {'3', "🏥", "Hospital"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Buildings Menu"},
-          {'q', "🔙", "Back to Main Menu"}}}};
+         {{'b', "⬅️ ", "Back to Buildings Menu"},
+          {'q', "⬅️ ", "Back to Main Menu"}}}};
 
     setHeading("Select Service Building Type");
     clearScreen();
@@ -71,4 +71,9 @@ EntityType BuyServiceMenu::chooseEntityType()
     }
 
     return type;
+}
+
+void BuyServiceMenu::buildEntity(EntityType type, Size size, int xPos, int yPos)
+{
+    serviceManager.buildService(type, size, xPos, yPos);
 }

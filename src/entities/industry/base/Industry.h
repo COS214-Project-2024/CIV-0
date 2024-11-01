@@ -15,7 +15,7 @@
 class Industry : public Entity
 {
 private:
-    int output;   ///< Production output of the industrial entity.
+    int output; ///< Production output of the industrial entity.
 
 public:
     /**
@@ -25,7 +25,7 @@ public:
 
     /**
      * @brief Constructs an Industry entity with specified attributes.
-     * 
+     *
      * @param ec Configuration settings for the entity.
      * @param size Size of the industrial entity.
      * @param xPos X-coordinate position of the entity.
@@ -35,12 +35,12 @@ public:
 
     /**
      * @brief Copy constructor for the Industry class.
-     * 
+     *
      * Creates a new Industry entity by copying the attributes of an existing Industry.
-     * 
+     *
      * @param industry Pointer to the Industry object to be copied.
      */
-    Industry(Industry* industry);
+    Industry(Industry *industry);
 
     /**
      * @brief Virtual destructor for the Industry class.
@@ -58,24 +58,26 @@ public:
      * @brief Creates a clone of the industry entity.
      *
      * This function must be implemented in derived classes.
-     * 
+     *
      * @return A pointer to the cloned Industry entity.
      */
-    virtual Entity* clone() = 0;
+    virtual Entity *clone() = 0;
 
     /**
      * @brief Gets the production output of the industry.
-     * 
+     *
      * @return The production output value.
      */
     virtual int getOutput();
 
     /**
      * @brief Sets the production output of the industry.
-     * 
+     *
      * @param output The new output value.
      */
     void setOutput(int output);
+
+    virtual int getLevel();
 
     /**
      * @brief Gets the cost of an upgrade

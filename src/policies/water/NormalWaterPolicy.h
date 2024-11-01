@@ -17,6 +17,11 @@ public:
      * @return int The same water usage as provided.
      */
     int calculateWaterUsage(int waterUsage) override;
+    /**
+     * @brief Constructor for NormalWaterPolicy.
+     * Initializes the policy with specific name and detail.
+     */
+    NormalWaterPolicy() : WaterPolicy("NormalWaterPolicy", "This policy maintains average water usage.") {}
 };
 
 #endif

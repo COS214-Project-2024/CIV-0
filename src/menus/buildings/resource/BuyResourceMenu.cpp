@@ -26,8 +26,8 @@ EntityType BuyResourceMenu::chooseEntityType()
           {'2', "🪨 ", "Stone Quarry"},
           {'3', "🏗️ ", "Concrete Factory"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Buildings Menu"},
-          {'q', "🔙", "Back to Main Menu"}}}};
+         {{'b', "⬅️ ", "Back to Buildings Menu"},
+          {'q', "⬅️ ", "Back to Main Menu"}}}};
 
     setHeading("Select Resource Building Type");
     clearScreen();
@@ -73,4 +73,8 @@ EntityType BuyResourceMenu::chooseEntityType()
     }
 
     return type;
+}
+
+void BuyResourceMenu::buildEntity(EntityType type, Size size, int xPos, int yPos)
+{
 }

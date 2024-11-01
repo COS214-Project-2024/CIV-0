@@ -6,15 +6,17 @@
 #include <iostream>
 #include <algorithm>
 #include <limits>
+#include <variant>
+#include "managers/CityManager.h"
 
 /**
- * @brief Represents a menu option with a custom key, icon, and text.
+ * @brief Represents a menu option with a custom key (char or int), icon, and text.
  */
 struct Option
 {
-    char key;         ///< Custom key for this option.
-    std::string icon; ///< Icon for this option.
-    std::string text; ///< The actual text of the option.
+    std::variant<char, int> key; // Custom key can be either char or int.
+    std::string icon;            // Icon for this option.
+    std::string text;            // The actual text of the option.
 };
 
 /**
@@ -69,6 +71,7 @@ protected:
     std::vector<Section> sections; ///< List of sections in the menu.
     std::string menuHeading;       ///< The heading of the menu.
     bool hasExited;
+    CityManager cityManager;
 
     // Utility functions and color constants for inherited classes.
 
@@ -80,10 +83,19 @@ protected:
     static constexpr const char *NORMAL_WHITE = "\033[0;37m";
     static constexpr const char *DARK_GRAY = "\033[1;30m";
     static constexpr const char *BOLD_YELLOW = "\033[1;33m";
+    static constexpr const char *BOLD_GREEN = "\033[1;32m";
     static constexpr const char *BOLD_RED = "\033[1;31m";
-    static constexpr const char *BOLD_GREEN = "\033[1;32m"; ///< Green color for success messages.
+    static constexpr const char *BOLD_CYAN = "\033[1;36m";
 
     static constexpr int MIN_MENU_WIDTH = 50; ///< Minimum width for the menu.
+
+    /**
+     * @brief Converts a numeric index (0-99) to a single character in an extended set.
+     *
+     * @param index Numeric index to convert (0-99).
+     * @return char Corresponding character.
+     */
+    char indexToExtendedChar(int index) const;
 
     /**
      * @brief Utility function to repeat a string multiple times.
@@ -191,6 +203,23 @@ protected:
      * @return A plain string with color codes removed.
      */
     std::string stripColorCodes(const std::string &input) const;
+
+    /**
+     * @brief Converts x and y coordinates to a labeled string (e.g., "A, 1").
+     *
+     * @param x The x-coordinate.
+     * @param y The y-coordinate.
+     * @return A formatted string representing the labeled coordinates.
+     */
+    std::string coordinatesToLabel(int x, int y) const;
+
+    /**
+     * @brief Displays available positions for an entity on the city grid.
+     * Positions are marked based on availability for a given type and size.
+     *
+     * @param positions Vector of available positions.
+     */
+    virtual void displayAvailablePositions(const std::vector<std::vector<int>> &positions) const;
 };
 
 #endif // IMENU_H

@@ -1,5 +1,6 @@
 #include "ResourceVisitor.h"
 #include "city/City.h"
+#include <unordered_set>
 
 ResourceVisitor::ResourceVisitor()
     : totalWood(0), totalConcrete(0), totalStone(0) {}
@@ -8,7 +9,7 @@ ResourceVisitor::~ResourceVisitor() {}
 
 void ResourceVisitor::visit(City *city)
 {
-    // Get the grid from the city
+    std::unordered_set<Entity*> visitedEntities;  // Track unique entities
     std::vector<std::vector<Entity *>> &grid = city->getGrid();
 
     // Iterate over the grid and dynamically cast entities
@@ -16,7 +17,7 @@ void ResourceVisitor::visit(City *city)
     {
         for (Entity *entity : row)
         {
-            if (entity != nullptr) // Ensure entity exists
+            if (entity != nullptr && visitedEntities.insert(entity).second)
             {
                 // Dynamic cast to ConcreteProducer
                 if (ConcreteProducer *concreteProducer = dynamic_cast<ConcreteProducer *>(entity))

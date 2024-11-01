@@ -3,166 +3,156 @@
 #include "entities/utility/wastemanagement/WasteManagement.h"
 #include "entities/building/amenity/Theater.h"
 
-TEST_CASE("WasteManagementIteratorTest test") {
-std::vector<std::vector<Entity*>> grid;
+TEST_CASE("WasteManagementIterator initial position")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    WasteManagement* p = new WasteManagement();
-    Theater* t = new Theater();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    WasteManagement *wm1 = new WasteManagement();
+    Theater *t = new Theater();
 
-    row1.push_back(p);
-    row1.push_back(p);
-    row2.push_back(NULL);
-    row2.push_back(p);
+    row1.push_back(wm1);
+    row1.push_back(wm1);
+    row2.push_back(nullptr);
+    row2.push_back(wm1);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    WasteManagementIterator* aIter = new WasteManagementIterator(grid);
-    CHECK(aIter->getCol() == 0);
-    CHECK(aIter->getRow() == 0);
-    delete aIter;
-    delete p;
+    WasteManagementIterator *wmIter = new WasteManagementIterator(grid);
+    wmIter->first();
+    CHECK(wmIter->getRow() == 0);
+    CHECK(wmIter->getCol() == 0);
+
+    delete wmIter;
+    delete wm1;
     delete t;
 }
 
-TEST_CASE("Testing next()"){
-        std::vector<std::vector<Entity*>> grid;
+TEST_CASE("WasteManagementIterator next()")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    WasteManagement* p = new WasteManagement();
-    Theater* t = new Theater();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    WasteManagement *wm1 = new WasteManagement();
+    Theater *t = new Theater();
 
-    row1.push_back(p);
-    row1.push_back(p);
-    row2.push_back(NULL);
+    row1.push_back(wm1);
+    row1.push_back(nullptr);
     row2.push_back(t);
+    row2.push_back(wm1);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    WasteManagementIterator* aIter = new WasteManagementIterator(grid);
-    aIter->next();
-    CHECK(aIter->getCol() == 1);
-    CHECK(aIter->getRow() == 0);
-    delete aIter;
-    delete p;
+    WasteManagementIterator *wmIter = new WasteManagementIterator(grid);
+    wmIter->first();
+    CHECK(wmIter->getRow() == 0);
+    CHECK(wmIter->getCol() == 0);
+
+    wmIter->next();
+    CHECK(wmIter->getRow() == 2);
+    CHECK(wmIter->getCol() == 0);
+    CHECK(wmIter->hasNext() == false);
+
+    delete wmIter;
+    delete wm1;
     delete t;
 }
 
-TEST_CASE("Testing first()"){
-        std::vector<std::vector<Entity*>> grid;
+TEST_CASE("WasteManagementIterator first()")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    WasteManagement* p = new WasteManagement();
-    Theater* t = new Theater();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    WasteManagement *wm1 = new WasteManagement();
+    Theater *t = new Theater();
 
-    row1.push_back(p);
-    row1.push_back(p);
-    row2.push_back(NULL);
-    row2.push_back(t);
-
-    grid.push_back(row1);
-    grid.push_back(row2);
-
-    WasteManagementIterator* aIter = new WasteManagementIterator(grid);
-    aIter->first();
-    CHECK(aIter->getCol() == 0);
-    CHECK(aIter->getRow() == 0);
-    delete aIter;
-    delete p;
-    delete t;
-}
-
-TEST_CASE("Testing hasNext()"){
-        std::vector<std::vector<Entity*>> grid;
-
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    WasteManagement* p = new WasteManagement();
-    Theater* t = new Theater();
-
-    row1.push_back(p);
-    row1.push_back(p);
-    row2.push_back(NULL);
-    row2.push_back(t);
-
-    grid.push_back(row1);
-    grid.push_back(row2);
-
-    WasteManagementIterator* aIter = new WasteManagementIterator(grid);
-    aIter->next();
-    CHECK(aIter->hasNext() == false);
-    CHECK(aIter->getCol() == 1);
-    CHECK(aIter->getRow() == 0);
-    delete aIter;
-    delete p;
-    delete t;
-}
-
-TEST_CASE("Testing hasNext()"){
-        std::vector<std::vector<Entity*>> grid;
-
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    WasteManagement* p = new WasteManagement();
-    Theater* t = new Theater();
-
-    row1.push_back(p);
+    row1.push_back(wm1);
     row1.push_back(t);
-    row2.push_back(p);
-    row2.push_back(p);
+    row2.push_back(nullptr);
+    row2.push_back(wm1);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    WasteManagementIterator* aIter = new WasteManagementIterator(grid);
+    WasteManagementIterator *wmIter = new WasteManagementIterator(grid);
+    wmIter->first();
+    CHECK(wmIter->getRow() == 0);
+    CHECK(wmIter->getCol() == 0);
+    CHECK(wmIter->hasNext() == true);
 
-    WasteManagement* testP = new WasteManagement();
-    Utility* castCheck1 = dynamic_cast<Utility*>(testP);
-    WasteManagement* castCheck2 = dynamic_cast<WasteManagement*>(castCheck1);
-    CHECK(castCheck2 != NULL);
-    aIter->next();
-    aIter->next();   
-    //aIter->next();
-    CHECK(aIter->getCol() == 1);
-    CHECK(aIter->getRow() == 1);
-    CHECK(aIter->hasNext() == false);
-    delete testP;
-    delete aIter;
-    delete p;
+    delete wmIter;
+    delete wm1;
     delete t;
 }
 
-TEST_CASE("Testing next()"){
-        std::vector<std::vector<Entity*>> grid;
+TEST_CASE("WasteManagementIterator hasNext() with multiple WasteManagement instances")
+{
+    std::vector<std::vector<Entity *>> grid;
 
-    std::vector<Entity*> row1;
-    std::vector<Entity*> row2;
-    WasteManagement* p = new WasteManagement();
-    Theater* t = new Theater();
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    WasteManagement *wm1 = new WasteManagement();
+    WasteManagement *wm2 = new WasteManagement();
+    Theater *t = new Theater();
 
-    row1.push_back(p);
-    row1.push_back(p);
-    row2.push_back(NULL);
-    row2.push_back(NULL);
+    row1.push_back(wm1);
+    row1.push_back(nullptr);
+    row2.push_back(t);
+    row2.push_back(wm2);
 
     grid.push_back(row1);
     grid.push_back(row2);
 
-    WasteManagementIterator* aIter = new WasteManagementIterator(grid);
-    aIter->next();
-    aIter->next();
-    aIter->next();
-    CHECK(aIter->getCol() == 1);
-    delete aIter;
-    delete p;
+    WasteManagementIterator *wmIter = new WasteManagementIterator(grid);
+    wmIter->first();
+    CHECK(wmIter->hasNext() == true);
+    CHECK(wmIter->getRow() == 0);
+    CHECK(wmIter->getCol() == 0);
+
+    wmIter->next();
+    CHECK(wmIter->getRow() == 1);
+    CHECK(wmIter->getCol() == 1);
+    CHECK(wmIter->hasNext() == true);
+
+    wmIter->next();
+    CHECK(wmIter->getRow() == 2);
+    CHECK(wmIter->getCol() == 0);
+    CHECK(wmIter->hasNext() == false);
+
+    delete wmIter;
+    delete wm1;
+    delete wm2;
     delete t;
 }
 
+TEST_CASE("WasteManagementIterator reaching the end")
+{
+    std::vector<std::vector<Entity *>> grid;
 
+    std::vector<Entity *> row1;
+    std::vector<Entity *> row2;
+    WasteManagement *wm1 = new WasteManagement();
+    Theater *t = new Theater();
 
+    row1.push_back(wm1);
+    row1.push_back(t);
+    row2.push_back(nullptr);
+    row2.push_back(nullptr);
 
+    grid.push_back(row1);
+    grid.push_back(row2);
+
+    WasteManagementIterator *wmIter = new WasteManagementIterator(grid);
+    wmIter->first();
+    wmIter->next();
+    CHECK(wmIter->hasNext() == false);
+
+    delete wmIter;
+    delete wm1;
+    delete t;
+}

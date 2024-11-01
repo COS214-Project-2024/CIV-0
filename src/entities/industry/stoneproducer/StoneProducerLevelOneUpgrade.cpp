@@ -1,19 +1,27 @@
 #include "StoneProducerLevelOneUpgrade.h"
 
-StoneProducerLevelOneUpgrade::StoneProducerLevelOneUpgrade(StoneProducer* stoneProd) : StoneProducerUpgrade(stoneProd) {}
+StoneProducerLevelOneUpgrade::StoneProducerLevelOneUpgrade(StoneProducer *stoneProd) : StoneProducerUpgrade(stoneProd) {}
 
-StoneProducerLevelOneUpgrade::StoneProducerLevelOneUpgrade(StoneProducerLevelOneUpgrade* stoneProd) : StoneProducerUpgrade(stoneProd) {}
+StoneProducerLevelOneUpgrade::StoneProducerLevelOneUpgrade(StoneProducerLevelOneUpgrade *stoneProd) : StoneProducerUpgrade(stoneProd) {}
 
 StoneProducerLevelOneUpgrade::~StoneProducerLevelOneUpgrade() {}
 
-void StoneProducerLevelOneUpgrade::update() {
+void StoneProducerLevelOneUpgrade::update()
+{
     stoneProducer->update();
 }
 
-Entity* StoneProducerLevelOneUpgrade::clone() {
+int StoneProducerLevelOneUpgrade::getLevel()
+{
+    return 1;
+}
+
+Entity *StoneProducerLevelOneUpgrade::clone()
+{
     return new StoneProducerLevelOneUpgrade(this);
 }
 
-int StoneProducerLevelOneUpgrade::getOutput() {
+int StoneProducerLevelOneUpgrade::getOutput()
+{
     return stoneProducer->getOutput() * UPGRADE;
 }

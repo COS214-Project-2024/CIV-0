@@ -1,25 +1,44 @@
 #include "SewageSystemLevelThreeUpgrade.h"
 
-SewageSystemLevelThreeUpgrade::SewageSystemLevelThreeUpgrade(SewageSystem* sewageSystem) : SewageSystemUpgrade(sewageSystem) {
-
+SewageSystemLevelThreeUpgrade::SewageSystemLevelThreeUpgrade(SewageSystem *sewage) : SewageSystemUpgrade(sewage)
+{
 }
 
-SewageSystemLevelThreeUpgrade::SewageSystemLevelThreeUpgrade(SewageSystemLevelThreeUpgrade* sewageSystemLevelThreeUpgrade) : SewageSystemUpgrade(sewageSystemLevelThreeUpgrade) {
-
+SewageSystemLevelThreeUpgrade::SewageSystemLevelThreeUpgrade(SewageSystemLevelThreeUpgrade *sewageSystemLevelThreeUpgrade) : SewageSystemUpgrade(sewageSystemLevelThreeUpgrade)
+{
 }
 
-SewageSystemLevelThreeUpgrade::~SewageSystemLevelThreeUpgrade() {
-    
+SewageSystemLevelThreeUpgrade::~SewageSystemLevelThreeUpgrade()
+{
 }
 
-void SewageSystemLevelThreeUpgrade::update() {
+void SewageSystemLevelThreeUpgrade::update()
+{
     sewageSystem->update();
 }
 
-Entity* SewageSystemLevelThreeUpgrade::clone() {
+int SewageSystemLevelThreeUpgrade::getLevel()
+{
+    return 3;
+}
+
+Entity *SewageSystemLevelThreeUpgrade::clone()
+{
     return new SewageSystemLevelThreeUpgrade(this);
 }
 
-int SewageSystemLevelThreeUpgrade::getOutput() {
+Entity *SewageSystemLevelThreeUpgrade::upgrade()
+{
+    // Maximum level reached
+    return nullptr;
+}
+
+int SewageSystemLevelThreeUpgrade::getOutput()
+{
     return sewageSystem->getOutput() * UPGRADE;
+}
+
+Cost SewageSystemLevelThreeUpgrade::getCost()
+{
+    return Cost(sewageSystem->getCost().moneyCost * UPGRADE, sewageSystem->getCost().woodCost * UPGRADE, sewageSystem->getCost().stoneCost * UPGRADE, sewageSystem->getCost().concreteCost * UPGRADE);
 }

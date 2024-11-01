@@ -30,7 +30,8 @@ MenuManager::MenuManager()
     menus[Menu::BUY_UTILITY] = std::make_shared<BuyUtilityMenu>();
     menus[Menu::BUY_RESOURCE] = std::make_shared<BuyResourceMenu>();
     menus[Menu::BUY_SERVICE] = std::make_shared<BuyServiceMenu>();
-    menus[Menu::SELL] = std::make_shared<SellMenu>();
+    menus[Menu::BUY_ROAD] = std::make_shared<BuyRoadMenu>();
+    menus[Menu::DEMOLISH] = std::make_shared<DemolishMenu>();
 
     // Set the default menu to MainMenu
     setCurrentMenu(Menu::MAIN);

@@ -1,6 +1,5 @@
 #include "PolicyMenu.h"
 #include "menus/base/MenuManager.h"
-#include <iostream>
 
 PolicyMenu::PolicyMenu() : IMenu() {}
 
@@ -17,7 +16,7 @@ void PolicyMenu::handleInput()
         {"Policy History",
          {{'3', "📜", "Show all policy history"}}},
         {"Navigation",
-         {{'q', "🔙", "Back to Main Menu"}}}};
+         {{'q', "⬅️ ", "Back to Main Menu"}}}};
     setHeading("Policy Menu");
     clearScreen();
     displayMenu();
@@ -64,8 +63,8 @@ void PolicyMenu::selectWaterPolicy()
           {'2', "⬅️ ", "Normal Consumption"},
           {'3', "⬇️ ", "Low Consumption"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Policy Menu"},
-          {'q', "🔙", "Back to Main Menu"}}}};
+         {{'b', "⬅️ ", "Back to Policy Menu"},
+          {'q', "⬅️ ", "Back to Main Menu"}}}};
     displayMenu();
 
     bool choosing = true;
@@ -79,17 +78,20 @@ void PolicyMenu::selectWaterPolicy()
         switch (choice)
         {
         case '1':
-            addPolicyToHistory("Applied High Water Consumption policy");
+            // addPolicyToHistory("Applied High Water Consumption policy");
+            governmentManager.enactWaterUsagePolicy(PolicyType::HIGH_WATER_POLICY);
             displaySuccessMessage("High Water Consumption policy applied.");
             choosing = false;
             break;
         case '2':
-            addPolicyToHistory("Applied Normal Water Consumption policy");
+            // addPolicyToHistory("Applied Normal Water Consumption policy");
+            governmentManager.enactWaterUsagePolicy(PolicyType::NORMAL_WATER_POLICY);
             displaySuccessMessage("Normal Water Consumption policy applied.");
             choosing = false;
             break;
         case '3':
-            addPolicyToHistory("Applied Low Water Consumption policy");
+            // addPolicyToHistory("Applied Low Water Consumption policy");
+            governmentManager.enactWaterUsagePolicy(PolicyType::LOW_WATER_POLICY);
             displaySuccessMessage("Low Water Consumption policy applied.");
             choosing = false;
             break;
@@ -119,8 +121,8 @@ void PolicyMenu::selectElectricityPolicy()
           {'2', "⬅️ ", "Normal Consumption"},
           {'3', "⬇️ ", "Low Consumption"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Policy Menu"},
-          {'q', "🔙", "Back to Main Menu"}}}};
+         {{'b', "⬅️ ", "Back to Policy Menu"},
+          {'q', "⬅️ ", "Back to Main Menu"}}}};
     displayMenu();
 
     bool choosing = true;
@@ -134,17 +136,20 @@ void PolicyMenu::selectElectricityPolicy()
         switch (choice)
         {
         case '1':
-            addPolicyToHistory("Applied High Electricity Consumption policy");
+            // addPolicyToHistory("Applied High Electricity Consumption policy");
+            governmentManager.enactElectricityPolicy(PolicyType::HIGH_ELECTRICITY_POLICY);
             displaySuccessMessage("High Electricity Consumption policy applied.");
             choosing = false;
             break;
         case '2':
-            addPolicyToHistory("Applied Normal Electricity Consumption policy");
+            // addPolicyToHistory("Applied Normal Electricity Consumption policy");
+            governmentManager.enactElectricityPolicy(PolicyType::NORMAL_ELECTRICITY_POLICY);
             displaySuccessMessage("Normal Electricity Consumption policy applied.");
             choosing = false;
             break;
         case '3':
-            addPolicyToHistory("Applied Low Electricity Consumption policy");
+            // addPolicyToHistory("Applied Low Electricity Consumption policy");
+            governmentManager.enactElectricityPolicy(PolicyType::LOW_ELECTRICITY_POLICY);
             displaySuccessMessage("Low Electricity Consumption policy applied.");
             choosing = false;
             break;
@@ -169,7 +174,9 @@ void PolicyMenu::showPolicyHistory()
     clearScreen();
     setHeading("Policy History");
 
-    if (policyHistory.empty())
+    std::vector<Memento *> pastPolicies = governmentManager.getAllPastPolicies();
+
+    if (pastPolicies.empty())
     {
         std::cout << "No policies have been applied yet." << std::endl;
     }
@@ -180,16 +187,16 @@ void PolicyMenu::showPolicyHistory()
         printTopBorder(boxWidth);
 
         // Loop through policy history and display each entry in a formatted manner
-        for (size_t i = 0; i < policyHistory.size(); ++i)
+        for (size_t i = 0; i < pastPolicies.size(); ++i)
         {
-            std::string entry = " " + std::to_string(i + 1) + ". " + policyHistory[i];
+            std::string entry = " " + std::to_string(i + 1) + ". " + pastPolicies[i]->getDetail();
             int padding = boxWidth - static_cast<int>(entry.size()) - 2;
 
             // Ensure proper alignment by adjusting padding
             std::cout << DARK_GRAY << "║ " << RESET << entry
                       << std::string(std::max(0, padding), ' ') << DARK_GRAY << " ║" << RESET << std::endl;
 
-            if (i < policyHistory.size() - 1)
+            if (i < pastPolicies.size() - 1)
                 printSectionDivider(boxWidth); // Divider between entries
         }
 
@@ -198,9 +205,4 @@ void PolicyMenu::showPolicyHistory()
     }
 
     displayPressEnterToContinue();
-}
-
-void PolicyMenu::addPolicyToHistory(std::string policyDescription)
-{
-    policyHistory.push_back(policyDescription);
 }

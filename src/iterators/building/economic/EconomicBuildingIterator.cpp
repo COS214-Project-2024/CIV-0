@@ -1,101 +1,110 @@
 #include "EconomicBuildingIterator.h"
+#include <iostream>
+
 /**
  * @brief Construct a new Economic Building Iterator:: Economic Building Iterator object
- * 
  */
-EconomicBuildingIterator::EconomicBuildingIterator():Iterator(){
+EconomicBuildingIterator::EconomicBuildingIterator() : Iterator()
+{
     this->row = 0;
     this->col = 0;
 }
+
 /**
  * @brief Destroy the Economic Building Iterator:: Economic Building Iterator object
- * 
  */
 EconomicBuildingIterator::~EconomicBuildingIterator() {}
 
 /**
  * @brief Construct a new Economic Building Iterator:: Economic Building Iterator object
- * 
- * @param grid 
+ *
+ * @param grid
  */
-EconomicBuildingIterator::EconomicBuildingIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
-    this->grid = grid;
+EconomicBuildingIterator::EconomicBuildingIterator(std::vector<std::vector<Entity *>> &grid) : Iterator(grid)
+{
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
-    this->row - 0;
-    this->col - 0;
+    this->row = 0;
+    this->col = 0;
+    first();
 }
 
 /**
- * @brief Goes to first EconomicBuilding
- * 
+ * @brief Sets the iterator to the first unvisited EconomicBuilding
+ *
  */
-void EconomicBuildingIterator::first(){
-    bool found = false;
+void EconomicBuildingIterator::first()
+{
+    visitedEntities.clear(); // Clear visited set for reuse
+    row = 0;
+    col = 0;
 
-    for(currRow = grid.begin();currRow != this->grid.end(); currRow++){
-        col = 0;
-        for(curr = currRow->begin(); curr != currRow->end(); curr++){
-            EconomicBuilding* e = dynamic_cast<EconomicBuilding*>(*curr);
-            if(e){found = true;break;}
-            col+=1;
+    for (row = 0; row < grid.size(); ++row)
+    {
+        for (col = 0; col < grid[row].size(); ++col)
+        {
+            EconomicBuilding *eBuilding = dynamic_cast<EconomicBuilding *>(grid[row][col]);
+            if (eBuilding && !isVisited(eBuilding))
+            {
+                markVisited(eBuilding);
+                currRow = grid.begin() + row;
+                curr = currRow->begin() + col;
+                return;
+            }
         }
-        if(found)break;
-        row+=1;
     }
+
+    // Set to end if no economic buildings are found
+    currRow = grid.end();
+    curr = {};
 }
 
 /**
- * @brief Goes to next EconomicBuilding
- * 
+ * @brief Advances to the next unvisited EconomicBuilding
+ *
  */
-void EconomicBuildingIterator::next(){
-    bool found = false;
-    int Tcol = this->col;
-    int Trow = this->row;
-    if(hasNext()){
-        col = 0;
-        row = 0;
-    for(currRow = grid.begin();currRow != this->grid.end();++currRow){
-        col = 0;
-        for(curr = currRow->begin(); curr != currRow->end();++curr){
-            EconomicBuilding* e = dynamic_cast<EconomicBuilding*>(*curr);
-            if(e && (Tcol<col || Trow<row)){found = true;break;}
-            col+=1;
+void EconomicBuildingIterator::next()
+{
+    if (currRow == grid.end())
+        return;
+
+    // Find the next economic building in the grid
+    for (++col; row < grid.size(); ++row, col = 0)
+    {
+        for (; col < grid[row].size(); ++col)
+        {
+            EconomicBuilding *eBuilding = dynamic_cast<EconomicBuilding *>(grid[row][col]);
+            if (eBuilding && !isVisited(eBuilding))
+            {
+                markVisited(eBuilding);
+                currRow = grid.begin() + row;
+                curr = currRow->begin() + col;
+                return;
+            }
         }
-        if(found)break;
-        row+=1;
     }
-    }//hasNext
+
+    // If no further economic buildings, set iterator to the end
+    currRow = grid.end();
+    curr = {};
 }
 
 /**
- * @brief Determines if there is next EconomicBuilding
- * 
- * @return true 
- * @return false 
+ * @brief Checks if there is another unvisited EconomicBuilding
+ *
+ * @return true if there is another unvisited EconomicBuilding, false otherwise
  */
-bool EconomicBuildingIterator::hasNext(){
-    int tr = 0;
-    int tc = 0;
-    for(std::vector<std::vector<Entity*>>::iterator itRow = grid.begin();itRow != grid.end();  itRow++){
-        tc=0;
-        for(std::vector<Entity*>::iterator itCol = itRow->begin();itCol != itRow->end();  itCol++){
-            EconomicBuilding* a = dynamic_cast<EconomicBuilding*>(*itCol);
-            if((a) && (tr>row)){return true;}
-            if((a) && (tr>=row && tc>col)){return true;}
-            tc+=1;
-        }
-        tr+=1;
-    }
-    return false;
+bool EconomicBuildingIterator::hasNext()
+{
+    return currRow != grid.end() && curr != currRow->end();
 }
 
 /**
- * @brief Returns current EconomicBuilding
- * 
- * @return Entity* 
+ * @brief Returns the current EconomicBuilding
+ *
+ * @return Entity*
  */
-Entity* EconomicBuildingIterator::current(){
-    return (*this->curr);
+Entity *EconomicBuildingIterator::current()
+{
+    return (currRow != grid.end() && curr != currRow->end()) ? *curr : nullptr;
 }

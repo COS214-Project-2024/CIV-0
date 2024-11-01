@@ -1,58 +1,61 @@
 #include "PopulationManager.h"
+#include <iostream>
+#include "utils/PolicyType.h"
+#include "policies/electricity/HighElectricityPolicy.h"
+#include "policies/electricity/NormalElectricityPolicy.h"
+#include "policies/electricity/LowElectricityPolicy.h"
+#include "policies/water/HighWaterPolicy.h"
+#include "policies/water/NormalWaterPolicy.h"
+#include "policies/water/LowWaterPolicy.h"
 
-//!DO NOT TOUCH MY CODE. I AM GOING TO EDIT THIS IN ANOTHER BRANCH
 PopulationManager::PopulationManager(int minimumIncrease, int maximumIncrease)
 {
     this->minimumIncrease = minimumIncrease;
     this->maximumIncrease = maximumIncrease;
 }
 
-//!DO NOT TOUCH MY CODE. I AM GOING TO EDIT THIS IN ANOTHER BRANCH
 PopulationManager::~PopulationManager() {}
 
-//!DO NOT TOUCH MY CODE. I AM GOING TO EDIT THIS IN ANOTHER BRANCH
 void PopulationManager::calculatePopulationCapacity()
 {
-    City* c = City::instance();
-    PopulationVisitor* pv = new PopulationVisitor();
+    City *c = City::instance();
+    PopulationVisitor *pv = new PopulationVisitor();
     pv->visit(c);
     int populationCapacity = pv->getTotalPopulationCapacity();
     c->setPopulationCapacity(populationCapacity);
+    delete pv;
 }
 
-//!DO NOT TOUCH MY CODE. I AM GOING TO EDIT THIS IN ANOTHER BRANCH
 void PopulationManager::growPopulation()
 {
-    City* c = City::instance();
+    City *c = City::instance();
 
     int increase = std::rand();
-    increase = increase % (minimumIncrease+maximumIncrease);
-    increase+=minimumIncrease;
+    increase = increase % (maximumIncrease - minimumIncrease);
+    increase += minimumIncrease;
 
-    c->setPopulation(c->getPopulation()+increase);
+    c->setPopulation(c->getPopulation() + increase);
 }
 
-//!DO NOT TOUCH MY CODE. I AM GOING TO EDIT THIS IN ANOTHER BRANCH
 void PopulationManager::decreasePopulation()
 {
-    City* c = City::instance();
+    City *c = City::instance();
 
     int decrease = std::rand();
-    decrease = decrease % (minimumIncrease+maximumIncrease);
-    decrease+=minimumIncrease;
+    decrease = decrease % (maximumIncrease - minimumIncrease);
+    decrease += minimumIncrease;
 
-    c->setPopulation(c->getPopulation()-decrease);
+    c->setPopulation(c->getPopulation() - decrease);
 }
 
-//!DO NOT TOUCH MY CODE. I AM GOING TO EDIT THIS IN ANOTHER BRANCH
 void PopulationManager::calculateSatisfaction()
 {
-    City* c = City::instance();
-    SatisfactionVisitor* sv = new SatisfactionVisitor();
+    City *c = City::instance();
+    SatisfactionVisitor *sv = new SatisfactionVisitor();
     sv->visit(c);
     float satisfaction = sv->getAverageSatisfaction();
 
-    UtilityVisitor* uv = new UtilityVisitor();
+    UtilityVisitor *uv = new UtilityVisitor();
     uv->visit(c);
 
     c->setWaterProduction(uv->getTotalWater());
@@ -60,25 +63,86 @@ void PopulationManager::calculateSatisfaction()
     c->setWasteProduction(uv->getTotalWasteHandled());
     c->setSewageProduction(uv->getTotalSewageHandled());
 
-    PopulationVisitor* pv = new PopulationVisitor();
+    PopulationVisitor *pv = new PopulationVisitor();
     pv->visit(c);
 
     c->setElectricityConsumption(pv->getTotalElectricityConsumption());
-    c->setWasteConsumption(pv->getTotalWaterConsumption());
-    
-    //Todo - waste and sewage
+    c->setWaterConsumption(pv->getTotalWaterConsumption());
 
-    float electricityPercentage = (c->getElectricityProduction()/c->getElectricityProduction()) * 100;
-    float waterPercentage = (c->getWaterProduction()/c->getWaterConsumption()) * 100;
+    // Todo - consider adding waste and sewage (optional)
 
-    if(satisfaction>electricityPercentage)
+    ElectricityPolicy* et = City::instance()->getElectricityPolicy();
+    WaterPolicy* wt = City::instance()->getWaterPolicy();
+
+    float electricityConsumption = static_cast<float>(c->getElectricityConsumption());
+    if(dynamic_cast<HighElectricityPolicy*>(et)!=nullptr)
+    {
+        electricityConsumption+=electricityConsumption*0.25;
+        satisfaction+=5;
+    }
+    else if(dynamic_cast<LowElectricityPolicy*>(et)!=nullptr)
+    {
+        electricityConsumption-=electricityConsumption*0.25;
+        satisfaction-=5;
+    }
+
+    float waterConsumption = static_cast<float>(c->getElectricityConsumption());
+    if(dynamic_cast<HighWaterPolicy*>(wt)!=nullptr)
+    {
+        waterConsumption+=waterConsumption*0.25;
+        satisfaction+=5;
+    }
+    else if(dynamic_cast<LowWaterPolicy*>(wt)!=nullptr)
+    {
+        waterConsumption-=waterConsumption*0.25;
+        satisfaction-=5;
+    }
+
+    float electricityPercentage;
+    if (electricityConsumption <= 0)
+    {
+        electricityPercentage = 100;
+    }
+    else
+    {
+        electricityPercentage = (static_cast<float>(c->getElectricityProduction()) / electricityConsumption) * 100.0f;
+    }
+
+    float waterPercentage;
+    if (waterConsumption <= 0)
+    {
+        waterPercentage = 100;
+    }
+    else
+    {
+        waterPercentage = (static_cast<float>(c->getWaterProduction()) / waterConsumption) * 100.0f;
+    }
+
+
+    if (satisfaction > electricityPercentage)
     {
         satisfaction = electricityPercentage;
     }
-    if(satisfaction>waterPercentage)
+    if (satisfaction > waterPercentage)
     {
         satisfaction = waterPercentage;
     }
+
+    if(satisfaction>100)
+    {
+        satisfaction = 100;
+    }
+    else if(satisfaction<0)
+    {
+        satisfaction = 0;
+    }
+
+    delete sv;
+    delete uv;
+    delete pv;
+
+    int randomAdjustment = (std::rand() % 21) - 10;
+    satisfaction = std::max(0.0f, std::min(100.0f, satisfaction + randomAdjustment));
 
     c->setSatisfaction(satisfaction);
 }

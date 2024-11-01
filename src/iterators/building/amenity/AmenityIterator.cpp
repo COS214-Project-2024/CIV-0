@@ -1,103 +1,112 @@
 #include "AmenityIterator.h"
 #include <iostream>
+
 /**
  * @brief Construct a new Amenity Iterator:: Amenity Iterator object
- * 
+ *
  */
-AmenityIterator::AmenityIterator():Iterator(){
+AmenityIterator::AmenityIterator() : Iterator()
+{
     this->row = 0;
     this->col = 0;
 }
 
 /**
  * @brief Destroy the Amenity Iterator:: Amenity Iterator object
- * 
+ *
  */
 AmenityIterator::~AmenityIterator() {}
 
 /**
  * @brief Construct a new Amenity Iterator:: Amenity Iterator object
- * 
- * @param grid 
+ *
+ * @param grid
  */
-AmenityIterator::AmenityIterator(std::vector<std::vector<Entity*>> &grid):Iterator(){
-    this->grid = grid;
+AmenityIterator::AmenityIterator(std::vector<std::vector<Entity *>> &grid) : Iterator(grid)
+{
     this->currRow = this->grid.begin();
     this->curr = currRow->begin();
     this->row = 0;
     this->col = 0;
+    first();
 }
 
 /**
- * @brief Returns first Amenity
- * 
+ * @brief Sets the iterator to the first unvisited Amenity
+ *
  */
-void AmenityIterator::first(){
-    bool found = false;
+void AmenityIterator::first()
+{
+    visitedEntities.clear(); // Clear visited set for reuse
+    row = 0;
+    col = 0;
 
-    for(currRow = grid.begin();currRow != this->grid.end(); currRow++){
-        col = 0;
-        for(curr = currRow->begin(); curr != currRow->end(); curr++){
-            Amenity* amenity = dynamic_cast<Amenity*>(*curr);
-            if(amenity){found = true;break;}
-            col+=1;
+    for (row = 0; row < grid.size(); ++row)
+    {
+        for (col = 0; col < grid[row].size(); ++col)
+        {
+            Amenity *amenity = dynamic_cast<Amenity *>(grid[row][col]);
+            if (amenity && !isVisited(amenity))
+            {
+                markVisited(amenity);
+                currRow = grid.begin() + row;
+                curr = currRow->begin() + col;
+                return;
+            }
         }
-        if(found)break;
-        row+=1;
     }
+
+    // Set to end if no amenities are found
+    currRow = grid.end();
+    curr = {};
 }
 
 /**
- * @brief goes to next Amenity
- * 
+ * @brief Advances to the next unvisited Amenity
+ *
  */
-void AmenityIterator::next(){
-    bool found = false;
-    int Tcol = this->col;
-    int Trow = this->row;
-    if(hasNext()){
-        col = 0;
-        row = 0;
-    for(currRow = grid.begin();currRow != this->grid.end();++currRow){
-        col = 0;
-        for(curr = currRow->begin(); curr != currRow->end();++curr){
-            Amenity* amenity = dynamic_cast<Amenity*>(*curr);
-            if(amenity && (Tcol<col || Trow<row)){found = true;break;}
-            col+=1;
+void AmenityIterator::next()
+{
+    if (currRow == grid.end())
+        return;
+
+    // Find the next amenity in the grid
+    for (++col; row < grid.size(); ++row, col = 0)
+    {
+        for (; col < grid[row].size(); ++col)
+        {
+            Amenity *amenity = dynamic_cast<Amenity *>(grid[row][col]);
+            if (amenity && !isVisited(amenity))
+            {
+                markVisited(amenity);
+                currRow = grid.begin() + row;
+                curr = currRow->begin() + col;
+                return;
+            }
         }
-        if(found)break;
-        row+=1;
     }
-    }//hasNext
+
+    // If no further amenities, set iterator to the endz
+    currRow = grid.end();
+    curr = {};
 }
 
 /**
- * @brief Determines if there is next Amenity
- * 
- * @return true 
- * @return false 
+ * @brief Checks if there is another unvisited Amenity
+ *
+ * @return true if there is another unvisited Amenity, false otherwise
  */
-bool AmenityIterator::hasNext(){
-    int tr = 0;
-    int tc = 0;
-    for(std::vector<std::vector<Entity*>>::iterator itRow = grid.begin();itRow != grid.end();  itRow++){
-        tc=0;
-        for(std::vector<Entity*>::iterator itCol = itRow->begin();itCol != itRow->end();  itCol++){
-            Amenity* a = dynamic_cast<Amenity*>(*itCol);
-            if((a) && (tr>row)){return true;}
-            if((a) && (tr>=row && tc>col)){return true;}
-            tc+=1;
-        }
-        tr+=1;
-    }
-    return false;
+bool AmenityIterator::hasNext()
+{
+    return currRow != grid.end() && curr != currRow->end();
 }
 
 /**
- * @brief Returns current Amentity
- * 
- * @return Entity* 
+ * @brief Returns the current Amenity
+ *
+ * @return Entity*
  */
-Entity* AmenityIterator::current(){
-    return (*this->curr);
+Entity *AmenityIterator::current()
+{
+    return (currRow != grid.end() && curr != currRow->end()) ? *curr : nullptr;
 }

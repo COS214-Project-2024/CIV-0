@@ -12,10 +12,11 @@ MainMenu::MainMenu() : IMenu("Main Menu")
     sections = {
         {"Options",
          {{'1', "🏗️ ", "Buildings Menu"},
-          {'2', "🛠️ ", "Upgrades Menu"},
-          {'3', "📜", "Policy Menu"},
-          {'4', "💰", "Tax Menu"},
-          {'5', "⏩", "Continue"}}},
+          {'2', "🛣️ ", "Buy Road Menu"},
+          {'3', "🛠️ ", "Upgrades Menu"},
+          {'4', "📜", "Policy Menu"},
+          {'5', "💰", "Tax Menu"},
+          {'c', "⏩", "Continue"}}},
         {"City Information",
          {{'6', "📊", "Show Stats"},
           {'d', "🏙️ ", "Display City"}}},
@@ -63,21 +64,31 @@ void MainMenu::handleInput()
             break;
         case '2':
             // Switch to the Upgrades Menu
-            MenuManager::instance().setCurrentMenu(Menu::UPGRADES);
+            MenuManager::instance().setCurrentMenu(Menu::BUY_ROAD);
             choosing = false;
             break;
         case '3':
+            // Switch to the Upgrades Menu
+            MenuManager::instance().setCurrentMenu(Menu::UPGRADES);
+            choosing = false;
+            break;
+        case '4':
             // Switch to the Policy Menu
             MenuManager::instance().setCurrentMenu(Menu::POLICY);
             choosing = false;
             break;
-        case '4':
+        case '5':
             // Switch to the Tax Menu
             MenuManager::instance().setCurrentMenu(Menu::TAX);
             choosing = false;
             break;
-        case '5':
+        case 'c':
             // Logic for continuing the game can be added here
+            cityManager.updateCity();
+            displaySuccessMessage("The Sun has risen for another day 🌅 :)");
+            displayPressEnterToContinue();
+            clearScreen();
+            displayMenu();
             break;
         case 'd':
             // Switch to the Display City Menu
@@ -86,7 +97,7 @@ void MainMenu::handleInput()
             break;
         case 'q':
             char confirm;
-            displayChoiceMessagePrompt("Are you sure you want to quit the game (y/n):");
+            displayChoiceMessagePrompt("Are you sure you want to quit the game (y/n): ");
             std::cin >> confirm;
             if (confirm == 'y')
             {

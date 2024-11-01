@@ -1,25 +1,44 @@
 #include "WasteManagementLevelOneUpgrade.h"
+#include "entities/utility/wastemanagement/WasteManagementLevelTwoUpgrade.h"
 
-WasteManagementLevelOneUpgrade::WasteManagementLevelOneUpgrade(WasteManagement* wasteManagement) : WasteManagementUpgrade(wasteManagement) {
-
+WasteManagementLevelOneUpgrade::WasteManagementLevelOneUpgrade(WasteManagement *waste) : WasteManagementUpgrade(waste)
+{
 }
 
-WasteManagementLevelOneUpgrade::WasteManagementLevelOneUpgrade(WasteManagementLevelOneUpgrade* wasteManagementLevelOneUpgrade) : WasteManagementUpgrade(wasteManagementLevelOneUpgrade) {
-
+WasteManagementLevelOneUpgrade::WasteManagementLevelOneUpgrade(WasteManagementLevelOneUpgrade *wasteManagementLevelOneUpgrade) : WasteManagementUpgrade(wasteManagementLevelOneUpgrade)
+{
 }
 
-WasteManagementLevelOneUpgrade::~WasteManagementLevelOneUpgrade() {
-
+WasteManagementLevelOneUpgrade::~WasteManagementLevelOneUpgrade()
+{
 }
 
-void WasteManagementLevelOneUpgrade::update() {
+void WasteManagementLevelOneUpgrade::update()
+{
     wasteManagement->update();
 }
 
-Entity* WasteManagementLevelOneUpgrade::clone() {
+int WasteManagementLevelOneUpgrade::getLevel()
+{
+    return 1;
+}
+
+Entity *WasteManagementLevelOneUpgrade::clone()
+{
     return new WasteManagementLevelOneUpgrade(this);
 }
 
-int WasteManagementLevelOneUpgrade::getOutput() {
+Entity *WasteManagementLevelOneUpgrade::upgrade()
+{
+    return new WasteManagementLevelTwoUpgrade(wasteManagement);
+}
+
+int WasteManagementLevelOneUpgrade::getOutput()
+{
     return wasteManagement->getOutput() * UPGRADE;
+}
+
+Cost WasteManagementLevelOneUpgrade::getCost()
+{
+    return Cost(wasteManagement->getCost().moneyCost * UPGRADE, wasteManagement->getCost().woodCost * UPGRADE, wasteManagement->getCost().stoneCost * UPGRADE, wasteManagement->getCost().concreteCost * UPGRADE);
 }

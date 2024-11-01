@@ -8,10 +8,10 @@ class ConcreteProducer : public Industry
 public:
     ConcreteProducer();
     ConcreteProducer(EntityConfig ec, Size size, int xPos, int yPos);
-    ConcreteProducer(ConcreteProducer* concreteProducer);
+    ConcreteProducer(ConcreteProducer *concreteProducer);
     virtual ~ConcreteProducer();
     void update();
-    Entity* clone();
+    Entity *clone();
     virtual Cost getCost() = 0;
 };
 

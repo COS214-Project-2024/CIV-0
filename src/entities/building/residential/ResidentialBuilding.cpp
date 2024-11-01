@@ -1,7 +1,7 @@
 #include "ResidentialBuilding.h"
 
 ResidentialBuilding::ResidentialBuilding() {}
-ResidentialBuilding::~ResidentialBuilding(){}
+ResidentialBuilding::~ResidentialBuilding() {}
 
 ResidentialBuilding::ResidentialBuilding(EntityConfig ec, Size size, int xPos, int yPos) : Building(ec, size, xPos, yPos)
 {
@@ -9,7 +9,7 @@ ResidentialBuilding::ResidentialBuilding(EntityConfig ec, Size size, int xPos, i
     residentialBuildingPlaced();
 }
 
-ResidentialBuilding::ResidentialBuilding(ResidentialBuilding* entity) : Building(entity)
+ResidentialBuilding::ResidentialBuilding(ResidentialBuilding *entity) : Building(entity)
 {
     capacity = entity->capacity;
     residentialBuildingPlaced();
@@ -25,7 +25,7 @@ void ResidentialBuilding::setCapacity(int capacity)
     this->capacity = capacity;
 }
 
-//HMMMMMMMMMMM - idk this is needed but It looks like html code :(
+// HMMMMMMMMMMM - idk this is needed but It looks like html code :(
 void ResidentialBuilding::reset()
 {
     globalAirport = ConfigManager::getSatisfactionConfig(EntityType::AIRPORT).globalExtreme;
@@ -55,40 +55,17 @@ void ResidentialBuilding::reset()
     satisfaction = 100;
 }
 
-//Don't touch my addition tower
+// Don't touch my addition tower
 void ResidentialBuilding::calculateSatisfaction()
 {
-    satisfaction = 
-    globalAirport
-    + localAirport
-    + globalBusStop
-    + localBusStop
-    + globalTrainStation
-    + localTrainStation
-    + globalFactory
-    + localFactory
-    + globalShoppingMall
-    + localShoppingMall
-    + globalOffice
-    + localOffice
-    + globalHospital
-    + localHospital
-    + globalPoliceStation
-    + localPoliceStation
-    + globalSchool
-    + localSchool
-    + globalAmenity
-    + localAmenity
-    + globalUtility
-    + localUtility
-    + globalIndustry
-    + localIndustry;
+    satisfaction =
+        globalAirport + localAirport + globalBusStop + localBusStop + globalTrainStation + localTrainStation + globalFactory + localFactory + globalShoppingMall + localShoppingMall + globalOffice + localOffice + globalHospital + localHospital + globalPoliceStation + localPoliceStation + globalSchool + localSchool + globalAmenity + localAmenity + globalUtility + localUtility + globalIndustry + localIndustry;
 
-    if(satisfaction<0)
+    if (satisfaction < 0)
     {
         satisfaction = 0;
     }
-    if(satisfaction>100)
+    if (satisfaction > 100)
     {
         satisfaction = 100;
     }
@@ -99,88 +76,94 @@ float ResidentialBuilding::getSatisfaction()
     return satisfaction;
 }
 
-//this is beutiful
-void ResidentialBuilding::updateAirport(Entity* entity)
+// this is beautiful
+// this is beautiful
+void ResidentialBuilding::updateAirport(Entity *entity)
 {
     updateEntity(ConfigManager::getSatisfactionConfig(EntityType::AIRPORT), localAirport, globalAirport, entity);
 }
 
-void ResidentialBuilding::updateBusStop(Entity* entity)
+void ResidentialBuilding::updateBusStop(Entity *entity)
 {
     updateEntity(ConfigManager::getSatisfactionConfig(EntityType::BUSSTOP), localBusStop, globalBusStop, entity);
 }
 
-void ResidentialBuilding::updateTrainStation(Entity* entity)
+void ResidentialBuilding::updateTrainStation(Entity *entity)
 {
     updateEntity(ConfigManager::getSatisfactionConfig(EntityType::TRAINSTATION), localTrainStation, globalTrainStation, entity);
 }
 
-void ResidentialBuilding::updateFactory(Entity* entity)
+void ResidentialBuilding::updateFactory(Entity *entity)
 {
     updateEntity(ConfigManager::getSatisfactionConfig(EntityType::FACTORY), localFactory, globalFactory, entity);
 }
 
-void ResidentialBuilding::updateShoppingMall(Entity* entity)
+void ResidentialBuilding::updateShoppingMall(Entity *entity)
 {
     updateEntity(ConfigManager::getSatisfactionConfig(EntityType::SHOPPINGMALL), localShoppingMall, globalShoppingMall, entity);
 }
 
-void ResidentialBuilding::updateOffice(Entity* entity)
+void ResidentialBuilding::updateOffice(Entity *entity)
 {
     updateEntity(ConfigManager::getSatisfactionConfig(EntityType::OFFICE), localOffice, globalOffice, entity);
 }
 
-void ResidentialBuilding::updateHospital(Entity* entity)
+void ResidentialBuilding::updateHospital(Entity *entity)
 {
     updateEntity(ConfigManager::getSatisfactionConfig(EntityType::HOSPITAL), localHospital, globalHospital, entity);
 }
 
-void ResidentialBuilding::updatePoliceStation(Entity* entity)
+void ResidentialBuilding::updatePoliceStation(Entity *entity)
 {
     updateEntity(ConfigManager::getSatisfactionConfig(EntityType::POLICESTATION), localPoliceStation, globalPoliceStation, entity);
 }
 
-void ResidentialBuilding::updateSchool(Entity* entity)
+void ResidentialBuilding::updateSchool(Entity *entity)
 {
     updateEntity(ConfigManager::getSatisfactionConfig(EntityType::SCHOOL), localSchool, globalSchool, entity);
 }
 
-void ResidentialBuilding::updateAmenity(Entity* entity)
+void ResidentialBuilding::updateAmenity(Entity *entity)
 {
     updateEntity(ConfigManager::getSatisfactionConfig(EntityType::PARK), localAmenity, globalAmenity, entity);
 }
 
-void ResidentialBuilding::updateUtility(Entity* entity)
+void ResidentialBuilding::updateUtility(Entity *entity)
 {
     updateEntity(ConfigManager::getSatisfactionConfig(EntityType::POWERPLANT), localUtility, globalUtility, entity);
 }
 
-void ResidentialBuilding::updateIndustry(Entity* entity)
+void ResidentialBuilding::updateIndustry(Entity *entity)
 {
     updateEntity(ConfigManager::getSatisfactionConfig(EntityType::WOODPRODUCER), localIndustry, globalIndustry, entity);
 }
 
-void ResidentialBuilding::updateEntity(SatisfactionConfig sc, float &local, float &global, Entity* entity)
+void ResidentialBuilding::updateEntity(SatisfactionConfig sc, float &local, float &global, Entity *entity)
 {
-    if(isWithinEffectRadius(entity))
+    if (isWithinEffectRadius(entity))
     {
         local += sc.localRate;
     }
     global += sc.globalRate;
 
-    if(abs(local)>abs(sc.localExtreme))
+    if (abs(local) > abs(sc.localExtreme))
     {
         local = sc.localExtreme;
     }
-    if(abs(global)>abs(sc.globalExtreme))
+    if (abs(global) > abs(sc.globalExtreme))
     {
         global = sc.globalExtreme;
     }
 }
 
-//hey idk man. I've given up. I had an elegent solution for the code above this but now idk what to do. Maybe you can fix it. I give up. It works that's all that matters
+// hey idk man. I've given up. I had an elegent solution for the code above this but now idk what to do. Maybe you can fix it. I give up. It works that's all that matters
 void ResidentialBuilding::update()
 {
+    // This is for updating the build state (it should run once per game loop)
+    if (!isBuilt()) {
+        updateBuildState();
+    }
+
     reduceByChange(globalAirport);
     reduceByChangeWithNegativeExtreme(ConfigManager::getSatisfactionConfig(EntityType::AIRPORT), localAirport);
     reduceByChange(globalBusStop);
@@ -211,8 +194,8 @@ void ResidentialBuilding::update()
 
 void ResidentialBuilding::reduceByChange(float &value)
 {
-    value -=RATE_OF_CHANGE;
-    if(value<0)
+    value -= RATE_OF_CHANGE;
+    if (value < 0)
     {
         value = 0;
     }
@@ -220,8 +203,8 @@ void ResidentialBuilding::reduceByChange(float &value)
 
 void ResidentialBuilding::reduceByChangeWithNegativeExtreme(SatisfactionConfig sc, float &value)
 {
-    value -=RATE_OF_CHANGE;
-    if(value<sc.localExtreme)
+    value -= RATE_OF_CHANGE;
+    if (value < sc.localExtreme)
     {
         value = sc.localExtreme;
     }

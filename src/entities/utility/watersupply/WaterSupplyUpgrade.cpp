@@ -1,13 +1,20 @@
 #include "WaterSupplyUpgrade.h"
 
-WaterSupplyUpgrade::WaterSupplyUpgrade(WaterSupply* waterSupply) : WaterSupply(waterSupply) {
-    this->waterSupply = waterSupply;
+WaterSupplyUpgrade::WaterSupplyUpgrade(WaterSupply *water) : WaterSupply(water)
+{
+    this->waterSupply = new WaterSupply(water);
 }
 
-WaterSupplyUpgrade::WaterSupplyUpgrade(WaterSupplyUpgrade* waterSupplyUpgrade) : WaterSupply(waterSupplyUpgrade) {
-    this->waterSupply = waterSupplyUpgrade->waterSupply;
+WaterSupplyUpgrade::WaterSupplyUpgrade(WaterSupplyUpgrade *waterSupplyUpgrade) : WaterSupply(waterSupplyUpgrade)
+{
+    this->waterSupply = new WaterSupply(waterSupplyUpgrade->waterSupply);
 }
 
-WaterSupplyUpgrade::~WaterSupplyUpgrade() {
-    
+WaterSupplyUpgrade::~WaterSupplyUpgrade()
+{
+    if (waterSupply != nullptr)
+    {
+        delete waterSupply;
+        waterSupply = nullptr;
+    }
 }

@@ -7,13 +7,15 @@
 class ConcreteProducerLevelTwoUpgrade : public ConcreteProducerUpgrade
 {
 public:
-    ConcreteProducerLevelTwoUpgrade(ConcreteProducer* concreteProd);
-    ConcreteProducerLevelTwoUpgrade(ConcreteProducerLevelTwoUpgrade* concreteProd);
+    ConcreteProducerLevelTwoUpgrade(ConcreteProducer *concreteProd);
+    ConcreteProducerLevelTwoUpgrade(ConcreteProducerLevelTwoUpgrade *concreteProd);
     ~ConcreteProducerLevelTwoUpgrade();
     void update();
     int getOutput();
-    Entity* clone();
-private: 
+    int getLevel() override;
+    Entity *clone();
+
+private:
     const int UPGRADE = 2;
 };
 

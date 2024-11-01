@@ -2,6 +2,7 @@
 #define BUYTRANSPORTMENU_H
 
 #include "menus/base/BuyMenu.h"
+#include "managers/TransportManager.h"
 
 /**
  * @brief Menu for purchasing transport buildings.
@@ -28,6 +29,11 @@ protected:
      * @return The selected EntityType corresponding to the chosen transport building.
      */
     EntityType chooseEntityType() override;
+
+    void buildEntity(EntityType type, Size size, int xPos, int yPos) override;
+
+private:
+    TransportManager transportManager;
 };
 
 #endif // BUYTRANSPORTMENU_H

@@ -17,6 +17,12 @@ public:
      * @return int Unchanged electricity usage.
      */
     int calculateElectricityUsage(int electricityUsage) override;
+
+    /**
+     * @brief Constructor for NormalElectricityPolicy.
+     * Initializes the policy with specific name and detail.
+     */
+    NormalElectricityPolicy() : ElectricityPolicy("NormalElectricityPolicy", "This policy maintains average electricity usage.") {}
 };
 
 #endif

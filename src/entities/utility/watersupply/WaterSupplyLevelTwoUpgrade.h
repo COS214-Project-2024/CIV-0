@@ -3,6 +3,8 @@
 
 #include "WaterSupplyUpgrade.h"
 
+class WaterSupplyLevelThreeUpgrade;
+
 /**
  * @class WaterSupplyLevelTwoUpgrade
  * @brief Represents the second level upgrade to a WaterSupply entity.
@@ -15,21 +17,21 @@ class WaterSupplyLevelTwoUpgrade : public WaterSupplyUpgrade
 public:
     /**
      * @brief Constructs a WaterSupplyLevelTwoUpgrade object.
-     * 
+     *
      * Enhances the specified WaterSupply system with a level two upgrade.
-     * 
-     * @param waterSupply Pointer to the original WaterSupply to be upgraded.
+     *
+     * @param water Pointer to the original WaterSupply to be upgraded.
      */
-    WaterSupplyLevelTwoUpgrade(WaterSupply* waterSupply);
+    WaterSupplyLevelTwoUpgrade(WaterSupply *water);
 
     /**
      * @brief Copy constructor for WaterSupplyLevelTwoUpgrade.
-     * 
+     *
      * Copies the attributes of an existing WaterSupplyLevelTwoUpgrade object.
-     * 
+     *
      * @param waterSupplyLevelTwoUpgrade Pointer to the existing object to be copied.
      */
-    WaterSupplyLevelTwoUpgrade(WaterSupplyLevelTwoUpgrade* waterSupplyLevelTwoUpgrade);
+    WaterSupplyLevelTwoUpgrade(WaterSupplyLevelTwoUpgrade *waterSupplyLevelTwoUpgrade);
 
     /**
      * @brief Destructor for WaterSupplyLevelTwoUpgrade.
@@ -43,19 +45,33 @@ public:
 
     /**
      * @brief Clones the current WaterSupplyLevelTwoUpgrade object.
-     * 
+     *
      * @return A pointer to the newly cloned object.
      */
-    Entity* clone();
+    Entity *clone();
+
+    /**
+     * @brief Upgrades the current utility to the next level.
+     * @return A pointer to the upgraded utility instance, or nullptr if already at maximum level.
+     */
+    Entity *upgrade();
 
     /**
      * @brief Retrieves the upgraded water supply system's output.
-     * 
+     *
      * Returns the output of the level one upgraded water supply system.
-     * 
+     *
      * @return The updated output as an integer.
      */
     int getOutput();
+
+    /**
+     * @brief Retrieves the cost of the utility or its upgraded version.
+     * @return A Cost object representing the monetary and material costs.
+     */
+    Cost getCost();
+
+    int getLevel() override;
 
 private:
     const int UPGRADE = 4; ///< Output multiplier for the level two upgrade.

@@ -2,6 +2,7 @@
 #define BUYAMENITYMENU_H
 
 #include "menus/base/BuyMenu.h"
+#include "managers/AmenityManager.h"
 
 /**
  * @brief Represents the menu for buying amenities.
@@ -16,6 +17,11 @@ protected:
      * @return The selected EntityType corresponding to the chosen amenity.
      */
     EntityType chooseEntityType() override;
+
+    void buildEntity(EntityType type, Size size, int xPos, int yPos) override;
+
+private:
+    AmenityManager amenityManager;
 };
 
 #endif // BUYAMENITYMENU_H

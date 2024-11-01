@@ -15,7 +15,7 @@ void UpgradesMenu::handleInput()
          {{'1', "🔧", "Upgrade Utilities"},
           {'2', "🏭", "Upgrade Industries"}}},
         {"Navigation",
-         {{'q', "🔙", "Back to Main Menu"}}}};
+         {{'q', "⬅️ ", "Back to Main Menu"}}}};
     setHeading("Upgrades Menu");
     clearScreen();
     displayMenu();
@@ -59,7 +59,7 @@ void UpgradesMenu::upgradeUtilities()
           {'3', "🚮", "Waste Management"},
           {'4', "🚰", "Sewage System"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Upgrades Menu"}, {'q', "🔙", "Back to Main Menu"}}}};
+         {{'b', "⬅️ ", "Back to Upgrades Menu"}, {'q', "⬅️ ", "Back to Main Menu"}}}};
 
     displayMenu();
 
@@ -71,27 +71,22 @@ void UpgradesMenu::upgradeUtilities()
         displayChoicePrompt();
         std::cin >> choice;
 
-        std::vector<std::string> utilitiesList; // Placeholder for a list of utility instances.
         switch (choice)
         {
         case '1':
-            utilitiesList = {"Water Supply 1", "Water Supply 2"}; // Example instances
-            selectSpecificUtilityOrIndustry("Water Supply", utilitiesList);
+            selectSpecificUtilityOrIndustry("Water Supply", utilityManager.getAllWaterSupplies());
             choosing = false;
             break;
         case '2':
-            utilitiesList = {"Power Plant 1", "Power Plant 2"}; // Example instances
-            selectSpecificUtilityOrIndustry("Power Plant", utilitiesList);
+            selectSpecificUtilityOrIndustry("Power Plant", utilityManager.getAllPowerPlants());
             choosing = false;
             break;
         case '3':
-            utilitiesList = {"Waste Management 1", "Waste Management 2"}; // Example instances
-            selectSpecificUtilityOrIndustry("Waste Management", utilitiesList);
+            selectSpecificUtilityOrIndustry("Waste Management", utilityManager.getAllWasteManagements());
             choosing = false;
             break;
         case '4':
-            utilitiesList = {"Sewage System 1", "Sewage System 2"}; // Example instances
-            selectSpecificUtilityOrIndustry("Sewage System", utilitiesList);
+            selectSpecificUtilityOrIndustry("Sewage System", utilityManager.getAllSewageSystems());
             choosing = false;
             break;
         case 'b':
@@ -119,7 +114,7 @@ void UpgradesMenu::upgradeIndustries()
           {'2', "🏗️ ", "Concrete Producer"},
           {'3', "🌲", "Wood Producer"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Upgrades Menu"}, {'q', "🔙", "Back to Main Menu"}}}};
+         {{'b', "⬅️ ", "Back to Upgrades Menu"}, {'q', "⬅️ ", "Back to Main Menu"}}}};
 
     displayMenu();
 
@@ -136,17 +131,17 @@ void UpgradesMenu::upgradeIndustries()
         {
         case '1':
             industryList = {"Stone Producer 1", "Stone Producer 2"}; // Example instances
-            selectSpecificUtilityOrIndustry("Stone Producer", industryList);
+            // selectSpecificUtilityOrIndustry("Stone Producer", industryList);
             choosing = false;
             break;
         case '2':
             industryList = {"Concrete Producer 1", "Concrete Producer 2"}; // Example instances
-            selectSpecificUtilityOrIndustry("Concrete Producer", industryList);
+            // selectSpecificUtilityOrIndustry("Concrete Producer", industryList);
             choosing = false;
             break;
         case '3':
             industryList = {"Wood Producer 1", "Wood Producer 2"}; // Example instances
-            selectSpecificUtilityOrIndustry("Wood Producer", industryList);
+            // selectSpecificUtilityOrIndustry("Wood Producer", industryList);
             choosing = false;
             break;
         case 'b':
@@ -164,21 +159,22 @@ void UpgradesMenu::upgradeIndustries()
     }
 }
 
-void UpgradesMenu::selectSpecificUtilityOrIndustry(const std::string &type, const std::vector<std::string> &options)
+void UpgradesMenu::selectSpecificUtilityOrIndustry(const std::string &type, const std::vector<Utility *> &options)
 {
     clearScreen();
     setHeading("Select " + type + " to Upgrade");
 
-    sections.clear(); // Reset the sections to display the specific instances
+    sections.clear(); // Reset sections to display specific instances
     sections.push_back({"Available " + type + "s", {}});
 
     char optionKey = '1';
-    for (const std::string &option : options)
+    for (auto *utility : options)
     {
-        sections[0].options.push_back(Option{optionKey++, "🔧", option});
+        std::string label = type + " (" + std::to_string(utility->getXPosition()) + "," + std::to_string(utility->getYPosition()) + ") (Output = " + std::to_string(utility->getOutput()) + ") (Level " + std::to_string(utility->getLevel()) + ")";
+        sections[0].options.push_back(Option{optionKey++, "🔧", label});
     }
 
-    sections.push_back({"Navigation", {{'b', "🔙", "Back to " + type + " Menu"}, {'q', "🔙", "Back to Main Menu"}}});
+    sections.push_back({"Navigation", {{'b', "⬅️ ", "Back to " + type + " Menu"}, {'q', "⬅️ ", "Back to Main Menu"}}});
     displayMenu();
 
     bool choosing = true;
@@ -189,24 +185,25 @@ void UpgradesMenu::selectSpecificUtilityOrIndustry(const std::string &type, cons
         displayChoicePrompt();
         std::cin >> choice;
 
-        int index = choice - '1'; // Convert choice to index
+        int index = choice - '1';
         if (index >= 0 && index < options.size())
         {
-            int currentLevel = 1;                // Placeholder for current upgrade level.
-            int upgradeCost = 500 + index * 100; // Simulated upgrade cost per instance.
-            confirmUpgrade(options[index], currentLevel, upgradeCost);
-            choosing = false;
-        }
-        else if (choice == 'b')
-        {
-            if (type == "Water Supply" || type == "Power Plant" || type == "Waste Management" || type == "Sewage System")
+            Utility *selectedUtility = options[index];
+            utilityManager.canAffordUpgrade(selectedUtility);
+            if (utilityManager.canAffordUpgrade(selectedUtility))
             {
-                upgradeUtilities(); // Go back to the utilities menu
+                utilityManager.upgrade(selectedUtility);
             }
             else
             {
-                upgradeIndustries(); // Go back to the industries menu
+                displayErrorMessage("You cannot afford the ugrade");
             }
+            choosing = false;
+            displayPressEnterToContinue();
+        }
+        else if (choice == 'b')
+        {
+            upgradeUtilities(); // Go back to utilities menu
             choosing = false;
         }
         else if (choice == 'q')

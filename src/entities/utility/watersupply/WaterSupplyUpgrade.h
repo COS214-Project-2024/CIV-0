@@ -15,21 +15,21 @@ class WaterSupplyUpgrade : public WaterSupply
 public:
     /**
      * @brief Constructs a WaterSupplyUpgrade object based on an existing WaterSupply.
-     * 
+     *
      * Initializes the upgrade with a reference to an existing WaterSupply, enhancing its features.
-     * 
-     * @param waterSupply Pointer to the WaterSupply being upgraded.
+     *
+     * @param water Pointer to the WaterSupply being upgraded.
      */
-    WaterSupplyUpgrade(WaterSupply* waterSupply);
+    WaterSupplyUpgrade(WaterSupply *water);
 
     /**
      * @brief Copy constructor for the WaterSupplyUpgrade class.
-     * 
+     *
      * Creates a new WaterSupplyUpgrade object by copying the attributes of an existing WaterSupplyUpgrade.
-     * 
+     *
      * @param waterSupplyUpgrade Pointer to the existing WaterSupplyUpgrade object to be copied.
      */
-    WaterSupplyUpgrade(WaterSupplyUpgrade* waterSupplyUpgrade);
+    WaterSupplyUpgrade(WaterSupplyUpgrade *waterSupplyUpgrade);
 
     /**
      * @brief Destructor for the WaterSupplyUpgrade object.
@@ -43,20 +43,32 @@ public:
 
     /**
      * @brief Pure virtual function to clone the upgraded water supply system.
-     * 
+     *
      * @return A pointer to a new cloned WaterSupplyUpgrade object.
      */
-    virtual Entity* clone() = 0;
+    virtual Entity *clone() = 0;
+
+    /**
+     * @brief Upgrades the current utility to the next level.
+     * @return A pointer to the upgraded utility instance, or nullptr if already at maximum level.
+     */
+    virtual Entity *upgrade() = 0;
 
     /**
      * @brief Retrieves the output of the upgraded water supply system.
-     * 
+     *
      * @return The output value as an integer.
      */
     virtual int getOutput() = 0;
 
+    /**
+     * @brief Retrieves the cost of the utility or its upgraded version.
+     * @return A Cost object representing the monetary and material costs.
+     */
+    virtual Cost getCost() = 0;
+
 protected:
-    WaterSupply* waterSupply; ///< Pointer to the original WaterSupply that is being upgraded.
+    WaterSupply *waterSupply; ///< Pointer to the original WaterSupply that is being upgraded.
 };
 
 #endif // WATERSUPPLYUPGRADE_H

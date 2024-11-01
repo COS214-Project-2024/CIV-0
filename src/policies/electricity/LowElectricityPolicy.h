@@ -17,6 +17,12 @@ public:
      * @return int Reduced electricity usage (e.g., 75% of the original).
      */
     int calculateElectricityUsage(int electricityUsage) override;
+
+    /**
+     * @brief Constructor for LowElectricityPolicy.
+     * Initializes the policy with specific name and detail.
+     */
+    LowElectricityPolicy() : ElectricityPolicy("LowElectricityPolicy", "This policy minimises electricity usage.") {}
 };
 
 #endif

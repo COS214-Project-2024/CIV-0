@@ -26,8 +26,8 @@ EntityType BuyTransportMenu::chooseEntityType()
           {'2', "✈️ ", "Airport"},
           {'3', "🚆", "Train Station"}}},
         {"Navigation",
-         {{'b', "🔙", "Back to Buildings Menu"},
-          {'q', "🔙", "Back to Main Menu"}}}};
+         {{'b', "⬅️ ", "Back to Buildings Menu"},
+          {'q', "⬅️ ", "Back to Main Menu"}}}};
 
     setHeading("Select Transport Building Type");
     clearScreen();
@@ -73,4 +73,9 @@ EntityType BuyTransportMenu::chooseEntityType()
     }
 
     return type;
+}
+
+void BuyTransportMenu::buildEntity(EntityType type, Size size, int xPos, int yPos)
+{
+    transportManager.buildPublicTransit(type, size, xPos, yPos);
 }

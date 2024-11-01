@@ -1,25 +1,44 @@
 #include "WaterSupplyLevelOneUpgrade.h"
+#include "entities/utility/watersupply/WaterSupplyLevelTwoUpgrade.h"
 
-WaterSupplyLevelOneUpgrade::WaterSupplyLevelOneUpgrade(WaterSupply* waterSupply) : WaterSupplyUpgrade(waterSupply) {
-
+WaterSupplyLevelOneUpgrade::WaterSupplyLevelOneUpgrade(WaterSupply *water) : WaterSupplyUpgrade(water)
+{
 }
 
-WaterSupplyLevelOneUpgrade::WaterSupplyLevelOneUpgrade(WaterSupplyLevelOneUpgrade* waterSupplyLevelOneUpgrade) : WaterSupplyUpgrade(waterSupplyLevelOneUpgrade) {
-
+WaterSupplyLevelOneUpgrade::WaterSupplyLevelOneUpgrade(WaterSupplyLevelOneUpgrade *waterSupplyLevelOneUpgrade) : WaterSupplyUpgrade(waterSupplyLevelOneUpgrade)
+{
 }
 
-WaterSupplyLevelOneUpgrade::~WaterSupplyLevelOneUpgrade() {
-
+WaterSupplyLevelOneUpgrade::~WaterSupplyLevelOneUpgrade()
+{
 }
 
-void WaterSupplyLevelOneUpgrade::update() {
+void WaterSupplyLevelOneUpgrade::update()
+{
     waterSupply->update();
 }
 
-Entity* WaterSupplyLevelOneUpgrade::clone() {
+int WaterSupplyLevelOneUpgrade::getLevel()
+{
+    return 1;
+}
+
+Entity *WaterSupplyLevelOneUpgrade::clone()
+{
     return new WaterSupplyLevelOneUpgrade(this);
 }
 
-int WaterSupplyLevelOneUpgrade::getOutput() {
+Entity *WaterSupplyLevelOneUpgrade::upgrade()
+{
+    return new WaterSupplyLevelTwoUpgrade(waterSupply);
+}
+
+int WaterSupplyLevelOneUpgrade::getOutput()
+{
     return waterSupply->getOutput() * UPGRADE;
+}
+
+Cost WaterSupplyLevelOneUpgrade::getCost()
+{
+    return Cost(waterSupply->getCost().moneyCost * UPGRADE, waterSupply->getCost().woodCost * UPGRADE, waterSupply->getCost().stoneCost * UPGRADE, waterSupply->getCost().concreteCost * UPGRADE);
 }

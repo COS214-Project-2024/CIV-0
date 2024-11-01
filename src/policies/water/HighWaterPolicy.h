@@ -17,6 +17,11 @@ public:
      * @return int Increased water usage (e.g., 120% of the original).
      */
     int calculateWaterUsage(int waterUsage) override;
+    /**
+     * @brief Constructor for HighWaterPolicy.
+     * Initializes the policy with specific name and detail.
+     */
+    HighWaterPolicy() : WaterPolicy("HighWaterPolicy", "This policy allows for high water usage.") {}
 };
 
 #endif

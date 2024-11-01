@@ -1,25 +1,45 @@
 #include "SewageSystemLevelOneUpgrade.h"
+#include "entities/utility/sewagesystem/SewageSystemLevelTwoUpgrade.h"
+#include <iostream>
 
-SewageSystemLevelOneUpgrade::SewageSystemLevelOneUpgrade(SewageSystem* sewageSystem) : SewageSystemUpgrade(sewageSystem) {
-
+SewageSystemLevelOneUpgrade::SewageSystemLevelOneUpgrade(SewageSystem *sewage) : SewageSystemUpgrade(sewage)
+{
 }
 
-SewageSystemLevelOneUpgrade::SewageSystemLevelOneUpgrade(SewageSystemLevelOneUpgrade* sewageSystemLevelOneUpgrade) : SewageSystemUpgrade(sewageSystemLevelOneUpgrade) {
-
+SewageSystemLevelOneUpgrade::SewageSystemLevelOneUpgrade(SewageSystemLevelOneUpgrade *sewageSystemLevelOneUpgrade) : SewageSystemUpgrade(sewageSystemLevelOneUpgrade)
+{
 }
 
-SewageSystemLevelOneUpgrade::~SewageSystemLevelOneUpgrade() {
-
+SewageSystemLevelOneUpgrade::~SewageSystemLevelOneUpgrade()
+{
 }
 
-void SewageSystemLevelOneUpgrade::update() {
+void SewageSystemLevelOneUpgrade::update()
+{
     sewageSystem->update();
 }
 
-Entity* SewageSystemLevelOneUpgrade::clone() {
+int SewageSystemLevelOneUpgrade::getLevel()
+{
+    return 1;
+}
+
+Entity *SewageSystemLevelOneUpgrade::clone()
+{
     return new SewageSystemLevelOneUpgrade(this);
 }
 
-int SewageSystemLevelOneUpgrade::getOutput() {
+Entity *SewageSystemLevelOneUpgrade::upgrade()
+{
+    return new SewageSystemLevelTwoUpgrade(sewageSystem);
+}
+
+int SewageSystemLevelOneUpgrade::getOutput()
+{
     return sewageSystem->getOutput() * UPGRADE;
+}
+
+Cost SewageSystemLevelOneUpgrade::getCost()
+{
+    return Cost(sewageSystem->getCost().moneyCost * UPGRADE, sewageSystem->getCost().woodCost * UPGRADE, sewageSystem->getCost().stoneCost * UPGRADE, sewageSystem->getCost().concreteCost * UPGRADE);
 }
