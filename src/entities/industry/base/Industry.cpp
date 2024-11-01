@@ -9,6 +9,11 @@ Industry::Industry(EntityConfig ec, Size size, int xPos, int yPos) : Entity(ec, 
     subscribeToAllResidentialInRadius();
 }
 
+int Industry::getLevel()
+{
+    return 0;
+}
+
 int Industry::getOutput()
 {
     return output;
@@ -19,7 +24,8 @@ void Industry::setOutput(int output)
     this->output = output;
 }
 
-Industry::Industry(Industry* industry) : Entity(industry) {
+Industry::Industry(Industry *industry) : Entity(industry)
+{
     this->output = industry->output;
     subscribeToAllResidentialInRadius();
 }
