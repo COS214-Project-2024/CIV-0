@@ -2,6 +2,8 @@
 #include "city/City.h"
 #include "visitors/tax/TaxCalculationVisitor.h"
 #include "utils/Memento.h"
+#include "utils/Caretaker.h"
+
 
 /**
  * @brief Constructor for GovernmentManager, initializing the caretaker.
