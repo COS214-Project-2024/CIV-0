@@ -11,6 +11,14 @@
 class ElectricityPolicy : public Policy {
 public:
     /**
+     * @brief Constructor for ElectricityPolicy.
+     * 
+     * @param name Name of the policy.
+     * @param detail Details describing the policy.
+     */
+    ElectricityPolicy(const std::string& name, const std::string& detail) : Policy(name, detail) {}
+
+    /**
      * @brief Pure virtual function to calculate electricity usage.
      * 
      * @param electricityUsage Initial electricity usage.

@@ -17,6 +17,12 @@ public:
      * @return int Increased electricity usage (e.g., 125% of the original).
      */
     int calculateElectricityUsage(int electricityUsage) override;
+
+    /**
+     * @brief Constructor for HighElectricityPolicy.
+     * Initializes the policy with specific name and detail.
+     */
+    HighElectricityPolicy() : ElectricityPolicy("HighElectricityPolicy", "This policy allows for high electricity usage.") {}
 };
 
 #endif
