@@ -8,7 +8,7 @@
  * 
  * Defines the interface for calculating water usage based on different policy strategies.
  */
-class WaterPolicy {
+class WaterPolicy : public Policy {
 public:
     /**
      * @brief Pure virtual function to calculate water usage.

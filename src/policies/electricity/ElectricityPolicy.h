@@ -8,7 +8,7 @@
  * 
  * Defines the interface for calculating electricity usage based on different policy strategies.
  */
-class ElectricityPolicy {
+class ElectricityPolicy : public Policy {
 public:
     /**
      * @brief Pure virtual function to calculate electricity usage.
