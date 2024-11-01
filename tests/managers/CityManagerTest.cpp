@@ -43,7 +43,6 @@ TEST_CASE("CityManager Sell All Buildings of Type")
 {
     City::instance()->reset();
     CityManager cityManager;
-    cityManager.initializeCity();
 
     // Set entities of different types to test bulk selling
     City::instance()->addEntity(new BusStop(ConfigManager::getEntityConfig(EntityType::BUSSTOP, Size::LARGE), Size::LARGE, 10, 10));

@@ -12,82 +12,19 @@
 #include <stdexcept>
 
 /**
- * @brief Converts a numeric index (0-99) to a single character in an extended set.
- *
- * @param index Numeric index to convert (0-99).
- * @return char Corresponding character.
- */
-char indexToExtendedChar(int index)
-{
-    if (index >= 0 && index <= 9)
-    {
-        return '0' + index;
-    }
-    else if (index >= 10 && index <= 35)
-    {
-        return 'A' + (index - 10);
-    }
-    else if (index >= 36 && index <= 61)
-    {
-        return 'a' + (index - 36);
-    }
-    else
-    {
-        const char specialChars[] = "!@#$%^&*()_+-=`~|\\{}[]:\";'<>?,./";
-        int specialIndex = index - 62;
-        if (specialIndex >= 0 && specialIndex < sizeof(specialChars) - 1)
-        {
-            return specialChars[specialIndex];
-        }
-    }
-    throw std::out_of_range("Index out of range for extended character conversion");
-}
-
-/**
- * @brief Converts a single character in an extended set to a numeric index.
- *
- * @param ch Character to convert.
- * @return int Corresponding numeric index.
- */
-int extendedCharToIndex(char ch)
-{
-    if (ch >= '0' && ch <= '9')
-    {
-        return ch - '0';
-    }
-    else if (ch >= 'A' && ch <= 'Z')
-    {
-        return ch - 'A' + 10;
-    }
-    else if (ch >= 'a' && ch <= 'z')
-    {
-        return ch - 'a' + 36;
-    }
-    else
-    {
-        const std::string specialChars = "!@#$%^&*()_+-=`~|\\{}[]:\";'<>?,./";
-        size_t pos = specialChars.find(ch);
-        if (pos != std::string::npos)
-        {
-            return 62 + pos;
-        }
-    }
-    throw std::invalid_argument("Invalid character for extended character conversion");
-}
-
-/**
  * @brief Constructor for DisplayCityMenu.
- * Initializes the menu with a single option to go back to the main menu.
+ * Initializes the menu with options for different display types and a back option.
  */
 DisplayCityMenu::DisplayCityMenu() : IMenu("Display City")
 {
     sections = {
         {"Display Options",
-         {{'1', "🏠", "Display All Residential Buildings"},
-          {'2', "🏢", "Display All Economic Buildings"},
-          {'3', "🛠️ ", "Display All Services"},
-          {'4', "⚡", "Display All Utilities"},
-          {'5', "🏭", "Display All Industries"}}},
+         {{'r', "🏠", "Display All Residential Buildings"},
+          {'e', "🏢", "Display All Economic Buildings"},
+          {'s', "🛠️ ", "Display All Services"},
+          {'u', "⚡", "Display All Utilities"},
+          {'i', "🏭", "Display All Industries"},
+          {'d', "🌆", "Display Whole City"}}},
         {"Navigation", {{'q', "⬅️ ", "Back to Main Menu "}}}};
 }
 
@@ -97,13 +34,40 @@ DisplayCityMenu::DisplayCityMenu() : IMenu("Display City")
 DisplayCityMenu::~DisplayCityMenu() {}
 
 /**
- * @brief Displays the menu and the city grid.
- * Calls displayMenu() to show menu options and displayCity() to render the city.
+ * @brief Displays the menu and the city grid based on the selected display mode.
  */
 void DisplayCityMenu::display() const
 {
-    displayMenu(); // Display menu options
-    displayCity(); // Display the city layout
+    displayMenu();         // Display menu options
+    displayFilteredCity(); // Display the city layout based on current mode
+}
+
+/**
+ * @brief Chooses the correct display method based on the current display mode.
+ */
+void DisplayCityMenu::displayFilteredCity() const
+{
+    switch (currentDisplayMode)
+    {
+    case DisplayMode::WHOLE_CITY:
+        displayCity();
+        break;
+    case DisplayMode::RESIDENTIAL:
+        displayCityByType<ResidentialBuilding>();
+        break;
+    case DisplayMode::ECONOMIC:
+        displayCityByType<EconomicBuilding>();
+        break;
+    case DisplayMode::SERVICE:
+        displayCityByType<ServiceBuilding>();
+        break;
+    case DisplayMode::UTILITY:
+        displayCityByType<Utility>();
+        break;
+    case DisplayMode::INDUSTRY:
+        displayCityByType<Industry>();
+        break;
+    }
 }
 
 void DisplayCityMenu::displayCity() const
@@ -121,9 +85,9 @@ void DisplayCityMenu::displayCity() const
     }
     std::cout << std::endl
               << "  ";
+
     printTopBorder(width * 2 + 1);
 
-    // Loop over each row and column in the grid
     for (int col = 0; col < height; ++col)
     {
         std::cout << indexToExtendedChar(col) << DARK_GRAY << " ║ " << RESET;
@@ -140,19 +104,14 @@ void DisplayCityMenu::displayCity() const
                 std::cout << DARK_GRAY << ". " << RESET;
             }
         }
+
         std::cout << DARK_GRAY << "║" << RESET << std::endl;
     }
 
-    // Close the bottom border
     std::cout << "  ";
     printBottomBorder(width * 2 + 1);
 }
 
-/**
- * @brief Displays the city grid, filtering by entity type if specified.
- *
- * @tparam T The type of entity to display (e.g., ResidentialBuilding).
- */
 template <typename T>
 void DisplayCityMenu::displayCityByType() const
 {
@@ -171,33 +130,33 @@ void DisplayCityMenu::displayCityByType() const
               << "  ";
     printTopBorder(width * 2 + 1);
 
-    for (int row = 0; row < height; ++row)
+    for (int col = 0; col < height; ++col)
     {
-        std::cout << indexToExtendedChar(row) << DARK_GRAY << " ║ " << RESET;
-        for (int col = 0; col < width; ++col)
+        std::cout << indexToExtendedChar(col) << DARK_GRAY << " ║ " << RESET;
+
+        for (int row = 0; row < width; ++row)
         {
             Entity *entity = grid[row][col];
-            // Only display if entity is of type T
             if (entity != nullptr && (dynamic_cast<T *>(entity) || dynamic_cast<Road *>(entity)))
             {
-                std::cout << entity->getSymbol() << "";
+                std::cout << entity->getSymbol() << " ";
             }
             else
             {
                 std::cout << DARK_GRAY << ". " << RESET;
             }
         }
+
         std::cout << DARK_GRAY << "║" << RESET << std::endl;
     }
 
-    // Close the bottom border
     std::cout << "  ";
     printBottomBorder(width * 2 + 1);
 }
 
 /**
  * @brief Handles user input in the "Display City" menu.
- * Allows the user to filter by entity type or return to the main menu.
+ * Allows the user to select a display mode or return to the main menu.
  */
 void DisplayCityMenu::handleInput()
 {
@@ -211,24 +170,25 @@ void DisplayCityMenu::handleInput()
         displayChoicePrompt();
         std::cin >> choice;
 
-        clearScreen(); // Clear screen again before showing the filtered view
-
         switch (choice)
         {
-        case '1': // Display All Residential Buildings
-            displayCityByType<ResidentialBuilding>();
+        case 'r': // Display All Residential Buildings
+            currentDisplayMode = DisplayMode::RESIDENTIAL;
             break;
-        case '2': // Display All Economic Buildings
-            displayCityByType<EconomicBuilding>();
+        case 'e': // Display All Economic Buildings
+            currentDisplayMode = DisplayMode::ECONOMIC;
             break;
-        case '3': // Display All Services
-            displayCityByType<ServiceBuilding>();
+        case 's': // Display All Services
+            currentDisplayMode = DisplayMode::SERVICE;
             break;
-        case '4': // Display All Utilities
-            displayCityByType<Utility>();
+        case 'u': // Display All Utilities
+            currentDisplayMode = DisplayMode::UTILITY;
             break;
-        case '5': // Display All Industries
-            displayCityByType<Industry>();
+        case 'i': // Display All Industries
+            currentDisplayMode = DisplayMode::INDUSTRY;
+            break;
+        case 'd': // Display Whole City
+            currentDisplayMode = DisplayMode::WHOLE_CITY;
             break;
         case 'q':
             MenuManager::instance().setCurrentMenu(Menu::MAIN);
@@ -238,7 +198,5 @@ void DisplayCityMenu::handleInput()
             displayInvalidChoice();
             break;
         }
-
-        displayPressEnterToContinue(); // Pause before redisplaying
     }
 }

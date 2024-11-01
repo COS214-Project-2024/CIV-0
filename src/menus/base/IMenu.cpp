@@ -54,7 +54,7 @@ void IMenu::displayAvailablePositions(const std::vector<std::vector<int>> &posit
             }
             else if (positionMarkers[row][col])
             {
-                std::cout << BOLD_YELLOW << "✔ " << RESET;
+                std::cout << BOLD_YELLOW << "□ " << RESET;
             }
             else
             {
@@ -326,9 +326,8 @@ void IMenu::displayMenu() const
 
     printSectionDivider(maxWidth); // Divider between City Resources and the rest of the menu
 
-    // Display the main menu sections (Options, Navigation, etc.)
+    // Display each section and its options
     bool showSections = sections.size() > 1;
-
     for (size_t sectionIndex = 0; sectionIndex < sections.size(); ++sectionIndex)
     {
         const auto &section = sections[sectionIndex];
@@ -344,12 +343,34 @@ void IMenu::displayMenu() const
         for (const auto &option : section.options)
         {
             std::string plainText = stripColorCodes(option.text);
-            int iconWidth = 2;                   // Icon width assumed as 2 characters
-            int keyAndIconWidth = 6 + iconWidth; // Key, space, icon, and additional space
+            int iconWidth = 2; // Icon width is assumed to be 2 characters
+
+            // Determine the width of the key (character or integer)
+            int keyWidth = 1;
+            if (auto keyChar = std::get_if<char>(&option.key))
+            {
+                keyWidth = 1; // single character width for char keys
+            }
+            else if (auto keyInt = std::get_if<int>(&option.key))
+            {
+                keyWidth = std::to_string(*keyInt).size(); // calculate width of integer key
+            }
+
+            int keyAndIconWidth = keyWidth + 5 + iconWidth; // Key, icon, and additional space
             int padding = maxWidth - plainText.size() - keyAndIconWidth;
 
-            std::cout << DARK_GRAY << "║ " << BOLD_YELLOW << option.key << RESET << ". " << option.icon << " "
-                      << option.text << std::string(std::max(0, padding), ' ') << DARK_GRAY << " ║" << RESET << std::endl;
+            // Display the key based on its type (char or int)
+            std::cout << DARK_GRAY << "║ ";
+            if (auto keyChar = std::get_if<char>(&option.key))
+            {
+                std::cout << BOLD_YELLOW << *keyChar; // Display char as-is
+            }
+            else if (auto keyInt = std::get_if<int>(&option.key))
+            {
+                std::cout << BOLD_YELLOW << *keyInt; // Display int as-is
+            }
+            std::cout << RESET << ". " << option.icon << " " << option.text
+                      << std::string(std::max(0, padding), ' ') << DARK_GRAY << " ║" << RESET << std::endl;
         }
 
         if (sectionIndex == sections.size() - 1)
@@ -369,7 +390,6 @@ void IMenu::displayMenu() const
 void IMenu::displayChoicePrompt() const
 {
     std::string prompt = "Enter your choice: ";
-
     displayChoiceMessagePrompt(prompt);
 }
 

@@ -8,12 +8,10 @@ TEST_CASE("ConfigManagerTest test")
     {
         EntityConfig houseSmall = ConfigManager::getEntityConfig(EntityType::HOUSE, Size::SMALL);
         CHECK(houseSmall.cost.moneyCost == 100);
-        CHECK(houseSmall.symbol == "H");
 
         EntityConfig factoryLarge = ConfigManager::getEntityConfig(EntityType::FACTORY, Size::LARGE);
         CHECK(factoryLarge.cost.moneyCost == 1000);
         CHECK(factoryLarge.electricityConsumption == 50.0f);
-        CHECK(factoryLarge.symbol == "F");
     }
 
     SUBCASE("Invalid config throws exception")

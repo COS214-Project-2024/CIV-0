@@ -2,6 +2,7 @@
 #include "entities/base/Entity.h"
 #include "iterators/city/CityIterator.h"
 #include "entities/road/Road.h"
+#include <iostream>
 #include <algorithm> // for std::fill
 
 City::City() : width(50), height(50), // Set default values
@@ -13,7 +14,6 @@ City::City() : width(50), height(50), // Set default values
     // Initialize grid with default width and height
     srand(static_cast<unsigned int>(time(0))); // Seed random number generator
     grid.resize(height, std::vector<Entity *>(width, nullptr));
-    createRandomRoad();
 }
 
 City::~City()
@@ -68,8 +68,6 @@ void City::reset(int newWidth, int newHeight)
     height = newHeight;
     grid.clear();
     grid.resize(height, std::vector<Entity *>(width, nullptr));
-
-    createRandomRoad(); // Create a new random road upon reset
 }
 
 void City::reset()
@@ -132,7 +130,7 @@ void City::addEntity(Entity *entity)
     int x = entity->getXPosition();
     int y = entity->getYPosition();
 
-    if (x >= 0 && x + entity->getWidth() <= width && y - entity->getHeight() >= 0 && y < height)
+    if (x >= 0 && x + entity->getWidth() <= width && y - entity->getHeight() + 1 >= 0 && y < height)
     {
         for (int i = x; i < x + entity->getWidth(); i++)
         {
@@ -141,6 +139,26 @@ void City::addEntity(Entity *entity)
                 grid[i][j] = entity;
             }
         }
+    }
+}
+
+void City::displayCity() const
+{
+    for (int y = 0; y < height; ++y)
+    {
+        for (int x = 0; x < width; ++x)
+        {
+            Entity *entity = grid[x][y];
+            if (entity != nullptr)
+            {
+                std::cout << entity->getSymbol() << " ";
+            }
+            else
+            {
+                std::cout << ". ";
+            }
+        }
+        std::cout << "\n";
     }
 }
 

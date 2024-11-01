@@ -43,7 +43,7 @@ public:
      * @param y Y-coordinate.
      * @return Pointer to the entity at (x, y).
      */
-    Entity* getEntity(int x, int y);
+    Entity *getEntity(int x, int y);
 
     /**
      * @brief Sells a building at the specified coordinates.
@@ -91,6 +91,12 @@ public:
      * @return True if the entity was successfully bought, false otherwise.
      */
     bool buyEntity(EntityType type, Size size);
+
+    void generateCity(std::optional<unsigned int> seed = std::nullopt);
+
+    void generateRandomRoads(int gridWidth, int gridHeight, int minWidth, int minHeight, int roadGap);
+
+    void generateRandomBuildings(int placementProbability);
 };
 
 #endif // CITYMANAGER_H

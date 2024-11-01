@@ -2,6 +2,7 @@
 #define BUYECONOMICBUILDINGMENU_H
 
 #include "menus/base/BuyMenu.h"
+#include "managers/BuildingManager.h"
 
 /**
  * @brief Represents the menu for buying economic buildings.
@@ -30,6 +31,9 @@ protected:
     EntityType chooseEntityType() override;
 
     void buildEntity(EntityType type, Size size, int xPos, int yPos) override;
+
+private:
+    BuildingManager buildingManager;
 };
 
 #endif // BUYECONOMICBUILDINGMENU_H
