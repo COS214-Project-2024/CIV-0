@@ -77,4 +77,5 @@ EntityType BuyResourceMenu::chooseEntityType()
 
 void BuyResourceMenu::buildEntity(EntityType type, Size size, int xPos, int yPos)
 {
+    resourceManager.buildIndustry(type, size, xPos, yPos);
 }

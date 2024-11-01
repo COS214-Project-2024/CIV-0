@@ -2,6 +2,7 @@
 #define BUYRESOURCEMENU_H
 
 #include "menus/base/BuyMenu.h"
+#include "managers/ResourceManager.h"
 
 /**
  * @brief Menu for purchasing resource-producing buildings.
@@ -30,6 +31,9 @@ protected:
     EntityType chooseEntityType() override;
 
     void buildEntity(EntityType type, Size size, int xPos, int yPos) override;
+
+private:
+    ResourceManager resourceManager;
 };
 
 #endif // BUYRESOURCEMENU_H
