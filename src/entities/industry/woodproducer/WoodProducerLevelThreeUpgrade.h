@@ -10,6 +10,7 @@ public:
     WoodProducerLevelThreeUpgrade(WoodProducerLevelThreeUpgrade *woodProd);
     ~WoodProducerLevelThreeUpgrade();
     void update();
+    Entity *clone();
     int getOutput();
     int getLevel();
     Entity *clone();
