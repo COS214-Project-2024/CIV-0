@@ -11,7 +11,7 @@ TEST_CASE("Testing ConcreteProducerIterator initial position")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    ConcreteProducer *producer = new ConcreteProducer();
+    ConcreteProducer *producer = new ConcreteProducer(ConfigManager::getEntityConfig(EntityType::CONCRETEPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(producer);
     row1.push_back(nullptr);
@@ -36,8 +36,8 @@ TEST_CASE("Testing ConcreteProducerIterator next()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    ConcreteProducer *producer = new ConcreteProducer();
-    Theater *theater = new Theater();
+    ConcreteProducer *producer = new ConcreteProducer(ConfigManager::getEntityConfig(EntityType::CONCRETEPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *theater = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(producer);
     row1.push_back(nullptr);
@@ -70,9 +70,9 @@ TEST_CASE("Testing ConcreteProducerIterator first()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    ConcreteProducer *producer1 = new ConcreteProducer();
-    ConcreteProducer *producer2 = new ConcreteProducer();
-    Theater *theater = new Theater();
+    ConcreteProducer *producer1 = new ConcreteProducer(ConfigManager::getEntityConfig(EntityType::CONCRETEPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    ConcreteProducer *producer2 = new ConcreteProducer(ConfigManager::getEntityConfig(EntityType::CONCRETEPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *theater = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(producer1);
     row1.push_back(theater);
@@ -100,9 +100,9 @@ TEST_CASE("Testing ConcreteProducerIterator hasNext() with multiple producers")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    ConcreteProducer *producer1 = new ConcreteProducer();
-    ConcreteProducer *producer2 = new ConcreteProducer();
-    Theater *theater = new Theater();
+    ConcreteProducer *producer1 = new ConcreteProducer(ConfigManager::getEntityConfig(EntityType::CONCRETEPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    ConcreteProducer *producer2 = new ConcreteProducer(ConfigManager::getEntityConfig(EntityType::CONCRETEPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *theater = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(producer1);
     row1.push_back(nullptr);
@@ -135,8 +135,8 @@ TEST_CASE("Testing ConcreteProducerIterator hasNext() reaching the end")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    ConcreteProducer *producer = new ConcreteProducer();
-    Theater *theater = new Theater();
+    ConcreteProducer *producer = new ConcreteProducer(ConfigManager::getEntityConfig(EntityType::CONCRETEPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *theater = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(producer);
     row1.push_back(theater);

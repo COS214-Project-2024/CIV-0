@@ -10,7 +10,7 @@ TEST_CASE("Testing StoneProducerIterator initial position")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    StoneProducer *producer = new StoneProducer();
+    StoneProducer *producer = new StoneProducer(ConfigManager::getEntityConfig(EntityType::STONEPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(producer);
     row1.push_back(nullptr);
@@ -35,8 +35,8 @@ TEST_CASE("Testing StoneProducerIterator next()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    StoneProducer *producer = new StoneProducer();
-    Theater *theater = new Theater();
+    StoneProducer *producer = new StoneProducer(ConfigManager::getEntityConfig(EntityType::STONEPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *theater = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(producer);
     row1.push_back(nullptr);
@@ -68,9 +68,9 @@ TEST_CASE("Testing StoneProducerIterator first()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    StoneProducer *producer1 = new StoneProducer();
-    StoneProducer *producer2 = new StoneProducer();
-    Theater *theater = new Theater();
+    StoneProducer *producer1 = new StoneProducer(ConfigManager::getEntityConfig(EntityType::STONEPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    StoneProducer *producer2 = new StoneProducer(ConfigManager::getEntityConfig(EntityType::STONEPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *theater = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(producer1);
     row1.push_back(theater);
@@ -98,9 +98,9 @@ TEST_CASE("Testing StoneProducerIterator hasNext() with multiple producers")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    StoneProducer *producer1 = new StoneProducer();
-    StoneProducer *producer2 = new StoneProducer();
-    Theater *theater = new Theater();
+    StoneProducer *producer1 = new StoneProducer(ConfigManager::getEntityConfig(EntityType::STONEPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    StoneProducer *producer2 = new StoneProducer(ConfigManager::getEntityConfig(EntityType::STONEPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *theater = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(producer1);
     row1.push_back(nullptr);
@@ -138,8 +138,8 @@ TEST_CASE("Testing StoneProducerIterator hasNext() reaching the end")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    StoneProducer *producer = new StoneProducer();
-    Theater *theater = new Theater();
+    StoneProducer *producer = new StoneProducer(ConfigManager::getEntityConfig(EntityType::STONEPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *theater = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(producer);
     row1.push_back(theater);

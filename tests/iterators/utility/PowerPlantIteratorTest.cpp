@@ -9,8 +9,8 @@ TEST_CASE("Testing PowerPlantIterator initial position")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    PowerPlant *p = new PowerPlant();
-    Theater *t = new Theater();
+    PowerPlant *p = new PowerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(p);
     row1.push_back(p);
@@ -37,8 +37,8 @@ TEST_CASE("Testing PowerPlantIterator next()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    PowerPlant *p = new PowerPlant();
-    Theater *t = new Theater();
+    PowerPlant *p = new PowerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(p);
     row1.push_back(nullptr);
@@ -69,8 +69,8 @@ TEST_CASE("Testing PowerPlantIterator first()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    PowerPlant *p = new PowerPlant();
-    Theater *t = new Theater();
+    PowerPlant *p = new PowerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(p);
     row1.push_back(t);
@@ -97,9 +97,9 @@ TEST_CASE("Testing PowerPlantIterator hasNext() with multiple PowerPlants")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    PowerPlant *p1 = new PowerPlant();
-    PowerPlant *p2 = new PowerPlant();
-    Theater *t = new Theater();
+    PowerPlant *p1 = new PowerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::SMALL), Size::SMALL, 10, 10);
+    PowerPlant *p2 = new PowerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(p1);
     row1.push_back(nullptr);
@@ -137,8 +137,8 @@ TEST_CASE("Testing PowerPlantIterator reaching the end")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    PowerPlant *p = new PowerPlant();
-    Theater *t = new Theater();
+    PowerPlant *p = new PowerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(p);
     row1.push_back(t);

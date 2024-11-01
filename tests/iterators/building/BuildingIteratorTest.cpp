@@ -13,9 +13,9 @@ TEST_CASE("Testing BuildingIterator initial position")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    Hospital *h = new Hospital();
-    PoliceStation *ps = new PoliceStation();
-    House *house = new House();
+    Hospital *h = new Hospital(ConfigManager::getEntityConfig(EntityType::HOSPITAL, Size::SMALL), Size::SMALL, 10, 10);
+    PoliceStation *ps = new PoliceStation(ConfigManager::getEntityConfig(EntityType::POLICESTATION, Size::SMALL), Size::SMALL, 10, 10);
+    House *house = new House(ConfigManager::getEntityConfig(EntityType::HOUSE, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(h);
     row1.push_back(ps);
@@ -42,9 +42,9 @@ TEST_CASE("Testing BuildingIterator next()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    School *school = new School();
-    Hospital *h = new Hospital();
-    House *house = new House();
+    School *school = new School(ConfigManager::getEntityConfig(EntityType::SCHOOL, Size::SMALL), Size::SMALL, 10, 10);
+    Hospital *h = new Hospital(ConfigManager::getEntityConfig(EntityType::HOSPITAL, Size::SMALL), Size::SMALL, 10, 10);
+    House *house = new House(ConfigManager::getEntityConfig(EntityType::HOUSE, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(school);
     row1.push_back(h);
@@ -85,9 +85,9 @@ TEST_CASE("Testing BuildingIterator first()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    Hospital *h = new Hospital();
-    Apartment *apt = new Apartment();
-    School *school = new School();
+    Hospital *h = new Hospital(ConfigManager::getEntityConfig(EntityType::HOSPITAL, Size::SMALL), Size::SMALL, 10, 10);
+    Apartment *apt = new Apartment(ConfigManager::getEntityConfig(EntityType::APARTMENT, Size::SMALL), Size::SMALL, 10, 10);
+    School *school = new School(ConfigManager::getEntityConfig(EntityType::SCHOOL, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(h);
     row1.push_back(school);
@@ -115,9 +115,9 @@ TEST_CASE("Testing BuildingIterator hasNext() with multiple buildings")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    PoliceStation *ps = new PoliceStation();
-    Hospital *h = new Hospital();
-    Apartment *apt = new Apartment();
+    PoliceStation *ps = new PoliceStation(ConfigManager::getEntityConfig(EntityType::POLICESTATION, Size::SMALL), Size::SMALL, 10, 10);
+    Hospital *h = new Hospital(ConfigManager::getEntityConfig(EntityType::HOSPITAL, Size::SMALL), Size::SMALL, 10, 10);
+    Apartment *apt = new Apartment(ConfigManager::getEntityConfig(EntityType::APARTMENT, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(ps);
     row1.push_back(h);
@@ -150,9 +150,9 @@ TEST_CASE("Testing BuildingIterator hasNext() reaching the end")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    House *house = new House();
-    PoliceStation *ps = new PoliceStation();
-    School *school = new School();
+    House *house = new House(ConfigManager::getEntityConfig(EntityType::HOUSE, Size::SMALL), Size::SMALL, 10, 10);
+    PoliceStation *ps = new PoliceStation(ConfigManager::getEntityConfig(EntityType::POLICESTATION, Size::SMALL), Size::SMALL, 10, 10);
+    School *school = new School(ConfigManager::getEntityConfig(EntityType::SCHOOL, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(house);
     row1.push_back(ps);
