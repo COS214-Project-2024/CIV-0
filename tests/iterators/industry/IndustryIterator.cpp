@@ -11,7 +11,7 @@ TEST_CASE("Testing IndustryIterator initial position")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    ConcreteProducer *producer = new ConcreteProducer();
+    ConcreteProducer *producer = new ConcreteProducer(ConfigManager::getEntityConfig(EntityType::CONCRETEPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(producer);
     row1.push_back(nullptr);
@@ -36,8 +36,8 @@ TEST_CASE("Testing IndustryIterator next()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    ConcreteProducer *producer = new ConcreteProducer();
-    Theater *theater = new Theater();
+    ConcreteProducer *producer = new ConcreteProducer(ConfigManager::getEntityConfig(EntityType::CONCRETEPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *theater = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(producer);
     row1.push_back(nullptr);
@@ -69,9 +69,9 @@ TEST_CASE("Testing IndustryIterator first()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    ConcreteProducer *producer1 = new ConcreteProducer();
-    WoodProducer *producer2 = new WoodProducer();
-    Theater *theater = new Theater();
+    ConcreteProducer *producer1 = new ConcreteProducer(ConfigManager::getEntityConfig(EntityType::CONCRETEPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    WoodProducer *producer2 = new WoodProducer(ConfigManager::getEntityConfig(EntityType::WOODPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *theater = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(producer1);
     row1.push_back(theater);
@@ -99,9 +99,9 @@ TEST_CASE("Testing IndustryIterator hasNext() with multiple producers")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    ConcreteProducer *producer1 = new ConcreteProducer();
-    WoodProducer *producer2 = new WoodProducer();
-    Theater *theater = new Theater();
+    ConcreteProducer *producer1 = new ConcreteProducer(ConfigManager::getEntityConfig(EntityType::CONCRETEPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    WoodProducer *producer2 = new WoodProducer(ConfigManager::getEntityConfig(EntityType::WOODPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *theater = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(producer1);
     row1.push_back(nullptr);
@@ -139,8 +139,8 @@ TEST_CASE("Testing IndustryIterator hasNext() reaching the end")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    ConcreteProducer *producer = new ConcreteProducer();
-    Theater *theater = new Theater();
+    ConcreteProducer *producer = new ConcreteProducer(ConfigManager::getEntityConfig(EntityType::CONCRETEPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *theater = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(producer);
     row1.push_back(theater);

@@ -15,13 +15,6 @@ class EconomicBuilding : public Building
 {
 public:
     /**
-     * @brief Default constructor for the EconomicBuilding class.
-     * 
-     * Initializes a new instance of the EconomicBuilding class with default values.
-     */
-    EconomicBuilding();
-
-    /**
      * @brief Parameterized constructor for the EconomicBuilding class.
      * 
      * @param ec The configuration object containing general entity properties.

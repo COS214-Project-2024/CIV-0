@@ -1,6 +1,5 @@
 #include "Hospital.h"
 
-Hospital::Hospital() {}
 Hospital::~Hospital() {}
 
 Hospital::Hospital(EntityConfig ec, Size size, int xPos, int yPos) : ServiceBuilding(ec, size, xPos, yPos)

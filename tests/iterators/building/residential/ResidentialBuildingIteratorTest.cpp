@@ -10,8 +10,8 @@ TEST_CASE("Testing ResidentialBuildingIterator initial position")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    House *h = new House();
-    Apartment *a = new Apartment();
+    House *h = new House(ConfigManager::getEntityConfig(EntityType::HOUSE, Size::SMALL), Size::SMALL, 10, 10);
+    Apartment *a = new Apartment(ConfigManager::getEntityConfig(EntityType::APARTMENT, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(h);
     row1.push_back(a);
@@ -37,8 +37,8 @@ TEST_CASE("Testing ResidentialBuildingIterator next()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    House *h = new House();
-    Apartment *a = new Apartment();
+    House *h = new House(ConfigManager::getEntityConfig(EntityType::HOUSE, Size::SMALL), Size::SMALL, 10, 10);
+    Apartment *a = new Apartment(ConfigManager::getEntityConfig(EntityType::APARTMENT, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(h);
     row1.push_back(a);
@@ -75,8 +75,8 @@ TEST_CASE("Testing ResidentialBuildingIterator first()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    House *h = new House();
-    Apartment *a = new Apartment();
+    House *h = new House(ConfigManager::getEntityConfig(EntityType::HOUSE, Size::SMALL), Size::SMALL, 10, 10);
+    Apartment *a = new Apartment(ConfigManager::getEntityConfig(EntityType::APARTMENT, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(h);
     row1.push_back(a);
@@ -103,8 +103,8 @@ TEST_CASE("Testing ResidentialBuildingIterator hasNext() with multiple buildings
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    House *h = new House();
-    Apartment *a = new Apartment();
+    House *h = new House(ConfigManager::getEntityConfig(EntityType::HOUSE, Size::SMALL), Size::SMALL, 10, 10);
+    Apartment *a = new Apartment(ConfigManager::getEntityConfig(EntityType::APARTMENT, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(h);
     row1.push_back(a);
@@ -136,8 +136,8 @@ TEST_CASE("Testing ResidentialBuildingIterator hasNext() reaching the end")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    House *h = new House();
-    Apartment *a = new Apartment();
+    House *h = new House(ConfigManager::getEntityConfig(EntityType::HOUSE, Size::SMALL), Size::SMALL, 10, 10);
+    Apartment *a = new Apartment(ConfigManager::getEntityConfig(EntityType::APARTMENT, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(h);
     row1.push_back(a);

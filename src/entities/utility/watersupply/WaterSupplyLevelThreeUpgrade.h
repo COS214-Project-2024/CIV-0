@@ -27,10 +27,10 @@ public:
      *
      * Creates a new WaterSupplyLevelThreeUpgrade object by copying the attributes of an existing
      * WaterSupplyLevelThreeUpgrade object.
-     *
-     * @param waterSupplyLevelThreeUpgrade Pointer to the existing WaterSupplyLevelThreeUpgrade to be copied.
+     * 
+     * @param wSLTU Pointer to the existing WaterSupplyLevelThreeUpgrade to be copied.
      */
-    WaterSupplyLevelThreeUpgrade(WaterSupplyLevelThreeUpgrade *waterSupplyLevelThreeUpgrade);
+    WaterSupplyLevelThreeUpgrade(WaterSupplyLevelThreeUpgrade *wSLTU);
 
     /**
      * @brief Destructor for WaterSupplyLevelThreeUpgrade.

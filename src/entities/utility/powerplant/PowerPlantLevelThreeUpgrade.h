@@ -27,10 +27,10 @@ public:
      *
      * Creates a new PowerPlantLevelThreeUpgrade object by copying the attributes of an existing
      * PowerPlantLevelThreeUpgrade object.
-     *
-     * @param powerPlantLevelThreeUpgrade Pointer to the existing PowerPlantLevelThreeUpgrade to be copied.
+     * 
+     * @param pPLTU Pointer to the existing PowerPlantLevelThreeUpgrade to be copied.
      */
-    PowerPlantLevelThreeUpgrade(PowerPlantLevelThreeUpgrade *powerPlantLevelThreeUpgrade);
+    PowerPlantLevelThreeUpgrade(PowerPlantLevelThreeUpgrade *pPLTU);
 
     /**
      * @brief Destructor for PowerPlantLevelThreeUpgrade.

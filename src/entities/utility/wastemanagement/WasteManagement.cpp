@@ -1,10 +1,6 @@
 #include "WasteManagement.h"
 #include "entities/utility/wastemanagement/WasteManagementLevelOneUpgrade.h"
 
-WasteManagement::WasteManagement() : Utility()
-{
-}
-
 WasteManagement::~WasteManagement()
 {
 }

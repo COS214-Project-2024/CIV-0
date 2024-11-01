@@ -10,9 +10,9 @@ TEST_CASE("Testing AmenityIterator initial position")
 {
     std::vector<std::vector<Entity *>> grid;
     std::vector<Entity *> row1, row2;
-    Park *p = new Park();
-    Theater *t = new Theater();
-    Monument *m = new Monument();
+    Park *p = new Park(ConfigManager::getEntityConfig(EntityType::PARK, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
+    Monument *m = new Monument(ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(p);
     row1.push_back(m);
@@ -36,9 +36,9 @@ TEST_CASE("Testing next() with initial setup")
 {
     std::vector<std::vector<Entity *>> grid;
     std::vector<Entity *> row1, row2;
-    Park *p = new Park();
-    Theater *t = new Theater();
-    Monument *m = new Monument();
+    Park *p = new Park(ConfigManager::getEntityConfig(EntityType::PARK, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
+    Monument *m = new Monument(ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(nullptr);
     row1.push_back(m);
@@ -75,9 +75,9 @@ TEST_CASE("Testing first()")
 {
     std::vector<std::vector<Entity *>> grid;
     std::vector<Entity *> row1, row2;
-    Park *p = new Park();
-    Theater *t = new Theater();
-    Monument *m = new Monument();
+    Park *p = new Park(ConfigManager::getEntityConfig(EntityType::PARK, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
+    Monument *m = new Monument(ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(p);
     row1.push_back(m);
@@ -102,9 +102,9 @@ TEST_CASE("Testing hasNext() with multiple amenities")
 {
     std::vector<std::vector<Entity *>> grid;
     std::vector<Entity *> row1, row2;
-    Park *p = new Park();
-    Theater *t = new Theater();
-    Monument *m = new Monument();
+    Park *p = new Park(ConfigManager::getEntityConfig(EntityType::PARK, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
+    Monument *m = new Monument(ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(p);
     row1.push_back(m);
@@ -143,9 +143,9 @@ TEST_CASE("Testing hasNext() with no amenities left")
 {
     std::vector<std::vector<Entity *>> grid;
     std::vector<Entity *> row1, row2;
-    Park *p = new Park();
-    Theater *t = new Theater();
-    Monument *m = new Monument();
+    Park *p = new Park(ConfigManager::getEntityConfig(EntityType::PARK, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
+    Monument *m = new Monument(ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(p);
     row1.push_back(t);
@@ -177,9 +177,9 @@ TEST_CASE("Testing hasNext() with final position on Amenity")
 {
     std::vector<std::vector<Entity *>> grid;
     std::vector<Entity *> row1, row2;
-    Park *p = new Park();
-    Theater *t = new Theater();
-    Monument *m = new Monument();
+    Park *p = new Park(ConfigManager::getEntityConfig(EntityType::PARK, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
+    Monument *m = new Monument(ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(m);
     row1.push_back(nullptr);
@@ -213,14 +213,14 @@ TEST_CASE("Testing next() on alternating amenity layout")
 {
     std::vector<std::vector<Entity *>> grid;
     std::vector<Entity *> row1, row2;
-    Park *p = new Park();
-    Theater *t = new Theater();
-    Monument *m = new Monument();
+    Park *p = new Park(ConfigManager::getEntityConfig(EntityType::PARK, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
+    Monument *m = new Monument(ConfigManager::getEntityConfig(EntityType::MONUMENT, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(m);
     row1.push_back(nullptr);
     row2.push_back(nullptr);
-    row2.push_back(p);
+    row2.push_back(t);
 
     grid.push_back(row1);
     grid.push_back(row2);

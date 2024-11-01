@@ -1,6 +1,5 @@
 #include "ResidentialBuilding.h"
 
-ResidentialBuilding::ResidentialBuilding() {}
 ResidentialBuilding::~ResidentialBuilding() {}
 
 ResidentialBuilding::ResidentialBuilding(EntityConfig ec, Size size, int xPos, int yPos) : Building(ec, size, xPos, yPos)

@@ -11,8 +11,8 @@ TEST_CASE("Testing EconomicBuildingIterator initial position")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    Office *o = new Office();
-    Factory *f = new Factory();
+    Office *o = new Office(ConfigManager::getEntityConfig(EntityType::OFFICE, Size::SMALL), Size::SMALL, 10, 10);
+    Factory *f = new Factory(ConfigManager::getEntityConfig(EntityType::FACTORY, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(o);
     row1.push_back(f);
@@ -38,8 +38,8 @@ TEST_CASE("Testing EconomicBuildingIterator next()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    Office *o = new Office();
-    Factory *f = new Factory();
+    Office *o = new Office(ConfigManager::getEntityConfig(EntityType::OFFICE, Size::SMALL), Size::SMALL, 10, 10);
+    Factory *f = new Factory(ConfigManager::getEntityConfig(EntityType::FACTORY, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(o);
     row1.push_back(f);
@@ -76,8 +76,8 @@ TEST_CASE("Testing EconomicBuildingIterator first()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    Office *o = new Office();
-    Factory *f = new Factory();
+    Office *o = new Office(ConfigManager::getEntityConfig(EntityType::OFFICE, Size::SMALL), Size::SMALL, 10, 10);
+    Factory *f = new Factory(ConfigManager::getEntityConfig(EntityType::FACTORY, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(o);
     row1.push_back(f);
@@ -104,8 +104,8 @@ TEST_CASE("Testing EconomicBuildingIterator hasNext() with multiple buildings")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    Office *o = new Office();
-    Factory *f = new Factory();
+    Office *o = new Office(ConfigManager::getEntityConfig(EntityType::OFFICE, Size::SMALL), Size::SMALL, 10, 10);
+    Factory *f = new Factory(ConfigManager::getEntityConfig(EntityType::FACTORY, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(o);
     row1.push_back(f);
@@ -137,8 +137,8 @@ TEST_CASE("Testing EconomicBuildingIterator hasNext() reaching the end")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    Office *o = new Office();
-    Factory *f = new Factory();
+    Office *o = new Office(ConfigManager::getEntityConfig(EntityType::OFFICE, Size::SMALL), Size::SMALL, 10, 10);
+    Factory *f = new Factory(ConfigManager::getEntityConfig(EntityType::FACTORY, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(o);
     row1.push_back(f);

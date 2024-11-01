@@ -1,8 +1,8 @@
-
 #ifndef STONEPRODUCERUPGRADE_H
 #define STONEPRODUCERUPGRADE_H
 
 #include "StoneProducer.h"
+
 class StoneProducerUpgrade : public StoneProducer
 {
 public:

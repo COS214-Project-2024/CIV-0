@@ -37,13 +37,6 @@ public:
     Utility(Utility *utility);
 
     /**
-     * @brief Default constructor for the Utility class.
-     *
-     * Creates a new Utility object without initializing any of it's values (naughty).
-     */
-    Utility();
-
-    /**
      * @brief Destructor for the Utility object.
      */
     virtual ~Utility();
@@ -93,8 +86,8 @@ public:
     virtual int getLevel();
 
 private:
-    int output; ///< The output value of the utility (e.g., electricity or water produced).
-    Cost cost;
+    int output;     ///< The output value of the utility (e.g., electricity or water produced).
+    Cost cost;      ///< The build cost of the utility
 };
 
 #endif // UTILITY_H

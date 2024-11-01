@@ -87,6 +87,7 @@ TEST_SUITE("UtilityManager") {
         CHECK(manager.getWaterConsumption() == City::instance()->getWaterConsumption());
         CHECK(manager.getWasteConsumption() == City::instance()->getWasteConsumption());
         CHECK(manager.getSewageConsumption() == City::instance()->getSewageConsumption());
+        resetCity();
     }
 
     TEST_CASE("UtilityManager upgrades utilities if affordable") {
@@ -212,6 +213,31 @@ TEST_SUITE("UtilityManager") {
         CHECK(manager.upgrade(powerPlant));         // Expecting this to return true
         CHECK_FALSE(manager.upgrade(powerPlant));   // Expecting this to return false
         CHECK_FALSE(manager.upgrade(powerPlant));   // Expecting this to return false
+        resetCity();
+    }
+
+    TEST_CASE("Test upgrade cost subtraction") {
+        resetCity();
+        UtilityManager manager;
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::SMALL);
+
+        City::instance()->setMoney((ec.cost.moneyCost*2)*1.5);
+        City::instance()->setWood((ec.cost.woodCost*2)*1.5);
+        City::instance()->setStone((ec.cost.stoneCost*2)*1.5);
+        City::instance()->setConcrete((ec.cost.concreteCost*2)*1.5);
+        manager.buildUtility(EntityType::POWERPLANT, Size::SMALL, 20, 20);
+
+        Utility* powerPlant = manager.getAllPowerPlants().front();
+        REQUIRE(powerPlant != nullptr);
+        CHECK(manager.upgrade(powerPlant)); // We can afford this upgrade
+
+        CHECK(City::instance()->getMoney() == (ec.cost.moneyCost*2)*0.5);
+        CHECK(City::instance()->getWood() == (ec.cost.woodCost*2)*0.5);
+        CHECK(City::instance()->getStone() == (ec.cost.stoneCost*2)*0.5);
+        CHECK(City::instance()->getConcrete() == (ec.cost.concreteCost*2)*0.5);
+
+        REQUIRE(powerPlant != nullptr);
+        CHECK_FALSE(manager.upgrade(powerPlant)); // We cant afford this upgrade
         resetCity();
     }
 }

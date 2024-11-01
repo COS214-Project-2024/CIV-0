@@ -36,13 +36,6 @@ public:
     WaterSupply(WaterSupply *water);
 
     /**
-     * @brief Default constructor for the WaterSupply class.
-     *
-     * Creates a new WaterSupply object without initializing any of it's values (naughty).
-     */
-    WaterSupply();
-
-    /**
      * @brief Destructor for the WaterSupply object.
      */
     virtual ~WaterSupply();

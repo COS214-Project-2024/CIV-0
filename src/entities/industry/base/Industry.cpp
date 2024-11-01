@@ -1,6 +1,5 @@
 #include "Industry.h"
 
-Industry::Industry() : Entity() {}
 Industry::~Industry() {}
 
 Industry::Industry(EntityConfig ec, Size size, int xPos, int yPos) : Entity(ec, size, xPos, yPos)

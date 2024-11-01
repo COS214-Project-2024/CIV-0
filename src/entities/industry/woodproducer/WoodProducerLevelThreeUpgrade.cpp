@@ -1,4 +1,3 @@
-
 #include "WoodProducerLevelThreeUpgrade.h"
 
 WoodProducerLevelThreeUpgrade::WoodProducerLevelThreeUpgrade(WoodProducer *woodProd) : WoodProducerUpgrade(woodProd) {}

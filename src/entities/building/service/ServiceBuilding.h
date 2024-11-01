@@ -14,13 +14,6 @@ class ServiceBuilding : public Building
 {
 public:
     /**
-     * @brief Default constructor for the ServiceBuilding class.
-     * 
-     * Initializes an empty service building object.
-     */
-    ServiceBuilding();
-
-    /**
      * @brief Parameterized constructor for the ServiceBuilding class.
      * 
      * @param ec Entity configuration for initializing the building.

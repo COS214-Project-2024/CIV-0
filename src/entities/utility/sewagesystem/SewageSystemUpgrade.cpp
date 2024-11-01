@@ -5,9 +5,9 @@ SewageSystemUpgrade::SewageSystemUpgrade(SewageSystem *sewage) : SewageSystem(se
     this->sewageSystem = new SewageSystem(sewage);
 }
 
-SewageSystemUpgrade::SewageSystemUpgrade(SewageSystemUpgrade *sewageSystemUpgrade) : SewageSystem(sewageSystemUpgrade)
+SewageSystemUpgrade::SewageSystemUpgrade(SewageSystemUpgrade *sSU) : SewageSystem(sSU)
 {
-    this->sewageSystem = new SewageSystem(sewageSystemUpgrade->sewageSystem);
+    this->sewageSystem = new SewageSystem(sSU->sewageSystem);
 }
 
 SewageSystemUpgrade::~SewageSystemUpgrade()

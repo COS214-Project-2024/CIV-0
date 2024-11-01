@@ -4,7 +4,7 @@ PowerPlantLevelThreeUpgrade::PowerPlantLevelThreeUpgrade(PowerPlant *power) : Po
 {
 }
 
-PowerPlantLevelThreeUpgrade::PowerPlantLevelThreeUpgrade(PowerPlantLevelThreeUpgrade *powerPlantLevelThreeUpgrade) : PowerPlantUpgrade(powerPlantLevelThreeUpgrade)
+PowerPlantLevelThreeUpgrade::PowerPlantLevelThreeUpgrade(PowerPlantLevelThreeUpgrade *pPLTU) : PowerPlantUpgrade(pPLTU)
 {
 }
 

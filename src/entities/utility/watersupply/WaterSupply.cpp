@@ -1,10 +1,6 @@
 #include "WaterSupply.h"
 #include "entities/utility/watersupply/WaterSupplyLevelOneUpgrade.h"
 
-WaterSupply::WaterSupply() : Utility()
-{
-}
-
 WaterSupply::~WaterSupply()
 {
 }

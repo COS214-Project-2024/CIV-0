@@ -1,10 +1,10 @@
-
 #ifndef WOODPRODUCERLEVELTWOUPGRADE_H
 #define WOODPRODUCERLEVELTWOUPGRADE_H
 
 #include "WoodProducerUpgrade.h"
 
 class WoodProducerLevelThreeUpgrade;
+
 class WoodProducerLevelTwoUpgrade : public WoodProducerUpgrade
 {
 public:

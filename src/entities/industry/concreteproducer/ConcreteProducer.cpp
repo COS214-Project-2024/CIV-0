@@ -1,7 +1,6 @@
 #include "ConcreteProducer.h"
 #include "entities/industry/concreteproducer/ConcreteProducerLevelOneUpgrade.h"
 
-ConcreteProducer::ConcreteProducer() : Industry() {}
 ConcreteProducer::~ConcreteProducer() {}
 
 ConcreteProducer::ConcreteProducer(EntityConfig ec, Size size, int xPos, int yPos) : Industry(ec, size, xPos, yPos)
