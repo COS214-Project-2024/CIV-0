@@ -14,7 +14,6 @@ public:
     virtual ~ConcreteProducer();
     void update();
     Entity *clone();
-    Cost getCost();
     Entity* upgrade();
 
 };
