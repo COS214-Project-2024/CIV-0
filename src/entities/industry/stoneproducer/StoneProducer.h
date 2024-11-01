@@ -2,6 +2,7 @@
 #define STONEPRODUCER_H
 
 #include "entities/industry/base/Industry.h"
+class StoneProducerLevelOneUpgrade;
 
 class StoneProducer : public Industry
 {
@@ -12,6 +13,7 @@ public:
     virtual ~StoneProducer();
     void update();
     Entity *clone();
+    virtual Entity* upgrade();
 };
 
 #endif // STONEPRODUCER_H

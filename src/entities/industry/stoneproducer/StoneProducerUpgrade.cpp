@@ -1,14 +1,21 @@
 
 #include "StoneProducerUpgrade.h"
 
-StoneProducerUpgrade::StoneProducerUpgrade(StoneProducer *stoneProd) : StoneProducer(stoneProd)
+StoneProducerUpgrade::StoneProducerUpgrade(StoneProducer *stoneProd)
 {
-    this->stoneProducer = stoneProd;
+    this->stoneProducer = new StoneProducer(stoneProd);
 }
 
 StoneProducerUpgrade::StoneProducerUpgrade(StoneProducerUpgrade *stoneProd) : StoneProducer(stoneProd)
 {
-    this->stoneProducer = stoneProd->stoneProducer;
+    this->stoneProducer = new StoneProducer(stoneProd->stoneProducer);
 }
 
-StoneProducerUpgrade::~StoneProducerUpgrade() {}
+StoneProducerUpgrade::~StoneProducerUpgrade()
+{
+    if (stoneProducer != nullptr)
+    {
+        delete stoneProducer;
+        stoneProducer = nullptr;
+    }
+}

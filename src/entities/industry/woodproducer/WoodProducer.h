@@ -3,6 +3,7 @@
 
 #include "entities/industry/base/Industry.h"
 
+class WoodProducerLevelOneUpgrade;
 class WoodProducer : public Industry
 {
 public:
@@ -12,6 +13,7 @@ public:
     virtual ~WoodProducer();
     void update();
     Entity *clone();
+    Entity* upgrade();
 };
 
 #endif // WOODPRODUCER_H

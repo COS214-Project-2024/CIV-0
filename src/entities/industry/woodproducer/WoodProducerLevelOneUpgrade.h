@@ -4,6 +4,7 @@
 
 #include "WoodProducerUpgrade.h"
 
+class WoodProducerLevelTwoUpgrade;
 class WoodProducerLevelOneUpgrade : public WoodProducerUpgrade
 {
 public:
@@ -13,7 +14,9 @@ public:
     void update();
     Entity *clone();
     int getOutput();
-    int getLevel() override;
+    int getLevel();
+    Entity* upgrade();
+    Cost getCost();
 
 private:
     const int UPGRADE = 2;

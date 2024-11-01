@@ -4,6 +4,9 @@
 
 #include "StoneProducerUpgrade.h"
 
+
+class StoneProducerLevelThreeUpgrade; 
+
 class StoneProducerLevelTwoUpgrade : public StoneProducerUpgrade
 {
 public:
@@ -13,7 +16,9 @@ public:
     Entity *clone();
     void update();
     int getOutput();
-    int getLevel() override;
+    int getLevel();
+    Entity* upgrade();
+    Cost getCost();
 
 private:
     const int UPGRADE = 2;

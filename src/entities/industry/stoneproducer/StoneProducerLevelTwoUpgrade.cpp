@@ -1,5 +1,5 @@
-
 #include "StoneProducerLevelTwoUpgrade.h"
+#include "entities/industry/stoneproducer/StoneProducerLevelThreeUpgrade.h"
 
 StoneProducerLevelTwoUpgrade::StoneProducerLevelTwoUpgrade(StoneProducer *stoneProd) : StoneProducerUpgrade(stoneProd) {}
 
@@ -25,4 +25,14 @@ int StoneProducerLevelTwoUpgrade::getLevel()
 void StoneProducerLevelTwoUpgrade::update()
 {
     stoneProducer->update();
+}
+
+Entity *StoneProducerLevelTwoUpgrade::upgrade()
+{
+    return new StoneProducerLevelThreeUpgrade(this);
+}
+
+Cost StoneProducerLevelTwoUpgrade::getCost()
+{
+    return Cost(stoneProducer->getCost().moneyCost * UPGRADE, stoneProducer->getCost().woodCost * UPGRADE, stoneProducer->getCost().stoneCost * UPGRADE, stoneProducer->getCost().concreteCost * UPGRADE);
 }

@@ -11,8 +11,10 @@ public:
     ~StoneProducerLevelThreeUpgrade();
     void update();
     int getOutput();
-    int getLevel() override;
+    int getLevel();
     Entity *clone();
+    Entity* upgrade();
+    Cost getCost();
 
 private:
     const int UPGRADE = 4;
