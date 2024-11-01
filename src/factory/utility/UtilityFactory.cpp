@@ -7,57 +7,19 @@ UtilityFactory::~UtilityFactory()
 {
 }
 
-Entity* UtilityFactory::createSmallEntity(EntityType type, int xPos, int yPos) {
+Entity* UtilityFactory::createEntity(EntityType type,Size size, int xPos, int yPos) {
 	switch (type) {
 		case EntityType::POWERPLANT:
-			return createPowerPlant(Size::SMALL, xPos, yPos);
+			return createPowerPlant(size, xPos, yPos);
 			break;
 		case EntityType::WATERSUPPLY:
-			return createWaterSupply(Size::SMALL, xPos, yPos);
+			return createWaterSupply(size, xPos, yPos);
 			break;
 		case EntityType::WASTEMANAGMENT:
-			return createWasteManagement(Size::SMALL, xPos, yPos);
+			return createWasteManagement(size, xPos, yPos);
 			break;
 		case EntityType::SEWAGESYSTEM:
-			return createSewageSystem(Size::SMALL, xPos, yPos);
-			break;
-		default:
-			return nullptr;
-	}
-}
-
-Entity* UtilityFactory::createMediumEntity(EntityType type, int xPos, int yPos) {
-	switch (type) {
-		case EntityType::POWERPLANT:
-			return createPowerPlant(Size::MEDIUM, xPos, yPos);
-			break;
-		case EntityType::WATERSUPPLY:
-			return createWaterSupply(Size::MEDIUM, xPos, yPos);
-			break;
-		case EntityType::WASTEMANAGMENT:
-			return createWasteManagement(Size::MEDIUM, xPos, yPos);
-			break;
-		case EntityType::SEWAGESYSTEM:
-			return createSewageSystem(Size::MEDIUM, xPos, yPos);
-			break;
-		default:
-			return nullptr;
-	}
-}
-
-Entity* UtilityFactory::createLargeEntity(EntityType type, int xPos, int yPos) {
-	switch (type) {
-		case EntityType::POWERPLANT:
-			return createPowerPlant(Size::LARGE, xPos, yPos);
-			break;
-		case EntityType::WATERSUPPLY:
-			return createWaterSupply(Size::LARGE, xPos, yPos);
-			break;
-		case EntityType::WASTEMANAGMENT:
-			return createWasteManagement(Size::LARGE, xPos, yPos);
-			break;
-		case EntityType::SEWAGESYSTEM:
-			return createSewageSystem(Size::LARGE, xPos, yPos);
+			return createSewageSystem(size, xPos, yPos);
 			break;
 		default:
 			return nullptr;

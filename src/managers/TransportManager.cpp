@@ -38,17 +38,8 @@ bool TransportManager::buildPublicTransit(EntityType type, Size size, int x, int
 	}
 	TransportFactory* fact = new TransportFactory();
 	City* city = City::instance();
-	switch (size) {
-		case Size::SMALL:
-			city->addEntity(fact->createSmallEntity(type, x, y));
-			break;
-		case Size::MEDIUM:
-			city->addEntity(fact->createMediumEntity(type, x, y));
-			break;
-		case Size::LARGE:
-			city->addEntity(fact->createLargeEntity(type, x, y));
-			break;
-	}
+
+	city->addEntity(fact->createEntity(type, size, x, y));
 	delete fact;
 	return true;
 }
