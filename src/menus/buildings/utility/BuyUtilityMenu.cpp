@@ -82,4 +82,5 @@ EntityType BuyUtilityMenu::chooseEntityType()
 
 void BuyUtilityMenu::buildEntity(EntityType type, Size size, int xPos, int yPos)
 {
+    utilityManager.buildUtility(type, size, xPos, yPos);
 }
