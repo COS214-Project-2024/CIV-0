@@ -8,6 +8,7 @@
 #include "src/iterators/industry/WoodProducerIterator.h"
 #include "city/City.h"
 #include "src/factory/industry/IndustryFactory.h"
+#include "src/visitors/resource/ResourceVisitor.h"
 
 class ResourceManager
 {

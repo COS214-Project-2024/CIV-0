@@ -4,6 +4,11 @@ ResourceManager::ResourceManager() {}
 ResourceManager::~ResourceManager() {}
 
 
+int ResourceManager::calculateConcreteMade() {
+    ResourceVisitor rv;
+    rv.visit(City::instance());
+    City::instance()
+}
 
 void ResourceManager::buildIndustry(EntityType type, Size size, int x, int y) {
     if(type != EntityType::CONCRETEPRODUCER && type!= EntityType::STONEPRODUCER && type != EntityType::WOODPRODUCER) {
@@ -28,7 +33,7 @@ void ResourceManager::buildIndustry(EntityType type, Size size, int x, int y) {
 
 
 int ResourceManager::calculateWoodMade() {
-
+    
 }
 
 std::vector<Industry*> ResourceManager::getAllConcreteProducers() {
