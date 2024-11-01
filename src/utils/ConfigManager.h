@@ -42,7 +42,7 @@ private:
 
         // Houses
         entityConfigTable.emplace(std::make_pair(EntityType::HOUSE, Size::SMALL),
-                                  EntityConfig(Cost(100, 50, 20, 10), 2, 1, "H", 3, 5, 1, 2, 4, 500, 3, EntityType::HOUSE, Size::SMALL));
+                                  EntityConfig(Cost(100, 50, 20, 10), 2, 1, "H", 3, 5, 1, 2, 2, 500, 3, EntityType::HOUSE, Size::SMALL));
         entityConfigTable.emplace(std::make_pair(EntityType::HOUSE, Size::MEDIUM),
                                   EntityConfig(Cost(200, 80, 30, 20), 5, 2, "H", 5, 10, 2, 3, 3, 1000, 3, EntityType::HOUSE, Size::MEDIUM));
         entityConfigTable.emplace(std::make_pair(EntityType::HOUSE, Size::LARGE),
