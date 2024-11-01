@@ -56,25 +56,6 @@ public:
      * @return A pointer to the created Entity.
      */
     Entity* createApartment(Size size, int xPos, int yPos);
-    /**
-     * @brief Creates a house of the specified size at the given position.
-     * 
-     * @param size The size of the house to create.
-     * @param xPos The x-coordinate of the house's position.
-     * @param yPos The y-coordinate of the house's position.
-     * @return A pointer to the created Entity.
-     */
-    Entity* createHouse(Size size, int xPos, int yPos);
-
-    /**
-     * @brief Creates an apartment of the specified size at the given position.
-     * 
-     * @param size The size of the apartment to create.
-     * @param xPos The x-coordinate of the apartment's position.
-     * @param yPos The y-coordinate of the apartment's position.
-     * @return A pointer to the created Entity.
-     */
-    Entity* createApartment(Size size, int xPos, int yPos);
 };
 
 #endif // RESIDENTIALBUILDINGFACTORY_H
