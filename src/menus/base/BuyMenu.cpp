@@ -26,6 +26,8 @@ void BuyMenu::display() const {}
 void BuyMenu::handleInput()
 {
     hasExited = false;
+    isInfoMenu = false;
+    displayResources = true;
 
     EntityType type = chooseEntityType();
     selectedType = type;
