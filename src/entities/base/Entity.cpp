@@ -4,6 +4,7 @@
 #include "city/City.h"
 #include "entities/building/residential/ResidentialBuilding.h"
 #include "entities/road/Road.h"
+#include <algorithm>
 
 Entity::Entity(Entity *entity)
 {
@@ -141,18 +142,20 @@ void Entity::setSymbol(std::string symbol)
 
 void Entity::unsubscribe(Entity *subject)
 {
-    for (auto it = observers.begin(); it != observers.end(); it++)
+    auto it = std::find(observers.begin(), observers.end(), subject);
+    if (it != observers.end()) // Check if the subject was found
     {
-        if (*it == subject)
-        {
-            observers.erase(it);
-            return;
-        }
+        observers.erase(it); // Erase the element if found
     }
 }
 
 void Entity::subscribe(Entity *entity)
 {
+    if (!entity) // Check for nullptr
+    {
+        return;
+    }
+
     for (Entity *obs : observers)
     {
         if (obs == entity)
@@ -165,10 +168,13 @@ void Entity::subscribe(Entity *entity)
 
 void Entity::unsubscribeFromAllBuildings()
 {
-    for (Entity *e : observers)
+    // Copy the current list of observers to avoid modifying the vector while iterating over it
+    std::vector<Entity *> tempObservers = observers;
+
+    for (Entity *e : tempObservers)
     {
-        e->unsubscribe(this);
-        unsubscribe(e);
+        e->unsubscribe(this); // Notify the observer to unsubscribe this entity
+        unsubscribe(e);       // Unsubscribe 'e' from this entity
     }
 }
 

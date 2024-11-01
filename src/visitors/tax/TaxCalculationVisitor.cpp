@@ -22,11 +22,17 @@ void TaxCalculationVisitor::visit(City *city)
             {
                 if (ResidentialBuilding *residential = dynamic_cast<ResidentialBuilding *>(entity))
                 {
-                    totalResidentialTax += (residential->getRevenue() * residentialTaxRate) / 100;
+                    if(residential->isBuilt())
+                    {
+                        totalResidentialTax += (residential->getRevenue() * residentialTaxRate) / 100;
+                    }
                 }
                 else if (EconomicBuilding *economic = dynamic_cast<EconomicBuilding *>(entity))
                 {
-                    totalEconomicTax += (economic->getRevenue() * economicTaxRate) / 100;
+                    if(economic->isBuilt())
+                    {
+                        totalEconomicTax += (economic->getRevenue() * economicTaxRate) / 100;
+                    }
                 }
             }
         }

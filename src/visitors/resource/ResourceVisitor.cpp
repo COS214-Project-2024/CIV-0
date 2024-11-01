@@ -17,7 +17,7 @@ void ResourceVisitor::visit(City *city)
     {
         for (Entity *entity : row)
         {
-            if (entity != nullptr && visitedEntities.insert(entity).second)
+            if (entity != nullptr && visitedEntities.insert(entity).second && entity->isBuilt())
             {
                 // Dynamic cast to ConcreteProducer
                 if (ConcreteProducer *concreteProducer = dynamic_cast<ConcreteProducer *>(entity))

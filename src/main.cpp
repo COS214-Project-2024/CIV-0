@@ -2,6 +2,6 @@
 
 int main()
 {
-    CivZero::instance().startGame(true, 10);
+    CivZero::instance().startGame(true);
     return 0;
 }

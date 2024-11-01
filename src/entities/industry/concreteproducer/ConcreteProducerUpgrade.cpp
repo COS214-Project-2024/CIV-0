@@ -1,5 +1,8 @@
 #include "ConcreteProducerUpgrade.h"
 
+
+
+
 ConcreteProducerUpgrade::ConcreteProducerUpgrade(ConcreteProducer *concreteProd) : ConcreteProducer(concreteProd)
 {
     this->concreteProducer = new ConcreteProducer(concreteProd);
