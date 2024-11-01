@@ -5,6 +5,9 @@
 #include <vector>
 #include <cstdlib> // For rand and srand
 #include <ctime>   // For time
+#include "policies/water/WaterPolicy.h"
+#include "policies/electricity/ElectricityPolicy.h"
+#include "utils/PolicyType.h"
 
 class Entity;
 class CityIterator;
@@ -41,6 +44,9 @@ private:
      * @brief Creates a road entity at a random position within the city grid.
      */
     void createRandomRoad();
+    
+     WaterPolicy* waterPolicy = nullptr;         ///< Pointer to the current water policy.
+     ElectricityPolicy* electricityPolicy = nullptr; ///< Pointer to the current electricity policy.
 
 public:
     /**
@@ -83,6 +89,18 @@ public:
     int getResidentialTax() const;
     int getEconomicTax() const;
 
+    /**
+     * @brief Gets the current water usage policy.
+     * @return Pointer to the current water policy.
+     */
+    WaterPolicy* getWaterPolicy() const;
+
+    /**
+     * @brief Gets the current electricity usage policy.
+     * @return Pointer to the current electricity policy.
+     */
+    ElectricityPolicy* getElectricityPolicy() const;
+
     // Setters
     void setWidth(int width);
     void setHeight(int height);
@@ -103,6 +121,17 @@ public:
     void setSewageConsumption(int sewageConsumption);
     void setResidentialTax(int residentialTax);
     void setEconomicTax(int economicTax);
+   /**
+     * @brief Sets the water usage policy for the city.
+     * @param policyType The type of water policy to enact.
+     */
+    void setWaterPolicy(PolicyType policyType);
+
+    /**
+     * @brief Sets the electricity usage policy for the city.
+     * @param policyType The type of electricity policy to enact.
+     */
+    void setElectricityPolicy(PolicyType policyType);
 
     void reset();
     void reset(int width, int height);
