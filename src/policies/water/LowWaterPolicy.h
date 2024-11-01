@@ -17,6 +17,11 @@ public:
      * @return int Reduced water usage (e.g., 80% of the original).
      */
     int calculateWaterUsage(int waterUsage) override;
+    /**
+     * @brief Constructor for LowWaterPolicy.
+     * Initializes the policy with specific name and detail.
+     */
+    LowWaterPolicy() : WaterPolicy("LowWaterPolicy", "This policy minimises water usage.") {}
 };
 
 #endif

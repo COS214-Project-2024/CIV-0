@@ -32,6 +32,13 @@ public:
      * @brief Destructor to free the memory allocated for mementos.
      */
     ~Caretaker();
+
+    /**
+     * @brief Retrieves all past policies stored in the caretaker.
+     * 
+     * @return Vector of pointers to Memento objects representing past policies.
+     */
+    std::vector<Memento*> getPastPolicies() const;
 };
 
 #endif

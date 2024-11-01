@@ -4,6 +4,12 @@
 #include "entities/road/Road.h"
 #include <iostream>
 #include <algorithm> // for std::fill
+#include "policies/water/LowWaterPolicy.h"
+#include "policies/water/NormalWaterPolicy.h"
+#include "policies/water/HighWaterPolicy.h"
+#include "policies/electricity/LowElectricityPolicy.h"
+#include "policies/electricity/NormalElectricityPolicy.h"
+#include "policies/electricity/HighElectricityPolicy.h"
 
 City::City() : width(50), height(50), // Set default values
                satisfaction(0), money(500), wood(500), stone(500), concrete(500),
@@ -29,6 +35,16 @@ City::~City()
                 grid[i][j] = nullptr; // Set to nullptr to avoid double-deletion
             }
         }
+    }
+
+    if(waterPolicy != nullptr) {
+        delete waterPolicy;
+        waterPolicy = nullptr;
+    }
+
+    if(electricityPolicy != nullptr) {
+        delete electricityPolicy;
+        electricityPolicy = nullptr;
     }
 }
 
@@ -61,6 +77,16 @@ void City::reset(int newWidth, int newHeight)
                 grid[i][j] = nullptr; // Set to nullptr to avoid double-deletion
             }
         }
+    }
+
+    if(waterPolicy != nullptr) {
+        delete waterPolicy;
+        waterPolicy = nullptr;
+    }
+
+    if(electricityPolicy != nullptr) {
+        delete electricityPolicy;
+        electricityPolicy = nullptr;
     }
 
     // Resize grid based on new dimensions
@@ -200,6 +226,23 @@ int City::getSewageProduction() const { return sewageProduction; }
 int City::getSewageConsumption() const { return sewageConsumption; }
 int City::getResidentialTax() const { return residentialTax; }
 int City::getEconomicTax() const { return economicTax; }
+/**
+ * @brief Retrieves the current water usage policy for the city.
+ * 
+ * @return Pointer to the current WaterPolicy.
+ */
+WaterPolicy* City::getWaterPolicy() const {
+    return waterPolicy;
+}
+
+/**
+ * @brief Retrieves the current electricity usage policy for the city.
+ * 
+ * @return Pointer to the current ElectricityPolicy.
+ */
+ElectricityPolicy* City::getElectricityPolicy() const {
+    return electricityPolicy;
+}
 
 // Setters
 void City::setWidth(int width) { this->width = width; }
@@ -221,3 +264,40 @@ void City::setSewageProduction(int sewageProduction) { this->sewageProduction = 
 void City::setSewageConsumption(int sewageConsumption) { this->sewageConsumption = sewageConsumption; }
 void City::setResidentialTax(int residentialTax) { this->residentialTax = residentialTax; }
 void City::setEconomicTax(int economicTax) { this->economicTax = economicTax; }
+/**
+ * @brief Sets the water usage policy for the city.
+ * 
+ * @param policyType The type of water policy to enact.
+ */
+void City::setWaterPolicy(PolicyType policyType) {
+    if (waterPolicy != nullptr) {
+        delete waterPolicy;
+    }
+
+    if (policyType == PolicyType::LOW_WATER_POLICY) {
+        waterPolicy = new LowWaterPolicy();
+    } else if (policyType == PolicyType::NORMAL_WATER_POLICY) {
+        waterPolicy = new NormalWaterPolicy();
+    } else if (policyType == PolicyType::HIGH_WATER_POLICY) {
+        waterPolicy = new HighWaterPolicy();
+    }
+}
+
+/**
+ * @brief Sets the electricity usage policy for the city.
+ * 
+ * @param policyType The type of electricity policy to enact.
+ */
+void City::setElectricityPolicy(PolicyType policyType) {
+    if (electricityPolicy != nullptr) {
+        delete electricityPolicy;
+    }
+
+    if (policyType == PolicyType::LOW_ELECTRICITY_POLICY) {
+        electricityPolicy = new LowElectricityPolicy();
+    } else if (policyType == PolicyType::NORMAL_ELECTRICITY_POLICY) {
+        electricityPolicy = new NormalElectricityPolicy();
+    } else if (policyType == PolicyType::HIGH_ELECTRICITY_POLICY) {
+        electricityPolicy = new HighElectricityPolicy();
+    }
+}
