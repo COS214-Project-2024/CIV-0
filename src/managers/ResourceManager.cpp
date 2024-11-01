@@ -3,6 +3,34 @@
 ResourceManager::ResourceManager() {}
 ResourceManager::~ResourceManager() {}
 
+
+
+void ResourceManager::buildIndustry(EntityType type, Size size, int x, int y) {
+    if(type != EntityType::CONCRETEPRODUCER && type!= EntityType::STONEPRODUCER && type != EntityType::WOODPRODUCER) {
+        return;
+    }
+
+    IndustryFactory* industryFactory = new IndustryFactory();
+    Industry* industry = nullptr;
+
+    if(size == Size::SMALL) {
+        industry = dynamic_cast<Industry*>(industryFactory->createSmallEntity(type, x, y));
+    } else if (size == Size::MEDIUM) {
+        industry = dynamic_cast<Industry*>(industryFactory->createMediumEntity(type, x, y));
+    } else if (size == Size::LARGE) {
+        industry = dynamic_cast<Industry*>(industryFactory->createLargeEntity(type, x, y));
+    }
+
+    if(industry != nullptr) {
+        City::instance()->addEntity(industry);
+    }
+}
+
+
+int ResourceManager::calculateWoodMade() {
+
+}
+
 std::vector<Industry*> ResourceManager::getAllConcreteProducers() {
     std::vector<std::vector<Entity*>> grid = City::instance()->getGrid();
     ConcreteProducerIterator* iterator = new ConcreteProducerIterator(grid);  
@@ -84,5 +112,21 @@ bool ResourceManager::canAffordUpgrade(Industry* industry) {
 bool ResourceManager::upgrade(Industry*& industry) {
     if(industry != nullptr && canAffordUpgrade(industry)) {
         Entity* industryUpgrade = industry->upgrade();
+
+        if(industryUpgrade != nullptr) { //max
+            std::vector<std::vector<Entity*>>& grid = City::instance()->getGrid();
+
+            for(int i = industry->getXPosition(); i < industry->getYPosition() + industry->getWidth(); i++) {
+                for(int j = industry->getYPosition() - industry->getHeight() + 1; j <= industry->getYPosition(); j++) {
+                    grid[i][j] = industryUpgrade;
+                }
+            }
+
+            delete industry;
+            industry = (Industry*) industryUpgrade;
+
+            return true;
+        }
     }
+    return false;
 }

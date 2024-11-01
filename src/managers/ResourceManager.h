@@ -7,6 +7,7 @@
 #include "src/iterators/industry/IndustryIterator.h"
 #include "src/iterators/industry/WoodProducerIterator.h"
 #include "city/City.h"
+#include "src/factory/industry/IndustryFactory.h"
 
 class ResourceManager
 {
@@ -14,6 +15,7 @@ public:
 
     ResourceManager();
     ~ResourceManager();
+    void buildIndustry(EntityType type, Size size, int x, int y);
     int calculateMoneyMade(); //ask richard how to get the money
     int calculateWoodMade();
     int calculateStoneMade();
