@@ -96,7 +96,7 @@ void DemolishMenu::demolishSpecificBuilding()
         if (entity && dynamic_cast<Road *>(entity) == nullptr)
         {
             buildingPositions.push_back({cityIterator.getRow(), cityIterator.getCol()});
-            std::string buildingLabel = entityTypeToString(entity->getType()) + " (" + coordinatesToLabel(cityIterator.getRow(), cityIterator.getCol()) + ")";
+            std::string buildingLabel = entityTypeToString(entity->getType()) + " (" + coordinatesToLabel(cityIterator.getRow(), cityIterator.getCol()+entity->getHeight()-1) + ")";
             sections[0].options.push_back(Option{optionKey++, "🏠", buildingLabel});
         }
     }
