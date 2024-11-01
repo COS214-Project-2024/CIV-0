@@ -30,12 +30,12 @@ public:
      */
     Memento* createMemento() const;
 
-    /**
-     * @brief Restores the state of the policy from a Memento.
+   /**
+     * @brief Sets the policy state from a memento.
      * 
-     * @param memento The memento to restore from.
+     * @param memento Pointer to the memento from which to restore state.
      */
-    void setMemento(const Memento& memento);
+    void setMemento(const Memento* memento);
 
     /**
      * @brief Gets the name of the policy.

@@ -22,13 +22,17 @@ Memento* Policy::createMemento() const {
 }
 
 /**
- * @brief Restores the state of the policy from a Memento.
+ * @brief Restores the policy state from a provided memento.
  * 
- * @param memento The memento to restore from.
+ * This method sets the policy's name and detail based on the memento's state.
+ * 
+ * @param memento A pointer to the Memento object containing the saved state.
  */
-void Policy::setMemento(const Memento& memento) {
-    name = memento.getName();
-    detail = memento.getDetail();
+void Policy::setMemento(const Memento* memento) {
+    if (memento) {
+        name = memento->getName();
+        detail = memento->getDetail();
+    }
 }
 
 /**
