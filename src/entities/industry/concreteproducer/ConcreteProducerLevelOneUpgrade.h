@@ -16,7 +16,7 @@ public:
     Entity *clone();
 
 private:
-    const int UPGRADE = 1.5;
+    const int UPGRADE = 2;
 };
 
 #endif // CONCRETEPRODUCERLEVELONEUPGRADE_H

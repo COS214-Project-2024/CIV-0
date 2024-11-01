@@ -16,33 +16,33 @@
 class ResidentialBuilding : public Building
 {
 private:
-    const float RATE_OF_CHANGE = 1; ///< Rate at which satisfaction factors are adjusted.
-    float globalAirport;            ///< Global effect of nearby airports.
-    float localAirport;             ///< Local effect of nearby airports.
-    float globalBusStop;            ///< Global effect of nearby bus stops.
-    float localBusStop;             ///< Local effect of nearby bus stops.
-    float globalTrainStation;       ///< Global effect of nearby train stations.
-    float localTrainStation;        ///< Local effect of nearby train stations.
-    float globalFactory;            ///< Global effect of nearby factories.
-    float localFactory;             ///< Local effect of nearby factories.
-    float globalShoppingMall;       ///< Global effect of nearby shopping malls.
-    float localShoppingMall;        ///< Local effect of nearby shopping malls.
-    float globalOffice;             ///< Global effect of nearby offices.
-    float localOffice;              ///< Local effect of nearby offices.
-    float globalHospital;           ///< Global effect of nearby hospitals.
-    float localHospital;            ///< Local effect of nearby hospitals.
-    float globalPoliceStation;      ///< Global effect of nearby police stations.
-    float localPoliceStation;       ///< Local effect of nearby police stations.
-    float globalSchool;             ///< Global effect of nearby schools.
-    float localSchool;              ///< Local effect of nearby schools.
-    float globalAmenity;            ///< Global effect of nearby amenities.
-    float localAmenity;             ///< Local effect of nearby amenities.
-    float globalUtility;            ///< Global effect of nearby utilities.
-    float localUtility;             ///< Local effect of nearby utilities.
-    float globalIndustry;           ///< Global effect of nearby industries.
-    float localIndustry;            ///< Local effect of nearby industries.
-    float satisfaction;             ///< Overall satisfaction level for the residential building.
-    int capacity;                   ///< Occupant capacity of the residential building.
+    const float RATE_OF_CHANGE = 0.5f; ///< Rate at which satisfaction factors are adjusted.
+    float globalAirport;               ///< Global effect of nearby airports.
+    float localAirport;                ///< Local effect of nearby airports.
+    float globalBusStop;               ///< Global effect of nearby bus stops.
+    float localBusStop;                ///< Local effect of nearby bus stops.
+    float globalTrainStation;          ///< Global effect of nearby train stations.
+    float localTrainStation;           ///< Local effect of nearby train stations.
+    float globalFactory;               ///< Global effect of nearby factories.
+    float localFactory;                ///< Local effect of nearby factories.
+    float globalShoppingMall;          ///< Global effect of nearby shopping malls.
+    float localShoppingMall;           ///< Local effect of nearby shopping malls.
+    float globalOffice;                ///< Global effect of nearby offices.
+    float localOffice;                 ///< Local effect of nearby offices.
+    float globalHospital;              ///< Global effect of nearby hospitals.
+    float localHospital;               ///< Local effect of nearby hospitals.
+    float globalPoliceStation;         ///< Global effect of nearby police stations.
+    float localPoliceStation;          ///< Local effect of nearby police stations.
+    float globalSchool;                ///< Global effect of nearby schools.
+    float localSchool;                 ///< Local effect of nearby schools.
+    float globalAmenity;               ///< Global effect of nearby amenities.
+    float localAmenity;                ///< Local effect of nearby amenities.
+    float globalUtility;               ///< Global effect of nearby utilities.
+    float localUtility;                ///< Local effect of nearby utilities.
+    float globalIndustry;              ///< Global effect of nearby industries.
+    float localIndustry;               ///< Local effect of nearby industries.
+    float satisfaction;                ///< Overall satisfaction level for the residential building.
+    int capacity;                      ///< Occupant capacity of the residential building.
 
     /**
      * @brief Updates satisfaction factors for a specific entity type.

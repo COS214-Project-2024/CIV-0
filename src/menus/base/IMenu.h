@@ -73,21 +73,22 @@ protected:
     bool hasExited;
     CityManager cityManager;
 
+    bool displayResources; ///< Flag to conditionally display resources.
+    bool isInfoMenu;       ///< Flag to display option numbers if true.
+
     // Utility functions and color constants for inherited classes.
 
     /**
      * @brief ANSI color codes and styles for use in all menus.
      */
-    static constexpr const char *RESET = "\033[0m";
-    static constexpr const char *BOLD_WHITE = "\033[1;37m";
-    static constexpr const char *NORMAL_WHITE = "\033[0;37m";
-    static constexpr const char *DARK_GRAY = "\033[1;30m";
-    static constexpr const char *BOLD_YELLOW = "\033[1;33m";
-    static constexpr const char *BOLD_GREEN = "\033[1;32m";
-    static constexpr const char *BOLD_RED = "\033[1;31m";
-    static constexpr const char *BOLD_CYAN = "\033[1;36m";
-
-    static constexpr int MIN_MENU_WIDTH = 50; ///< Minimum width for the menu.
+    static const char *RESET;
+    static const char *BOLD_WHITE;
+    static const char *NORMAL_WHITE;
+    static const char *DARK_GRAY;
+    static const char *BOLD_YELLOW;
+    static const char *BOLD_GREEN;
+    static const char *BOLD_RED;
+    static const char *BOLD_CYAN;
 
     /**
      * @brief Converts a numeric index (0-99) to a single character in an extended set.
