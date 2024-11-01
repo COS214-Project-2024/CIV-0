@@ -130,17 +130,20 @@ TEST_CASE("Retrieve All Past Policies in GovernmentManager") {
 
     std::vector<Memento*> pastPolicies = manager.getAllPastPolicies();
 
-    REQUIRE(pastPolicies.size() >= 2); // Check that at least two policies have been stored
+    REQUIRE(pastPolicies.size() >= 2); // Ensure at least two policies are stored
 
-    // Verify the types of past policies stored
-    CHECK((pastPolicies[0]->getName() == "LowWaterPolicy"));
-    CHECK((pastPolicies[0]->getName() == "LowElectricityPolicy"));
-
-    CHECK((pastPolicies[1]->getName() == "LowWaterPolicy"));
-    CHECK((pastPolicies[1]->getName() == "LowElectricityPolicy"));
-
-    // Clean up mementos stored in caretaker
-    for (Memento* memento : pastPolicies) {
-        delete memento;
+    // Check for expected policy names without using "||" in assertions
+    bool foundLowWaterPolicy = false;
+    bool foundLowElectricityPolicy = false;
+    for (auto* memento : pastPolicies) {
+        if (memento->getName() == "LowWaterPolicy") {
+            foundLowWaterPolicy = true;
+        }
+        if (memento->getName() == "LowElectricityPolicy") {
+            foundLowElectricityPolicy = true;
+        }
     }
+    
+    CHECK(foundLowWaterPolicy);
+    CHECK(foundLowElectricityPolicy);
 }
