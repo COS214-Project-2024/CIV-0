@@ -91,19 +91,18 @@ $(COVERAGE_BUILDDIR)/tests/%.o: $(TESTDIR)/%.cpp
 
 # Clean build and coverage files
 clean:
-	@if [ -d $(BUILDDIR) ] && find $(BUILDDIR) -mindepth 1 | read; then \
-	    rm -rf $(BUILDDIR)/*; \
-	    echo "\033[1;32m✓ Cleaned build directory: $(BUILDDIR)\033[0m"; \
+	@if [ -d $(BUILDDIR) ] && [ "$$(ls -A $(BUILDDIR))" ]; then \
+        rm -rf $(BUILDDIR)/*; \
+        echo "\033[1;32m✓ Cleaned build directory: $(BUILDDIR)\033[0m"; \
 	fi
-	@if [ -d $(BINDIR) ] && find $(BINDIR) -mindepth 1 | read; then \
-	    rm -rf $(BINDIR)/*; \
-	    echo "\033[1;32m✓ Cleaned binary directory: $(BINDIR)\033[0m"; \
+	@if [ -d $(BINDIR) ] && [ "$$(ls -A $(BINDIR))" ]; then \
+        rm -rf $(BINDIR)/*; \
+        echo "\033[1;32m✓ Cleaned binary directory: $(BINDIR)\033[0m"; \
 	fi
-	@if [ -d $(COVERAGEDIR) ] && find $(COVERAGEDIR) -mindepth 1 | read; then \
-	    rm -rf $(COVERAGEDIR)/*; \
-	    echo "\033[1;32m✓ Cleaned coverage directory: $(COVERAGEDIR)\033[0m"; \
+	@if [ -d $(COVERAGEDIR) ] && [ "$$(ls -A $(COVERAGEDIR))" ]; then \
+        rm -rf $(COVERAGEDIR)/*; \
+        echo "\033[1;32m✓ Cleaned coverage directory: $(COVERAGEDIR)\033[0m"; \
 	fi
-
 
 # Run the compiled project (normal build, without coverage flags)
 run: $(TARGET)
@@ -119,7 +118,7 @@ leaks: test
 	    export MallocStackLogging=1; \
 	    leaks -atExit --list -- $(TEST_TARGET) | awk 'BEGIN { print "Memory Leak Summary:\\n" } /^Process/ { print } /^Leak/ { print }'; \
 	elif [ "$(OS)" = "Linux" ]; then \
-	    valgrind --leak-check=full --track-origins=yes $(TEST_TARGET); \
+	    valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all $(TEST_TARGET); \
 	else \
 	    echo "Unsupported OS for memory leak check. Please use macOS or Linux."; \
 	fi
