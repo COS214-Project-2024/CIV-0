@@ -7,14 +7,14 @@ ResourceManager::~ResourceManager() {}
 int ResourceManager::calculateConcreteMade() {
     ResourceVisitor rv;
     rv.visit(City::instance());
-    City::instance()->setConcrete(rv.getTotalConcrete());
+    City::instance()->setConcrete(City::instance()->getConcrete() + rv.getTotalConcrete());
     return City::instance()->getConcrete();
 }
 
 int ResourceManager::calculateStoneMade() {
     ResourceVisitor rv;
     rv.visit(City::instance());
-    City::instance()->setStone(rv.getTotalStone());
+    City::instance()->setStone(City::instance()->getStone() + rv.getTotalStone());
     return City::instance()->getStone();
 }
 
@@ -22,7 +22,7 @@ int ResourceManager::calculateWoodMade()
 {
     ResourceVisitor rv;
     rv.visit(City::instance());
-    City::instance()->setWood(rv.getTotalWood());
+    City::instance()->setWood(City::instance()->getWood() + rv.getTotalWood());
     return City::instance()->getWood();
 }
 
@@ -116,7 +116,7 @@ std::vector<Industry*> ResourceManager::getAllIndustryBuildings() {
 
 
 bool ResourceManager::canAffordUpgrade(Industry* industry) {
-    Cost cost = industry->getCost(); //this WILL break, do NOT use it yet
+    Cost cost = industry->getCost();
     City* city = City::instance();
 
     if(cost.moneyCost <= city->getMoney() && cost.woodCost <= city->getWood() && cost.stoneCost <= city->getStone() && cost.concreteCost <= city->getConcrete()) {
@@ -131,7 +131,7 @@ bool ResourceManager::upgrade(Industry*& industry) {
     if(industry != nullptr && canAffordUpgrade(industry)) {
         Entity* industryUpgrade = industry->upgrade();
 
-        if(industryUpgrade != nullptr) { //max
+        if(industryUpgrade != nullptr) { 
             std::vector<std::vector<Entity*>>& grid = City::instance()->getGrid();
 
             for(int i = industry->getXPosition(); i < industry->getYPosition() + industry->getWidth(); i++) {
@@ -147,4 +147,11 @@ bool ResourceManager::upgrade(Industry*& industry) {
         }
     }
     return false;
+}
+
+int ResourceManager::calculateMoneyMade() { //hardest function ive ever implemented
+    TaxCalculationVisitor tv;
+    tv.visit(City::instance());
+    City::instance()->setMoney(City::instance()->getMoney() + tv.getTotalTax());
+    return City::instance()->getMoney();
 }

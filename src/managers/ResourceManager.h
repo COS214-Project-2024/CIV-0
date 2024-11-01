@@ -9,6 +9,7 @@
 #include "city/City.h"
 #include "factory/industry/IndustryFactory.h"
 #include "visitors/resource/ResourceVisitor.h"
+#include "visitors/tax/TaxCalculationVisitor.h"
 
 class ResourceManager
 {
