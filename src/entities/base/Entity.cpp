@@ -5,6 +5,7 @@
 #include "entities/building/residential/ResidentialBuilding.h"
 #include "entities/road/Road.h"
 #include <iostream>
+#include <algorithm>
 
 Entity::Entity()
 {
