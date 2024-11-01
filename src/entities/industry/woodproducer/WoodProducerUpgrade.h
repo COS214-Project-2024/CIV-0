@@ -11,6 +11,9 @@ public:
     WoodProducerUpgrade(WoodProducerUpgrade *woodProducerUpgrade);
     virtual void update() = 0;
     virtual int getOutput() = 0;
+    virtual Cost getCost() = 0;
+    virtual Entity* upgrade() = 0;
+    virtual Entity *clone() = 0;
 
 protected:
     WoodProducer *woodProducer;

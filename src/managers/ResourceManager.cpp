@@ -7,7 +7,23 @@ ResourceManager::~ResourceManager() {}
 int ResourceManager::calculateConcreteMade() {
     ResourceVisitor rv;
     rv.visit(City::instance());
-    City::instance()
+    City::instance()->setConcrete(rv.getTotalConcrete());
+    return City::instance()->getConcrete();
+}
+
+int ResourceManager::calculateStoneMade() {
+    ResourceVisitor rv;
+    rv.visit(City::instance());
+    City::instance()->setStone(rv.getTotalStone());
+    return City::instance()->getStone();
+}
+
+int ResourceManager::calculateWoodMade()
+{
+    ResourceVisitor rv;
+    rv.visit(City::instance());
+    City::instance()->setWood(rv.getTotalWood());
+    return City::instance()->getWood();
 }
 
 void ResourceManager::buildIndustry(EntityType type, Size size, int x, int y) {
@@ -32,24 +48,21 @@ void ResourceManager::buildIndustry(EntityType type, Size size, int x, int y) {
 }
 
 
-int ResourceManager::calculateWoodMade() {
-    
-}
 
 std::vector<Industry*> ResourceManager::getAllConcreteProducers() {
     std::vector<std::vector<Entity*>> grid = City::instance()->getGrid();
-    ConcreteProducerIterator* iterator = new ConcreteProducerIterator(grid);  
-    std::vector<Industry*> vectorFromDespicibleMe;
+    ConcreteProducerIterator* iterator = new ConcreteProducerIterator(grid); 
+    std::vector<Industry*> concreteProducers;
 
     for (iterator->first(); iterator->hasNext(); iterator->next()) {
         ConcreteProducer* producer = dynamic_cast<ConcreteProducer*>(iterator->current());
         if (producer) {
-            vectorFromDespicibleMe.push_back(producer);
+            concreteProducers.push_back(producer);
         }
     }
 
-    delete iterator;
-    return vectorFromDespicibleMe;
+    delete iterator; 
+    return concreteProducers;
 }
 
 std::vector<Industry*> ResourceManager::getAllStoneProducers() {

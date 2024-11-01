@@ -16,7 +16,7 @@ class Industry : public Entity
 {
 private:
     int output; ///< Production output of the industrial entity.
-
+    Cost cost;
 public:
     /**
      * @brief Default constructor for the Industry class.
@@ -84,7 +84,7 @@ public:
      * 
      * @reutrn Cost Struct of various costs for upgrade
      */
-    virtual Cost getCost() = 0;
+    virtual Cost getCost();
 
     
     /**

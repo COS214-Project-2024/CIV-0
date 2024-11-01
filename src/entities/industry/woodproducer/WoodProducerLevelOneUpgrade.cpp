@@ -1,5 +1,6 @@
 
 #include "WoodProducerLevelOneUpgrade.h"
+#include "entities/industry/woodproducer/WoodProducerLevelTwoUpgrade.h"
 
 WoodProducerLevelOneUpgrade::WoodProducerLevelOneUpgrade(WoodProducer *woodProducer) : WoodProducerUpgrade(woodProducer)
 {
@@ -27,4 +28,14 @@ int WoodProducerLevelOneUpgrade::getLevel()
 int WoodProducerLevelOneUpgrade::getOutput()
 {
     return woodProducer->getOutput() * UPGRADE;
+}
+
+Cost WoodProducerLevelOneUpgrade::getCost()
+{
+    return Cost(woodProducer->getCost().moneyCost * UPGRADE, woodProducer->getCost().woodCost * UPGRADE, woodProducer->getCost().stoneCost * UPGRADE, woodProducer->getCost().concreteCost * UPGRADE);
+}
+
+Entity* WoodProducerLevelOneUpgrade::upgrade()
+{
+    return new WoodProducerLevelTwoUpgrade(woodProducer);
 }

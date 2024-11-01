@@ -3,6 +3,8 @@
 
 #include "entities/industry/base/Industry.h"
 
+class ConcreteProducerLevelOneUpgrade;
+
 class ConcreteProducer : public Industry
 {
 public:
@@ -13,6 +15,8 @@ public:
     void update();
     Entity *clone();
     Cost getCost();
+    Entity* upgrade();
+
 };
 
 #endif // CONCRETEPRODUCER_H

@@ -2,7 +2,9 @@
 #ifndef CONCRETEPRODUCERLEVELONEUPGRADE_H
 #define CONCRETEPRODUCERLEVELONEUPGRADE_H
 
-#include "ConcreteProducerUpgrade.h"
+#include "entities/industry/concreteproducer/ConcreteProducerUpgrade.h"
+
+class ConcreteProducerLevelTwoUpgrade;
 
 class ConcreteProducerLevelOneUpgrade : public ConcreteProducerUpgrade
 {
@@ -12,11 +14,12 @@ public:
     ~ConcreteProducerLevelOneUpgrade();
     void update();
     int getOutput();
-    int getLevel() override;
+    int getLevel();
     Entity *clone();
-
+    Entity* upgrade();
+    Cost getCost();
 private:
-    const int UPGRADE = 1.5;
+    const int UPGRADE = 2;
 };
 
 #endif // CONCRETEPRODUCERLEVELONEUPGRADE_H
