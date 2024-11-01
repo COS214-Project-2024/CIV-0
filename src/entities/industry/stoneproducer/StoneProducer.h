@@ -11,9 +11,9 @@ public:
     StoneProducer(StoneProducer *stoneProducer);
     StoneProducer(EntityConfig ec, Size size, int xPos, int yPos);
     virtual ~StoneProducer();
-    void update();
-    Entity *clone();
-    virtual Entity* upgrade();
+    void update() override;
+    Entity *clone() override;
+    Entity *upgrade() override;
 };
 
 #endif // STONEPRODUCER_H

@@ -52,7 +52,7 @@ public:
      *
      * Defines the specific behavior of the WaterSupply system when it is updated in the simulation.
      */
-    void update();
+    void update() override;
 
     /**
      * @brief Clones the current WaterSupply object.
@@ -61,13 +61,13 @@ public:
      *
      * @return A pointer to the newly cloned WaterSupply object.
      */
-    Entity *clone();
+    Entity *clone() override;
 
     /**
      * @brief Upgrades the current utility to the next level.
      * @return A pointer to the upgraded utility instance, or nullptr if already at maximum level.
      */
-    Entity *upgrade();
+    Entity *upgrade() override;
 };
 
 #endif // WATERSUPPLY_H

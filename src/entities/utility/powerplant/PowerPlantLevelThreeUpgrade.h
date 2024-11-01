@@ -44,7 +44,7 @@ public:
      *
      * Implements specific behavior for the power plant after applying the level three upgrade.
      */
-    void update();
+    void update() override;
 
     /**
      * @brief Clones the current PowerPlantLevelThreeUpgrade object.
@@ -53,13 +53,13 @@ public:
      *
      * @return A pointer to the newly cloned PowerPlantLevelThreeUpgrade object.
      */
-    Entity *clone();
+    Entity *clone() override;
 
     /**
      * @brief Upgrades the current utility to the next level.
      * @return A pointer to the upgraded utility instance, or nullptr if already at maximum level.
      */
-    Entity *upgrade();
+    Entity *upgrade() override;
 
     /**
      * @brief Retrieves the upgraded power plant's output.
@@ -68,13 +68,13 @@ public:
      *
      * @return The updated power output as an integer.
      */
-    int getOutput();
+    int getOutput() override;
 
     /**
      * @brief Retrieves the cost of the utility or its upgraded version.
      * @return A Cost object representing the monetary and material costs.
      */
-    Cost getCost();
+    Cost getCost() override;
 
     int getLevel() override;
 
