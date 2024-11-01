@@ -23,6 +23,7 @@ enum class Menu
     BUY_SERVICE,              /// < The Menu for buying a service building
     BUY_ROAD,                 /// < This Menu is for buying roads
     DEMOLISH,                 /// < This Menu is for selling building(s)
+    STATS,                    /// < This is the stats menu
 
 };
 

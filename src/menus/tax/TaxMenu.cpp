@@ -35,11 +35,43 @@ void TaxMenu::handleInput()
         switch (choice)
         {
         case '1':
-            std::cout << "Adjusting Tax Rate 1..." << std::endl;
+            City::instance()->setEconomicTax(City::instance()->getEconomicTax() + 1);
+            if (City::instance()->getEconomicTax() > 100)
+            {
+                City::instance()->setEconomicTax(100);
+            }
+            displaySuccessMessage("Increased economic tax by 1%");
+            displayPressEnterToContinue();
             choosing = false;
             break;
         case '2':
-            std::cout << "Adjusting Tax Rate 2..." << std::endl;
+            City::instance()->setResidentialTax(City::instance()->getResidentialTax() + 1);
+            if (City::instance()->getResidentialTax() > 100)
+            {
+                City::instance()->setResidentialTax(100);
+            }
+            displaySuccessMessage("Increased residential tax by 1%");
+            displayPressEnterToContinue();
+            choosing = false;
+            break;
+        case '3':
+            City::instance()->setEconomicTax(City::instance()->getEconomicTax() - 1);
+            if (City::instance()->getEconomicTax() < 0)
+            {
+                City::instance()->setEconomicTax(0);
+            }
+            displaySuccessMessage("Decreased economic tax by 1%");
+            displayPressEnterToContinue();
+            choosing = false;
+            break;
+        case '4':
+            City::instance()->setResidentialTax(City::instance()->getResidentialTax() - 1);
+            if (City::instance()->getResidentialTax() < 0)
+            {
+                City::instance()->setResidentialTax(0);
+            }
+            displaySuccessMessage("Decreased residential tax by 1%");
+            displayPressEnterToContinue();
             choosing = false;
             break;
         case 'q':

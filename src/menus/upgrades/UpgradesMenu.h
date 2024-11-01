@@ -2,6 +2,7 @@
 #define UPGRADESMENU_H
 
 #include "menus/base/IMenu.h"
+#include "managers/UtilityManager.h"
 #include <vector>
 
 /**
@@ -46,7 +47,7 @@ private:
      * @param type The name of the utility or industry (e.g., "Water Supply").
      * @param options The list of available options for that utility or industry.
      */
-    void selectSpecificUtilityOrIndustry(const std::string &type, const std::vector<std::string> &options);
+    void selectSpecificUtilityOrIndustry(const std::string &type, const std::vector<Utility *> &options);
 
     /**
      * @brief Handles upgrading a specific entity by showing current level, upgrade cost, and asking for confirmation.
@@ -55,6 +56,9 @@ private:
      * @param upgradeCost The cost to upgrade to the next level.
      */
     void confirmUpgrade(const std::string &entityName, int currentLevel, int upgradeCost);
+
+private:
+    UtilityManager utilityManager;
 };
 
 #endif // UPGRADESMENU_H

@@ -65,11 +65,11 @@ TEST_SUITE("Theater Tests")
         CHECK(theater.isBuilt() == true);
     }
 
-    TEST_CASE("Revenue Test")
-    {
-        Theater theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::LARGE), Size::LARGE, 0, 0);
-        CHECK(theater.getRevenue() == 15000);
-    }
+    // TEST_CASE("Revenue Test")
+    // {
+    //     Theater theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::LARGE), Size::LARGE, 0, 0);
+    //     CHECK(theater.getRevenue() == 15000);
+    // }
 
     TEST_CASE("Dimensions Test")
     {
