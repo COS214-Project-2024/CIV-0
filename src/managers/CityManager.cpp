@@ -27,6 +27,7 @@
 #include "iterators/city/CityIterator.h"
 #include "managers/PopulationManager.h"
 #include "managers/UtilityManager.h"
+#include "managers/ResourceManager.h"
 #include "city/CivZero.h"
 #include <iostream>
 #include <random>
@@ -54,20 +55,16 @@ void CityManager::updateCity()
 
     // Update all buildings to update ResidentialBuilding attributes
     Iterator *ci = c->createCityIterator(true);
-    // int revenue = 0;
+    int revenue = 0;
     for (ci->first(); ci->hasNext(); ci->next())
     {
         if (ci->current() != nullptr && dynamic_cast<ResidentialBuilding *>(ci->current()) == nullptr)
         {
             ci->current()->update();
-            // if(dynamic_cast<EconomicBuilding *>(ci->current()) != nullptr)
-            // {
-            //     revenue+=ci->current()->getRevenue()*c->getEconomicTax();
-            // }
-            // else
-            // {
-            //     revenue+=ci->current()->getRevenue();
-            // }
+            if(dynamic_cast<EconomicBuilding *>(ci->current()) == nullptr && ci->current()->isBuilt())
+            {
+                revenue+=ci->current()->getRevenue();
+            }
         }
     }
     delete ci;
@@ -101,7 +98,14 @@ void CityManager::updateCity()
     pm.growPopulation();
     pm.calculatePopulationCapacity();
     pm.calculateSatisfaction();
-    // c->setMoney(c->getMoney()+revenue);
+
+    ResourceManager rm;
+    rm.calculateConcreteMade();
+    rm.calculateStoneMade();
+    rm.calculateWoodMade();
+    rm.calculateMoneyMade();
+    
+    c->setMoney(c->getMoney()+revenue);
 }
 
 Entity *CityManager::getEntity(int x, int y)

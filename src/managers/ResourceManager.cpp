@@ -7,21 +7,21 @@ ResourceManager::~ResourceManager() {}
 int ResourceManager::calculateConcreteMade() {
 	ResourceVisitor rv;
 	rv.visit(City::instance());
-	City::instance()->setConcrete(City::instance()->getConcrete() + rv.getTotalConcrete());
+	City::instance()->setConcrete(City::instance()->getConcrete() + rv.getTotalConcrete()*(City::instance()->getSatisfaction()/100));
 	return City::instance()->getConcrete();
 }
 
 int ResourceManager::calculateStoneMade() {
 	ResourceVisitor rv;
 	rv.visit(City::instance());
-	City::instance()->setStone(City::instance()->getStone() + rv.getTotalStone());
+	City::instance()->setStone(City::instance()->getStone() + rv.getTotalStone()*(City::instance()->getSatisfaction()/100));
 	return City::instance()->getStone();
 }
 
 int ResourceManager::calculateWoodMade() {
 	ResourceVisitor rv;
 	rv.visit(City::instance());
-	City::instance()->setWood(City::instance()->getWood() + rv.getTotalWood());
+	City::instance()->setWood(City::instance()->getWood() + rv.getTotalWood()*(City::instance()->getSatisfaction()/100));
 	return City::instance()->getWood();
 }
 
@@ -138,6 +138,6 @@ bool ResourceManager::upgrade(Industry*& industry) {
 int ResourceManager::calculateMoneyMade() {	 // hardest function ive ever implemented
 	TaxCalculationVisitor tv;
 	tv.visit(City::instance());
-	City::instance()->setMoney(City::instance()->getMoney() + tv.getTotalTax());
+	City::instance()->setMoney(City::instance()->getMoney() + tv.getTotalTax()*(City::instance()->getSatisfaction()/100));
 	return City::instance()->getMoney();
 }
