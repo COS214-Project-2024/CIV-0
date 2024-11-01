@@ -3,7 +3,7 @@
 
 
 
-ConcreteProducerUpgrade::ConcreteProducerUpgrade(ConcreteProducer *concreteProd)
+ConcreteProducerUpgrade::ConcreteProducerUpgrade(ConcreteProducer *concreteProd) : ConcreteProducer(concreteProd)
 {
     this->concreteProducer = new ConcreteProducer(concreteProd);
 }
