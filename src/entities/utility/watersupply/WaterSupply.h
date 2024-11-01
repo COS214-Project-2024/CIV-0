@@ -19,8 +19,8 @@ public:
      * 
      * Initializes a WaterSupply facility with detailed parameters, including utility consumption, effects, and dimensions.
      * 
-     * @param ec         EntityConfig.
-     * @param size    Size.
+     * @param ec        EntityConfig.
+     * @param size      Size.
      * @param xPos      xPosition
      * @param yPos      yPosition
      */
@@ -63,6 +63,10 @@ public:
      */
     Entity* clone();
 
+    /**
+     * @brief Upgrades the current utility to the next level.
+     * @return A pointer to the upgraded utility instance, or nullptr if already at maximum level.
+     */
     Entity* upgrade();
 };
 

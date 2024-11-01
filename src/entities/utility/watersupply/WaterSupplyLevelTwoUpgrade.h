@@ -50,6 +50,10 @@ public:
      */
     Entity* clone();
 
+    /**
+     * @brief Upgrades the current utility to the next level.
+     * @return A pointer to the upgraded utility instance, or nullptr if already at maximum level.
+     */
     Entity* upgrade();
 
     /**
@@ -61,6 +65,10 @@ public:
      */
     int getOutput();
 
+    /**
+     * @brief Retrieves the cost of the utility or its upgraded version.
+     * @return A Cost object representing the monetary and material costs.
+     */
     Cost getCost();
 
 private:

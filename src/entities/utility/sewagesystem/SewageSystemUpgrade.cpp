@@ -1,14 +1,16 @@
 #include "SewageSystemUpgrade.h"
-#include <iostream>
 
 SewageSystemUpgrade::SewageSystemUpgrade(SewageSystem* sewage) : SewageSystem(sewage) {
-    this->sewageSystem = sewage;
+    this->sewageSystem = new SewageSystem(sewage);
 }
 
 SewageSystemUpgrade::SewageSystemUpgrade(SewageSystemUpgrade* sewageSystemUpgrade) : SewageSystem(sewageSystemUpgrade) {
-    this->sewageSystem = sewageSystemUpgrade->sewageSystem;
+    this->sewageSystem = new SewageSystem(sewageSystemUpgrade->sewageSystem);
 }
 
 SewageSystemUpgrade::~SewageSystemUpgrade() {
-    
+    if(sewageSystem != nullptr) {
+        delete sewageSystem;
+        sewageSystem = nullptr;
+    }
 }
