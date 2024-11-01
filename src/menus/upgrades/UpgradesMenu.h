@@ -3,6 +3,7 @@
 
 #include "menus/base/IMenu.h"
 #include "managers/UtilityManager.h"
+#include "managers/ResourceManager.h"
 #include <vector>
 
 /**
@@ -42,12 +43,9 @@ private:
      */
     void upgradeIndustries();
 
-    /**
-     * @brief Submenu to select a specific utility or industry to upgrade.
-     * @param type The name of the utility or industry (e.g., "Water Supply").
-     * @param options The list of available options for that utility or industry.
-     */
-    void selectSpecificUtilityOrIndustry(const std::string &type, const std::vector<Utility *> &options);
+    void selectSpecificUtility(const std::string &type, const std::vector<Utility *> &options);
+
+    void selectSpecificIndustry(const std::string &type, const std::vector<Industry *> &options);
 
     /**
      * @brief Handles upgrading a specific entity by showing current level, upgrade cost, and asking for confirmation.
@@ -59,6 +57,7 @@ private:
 
 private:
     UtilityManager utilityManager;
+    ResourceManager resourceManager;
 };
 
 #endif // UPGRADESMENU_H
