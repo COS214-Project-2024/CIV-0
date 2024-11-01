@@ -1,13 +1,23 @@
 #include "ConcreteProducerUpgrade.h"
 
+
+
+
 ConcreteProducerUpgrade::ConcreteProducerUpgrade(ConcreteProducer *concreteProd)
 {
-    this->concreteProducer = concreteProd;
+    this->concreteProducer = new ConcreteProducer(concreteProd);
 }
 
-ConcreteProducerUpgrade::ConcreteProducerUpgrade(ConcreteProducerUpgrade *concreteProd) : ConcreteProducer(concreteProd)
+ConcreteProducerUpgrade::ConcreteProducerUpgrade(ConcreteProducerUpgrade *concreteProducerUpgrade) : ConcreteProducer(concreteProducerUpgrade)
 {
-    this->concreteProducer = concreteProd->concreteProducer;
+    this->concreteProducer = new ConcreteProducer(concreteProducerUpgrade->concreteProducer);
 }
 
-ConcreteProducerUpgrade::~ConcreteProducerUpgrade() {}
+ConcreteProducerUpgrade::~ConcreteProducerUpgrade()
+{
+    if (concreteProducer != nullptr)
+    {
+        delete concreteProducer;
+        concreteProducer = nullptr;
+    }
+}

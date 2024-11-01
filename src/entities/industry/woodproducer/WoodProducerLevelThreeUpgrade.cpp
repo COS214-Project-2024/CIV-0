@@ -28,3 +28,13 @@ int WoodProducerLevelThreeUpgrade::getOutput()
 {
     return this->woodProducer->getOutput() * UPGRADE;
 }
+
+Cost WoodProducerLevelThreeUpgrade::getCost()
+{
+    return Cost(woodProducer->getCost().moneyCost * UPGRADE, woodProducer->getCost().woodCost * UPGRADE, woodProducer->getCost().stoneCost * UPGRADE, woodProducer->getCost().concreteCost * UPGRADE);
+}
+
+Entity* WoodProducerLevelThreeUpgrade::upgrade()
+{
+    return nullptr;
+}

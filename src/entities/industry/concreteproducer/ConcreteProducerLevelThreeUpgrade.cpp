@@ -24,3 +24,12 @@ Entity *ConcreteProducerLevelThreeUpgrade::clone()
 {
     return new ConcreteProducerLevelThreeUpgrade(this);
 }
+
+Cost ConcreteProducerLevelThreeUpgrade::getCost()
+{
+    return Cost(concreteProducer->getCost().moneyCost * UPGRADE, concreteProducer->getCost().woodCost * UPGRADE, concreteProducer->getCost().stoneCost * UPGRADE, concreteProducer->getCost().concreteCost * UPGRADE);
+}
+
+Entity* ConcreteProducerLevelThreeUpgrade::upgrade() {
+    return nullptr;
+}

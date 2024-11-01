@@ -3,6 +3,8 @@
 #define WOODPRODUCERLEVELTWOUPGRADE_H
 
 #include "WoodProducerUpgrade.h"
+
+class WoodProducerLevelThreeUpgrade;
 class WoodProducerLevelTwoUpgrade : public WoodProducerUpgrade
 {
 public:
@@ -10,9 +12,11 @@ public:
     WoodProducerLevelTwoUpgrade(WoodProducerLevelTwoUpgrade *woodProd);
     ~WoodProducerLevelTwoUpgrade();
     void update();
-    Entity *clone();
     int getOutput();
-    int getLevel() override;
+    int getLevel();
+    Entity *clone();
+    Entity* upgrade();
+    Cost getCost();
 
 private:
     const int UPGRADE = 2;

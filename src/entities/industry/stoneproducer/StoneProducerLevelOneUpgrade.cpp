@@ -1,4 +1,5 @@
 #include "StoneProducerLevelOneUpgrade.h"
+#include "entities/industry/stoneproducer/StoneProducerLevelTwoUpgrade.h"
 
 StoneProducerLevelOneUpgrade::StoneProducerLevelOneUpgrade(StoneProducer *stoneProd) : StoneProducerUpgrade(stoneProd) {}
 
@@ -6,9 +7,9 @@ StoneProducerLevelOneUpgrade::StoneProducerLevelOneUpgrade(StoneProducerLevelOne
 
 StoneProducerLevelOneUpgrade::~StoneProducerLevelOneUpgrade() {}
 
-void StoneProducerLevelOneUpgrade::update()
+Entity* StoneProducerLevelOneUpgrade::upgrade()
 {
-    stoneProducer->update();
+    return new StoneProducerLevelTwoUpgrade(stoneProducer);
 }
 
 int StoneProducerLevelOneUpgrade::getLevel()
@@ -24,4 +25,14 @@ Entity *StoneProducerLevelOneUpgrade::clone()
 int StoneProducerLevelOneUpgrade::getOutput()
 {
     return stoneProducer->getOutput() * UPGRADE;
+}
+
+void StoneProducerLevelOneUpgrade::update()
+{
+    stoneProducer->update();
+}
+
+Cost StoneProducerLevelOneUpgrade::getCost()
+{
+    return Cost(stoneProducer->getCost().moneyCost * UPGRADE, stoneProducer->getCost().woodCost * UPGRADE, stoneProducer->getCost().stoneCost * UPGRADE, stoneProducer->getCost().concreteCost * UPGRADE);
 }

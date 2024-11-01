@@ -1,4 +1,5 @@
 #include "WoodProducer.h"
+#include "entities/industry/woodproducer/WoodProducerLevelOneUpgrade.h"
 
 WoodProducer::WoodProducer() : Industry() {}
 WoodProducer::~WoodProducer() {}
@@ -33,4 +34,8 @@ void WoodProducer::update()
 Entity *WoodProducer::clone()
 {
     return new WoodProducer(this);
+}
+
+Entity* WoodProducer::upgrade() {
+    return new WoodProducerLevelOneUpgrade(this);
 }

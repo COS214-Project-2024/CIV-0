@@ -1,4 +1,5 @@
 #include "ConcreteProducer.h"
+#include "entities/industry/concreteproducer/ConcreteProducerLevelOneUpgrade.h"
 
 ConcreteProducer::ConcreteProducer() : Industry() {}
 ConcreteProducer::~ConcreteProducer() {}
@@ -33,4 +34,8 @@ void ConcreteProducer::update()
 Entity *ConcreteProducer::clone()
 {
     return new ConcreteProducer(this);
+}
+
+Entity* ConcreteProducer::upgrade() {
+    return new ConcreteProducerLevelOneUpgrade(this);
 }
