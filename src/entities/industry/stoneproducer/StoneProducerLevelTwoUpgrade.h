@@ -3,7 +3,7 @@
 
 #include "StoneProducerUpgrade.h"
 
-class StoneProducerLevelThreeUpgrade; 
+class StoneProducerLevelThreeUpgrade;
 
 class StoneProducerLevelTwoUpgrade : public StoneProducerUpgrade
 {
@@ -11,12 +11,12 @@ public:
     StoneProducerLevelTwoUpgrade(StoneProducer *stoneProd);
     StoneProducerLevelTwoUpgrade(StoneProducerLevelTwoUpgrade *stoneProd);
     ~StoneProducerLevelTwoUpgrade();
-    Entity *clone();
-    void update();
-    int getOutput();
-    int getLevel();
-    Entity* upgrade();
-    Cost getCost();
+    Entity *clone() override;
+    void update() override;
+    int getOutput() override;
+    int getLevel() override;
+    Entity *upgrade() override;
+    Cost getCost() override;
 
 private:
     const int UPGRADE = 2;

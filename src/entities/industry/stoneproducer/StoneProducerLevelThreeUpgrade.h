@@ -9,12 +9,12 @@ public:
     StoneProducerLevelThreeUpgrade(StoneProducer *stoneProd);
     StoneProducerLevelThreeUpgrade(StoneProducerLevelThreeUpgrade *stoneProd);
     ~StoneProducerLevelThreeUpgrade();
-    void update();
-    int getOutput();
-    int getLevel();
-    Entity *clone();
-    Entity* upgrade();
-    Cost getCost();
+    void update() override;
+    int getOutput() override;
+    int getLevel() override;
+    Entity *clone() override;
+    Entity *upgrade() override;
+    Cost getCost() override;
 
 private:
     const int UPGRADE = 4;

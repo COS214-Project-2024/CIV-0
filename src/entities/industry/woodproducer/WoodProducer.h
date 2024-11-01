@@ -11,9 +11,9 @@ public:
     WoodProducer(EntityConfig ec, Size size, int xPos, int yPos);
     WoodProducer(WoodProducer *woodProducer);
     virtual ~WoodProducer();
-    void update();
-    Entity *clone();
-    Entity* upgrade();
+    void update() override;
+    Entity *clone() override;
+    Entity *upgrade() override;
 };
 
 #endif // WOODPRODUCER_H

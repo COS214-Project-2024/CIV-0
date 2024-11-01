@@ -11,10 +11,9 @@ public:
     ConcreteProducer(EntityConfig ec, Size size, int xPos, int yPos);
     ConcreteProducer(ConcreteProducer *concreteProducer);
     virtual ~ConcreteProducer();
-    void update();
-    Entity *clone();
-    Entity* upgrade();
-
+    void update() override;
+    Entity *clone() override;
+    Entity *upgrade() override;
 };
 
 #endif // CONCRETEPRODUCER_H
