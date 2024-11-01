@@ -1,14 +1,14 @@
 #ifndef RESOURCEMANAGER_H
 #define RESOURCEMANAGER_H
 
-#include "src/entities/industry/base/Industry.h"
-#include "src/iterators/industry/ConcreteProducerIterator.h"
-#include "src/iterators/industry/StoneProducerIterator.h"
-#include "src/iterators/industry/IndustryIterator.h"
-#include "src/iterators/industry/WoodProducerIterator.h"
+#include "entities/industry/base/Industry.h"
+#include "iterators/industry/ConcreteProducerIterator.h"
+#include "iterators/industry/StoneProducerIterator.h"
+#include "iterators/industry/IndustryIterator.h"
+#include "iterators/industry/WoodProducerIterator.h"
 #include "city/City.h"
-#include "src/factory/industry/IndustryFactory.h"
-#include "src/visitors/resource/ResourceVisitor.h"
+#include "factory/industry/IndustryFactory.h"
+#include "visitors/resource/ResourceVisitor.h"
 
 class ResourceManager
 {

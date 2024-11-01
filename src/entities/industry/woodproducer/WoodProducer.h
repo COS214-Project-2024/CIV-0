@@ -14,7 +14,7 @@ public:
     void update();
     Entity *clone();
     Entity* upgrade();
-    Cost getCost();
+    virtual Cost getCost();
 };
 
 #endif // WOODPRODUCER_H
