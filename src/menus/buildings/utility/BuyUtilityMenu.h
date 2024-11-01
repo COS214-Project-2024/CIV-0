@@ -2,6 +2,7 @@
 #define BUYUTILITYMENU_H
 
 #include "menus/base/BuyMenu.h"
+#include "managers/UtilityManager.h"
 
 /**
  * @brief Menu for purchasing utility buildings.
@@ -30,6 +31,9 @@ protected:
     EntityType chooseEntityType() override;
 
     void buildEntity(EntityType type, Size size, int xPos, int yPos) override;
+
+private:
+    UtilityManager utilityManager;
 };
 
 #endif // BUYUTILITYMENU_H
