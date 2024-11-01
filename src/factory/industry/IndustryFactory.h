@@ -8,63 +8,64 @@
 
 /**
  * @class IndustryFactory
- * @brief A factory class for creating industrial entities like concrete, stone, and wood producers.
+ * @brief Factory class for creating industrial entities such as concrete, stone, and wood producers.
  *
- * This class inherits from EntityFactory and provides methods for creating small, medium,
- * and large industrial entities of different types.
+ * This class inherits from EntityFactory and provides methods to create various-sized industrial
+ * entities (small, medium, and large) at specific positions in the environment.
  */
 class IndustryFactory : public EntityFactory {
    public:
-	/**
-	 * @brief Constructor for the IndustryFactory class.
-	 */
-	IndustryFactory();
+    /**
+     * @brief Default constructor for IndustryFactory.
+     */
+    IndustryFactory();
 
-	/**
-	 * @brief Destructor for the IndustryFactory class.
-	 */
-	~IndustryFactory();
+    /**
+     * @brief Destructor for IndustryFactory.
+     */
+    ~IndustryFactory();
 
-	/**
-	 * @brief Creates a small industrial entity of the specified type at the given position.
-	 *
-	 * @param type The type of industrial entity to create.
-	 * @param xPos The x-coordinate of the entity's position.
-	 * @param yPos The y-coordinate of the entity's position.
-	 * @return A pointer to the created Entity.
-	 */
-	virtual Entity* createEntity(EntityType type, Size size, int xPos, int yPos);
+    /**
+     * @brief Creates an industrial entity of a specified type and size at the given coordinates.
+     *
+     * @param type The type of industrial entity to create (e.g., ConcreteProducer, StoneProducer, WoodProducer).
+     * @param size The size of the entity (small, medium, or large).
+     * @param xPos The x-coordinate for the entity's position.
+     * @param yPos The y-coordinate for the entity's position.
+     * @return A pointer to the created Entity.
+     */
+    virtual Entity* createEntity(EntityType type, Size size, int xPos, int yPos);
 
    private:
-	/**
-	 * @brief Creates a concrete producer of the specified size at the given position.
-	 *
-	 * @param size The size of the concrete producer to create.
-	 * @param xPos The x-coordinate of the producer's position.
-	 * @param yPos The y-coordinate of the producer's position.
-	 * @return A pointer to the created Entity.
-	 */
-	Entity* createConcreteProducer(Size size, int xPos, int yPos);
+    /**
+     * @brief Creates a concrete producer of the specified size at a given position.
+     *
+     * @param size Size of the concrete producer (small, medium, or large).
+     * @param xPos X-coordinate for the concrete producer's position.
+     * @param yPos Y-coordinate for the concrete producer's position.
+     * @return A pointer to the created ConcreteProducer entity.
+     */
+    Entity* createConcreteProducer(Size size, int xPos, int yPos);
 
-	/**
-	 * @brief Creates a stone producer of the specified size at the given position.
-	 *
-	 * @param size The size of the stone producer to create.
-	 * @param xPos The x-coordinate of the producer's position.
-	 * @param yPos The y-coordinate of the producer's position.
-	 * @return A pointer to the created Entity.
-	 */
-	Entity* createStoneProducer(Size size, int xPos, int yPos);
+    /**
+     * @brief Creates a stone producer of the specified size at a given position.
+     *
+     * @param size Size of the stone producer (small, medium, or large).
+     * @param xPos X-coordinate for the stone producer's position.
+     * @param yPos Y-coordinate for the stone producer's position.
+     * @return A pointer to the created StoneProducer entity.
+     */
+    Entity* createStoneProducer(Size size, int xPos, int yPos);
 
-	/**
-	 * @brief Creates a wood producer of the specified size at the given position.
-	 *
-	 * @param size The size of the wood producer to create.
-	 * @param xPos The x-coordinate of the producer's position.
-	 * @param yPos The y-coordinate of the producer's position.
-	 * @return A pointer to the created Entity.
-	 */
-	Entity* createWoodProducer(Size size, int xPos, int yPos);
+    /**
+     * @brief Creates a wood producer of the specified size at a given position.
+     *
+     * @param size Size of the wood producer (small, medium, or large).
+     * @param xPos X-coordinate for the wood producer's position.
+     * @param yPos Y-coordinate for the wood producer's position.
+     * @return A pointer to the created WoodProducer entity.
+     */
+    Entity* createWoodProducer(Size size, int xPos, int yPos);
 };
 
-#endif	// INDUSTRYFACTORY_H
+#endif // INDUSTRYFACTORY_H

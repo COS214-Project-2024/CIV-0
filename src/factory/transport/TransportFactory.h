@@ -1,4 +1,3 @@
-
 #ifndef TRANSPORTFACTORY_H
 #define TRANSPORTFACTORY_H
 
@@ -9,63 +8,64 @@
 
 /**
  * @class TransportFactory
- * @brief A factory class for creating transport-related entities such as bus stops, train stations, and airports.
- *
- * This class inherits from EntityFactory and provides methods for creating small, medium,
- * and large transport entities of different types.
+ * @brief Factory class for creating transport-related entities, including bus stops, train stations, and airports.
+ * 
+ * Inherits from EntityFactory and provides methods for creating transport entities of various sizes 
+ * (small, medium, and large) positioned at specified coordinates.
  */
 class TransportFactory : public EntityFactory {
    public:
-	/**
-	 * @brief Constructor for the TransportFactory class.
-	 */
-	TransportFactory();
+    /**
+     * @brief Default constructor for TransportFactory.
+     */
+    TransportFactory();
 
-	/**
-	 * @brief Destructor for the TransportFactory class.
-	 */
-	~TransportFactory();
+    /**
+     * @brief Destructor for TransportFactory.
+     */
+    ~TransportFactory();
 
-	/**
-	 * @brief Creates a small transport entity of the specified type at the given position.
-	 *
-	 * @param type The type of transport entity to create.
-	 * @param xPos The x-coordinate of the entity's position.
-	 * @param yPos The y-coordinate of the entity's position.
-	 * @return A pointer to the created Entity.
-	 */
-	virtual Entity* createEntity(EntityType type, Size size, int xPos, int yPos);
+    /**
+     * @brief Creates a transport entity of the specified type and size at the given position.
+     * 
+     * @param type The type of transport entity to create (e.g., BusStop, TrainStation, Airport).
+     * @param size The size of the entity (small, medium, or large).
+     * @param xPos The x-coordinate for the entity’s position.
+     * @param yPos The y-coordinate for the entity’s position.
+     * @return A pointer to the created Entity.
+     */
+    virtual Entity* createEntity(EntityType type, Size size, int xPos, int yPos);
 
    private:
-	/**
-	 * @brief Creates a bus stop of the specified size at the given position.
-	 *
-	 * @param size The size of the bus stop to create.
-	 * @param xPos The x-coordinate of the bus stop's position.
-	 * @param yPos The y-coordinate of the bus stop's position.
-	 * @return A pointer to the created Entity.
-	 */
-	Entity* createBusStop(Size size, int xPos, int yPos);
+    /**
+     * @brief Creates a bus stop of the specified size at a given position.
+     * 
+     * @param size Size of the bus stop (small, medium, or large).
+     * @param xPos X-coordinate for the bus stop’s position.
+     * @param yPos Y-coordinate for the bus stop’s position.
+     * @return A pointer to the created BusStop entity.
+     */
+    Entity* createBusStop(Size size, int xPos, int yPos);
 
-	/**
-	 * @brief Creates a train station of the specified size at the given position.
-	 *
-	 * @param size The size of the train station to create.
-	 * @param xPos The x-coordinate of the train station's position.
-	 * @param yPos The y-coordinate of the train station's position.
-	 * @return A pointer to the created Entity.
-	 */
-	Entity* createTrainStation(Size size, int xPos, int yPos);
+    /**
+     * @brief Creates a train station of the specified size at a given position.
+     * 
+     * @param size Size of the train station (small, medium, or large).
+     * @param xPos X-coordinate for the train station’s position.
+     * @param yPos Y-coordinate for the train station’s position.
+     * @return A pointer to the created TrainStation entity.
+     */
+    Entity* createTrainStation(Size size, int xPos, int yPos);
 
-	/**
-	 * @brief Creates an airport of the specified size at the given position.
-	 *
-	 * @param size The size of the airport to create.
-	 * @param xPos The x-coordinate of the airport's position.
-	 * @param yPos The y-coordinate of the airport's position.
-	 * @return A pointer to the created Entity.
-	 */
-	Entity* createAirport(Size size, int xPos, int yPos);
+    /**
+     * @brief Creates an airport of the specified size at a given position.
+     * 
+     * @param size Size of the airport (small, medium, or large).
+     * @param xPos X-coordinate for the airport’s position.
+     * @param yPos Y-coordinate for the airport’s position.
+     * @return A pointer to the created Airport entity.
+     */
+    Entity* createAirport(Size size, int xPos, int yPos);
 };
 
-#endif	// TRANSPORTFACTORY_H
+#endif // TRANSPORTFACTORY_H
