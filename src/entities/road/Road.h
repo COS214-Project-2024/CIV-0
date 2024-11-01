@@ -16,7 +16,7 @@ class Road : public Entity
 public:
     /**
      * @brief Constructs a Road entity with specified attributes.
-     * 
+     *
      * @param ec Configuration settings for the entity.
      * @param size Size of the road entity.
      * @param xPos X-coordinate position of the road.
@@ -26,12 +26,12 @@ public:
 
     /**
      * @brief Copy constructor for the Road class.
-     * 
+     *
      * Creates a new Road entity by copying the attributes of an existing Road.
-     * 
+     *
      * @param road Pointer to the Road object to be copied.
      */
-    Road(Road* road);
+    Road(Road *road);
 
     /**
      * @brief Destructor for the Road class.
@@ -45,10 +45,10 @@ public:
 
     /**
      * @brief Creates a clone of the road entity.
-     * 
+     *
      * @return A pointer to the cloned Road entity.
      */
-    Entity* clone() override;
+    Entity *clone();
 };
 
 #endif // ROAD_H

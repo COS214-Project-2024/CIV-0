@@ -15,7 +15,7 @@ public:
     void update();
 
 private:
-    const int UPGRADE = 1.5;
+    const int UPGRADE = 2;
 };
 
 #endif // STONEPRODUCERLEVELONEUPGRADE_H

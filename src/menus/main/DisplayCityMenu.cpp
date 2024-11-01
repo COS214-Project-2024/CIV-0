@@ -24,6 +24,7 @@ DisplayCityMenu::DisplayCityMenu() : IMenu("Display City")
           {'s', "🛠️ ", "Display All Services"},
           {'u', "⚡", "Display All Utilities"},
           {'i', "🏭", "Display All Industries"},
+          {'t', "🚗", "Display All Trasnports"},
           {'d', "🌆", "Display Whole City"}}},
         {"Navigation", {{'q', "⬅️ ", "Back to Main Menu "}}}};
 }
@@ -66,6 +67,9 @@ void DisplayCityMenu::displayFilteredCity() const
         break;
     case DisplayMode::INDUSTRY:
         displayCityByType<Industry>();
+        break;
+    case DisplayMode::TRANSPORT:
+        displayCityByType<Transport>();
         break;
     }
 }
@@ -189,6 +193,9 @@ void DisplayCityMenu::handleInput()
             break;
         case 'd': // Display Whole City
             currentDisplayMode = DisplayMode::WHOLE_CITY;
+            break;
+        case 't': // Display Trasnports
+            currentDisplayMode = DisplayMode::TRANSPORT;
             break;
         case 'q':
             MenuManager::instance().setCurrentMenu(Menu::MAIN);

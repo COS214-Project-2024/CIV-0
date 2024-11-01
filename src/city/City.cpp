@@ -33,7 +33,7 @@ City::City() : width(50), height(50), // Set default values
                satisfaction(0), money(500), wood(500), stone(500), concrete(500),
                populationCapacity(0), population(0), electricityProduction(0),
                electricityConsumption(0), waterProduction(0), waterConsumption(0),
-               residentialTax(0), economicTax(0)
+               residentialTax(25), economicTax(25)
 {
     // Initialize grid with default width and height
     srand(static_cast<unsigned int>(time(0))); // Seed random number generator
@@ -82,8 +82,8 @@ void City::reset(int newWidth, int newHeight)
     electricityConsumption = 0;
     waterProduction = 0;
     waterConsumption = 0;
-    residentialTax = 0;
-    economicTax = 0;
+    residentialTax = 25;
+    economicTax = 25;
 
     // Delete existing entities and clear the grid
     for (int i = 0; i < height; ++i)
@@ -335,82 +335,82 @@ void City::setElectricityPolicy(PolicyType policyType)
     }
 }
 
-Iterator* City::createCityIterator(bool unique)
+Iterator *City::createCityIterator(bool unique)
 {
     return new CityIterator(grid, unique);
 }
 
-Iterator* City::createBuildingIterator(bool unique)
+Iterator *City::createBuildingIterator(bool unique)
 {
     return new BuildingIterator(this->grid);
 }
 
-Iterator* City::createUtilityIterator(bool unique)
+Iterator *City::createUtilityIterator(bool unique)
 {
     return new UtilityIterator(this->grid);
 }
 
-Iterator* City::createRoadIterator(bool unique)
+Iterator *City::createRoadIterator(bool unique)
 {
     return new RoadIterator(this->grid);
 }
 
-Iterator* City::createTransportIterator(bool unique)
+Iterator *City::createTransportIterator(bool unique)
 {
     return new TransportIterator(this->grid);
 }
 
-Iterator* City::createEconomicBuildingIterator(bool unique)
+Iterator *City::createEconomicBuildingIterator(bool unique)
 {
     return new EconomicBuildingIterator(this->grid);
 }
 
-Iterator* City::createResidentialBuildingIterator(bool unique)
+Iterator *City::createResidentialBuildingIterator(bool unique)
 {
     return new ResidentialBuildingIterator(this->grid);
 }
 
-Iterator* City::createServiceBuildingIterator(bool unique)
+Iterator *City::createServiceBuildingIterator(bool unique)
 {
     return new ServiceBuildingIterator(this->grid);
 }
 
-Iterator* City::createAmenityIterator(bool unique)
+Iterator *City::createAmenityIterator(bool unique)
 {
     return new AmenityIterator(this->grid);
 }
 
-Iterator* City::createPowerPlantIterator(bool unique)
+Iterator *City::createPowerPlantIterator(bool unique)
 {
     return new PowerPlantIterator(this->grid);
 }
 
-Iterator* City::createWaterSupplyIterator(bool unique)
+Iterator *City::createWaterSupplyIterator(bool unique)
 {
     return new WaterSupplyIterator(this->grid);
 }
 
-Iterator* City::createWasteManagementIterator(bool unique)
+Iterator *City::createWasteManagementIterator(bool unique)
 {
     return new WasteManagementIterator(this->grid);
 }
 
-Iterator* City::createSewageSystemIterator(bool unique)
+Iterator *City::createSewageSystemIterator(bool unique)
 {
     return new SewageSystemIterator(this->grid);
 }
 
-Iterator* City::createConcreteProducerIterator(bool unique)
+Iterator *City::createConcreteProducerIterator(bool unique)
 {
     return new ConcreteProducerIterator(this->grid);
 }
 
-Iterator* City::createStoneProducerIterator(bool unique)
+Iterator *City::createStoneProducerIterator(bool unique)
 {
     return new StoneProducerIterator(this->grid);
 }
 
-Iterator* City::createWoodProducerIterator(bool unique)
+Iterator *City::createWoodProducerIterator(bool unique)
 {
     return new WoodProducerIterator(this->grid);
 }

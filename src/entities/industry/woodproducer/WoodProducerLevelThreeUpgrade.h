@@ -8,8 +8,8 @@ public:
     WoodProducerLevelThreeUpgrade(WoodProducer *woodProd);
     WoodProducerLevelThreeUpgrade(WoodProducerLevelThreeUpgrade *woodProd);
     ~WoodProducerLevelThreeUpgrade();
-    void update() override;
-    Entity *clone() override;
+    void update();
+    Entity *clone();
     int getOutput();
     int getLevel() override;
 

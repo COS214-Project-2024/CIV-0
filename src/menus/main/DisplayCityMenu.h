@@ -30,7 +30,8 @@ private:
         ECONOMIC,
         SERVICE,
         UTILITY,
-        INDUSTRY
+        INDUSTRY,
+        TRANSPORT,
     };
 
     DisplayMode currentDisplayMode = DisplayMode::WHOLE_CITY; // Default to whole city

@@ -74,11 +74,11 @@ private:
 
         // Shopping Malls
         entityConfigTable.emplace(std::make_pair(EntityType::SHOPPINGMALL, Size::SMALL),
-                                  EntityConfig(Cost(800, 300, 150, 100), 40, 25, "S", 8, 15, 10, 5, 5, 8000, 3, EntityType::SHOPPINGMALL, Size::SMALL));
+                                  EntityConfig(Cost(800, 300, 150, 100), 40, 25, "✉", 8, 15, 10, 5, 5, 8000, 3, EntityType::SHOPPINGMALL, Size::SMALL));
         entityConfigTable.emplace(std::make_pair(EntityType::SHOPPINGMALL, Size::MEDIUM),
-                                  EntityConfig(Cost(1500, 500, 300, 200), 60, 35, "S", 12, 20, 15, 8, 8, 15000, 3, EntityType::SHOPPINGMALL, Size::MEDIUM));
+                                  EntityConfig(Cost(1500, 500, 300, 200), 60, 35, "✉", 12, 20, 15, 8, 8, 15000, 3, EntityType::SHOPPINGMALL, Size::MEDIUM));
         entityConfigTable.emplace(std::make_pair(EntityType::SHOPPINGMALL, Size::LARGE),
-                                  EntityConfig(Cost(3000, 1000, 500, 400), 100, 50, "S", 15, 30, 20, 10, 10, 30000, 3, EntityType::SHOPPINGMALL, Size::LARGE));
+                                  EntityConfig(Cost(3000, 1000, 500, 400), 100, 50, "✉", 15, 30, 20, 10, 10, 30000, 3, EntityType::SHOPPINGMALL, Size::LARGE));
 
         // Schools
         entityConfigTable.emplace(std::make_pair(EntityType::SCHOOL, Size::SMALL),
@@ -106,19 +106,19 @@ private:
 
         // Parks
         entityConfigTable.emplace(std::make_pair(EntityType::PARK, Size::SMALL),
-                                  EntityConfig(Cost(300, 100, 50, 25), 0, 0, "⍋", 3, 12, 8, 4, 4, -0, 2, EntityType::PARK, Size::SMALL));
+                                  EntityConfig(Cost(300, 100, 50, 25), 0, 0, "☘", 3, 12, 8, 4, 4, -0, 2, EntityType::PARK, Size::SMALL));
         entityConfigTable.emplace(std::make_pair(EntityType::PARK, Size::MEDIUM),
-                                  EntityConfig(Cost(600, 200, 100, 50), 0, 0, "⍋", 6, 18, 10, 6, 6, -0, 2, EntityType::PARK, Size::MEDIUM));
+                                  EntityConfig(Cost(600, 200, 100, 50), 0, 0, "☘", 6, 18, 10, 6, 6, -0, 2, EntityType::PARK, Size::MEDIUM));
         entityConfigTable.emplace(std::make_pair(EntityType::PARK, Size::LARGE),
-                                  EntityConfig(Cost(1200, 400, 200, 100), 0, 0, "⍋", 10, 25, 15, 8, 8, -0, 2, EntityType::PARK, Size::LARGE));
+                                  EntityConfig(Cost(1200, 400, 200, 100), 0, 0, "☘", 10, 25, 15, 8, 8, -0, 2, EntityType::PARK, Size::LARGE));
 
         // Monuments
         entityConfigTable.emplace(std::make_pair(EntityType::MONUMENT, Size::SMALL),
-                                  EntityConfig(Cost(2000, 700, 400, 300), 0, 0, "♝", 12, 25, 18, 5, 5, -0, 5, EntityType::MONUMENT, Size::SMALL));
+                                  EntityConfig(Cost(2000, 700, 400, 300), 0, 0, "۩", 12, 25, 18, 5, 5, -0, 5, EntityType::MONUMENT, Size::SMALL));
         entityConfigTable.emplace(std::make_pair(EntityType::MONUMENT, Size::MEDIUM),
-                                  EntityConfig(Cost(3500, 1000, 600, 400), 0, 0, "♝", 18, 30, 22, 7, 7, -0, 5, EntityType::MONUMENT, Size::MEDIUM));
+                                  EntityConfig(Cost(3500, 1000, 600, 400), 0, 0, "۩", 18, 30, 22, 7, 7, -0, 5, EntityType::MONUMENT, Size::MEDIUM));
         entityConfigTable.emplace(std::make_pair(EntityType::MONUMENT, Size::LARGE),
-                                  EntityConfig(Cost(6000, 1500, 900, 600), 0, 0, "♝", 25, 35, 28, 10, 10, -0, 5, EntityType::MONUMENT, Size::LARGE));
+                                  EntityConfig(Cost(6000, 1500, 900, 600), 0, 0, "۩", 25, 35, 28, 10, 10, -0, 5, EntityType::MONUMENT, Size::LARGE));
 
         // Theater
         entityConfigTable.emplace(std::make_pair(EntityType::THEATER, Size::SMALL),
@@ -138,11 +138,11 @@ private:
 
         // Water Supply Systems
         entityConfigTable.emplace(std::make_pair(EntityType::WATERSUPPLY, Size::SMALL),
-                                  EntityConfig(Cost(2000, 900, 400, 250), 0, 50, "❣", 10, 8, 5, 5, 5, -0, 4, EntityType::WATERSUPPLY, Size::SMALL));
+                                  EntityConfig(Cost(2000, 900, 400, 250), 0, 50, "☂", 10, 8, 5, 5, 5, -0, 4, EntityType::WATERSUPPLY, Size::SMALL));
         entityConfigTable.emplace(std::make_pair(EntityType::WATERSUPPLY, Size::MEDIUM),
-                                  EntityConfig(Cost(3500, 1200, 600, 400), 0, 100, "❣", 15, 15, 10, 7, 7, -0, 6, EntityType::WATERSUPPLY, Size::MEDIUM));
+                                  EntityConfig(Cost(3500, 1200, 600, 400), 0, 100, "☂", 15, 15, 10, 7, 7, -0, 6, EntityType::WATERSUPPLY, Size::MEDIUM));
         entityConfigTable.emplace(std::make_pair(EntityType::WATERSUPPLY, Size::LARGE),
-                                  EntityConfig(Cost(5000, 2000, 1000, 700), 0, 200, "❣", 20, 25, 15, 10, 10, -0, 8, EntityType::WATERSUPPLY, Size::LARGE));
+                                  EntityConfig(Cost(5000, 2000, 1000, 700), 0, 200, "☂", 20, 25, 15, 10, 10, -0, 8, EntityType::WATERSUPPLY, Size::LARGE));
 
         // Waste Management
         entityConfigTable.emplace(std::make_pair(EntityType::WASTEMANAGMENT, Size::SMALL),
@@ -170,11 +170,11 @@ private:
 
         // Wood Producer
         entityConfigTable.emplace(std::make_pair(EntityType::WOODPRODUCER, Size::SMALL),
-                                  EntityConfig(Cost(1000, 500, 250, 150), 10, 5, "W", 5, 8, 5, 4, 4, -300, 3, EntityType::WOODPRODUCER, Size::SMALL));
+                                  EntityConfig(Cost(1000, 500, 250, 150), 10, 5, "⍋", 5, 8, 5, 4, 4, -300, 3, EntityType::WOODPRODUCER, Size::SMALL));
         entityConfigTable.emplace(std::make_pair(EntityType::WOODPRODUCER, Size::MEDIUM),
-                                  EntityConfig(Cost(1800, 900, 450, 300), 20, 10, "W", 8, 12, 10, 6, 6, -500, 3, EntityType::WOODPRODUCER, Size::MEDIUM));
+                                  EntityConfig(Cost(1800, 900, 450, 300), 20, 10, "⍋", 8, 12, 10, 6, 6, -500, 3, EntityType::WOODPRODUCER, Size::MEDIUM));
         entityConfigTable.emplace(std::make_pair(EntityType::WOODPRODUCER, Size::LARGE),
-                                  EntityConfig(Cost(3000, 1500, 750, 500), 40, 15, "W", 12, 18, 15, 8, 8, -800, 3, EntityType::WOODPRODUCER, Size::LARGE));
+                                  EntityConfig(Cost(3000, 1500, 750, 500), 40, 15, "⍋", 12, 18, 15, 8, 8, -800, 3, EntityType::WOODPRODUCER, Size::LARGE));
 
         // Concrete Producer
         entityConfigTable.emplace(std::make_pair(EntityType::CONCRETEPRODUCER, Size::SMALL),
@@ -202,19 +202,19 @@ private:
 
         // BusStop
         entityConfigTable.emplace(std::make_pair(EntityType::BUSSTOP, Size::SMALL),
-                                  EntityConfig(Cost(100, 20, 10, 5), 0, 0, "Ⓑ", 3, 5, 3, 2, 2, -0, 1, EntityType::BUSSTOP, Size::SMALL));
+                                  EntityConfig(Cost(100, 20, 10, 5), 0, 0, "☄", 3, 5, 3, 2, 2, -0, 1, EntityType::BUSSTOP, Size::SMALL));
         entityConfigTable.emplace(std::make_pair(EntityType::BUSSTOP, Size::MEDIUM),
-                                  EntityConfig(Cost(200, 40, 20, 10), 0, 0, "Ⓑ", 4, 8, 5, 3, 3, -0, 1, EntityType::BUSSTOP, Size::MEDIUM));
+                                  EntityConfig(Cost(200, 40, 20, 10), 0, 0, "☄", 4, 8, 5, 3, 3, -0, 1, EntityType::BUSSTOP, Size::MEDIUM));
         entityConfigTable.emplace(std::make_pair(EntityType::BUSSTOP, Size::LARGE),
-                                  EntityConfig(Cost(500, 100, 50, 25), 0, 0, "Ⓑ", 5, 12, 8, 4, 4, -0, 1, EntityType::BUSSTOP, Size::LARGE));
+                                  EntityConfig(Cost(500, 100, 50, 25), 0, 0, "☄", 5, 12, 8, 4, 4, -0, 1, EntityType::BUSSTOP, Size::LARGE));
 
         // TrainStation
         entityConfigTable.emplace(std::make_pair(EntityType::TRAINSTATION, Size::SMALL),
-                                  EntityConfig(Cost(1500, 600, 300, 200), 15, 0, "Ⓣ", 10, 8, 5, 5, 5, -0, 4, EntityType::TRAINSTATION, Size::SMALL));
+                                  EntityConfig(Cost(1500, 600, 300, 200), 15, 0, "ʊ", 10, 8, 5, 5, 5, -0, 4, EntityType::TRAINSTATION, Size::SMALL));
         entityConfigTable.emplace(std::make_pair(EntityType::TRAINSTATION, Size::MEDIUM),
-                                  EntityConfig(Cost(3000, 1200, 600, 400), 30, 0, "Ⓣ", 15, 15, 10, 7, 7, -0, 6, EntityType::TRAINSTATION, Size::MEDIUM));
+                                  EntityConfig(Cost(3000, 1200, 600, 400), 30, 0, "ʊ", 15, 15, 10, 7, 7, -0, 6, EntityType::TRAINSTATION, Size::MEDIUM));
         entityConfigTable.emplace(std::make_pair(EntityType::TRAINSTATION, Size::LARGE),
-                                  EntityConfig(Cost(6000, 2400, 1200, 800), 50, 0, "Ⓣ", 20, 25, 15, 10, 10, -0, 8, EntityType::TRAINSTATION, Size::LARGE));
+                                  EntityConfig(Cost(6000, 2400, 1200, 800), 50, 0, "ʊ", 20, 25, 15, 10, 10, -0, 8, EntityType::TRAINSTATION, Size::LARGE));
     }
 
     void initializeSatisfactionConfig()

@@ -10,13 +10,13 @@ public:
     WoodProducerLevelOneUpgrade(WoodProducer *woodProducer);
     WoodProducerLevelOneUpgrade(WoodProducerLevelOneUpgrade *woodprod);
     ~WoodProducerLevelOneUpgrade();
-    void update() override;
-    Entity *clone() override;
+    void update();
+    Entity *clone();
     int getOutput();
     int getLevel() override;
 
 private:
-    const int UPGRADE = 1.5;
+    const int UPGRADE = 2;
 };
 
 #endif // WOODPRODUCERLEVELONEUPGRADE_H
