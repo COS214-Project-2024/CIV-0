@@ -27,9 +27,9 @@ public:
      * 
      * Creates a new WasteManagementUpgrade object by copying the attributes of an existing WasteManagementUpgrade.
      * 
-     * @param wasteManagementUpgrade Pointer to the existing WasteManagementUpgrade object to be copied.
+     * @param wMU Pointer to the existing WasteManagementUpgrade object to be copied.
      */
-    WasteManagementUpgrade(WasteManagementUpgrade* wasteManagementUpgrade);
+    WasteManagementUpgrade(WasteManagementUpgrade* wMU);
 
     /**
      * @brief Destructor for the WasteManagementUpgrade object.

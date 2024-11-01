@@ -27,9 +27,9 @@ public:
      * 
      * Creates a new PowerPlantUpgrade object by copying the attributes of an existing PowerPlantUpgrade.
      * 
-     * @param powerPlantUpgrade Pointer to the existing PowerPlantUpgrade object to be copied.
+     * @param pPU Pointer to the existing PowerPlantUpgrade object to be copied.
      */
-    PowerPlantUpgrade(PowerPlantUpgrade* powerPlantUpgrade);
+    PowerPlantUpgrade(PowerPlantUpgrade* pPU);
 
     /**
      * @brief Destructor for the PowerPlantUpgrade object.

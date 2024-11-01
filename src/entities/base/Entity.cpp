@@ -4,7 +4,6 @@
 #include "city/City.h"
 #include "entities/building/residential/ResidentialBuilding.h"
 #include "entities/road/Road.h"
-#include <iostream>
 
 Entity::Entity()
 {

@@ -30,9 +30,9 @@ public:
      * Creates a new SewageSystemLevelTwoUpgrade object by copying the attributes of an existing
      * SewageSystemLevelTwoUpgrade object.
      * 
-     * @param sewageSystemLevelTwoUpgrade Pointer to the existing SewageSystemLevelTwoUpgrade to be copied.
+     * @param sSLTU Pointer to the existing SewageSystemLevelTwoUpgrade to be copied.
      */
-    SewageSystemLevelTwoUpgrade(SewageSystemLevelTwoUpgrade* sewageSystemLevelTwoUpgrade);
+    SewageSystemLevelTwoUpgrade(SewageSystemLevelTwoUpgrade* sSLTU);
 
     /**
      * @brief Destructor for SewageSystemLevelTwoUpgrade.

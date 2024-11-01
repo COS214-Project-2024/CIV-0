@@ -27,9 +27,9 @@ public:
      * 
      * Creates a new WaterSupplyUpgrade object by copying the attributes of an existing WaterSupplyUpgrade.
      * 
-     * @param waterSupplyUpgrade Pointer to the existing WaterSupplyUpgrade object to be copied.
+     * @param wSU Pointer to the existing WaterSupplyUpgrade object to be copied.
      */
-    WaterSupplyUpgrade(WaterSupplyUpgrade* waterSupplyUpgrade);
+    WaterSupplyUpgrade(WaterSupplyUpgrade* wSU);
 
     /**
      * @brief Destructor for the WaterSupplyUpgrade object.

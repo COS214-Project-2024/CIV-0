@@ -4,7 +4,7 @@ SewageSystemLevelThreeUpgrade::SewageSystemLevelThreeUpgrade(SewageSystem* sewag
 
 }
 
-SewageSystemLevelThreeUpgrade::SewageSystemLevelThreeUpgrade(SewageSystemLevelThreeUpgrade* sewageSystemLevelThreeUpgrade) : SewageSystemUpgrade(sewageSystemLevelThreeUpgrade) {
+SewageSystemLevelThreeUpgrade::SewageSystemLevelThreeUpgrade(SewageSystemLevelThreeUpgrade* sSLTU) : SewageSystemUpgrade(sSLTU) {
 
 }
 

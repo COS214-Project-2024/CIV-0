@@ -5,7 +5,7 @@ WasteManagementLevelTwoUpgrade::WasteManagementLevelTwoUpgrade(WasteManagement* 
 
 }
 
-WasteManagementLevelTwoUpgrade::WasteManagementLevelTwoUpgrade(WasteManagementLevelTwoUpgrade* wasteManagementLevelTwoUpgrade) : WasteManagementUpgrade(wasteManagementLevelTwoUpgrade) {
+WasteManagementLevelTwoUpgrade::WasteManagementLevelTwoUpgrade(WasteManagementLevelTwoUpgrade* wMLTU) : WasteManagementUpgrade(wMLTU) {
 
 }
 

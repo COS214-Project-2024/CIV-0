@@ -3,7 +3,6 @@
 
 #include "entities/base/Entity.h"
 #include "entities/building/residential/ResidentialBuilding.h"
-
 #include <string>
 
 /**
@@ -92,8 +91,8 @@ public:
     virtual Cost getCost();
 
 private:
-    int output; ///< The output value of the utility (e.g., electricity or water produced).
-    Cost cost;
+    int output;     ///< The output value of the utility (e.g., electricity or water produced).
+    Cost cost;      ///< The build cost of the utility
 };
 
 #endif // UTILITY_H

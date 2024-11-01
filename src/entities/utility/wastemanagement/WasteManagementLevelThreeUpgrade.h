@@ -28,9 +28,9 @@ public:
      * Creates a new WasteManagementLevelThreeUpgrade object by copying the attributes of an existing
      * WasteManagementLevelThreeUpgrade object.
      * 
-     * @param wasteManagementLevelThreeUpgrade Pointer to the existing WasteManagementLevelThreeUpgrade to be copied.
+     * @param wMLTU Pointer to the existing WasteManagementLevelThreeUpgrade to be copied.
      */
-    WasteManagementLevelThreeUpgrade(WasteManagementLevelThreeUpgrade* wasteManagementLevelThreeUpgrade);
+    WasteManagementLevelThreeUpgrade(WasteManagementLevelThreeUpgrade* wMLTU);
 
     /**
      * @brief Destructor for WasteManagementLevelThreeUpgrade.

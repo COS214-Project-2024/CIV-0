@@ -4,7 +4,7 @@ WaterSupplyLevelThreeUpgrade::WaterSupplyLevelThreeUpgrade(WaterSupply* water) :
 
 }
 
-WaterSupplyLevelThreeUpgrade::WaterSupplyLevelThreeUpgrade(WaterSupplyLevelThreeUpgrade* waterSupplyLevelThreeUpgrade) : WaterSupplyUpgrade(waterSupplyLevelThreeUpgrade) {
+WaterSupplyLevelThreeUpgrade::WaterSupplyLevelThreeUpgrade(WaterSupplyLevelThreeUpgrade* wSLTU) : WaterSupplyUpgrade(wSLTU) {
 
 }
 

@@ -5,7 +5,7 @@ SewageSystemLevelTwoUpgrade::SewageSystemLevelTwoUpgrade(SewageSystem* sewage) :
 
 }
 
-SewageSystemLevelTwoUpgrade::SewageSystemLevelTwoUpgrade(SewageSystemLevelTwoUpgrade* sewageSystemLevelTwoUpgrade) : SewageSystemUpgrade(sewageSystemLevelTwoUpgrade) {
+SewageSystemLevelTwoUpgrade::SewageSystemLevelTwoUpgrade(SewageSystemLevelTwoUpgrade* sSLTU) : SewageSystemUpgrade(sSLTU) {
     
 }
 
