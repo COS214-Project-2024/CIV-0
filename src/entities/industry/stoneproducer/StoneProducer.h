@@ -12,6 +12,7 @@ public:
     virtual ~StoneProducer();
     void update();
     Entity *clone();
+    virtual Entity* upgrade() = 0;
 };
 
 #endif // STONEPRODUCER_H

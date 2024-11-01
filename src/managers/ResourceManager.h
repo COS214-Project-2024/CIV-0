@@ -25,7 +25,7 @@ public:
     std::vector<Industry*> getAllWoodProducers();
     bool canAffordUpgrade(Industry* industry);
     bool canUpgrade(Industry* industry);
-    void upgrade(Industry* industry);
+    bool upgrade(Industry*& industry);
 
 };
 

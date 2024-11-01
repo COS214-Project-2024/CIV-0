@@ -16,9 +16,6 @@ class Industry : public Entity
 {
 private:
     int output;   ///< Production output of the industrial entity.
-protected: 
-
-    const int cost;
 
 public:
     /**
@@ -80,7 +77,19 @@ public:
      */
     void setOutput(int output);
 
-    virtual const int getCost() = 0;
+    /**
+     * @brief Gets the cost of an upgrade
+     * 
+     * @reutrn Cost Struct of various costs for upgrade
+     */
+    virtual Cost getCost() = 0;
+
+    
+    /**
+     * @brief Upgrades the current industry to the next level.
+     * @return A pointer to the upgraded industry instance, or nullptr if already at maximum level.
+     */
+    virtual Entity* upgrade() = 0;
 };
 
 #endif // INDUSTRY_H

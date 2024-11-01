@@ -13,6 +13,7 @@ public:
     virtual void update() = 0;
     virtual Entity* clone() = 0;
     virtual int getOutput() = 0;
+    virtual Entity* upgrade() = 0;
 
 protected:
     StoneProducer *stoneProducer; // mweheheheh nobodoy will see this comment

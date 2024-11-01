@@ -12,6 +12,8 @@ public:
     int getOutput();
     Entity* clone();
     void update();
+    Entity* upgrade();
+    Cost getCost();
 private: 
     const int UPGRADE = 1.5;
 };

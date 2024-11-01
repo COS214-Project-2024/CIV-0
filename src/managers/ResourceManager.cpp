@@ -3,11 +3,6 @@
 ResourceManager::ResourceManager() {}
 ResourceManager::~ResourceManager() {}
 
-void ResourceManager::upgrade(Industry* industry) {
-    
-    industry->update();
-}
-
 std::vector<Industry*> ResourceManager::getAllConcreteProducers() {
     std::vector<std::vector<Entity*>> grid = City::instance()->getGrid();
     ConcreteProducerIterator* iterator = new ConcreteProducerIterator(grid);  
@@ -75,5 +70,19 @@ std::vector<Industry*> ResourceManager::getAllIndustryBuildings() {
 
 
 bool ResourceManager::canAffordUpgrade(Industry* industry) {
-    int cost = industry->getCost(); //this WILL break, do NOT use it yet
+    Cost cost = industry->getCost(); //this WILL break, do NOT use it yet
+    City* city = City::instance();
+
+    if(cost.moneyCost <= city->getMoney() && cost.woodCost <= city->getWood() && cost.stoneCost <= city->getStone() && cost.concreteCost <= city->getConcrete()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool ResourceManager::upgrade(Industry*& industry) {
+    if(industry != nullptr && canAffordUpgrade(industry)) {
+        Entity* industryUpgrade = industry->upgrade();
+    }
 }
