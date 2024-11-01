@@ -24,11 +24,11 @@ public:
     Policy(const std::string& name, const std::string& detail);
 
     /**
-     * @brief Creates a Memento to save the current state of the policy.
+     * @brief Creates a memento to store the current state of the policy.
      * 
-     * @return Memento The saved state.
+     * @return Memento* Pointer to a new Memento object representing the current state.
      */
-    Memento createMemento();
+    Memento* createMemento() const;
 
     /**
      * @brief Restores the state of the policy from a Memento.

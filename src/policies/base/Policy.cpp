@@ -10,12 +10,15 @@ Policy::Policy(const std::string& name, const std::string& detail)
     : name(name), detail(detail) {}
 
 /**
- * @brief Creates a Memento to save the current state of the policy.
+ * @brief Creates a memento to store the current state of the policy.
  * 
- * @return Memento The saved state.
+ * This method captures the current state (name and detail) of the policy
+ * and returns a Memento object containing this state.
+ * 
+ * @return Memento* A pointer to a new Memento object containing the current state.
  */
-Memento Policy::createMemento() {
-    return Memento(name, detail);
+Memento* Policy::createMemento() const {
+    return new Memento(name, detail);
 }
 
 /**
