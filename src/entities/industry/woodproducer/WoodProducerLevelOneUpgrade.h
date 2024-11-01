@@ -15,7 +15,6 @@ public:
     Entity *clone();
     int getOutput();
     int getLevel();
-    Entity *clone();
     Entity* upgrade();
     Cost getCost();
 
