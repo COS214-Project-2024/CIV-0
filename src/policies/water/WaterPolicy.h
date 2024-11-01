@@ -11,6 +11,13 @@
 class WaterPolicy : public Policy {
 public:
     /**
+     * @brief Constructor for WaterPolicy.
+     * 
+     * @param name Name of the policy.
+     * @param detail Details describing the policy.
+     */
+    WaterPolicy(const std::string& name, const std::string& detail) : Policy(name, detail) {}
+    /**
      * @brief Pure virtual function to calculate water usage.
      * 
      * @param waterUsage Initial water usage.
