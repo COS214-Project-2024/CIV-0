@@ -1,6 +1,24 @@
 #include "City.h"
 #include "entities/base/Entity.h"
 #include "iterators/city/CityIterator.h"
+#include "iterators/building/amenity/AmenityIterator.h"
+#include "iterators/building/residential/ResidentialBuildingIterator.h"
+#include "iterators/building/economic/EconomicBuildingIterator.h"
+#include "iterators/building/service/ServiceBuildingIterator.h"
+#include "iterators/building/BuildingIterator.h"
+#include "iterators/building/BuildingIterator.h"
+#include "iterators/industry/IndustryIterator.h"
+#include "iterators/industry/ConcreteProducerIterator.h"
+#include "iterators/industry/StoneProducerIterator.h"
+#include "iterators/industry/WoodProducerIterator.h"
+#include "iterators/road/RoadIterator.h"
+#include "iterators/transport/TransportIterator.h"
+#include "iterators/utility/UtilityIterator.h"
+#include "iterators/utility/SewageSystemIterator.h"
+#include "iterators/utility/PowerPlantIterator.h"
+#include "iterators/utility/WasteManagementIterator.h"
+#include "iterators/utility/WaterSupplyIterator.h"
+#include "entities/road/Road.h"
 #include "entities/road/Road.h"
 #include <iostream>
 #include <algorithm> // for std::fill
@@ -37,12 +55,14 @@ City::~City()
         }
     }
 
-    if(waterPolicy != nullptr) {
+    if (waterPolicy != nullptr)
+    {
         delete waterPolicy;
         waterPolicy = nullptr;
     }
 
-    if(electricityPolicy != nullptr) {
+    if (electricityPolicy != nullptr)
+    {
         delete electricityPolicy;
         electricityPolicy = nullptr;
     }
@@ -52,10 +72,10 @@ void City::reset(int newWidth, int newHeight)
 {
     // Reset scalar properties to default values
     satisfaction = 100.0f;
-    money = 20000;
-    wood = 20000;
-    stone = 20000;
-    concrete = 20000;
+    money = 200000;
+    wood = 200000;
+    stone = 200000;
+    concrete = 200000;
     populationCapacity = 0;
     population = 0;
     electricityProduction = 0;
@@ -79,12 +99,14 @@ void City::reset(int newWidth, int newHeight)
         }
     }
 
-    if(waterPolicy != nullptr) {
+    if (waterPolicy != nullptr)
+    {
         delete waterPolicy;
         waterPolicy = nullptr;
     }
 
-    if(electricityPolicy != nullptr) {
+    if (electricityPolicy != nullptr)
+    {
         delete electricityPolicy;
         electricityPolicy = nullptr;
     }
@@ -188,11 +210,6 @@ void City::displayCity() const
     }
 }
 
-CityIterator City::createIterator()
-{
-    return CityIterator(grid); // Pass the grid to the iterator
-}
-
 void City::createRandomRoad()
 {
     int x = rand() % width;  // Random x coordinate within grid bounds
@@ -228,19 +245,21 @@ int City::getResidentialTax() const { return residentialTax; }
 int City::getEconomicTax() const { return economicTax; }
 /**
  * @brief Retrieves the current water usage policy for the city.
- * 
+ *
  * @return Pointer to the current WaterPolicy.
  */
-WaterPolicy* City::getWaterPolicy() const {
+WaterPolicy *City::getWaterPolicy() const
+{
     return waterPolicy;
 }
 
 /**
  * @brief Retrieves the current electricity usage policy for the city.
- * 
+ *
  * @return Pointer to the current ElectricityPolicy.
  */
-ElectricityPolicy* City::getElectricityPolicy() const {
+ElectricityPolicy *City::getElectricityPolicy() const
+{
     return electricityPolicy;
 }
 
@@ -266,38 +285,132 @@ void City::setResidentialTax(int residentialTax) { this->residentialTax = reside
 void City::setEconomicTax(int economicTax) { this->economicTax = economicTax; }
 /**
  * @brief Sets the water usage policy for the city.
- * 
+ *
  * @param policyType The type of water policy to enact.
  */
-void City::setWaterPolicy(PolicyType policyType) {
-    if (waterPolicy != nullptr) {
+void City::setWaterPolicy(PolicyType policyType)
+{
+    if (waterPolicy != nullptr)
+    {
         delete waterPolicy;
     }
 
-    if (policyType == PolicyType::LOW_WATER_POLICY) {
+    if (policyType == PolicyType::LOW_WATER_POLICY)
+    {
         waterPolicy = new LowWaterPolicy();
-    } else if (policyType == PolicyType::NORMAL_WATER_POLICY) {
+    }
+    else if (policyType == PolicyType::NORMAL_WATER_POLICY)
+    {
         waterPolicy = new NormalWaterPolicy();
-    } else if (policyType == PolicyType::HIGH_WATER_POLICY) {
+    }
+    else if (policyType == PolicyType::HIGH_WATER_POLICY)
+    {
         waterPolicy = new HighWaterPolicy();
     }
 }
 
 /**
  * @brief Sets the electricity usage policy for the city.
- * 
+ *
  * @param policyType The type of electricity policy to enact.
  */
-void City::setElectricityPolicy(PolicyType policyType) {
-    if (electricityPolicy != nullptr) {
+void City::setElectricityPolicy(PolicyType policyType)
+{
+    if (electricityPolicy != nullptr)
+    {
         delete electricityPolicy;
     }
 
-    if (policyType == PolicyType::LOW_ELECTRICITY_POLICY) {
+    if (policyType == PolicyType::LOW_ELECTRICITY_POLICY)
+    {
         electricityPolicy = new LowElectricityPolicy();
-    } else if (policyType == PolicyType::NORMAL_ELECTRICITY_POLICY) {
+    }
+    else if (policyType == PolicyType::NORMAL_ELECTRICITY_POLICY)
+    {
         electricityPolicy = new NormalElectricityPolicy();
-    } else if (policyType == PolicyType::HIGH_ELECTRICITY_POLICY) {
+    }
+    else if (policyType == PolicyType::HIGH_ELECTRICITY_POLICY)
+    {
         electricityPolicy = new HighElectricityPolicy();
     }
+}
+
+Iterator* City::createCityIterator(bool unique)
+{
+    return new CityIterator(grid, unique);
+}
+
+Iterator* City::createBuildingIterator(bool unique)
+{
+    return new BuildingIterator(this->grid);
+}
+
+Iterator* City::createUtilityIterator(bool unique)
+{
+    return new UtilityIterator(this->grid);
+}
+
+Iterator* City::createRoadIterator(bool unique)
+{
+    return new RoadIterator(this->grid);
+}
+
+Iterator* City::createTransportIterator(bool unique)
+{
+    return new TransportIterator(this->grid);
+}
+
+Iterator* City::createEconomicBuildingIterator(bool unique)
+{
+    return new EconomicBuildingIterator(this->grid);
+}
+
+Iterator* City::createResidentialBuildingIterator(bool unique)
+{
+    return new ResidentialBuildingIterator(this->grid);
+}
+
+Iterator* City::createServiceBuildingIterator(bool unique)
+{
+    return new ServiceBuildingIterator(this->grid);
+}
+
+Iterator* City::createAmenityIterator(bool unique)
+{
+    return new AmenityIterator(this->grid);
+}
+
+Iterator* City::createPowerPlantIterator(bool unique)
+{
+    return new PowerPlantIterator(this->grid);
+}
+
+Iterator* City::createWaterSupplyIterator(bool unique)
+{
+    return new WaterSupplyIterator(this->grid);
+}
+
+Iterator* City::createWasteManagementIterator(bool unique)
+{
+    return new WasteManagementIterator(this->grid);
+}
+
+Iterator* City::createSewageSystemIterator(bool unique)
+{
+    return new SewageSystemIterator(this->grid);
+}
+
+Iterator* City::createConcreteProducerIterator(bool unique)
+{
+    return new ConcreteProducerIterator(this->grid);
+}
+
+Iterator* City::createStoneProducerIterator(bool unique)
+{
+    return new StoneProducerIterator(this->grid);
+}
+
+Iterator* City::createWoodProducerIterator(bool unique)
+{
+    return new WoodProducerIterator(this->grid);
 }

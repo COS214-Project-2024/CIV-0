@@ -10,7 +10,7 @@ SewageSystem::~SewageSystem() {
 }
 
 SewageSystem::SewageSystem(EntityConfig ec, Size size, int xPos, int yPos) : Utility(ec, size, xPos, yPos) {
-    setOutput(20); //TODO - change value
+    setOutput(2000); //TODO - change value
 }
 
 SewageSystem::SewageSystem(SewageSystem* sewage) : Utility(sewage) {

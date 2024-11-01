@@ -12,7 +12,7 @@ CivZero &CivZero::instance()
 }
 
 // Private constructor
-CivZero::CivZero() : running(false) {}
+CivZero::CivZero() : running(false) {currentGameLoop = 0;}
 
 // Private destructor
 CivZero::~CivZero() {}
@@ -28,6 +28,7 @@ void CivZero::startGame(bool generateRandomCity, std::optional<unsigned int> see
     if (generateRandomCity)
     {
         manager.generateCity(seed);
+        manager.updateCity();
     }
     else
     {
@@ -52,4 +53,14 @@ void CivZero::gameLoop()
         MenuManager::instance().displayCurrentMenu();
         MenuManager::instance().handleCurrentMenuInput();
     }
+}
+
+void CivZero::incrementGameLoop()
+{
+    currentGameLoop++;
+}
+
+int CivZero::getGameLoop()
+{
+    return currentGameLoop;
 }

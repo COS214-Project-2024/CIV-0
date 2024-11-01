@@ -10,7 +10,7 @@ WaterSupply::~WaterSupply() {
 }
 
 WaterSupply::WaterSupply(EntityConfig ec, Size size, int xPos, int yPos) : Utility(ec, size, xPos, yPos) {
-    setOutput(20); //TODO - change value
+    setOutput(2000); //TODO - change value
 }
 
 WaterSupply::WaterSupply(WaterSupply* water) : Utility(water) {

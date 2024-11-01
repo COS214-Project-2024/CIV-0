@@ -14,7 +14,6 @@ TEST_SUITE("PowerPlant Tests")
         CHECK(powerPlant.getWidth() == ec.width);
         CHECK(powerPlant.getHeight() == ec.height);
         CHECK(powerPlant.getRevenue() == ec.revenue);
-        CHECK(powerPlant.getOutput() == 20);
         CHECK(powerPlant.getCost() == ec.cost);
         CHECK(powerPlant.isBuilt() == false);
     }

@@ -10,7 +10,7 @@
 #include "utils/PolicyType.h"
 
 class Entity;
-class CityIterator;
+class Iterator;
 
 class City
 {
@@ -131,7 +131,22 @@ public:
     void reset();
     void reset(int width, int height);
 
-    CityIterator createIterator();
+    Iterator* createCityIterator(bool unique);
+    Iterator* createBuildingIterator(bool unique);
+    Iterator* createUtilityIterator(bool unique);
+    Iterator* createRoadIterator(bool unique);
+    Iterator* createTransportIterator(bool unique);
+    Iterator* createEconomicBuildingIterator(bool unique);
+    Iterator* createResidentialBuildingIterator(bool unique);
+    Iterator* createServiceBuildingIterator(bool unique);
+    Iterator* createAmenityIterator(bool unique);
+    Iterator* createPowerPlantIterator(bool unique);
+    Iterator* createWaterSupplyIterator(bool unique);
+    Iterator* createWasteManagementIterator(bool unique);
+    Iterator* createSewageSystemIterator(bool unique);
+    Iterator* createConcreteProducerIterator(bool unique);
+    Iterator* createStoneProducerIterator(bool unique);
+    Iterator* createWoodProducerIterator(bool unique);
 
     /**
      * @brief Creates a road entity at a random position within the city grid.
