@@ -443,8 +443,8 @@ void CityManager::generateRandomBuildings(int placementProbability)
 
     // Create a weighted list of building types
     std::vector<EntityType> weightedBuildingTypes = {
-        EntityType::HOUSE, EntityType::HOUSE, EntityType::HOUSE, EntityType::HOUSE,
-        EntityType::APARTMENT, EntityType::APARTMENT, EntityType::APARTMENT,
+        EntityType::HOUSE,
+        EntityType::APARTMENT,
         EntityType::OFFICE, EntityType::OFFICE,
         EntityType::SHOPPINGMALL,
         EntityType::FACTORY,

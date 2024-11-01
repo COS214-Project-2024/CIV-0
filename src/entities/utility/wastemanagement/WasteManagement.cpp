@@ -10,7 +10,7 @@ WasteManagement::~WasteManagement() {
 }
 
 WasteManagement::WasteManagement(EntityConfig ec, Size size, int xPos, int yPos) : Utility(ec, size, xPos, yPos) {
-    setOutput(200); //TODO - change value
+    setOutput(2000); //TODO - change value
 }
 
 WasteManagement::WasteManagement(WasteManagement* waste) : Utility(waste) {

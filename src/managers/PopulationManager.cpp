@@ -1,5 +1,12 @@
 #include "PopulationManager.h"
 #include <iostream>
+#include "utils/PolicyType.h"
+#include "policies/electricity/HighElectricityPolicy.h"
+#include "policies/electricity/NormalElectricityPolicy.h"
+#include "policies/electricity/LowElectricityPolicy.h"
+#include "policies/water/HighWaterPolicy.h"
+#include "policies/water/NormalWaterPolicy.h"
+#include "policies/water/LowWaterPolicy.h"
 
 PopulationManager::PopulationManager(int minimumIncrease, int maximumIncrease)
 {
@@ -64,24 +71,51 @@ void PopulationManager::calculateSatisfaction()
 
     // Todo - consider adding waste and sewage (optional)
 
+    ElectricityPolicy* et = City::instance()->getElectricityPolicy();
+    WaterPolicy* wt = City::instance()->getWaterPolicy();
+
+    float electricityConsumption = static_cast<float>(c->getElectricityConsumption());
+    if(dynamic_cast<HighElectricityPolicy*>(et)!=nullptr)
+    {
+        electricityConsumption+=electricityConsumption*0.25;
+        satisfaction+=5;
+    }
+    else if(dynamic_cast<LowElectricityPolicy*>(et)!=nullptr)
+    {
+        electricityConsumption-=electricityConsumption*0.25;
+        satisfaction-=5;
+    }
+
+    float waterConsumption = static_cast<float>(c->getElectricityConsumption());
+    if(dynamic_cast<HighWaterPolicy*>(wt)!=nullptr)
+    {
+        waterConsumption+=waterConsumption*0.25;
+        satisfaction+=5;
+    }
+    else if(dynamic_cast<LowWaterPolicy*>(wt)!=nullptr)
+    {
+        waterConsumption-=waterConsumption*0.25;
+        satisfaction-=5;
+    }
+
     float electricityPercentage;
-    if (c->getElectricityConsumption() == 0)
+    if (electricityConsumption <= 0)
     {
         electricityPercentage = 100;
     }
     else
     {
-        electricityPercentage = (static_cast<float>(c->getElectricityProduction()) / static_cast<float>(c->getElectricityConsumption())) * 100.0f;
+        electricityPercentage = (static_cast<float>(c->getElectricityProduction()) / electricityConsumption) * 100.0f;
     }
 
     float waterPercentage;
-    if (c->getWaterConsumption() == 0)
+    if (waterConsumption <= 0)
     {
         waterPercentage = 100;
     }
     else
     {
-        waterPercentage = (static_cast<float>(c->getWaterProduction()) / static_cast<float>(c->getWaterConsumption())) * 100.0f;
+        waterPercentage = (static_cast<float>(c->getWaterProduction()) / waterConsumption) * 100.0f;
     }
 
 

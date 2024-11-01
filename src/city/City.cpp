@@ -72,10 +72,10 @@ void City::reset(int newWidth, int newHeight)
 {
     // Reset scalar properties to default values
     satisfaction = 100.0f;
-    money = 20000;
-    wood = 20000;
-    stone = 20000;
-    concrete = 20000;
+    money = 200000;
+    wood = 200000;
+    stone = 200000;
+    concrete = 200000;
     populationCapacity = 0;
     population = 0;
     electricityProduction = 0;
