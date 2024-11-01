@@ -1,17 +1,22 @@
 
 #include "WoodProducerLevelThreeUpgrade.h"
 
-WoodProducerLevelThreeUpgrade::WoodProducerLevelThreeUpgrade(WoodProducer* woodProd) : WoodProducerUpgrade(woodProd) {}
+WoodProducerLevelThreeUpgrade::WoodProducerLevelThreeUpgrade(WoodProducer *woodProd) : WoodProducerUpgrade(woodProd) {}
 
 WoodProducerLevelThreeUpgrade::~WoodProducerLevelThreeUpgrade() {}
 
-WoodProducerLevelThreeUpgrade::WoodProducerLevelThreeUpgrade(WoodProducerLevelThreeUpgrade* woodProd) : WoodProducerUpgrade(woodProd) {
-
+WoodProducerLevelThreeUpgrade::WoodProducerLevelThreeUpgrade(WoodProducerLevelThreeUpgrade *woodProd) : WoodProducerUpgrade(woodProd)
+{
 }
 
 void WoodProducerLevelThreeUpgrade::update()
 {
     woodProducer->update();
+}
+
+int WoodProducerLevelThreeUpgrade::getLevel()
+{
+    return 3;
 }
 
 Entity *WoodProducerLevelThreeUpgrade::clone()
