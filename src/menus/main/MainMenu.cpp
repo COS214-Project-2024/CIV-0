@@ -18,7 +18,7 @@ MainMenu::MainMenu() : IMenu("Main Menu")
           {'5', "💰", "Tax Menu"},
           {'c', "⏩", "Continue"}}},
         {"City Information",
-         {{'6', "📊", "Show Stats"},
+         {{'s', "📊", "Show Stats"},
           {'d', "🏙️ ", "Display City"}}},
         {"Navigation",
          {{'q', "🚪", "Quit Game"}}}};
@@ -82,11 +82,18 @@ void MainMenu::handleInput()
             MenuManager::instance().setCurrentMenu(Menu::TAX);
             choosing = false;
             break;
+        case 's':
+            // Switch to the Stats Menu
+            MenuManager::instance().setCurrentMenu(Menu::STATS);
+            choosing = false;
+            break;
         case 'c':
             // Logic for continuing the game can be added here
             cityManager.updateCity();
             displaySuccessMessage("The Sun has risen for another day 🌅 :)");
             displayPressEnterToContinue();
+            clearScreen();
+            displayMenu();
             break;
         case 'd':
             // Switch to the Display City Menu

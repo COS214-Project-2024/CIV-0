@@ -22,6 +22,12 @@
 #include "entities/building/service/Hospital.h"
 #include "entities/building/service/PoliceStation.h"
 #include "entities/building/service/School.h"
+#include "visitors/population/PopulationVisitor.h"
+#include "city/City.h"
+#include "iterators/city/CityIterator.h"
+#include "managers/PopulationManager.h"
+#include "managers/UtilityManager.h"
+#include "city/CivZero.h"
 #include <iostream>
 #include <random>
 #include <cmath>
@@ -29,6 +35,7 @@
 #include <cstdlib>
 #include <optional>
 #include <map>
+#include <vector>
 
 // Brother what are these includes - does anyone want to fix this?
 
@@ -42,7 +49,59 @@ void CityManager::initializeCity()
 
 void CityManager::updateCity()
 {
-    // TODO - I need to wait for the other managers
+    CivZero::instance().incrementGameLoop();
+    City *c = City::instance();
+
+    // Update all buildings to update ResidentialBuilding attributes
+    Iterator *ci = c->createCityIterator(true);
+    // int revenue = 0;
+    for (ci->first(); ci->hasNext(); ci->next())
+    {
+        if (ci->current() != nullptr && dynamic_cast<ResidentialBuilding *>(ci->current()) == nullptr)
+        {
+            ci->current()->update();
+            // if(dynamic_cast<EconomicBuilding *>(ci->current()) != nullptr)
+            // {
+            //     revenue+=ci->current()->getRevenue()*c->getEconomicTax();
+            // }
+            // else
+            // {
+            //     revenue+=ci->current()->getRevenue();
+            // }
+        }
+    }
+    delete ci;
+
+    // Update all ResidentialBuildings satisfaction
+    Iterator *ri = c->createResidentialBuildingIterator(true);
+
+    for (ri->first(); ri->hasNext(); ri->next())
+    {
+        ri->current()->update();
+        // revenue+=ci->current()->getRevenue()*(c->getResidentialTax());
+    }
+    delete ri;
+
+    // Update Utility attributes
+    UtilityManager um;
+    um.getElectricityProduction();
+    um.getElectricityConsumption();
+    um.getWaterProduction();
+    um.getWaterConsumption();
+    um.getWasteProduction();
+    um.getWasteConsumption();
+    um.getSewageProduction();
+    um.getSewageConsumption();
+
+    // Get Population and Satisfaction
+    PopulationVisitor pv;
+    pv.visit(c);
+
+    PopulationManager pm(CivZero::instance().getGameLoop(), CivZero::instance().getGameLoop() + 10);
+    pm.growPopulation();
+    pm.calculatePopulationCapacity();
+    pm.calculateSatisfaction();
+    // c->setMoney(c->getMoney()+revenue);
 }
 
 Entity *CityManager::getEntity(int x, int y)
@@ -383,9 +442,6 @@ void CityManager::generateRandomRoads(int gridWidth, int gridHeight, int minWidt
     }
 }
 
-#include <map>
-#include <vector>
-
 void CityManager::generateRandomBuildings(int placementProbability)
 {
     City *city = City::instance();
@@ -395,18 +451,21 @@ void CityManager::generateRandomBuildings(int placementProbability)
 
     // Create a weighted list of building types
     std::vector<EntityType> weightedBuildingTypes = {
-        EntityType::HOUSE, EntityType::HOUSE, EntityType::HOUSE, EntityType::HOUSE, EntityType::HOUSE, EntityType::HOUSE, // Higher weight for houses
-        EntityType::APARTMENT, EntityType::APARTMENT, EntityType::APARTMENT,
+        EntityType::HOUSE, EntityType::HOUSE, EntityType::HOUSE, EntityType::HOUSE,
+        EntityType::APARTMENT,
         EntityType::OFFICE, EntityType::OFFICE,
         EntityType::SHOPPINGMALL,
         EntityType::FACTORY,
         EntityType::HOSPITAL,
         EntityType::SCHOOL,
-        EntityType::PARK, EntityType::PARK, // Higher weight for parks
+        EntityType::PARK, EntityType::PARK,
         EntityType::THEATER,
         EntityType::MONUMENT,
-        EntityType::POWERPLANT,
-        EntityType::WATERSUPPLY,
+        EntityType::TRAINSTATION,
+        EntityType::AIRPORT,
+        EntityType::BUSSTOP,
+        EntityType::POWERPLANT, EntityType::POWERPLANT,
+        EntityType::WATERSUPPLY, EntityType::WATERSUPPLY, EntityType::WATERSUPPLY, EntityType::WATERSUPPLY,
         EntityType::WASTEMANAGMENT,
         EntityType::SEWAGESYSTEM,
         EntityType::WOODPRODUCER,
@@ -492,6 +551,15 @@ void CityManager::generateRandomBuildings(int placementProbability)
                     break;
                 case EntityType::CONCRETEPRODUCER:
                     building = new ConcreteProducer(config, defaultSize, x, y);
+                    break;
+                case EntityType::TRAINSTATION:
+                    building = new TrainStation(config, defaultSize, x, y);
+                    break;
+                case EntityType::BUSSTOP:
+                    building = new BusStop(config, defaultSize, x, y);
+                    break;
+                case EntityType::AIRPORT:
+                    building = new Airport(config, defaultSize, x, y);
                     break;
                 default:
                     break;

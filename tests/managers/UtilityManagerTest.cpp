@@ -68,6 +68,16 @@ TEST_SUITE("UtilityManager") {
         manager.buildUtility(EntityType::WASTEMANAGMENT, Size::SMALL, 0, 30);
         manager.buildUtility(EntityType::SEWAGESYSTEM, Size::SMALL, 20, 40);
 
+        manager.getElectricityProduction();
+        manager.getWaterProduction();
+        manager.getWasteProduction();
+        manager.getSewageProduction();
+
+        manager.getElectricityConsumption();
+        manager.getWaterConsumption();
+        manager.getWasteConsumption();
+        manager.getSewageConsumption();
+
         CHECK(manager.getElectricityProduction() == City::instance()->getElectricityProduction());
         CHECK(manager.getWaterProduction() == City::instance()->getWaterProduction());
         CHECK(manager.getWasteProduction() == City::instance()->getWasteProduction());

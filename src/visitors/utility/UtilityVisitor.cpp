@@ -15,6 +15,10 @@ void UtilityVisitor::visit(City *city)
     std::unordered_set<Entity*> visitedEntities;  // Track unique entities
     std::vector<std::vector<Entity *>> &grid = city->getGrid();
 
+    totalElectricity = 0;
+    totalWater = 0;
+    totalSewageHandled = 0;
+    totalWasteHandled = 0;
     // Iterate over the city grid to visit all utility entities
     for (auto &row : grid)
     {

@@ -12,7 +12,7 @@ CivZero &CivZero::instance()
 }
 
 // Private constructor
-CivZero::CivZero() : running(false) {}
+CivZero::CivZero() : running(false) { currentGameLoop = 0; }
 
 // Private destructor
 CivZero::~CivZero() {}
@@ -28,6 +28,7 @@ void CivZero::startGame(bool generateRandomCity, std::optional<unsigned int> see
     if (generateRandomCity)
     {
         manager.generateCity(seed);
+        manager.updateCity();
     }
     else
     {
@@ -51,5 +52,23 @@ void CivZero::gameLoop()
         // Display the current menu and handle its input
         MenuManager::instance().displayCurrentMenu();
         MenuManager::instance().handleCurrentMenuInput();
+
+        if (City::instance()->getMoney() < 0)
+        {
+            std::cout << "\033[1;30m" << "\n>> "
+                      << "\033[1;31m" << "Game Over :("
+                      << "\033[0m" << std::endl;
+            running = false;
+        }
     }
+}
+
+void CivZero::incrementGameLoop()
+{
+    currentGameLoop++;
+}
+
+int CivZero::getGameLoop()
+{
+    return currentGameLoop;
 }

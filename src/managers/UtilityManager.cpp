@@ -11,6 +11,9 @@
 #include "entities/utility/sewagesystem/SewageSystemLevelOneUpgrade.h"
 #include "entities/utility/sewagesystem/SewageSystemLevelTwoUpgrade.h"
 #include "entities/utility/sewagesystem/SewageSystemLevelThreeUpgrade.h"
+#include "visitors/utility/UtilityVisitor.h"
+#include "visitors/population/PopulationVisitor.h"
+#include "city/City.h"
 
 UtilityManager::UtilityManager() {
 
@@ -43,34 +46,60 @@ void UtilityManager::buildUtility(EntityType type, Size size, int x, int y) {
 }
 
 int UtilityManager::getElectricityProduction() {
+    UtilityVisitor uv;
+    uv.visit(City::instance());
+    City::instance()->setElectricityProduction(uv.getTotalElectricity());
     return City::instance()->getElectricityProduction();
 }
 
 int UtilityManager::getElectricityConsumption() {
+    PopulationVisitor uv;
+    uv.visit(City::instance());
+    City::instance()->setElectricityConsumption(uv.getTotalElectricityConsumption());
     return City::instance()->getElectricityConsumption();
 }
 
 int UtilityManager::getWaterProduction() {
+    UtilityVisitor uv;
+    uv.visit(City::instance());
+    City::instance()->setWaterProduction(uv.getTotalWater());
     return City::instance()->getWaterProduction();
 }
 
 int UtilityManager::getWaterConsumption() {
+    PopulationVisitor uv;
+    uv.visit(City::instance());
+    City::instance()->setWaterConsumption(uv.getTotalWaterConsumption());
     return City::instance()->getWaterConsumption();
 }
 
 int UtilityManager::getWasteProduction() {
+    UtilityVisitor uv;
+    uv.visit(City::instance());
+    City::instance()->setWasteProduction(uv.getTotalWasteHandled());
     return City::instance()->getWasteProduction();
 }
 
+//NOT IMPLEMENTED - ENTITY HAS NO WASTE ATTRIBUTE - WasteConsumption = WasteProduction for the moment
 int UtilityManager::getWasteConsumption() {
+    UtilityVisitor uv;
+    uv.visit(City::instance());
+    City::instance()->setWasteConsumption(uv.getTotalWasteHandled());
     return City::instance()->getWasteConsumption();
 }
 
 int UtilityManager::getSewageProduction() {
+    UtilityVisitor uv;
+    uv.visit(City::instance());
+    City::instance()->setSewageProduction(uv.getTotalSewageHandled());
     return City::instance()->getSewageProduction();
 }
 
+//NOT IMPLEMENTED - ENTITY HAS NO SEWAGE ATTRIBUTE - SewageConsumption = SewageProduction for the moment
 int UtilityManager::getSewageConsumption() {
+    UtilityVisitor uv;
+    uv.visit(City::instance());
+    City::instance()->setSewageConsumption(uv.getTotalSewageHandled());
     return City::instance()->getSewageConsumption();
 }
 

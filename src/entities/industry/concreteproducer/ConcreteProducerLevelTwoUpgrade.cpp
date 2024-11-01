@@ -1,18 +1,26 @@
 
 #include "ConcreteProducerLevelTwoUpgrade.h"
 
-ConcreteProducerLevelTwoUpgrade::ConcreteProducerLevelTwoUpgrade(ConcreteProducer* concreteProd) : ConcreteProducerUpgrade(concreteProd) {}
-ConcreteProducerLevelTwoUpgrade::ConcreteProducerLevelTwoUpgrade(ConcreteProducerLevelTwoUpgrade* concreteProd) : ConcreteProducerUpgrade(concreteProd){}
+ConcreteProducerLevelTwoUpgrade::ConcreteProducerLevelTwoUpgrade(ConcreteProducer *concreteProd) : ConcreteProducerUpgrade(concreteProd) {}
+ConcreteProducerLevelTwoUpgrade::ConcreteProducerLevelTwoUpgrade(ConcreteProducerLevelTwoUpgrade *concreteProd) : ConcreteProducerUpgrade(concreteProd) {}
 ConcreteProducerLevelTwoUpgrade::~ConcreteProducerLevelTwoUpgrade() {}
 
-void ConcreteProducerLevelTwoUpgrade::update() {
+void ConcreteProducerLevelTwoUpgrade::update()
+{
     concreteProducer->update();
 }
 
-int ConcreteProducerLevelTwoUpgrade::getOutput() {
+int ConcreteProducerLevelTwoUpgrade::getLevel()
+{
+    return 2;
+}
+
+int ConcreteProducerLevelTwoUpgrade::getOutput()
+{
     return concreteProducer->getOutput() * UPGRADE;
 }
 
-Entity* ConcreteProducerLevelTwoUpgrade::clone() {
+Entity *ConcreteProducerLevelTwoUpgrade::clone()
+{
     return new ConcreteProducerLevelTwoUpgrade(this);
 }

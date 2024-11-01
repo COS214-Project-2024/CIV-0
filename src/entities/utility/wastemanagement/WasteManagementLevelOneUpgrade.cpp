@@ -1,34 +1,44 @@
 #include "WasteManagementLevelOneUpgrade.h"
 #include "entities/utility/wastemanagement/WasteManagementLevelTwoUpgrade.h"
 
-WasteManagementLevelOneUpgrade::WasteManagementLevelOneUpgrade(WasteManagement* waste) : WasteManagementUpgrade(waste) {
-
+WasteManagementLevelOneUpgrade::WasteManagementLevelOneUpgrade(WasteManagement *waste) : WasteManagementUpgrade(waste)
+{
 }
 
-WasteManagementLevelOneUpgrade::WasteManagementLevelOneUpgrade(WasteManagementLevelOneUpgrade* wMLOU) : WasteManagementUpgrade(wMLOU) {
-
+WasteManagementLevelOneUpgrade::WasteManagementLevelOneUpgrade(WasteManagementLevelOneUpgrade *wMLOU) : WasteManagementUpgrade(wMLOU)
+{
 }
 
-WasteManagementLevelOneUpgrade::~WasteManagementLevelOneUpgrade() {
-
+WasteManagementLevelOneUpgrade::~WasteManagementLevelOneUpgrade()
+{
 }
 
-void WasteManagementLevelOneUpgrade::update() {
+void WasteManagementLevelOneUpgrade::update()
+{
     wasteManagement->update();
 }
 
-Entity* WasteManagementLevelOneUpgrade::clone() {
+int WasteManagementLevelOneUpgrade::getLevel()
+{
+    return 1;
+}
+
+Entity *WasteManagementLevelOneUpgrade::clone()
+{
     return new WasteManagementLevelOneUpgrade(this);
 }
 
-Entity* WasteManagementLevelOneUpgrade::upgrade() {
+Entity *WasteManagementLevelOneUpgrade::upgrade()
+{
     return new WasteManagementLevelTwoUpgrade(wasteManagement);
 }
 
-int WasteManagementLevelOneUpgrade::getOutput() {
+int WasteManagementLevelOneUpgrade::getOutput()
+{
     return wasteManagement->getOutput() * UPGRADE;
 }
 
-Cost WasteManagementLevelOneUpgrade::getCost() {
-    return Cost(wasteManagement->getCost().moneyCost*UPGRADE, wasteManagement->getCost().woodCost*UPGRADE, wasteManagement->getCost().stoneCost*UPGRADE, wasteManagement->getCost().concreteCost*UPGRADE);
+Cost WasteManagementLevelOneUpgrade::getCost()
+{
+    return Cost(wasteManagement->getCost().moneyCost * UPGRADE, wasteManagement->getCost().woodCost * UPGRADE, wasteManagement->getCost().stoneCost * UPGRADE, wasteManagement->getCost().concreteCost * UPGRADE);
 }

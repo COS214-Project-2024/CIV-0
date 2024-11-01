@@ -17,21 +17,21 @@ class WaterSupplyLevelTwoUpgrade : public WaterSupplyUpgrade
 public:
     /**
      * @brief Constructs a WaterSupplyLevelTwoUpgrade object.
-     * 
+     *
      * Enhances the specified WaterSupply system with a level two upgrade.
-     * 
+     *
      * @param water Pointer to the original WaterSupply to be upgraded.
      */
-    WaterSupplyLevelTwoUpgrade(WaterSupply* water);
+    WaterSupplyLevelTwoUpgrade(WaterSupply *water);
 
     /**
      * @brief Copy constructor for WaterSupplyLevelTwoUpgrade.
-     * 
+     *
      * Copies the attributes of an existing WaterSupplyLevelTwoUpgrade object.
      * 
      * @param wSLTU Pointer to the existing object to be copied.
      */
-    WaterSupplyLevelTwoUpgrade(WaterSupplyLevelTwoUpgrade* wSLTU);
+    WaterSupplyLevelTwoUpgrade(WaterSupplyLevelTwoUpgrade *wSLTU);
 
     /**
      * @brief Destructor for WaterSupplyLevelTwoUpgrade.
@@ -45,22 +45,22 @@ public:
 
     /**
      * @brief Clones the current WaterSupplyLevelTwoUpgrade object.
-     * 
+     *
      * @return A pointer to the newly cloned object.
      */
-    Entity* clone();
+    Entity *clone();
 
     /**
      * @brief Upgrades the current utility to the next level.
      * @return A pointer to the upgraded utility instance, or nullptr if already at maximum level.
      */
-    Entity* upgrade();
+    Entity *upgrade();
 
     /**
      * @brief Retrieves the upgraded water supply system's output.
-     * 
+     *
      * Returns the output of the level one upgraded water supply system.
-     * 
+     *
      * @return The updated output as an integer.
      */
     int getOutput();
@@ -70,6 +70,8 @@ public:
      * @return A Cost object representing the monetary and material costs.
      */
     Cost getCost();
+
+    int getLevel() override;
 
 private:
     const int UPGRADE = 4; ///< Output multiplier for the level two upgrade.

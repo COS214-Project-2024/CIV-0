@@ -17,57 +17,57 @@ class PowerPlantLevelOneUpgrade : public PowerPlantUpgrade
 public:
     /**
      * @brief Constructs a PowerPlantLevelOneUpgrade object.
-     * 
+     *
      * Initializes the upgrade by enhancing the specified PowerPlant with a level one upgrade.
-     * 
+     *
      * @param power Pointer to the original PowerPlant to be upgraded.
      */
-    PowerPlantLevelOneUpgrade(PowerPlant* power);
+    PowerPlantLevelOneUpgrade(PowerPlant *power);
 
     /**
      * @brief Copy constructor for PowerPlantLevelOneUpgrade.
-     * 
+     *
      * Creates a new PowerPlantLevelOneUpgrade object by copying the attributes of an existing
      * PowerPlantLevelOneUpgrade object.
      * 
      * @param pPLOU Pointer to the existing PowerPlantLevelOneUpgrade to be copied.
      */
-    PowerPlantLevelOneUpgrade(PowerPlantLevelOneUpgrade* pPLOU);
+    PowerPlantLevelOneUpgrade(PowerPlantLevelOneUpgrade *pPLOU);
 
     /**
      * @brief Destructor for PowerPlantLevelOneUpgrade.
-     * 
+     *
      * Cleans up any resources associated with the upgrade.
      */
     ~PowerPlantLevelOneUpgrade();
 
     /**
      * @brief Updates the state of the upgraded power plant.
-     * 
+     *
      * Implements specific behavior for the power plant after applying the level one upgrade.
      */
     void update();
 
     /**
      * @brief Clones the current PowerPlantLevelOneUpgrade object.
-     * 
+     *
      * Creates a new instance of PowerPlantLevelOneUpgrade with the same attributes as the current object.
-     * 
+     *
      * @return A pointer to the newly cloned PowerPlantLevelOneUpgrade object.
      */
-    Entity* clone();
+    Entity *clone();
 
     /**
      * @brief Upgrades the current utility to the next level.
      * @return A pointer to the upgraded utility instance, or nullptr if already at maximum level.
      */
-    Entity* upgrade();
+    Entity *upgrade();
 
     /**
      * @brief Retrieves the upgraded power plant's output.
-     * 
+     *
      * Returns the power output of the level one upgraded power plant.
-     * 
+     *
      * @return The updated power output as an integer.
      */
     int getOutput();
@@ -77,6 +77,8 @@ public:
      * @return A Cost object representing the monetary and material costs.
      */
     Cost getCost();
+
+    int getLevel() override;
 
 private:
     const int UPGRADE = 2; ///< Multiplier applied to the original power output for the level one upgrade.

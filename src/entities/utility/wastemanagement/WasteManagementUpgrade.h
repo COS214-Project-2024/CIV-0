@@ -15,21 +15,21 @@ class WasteManagementUpgrade : public WasteManagement
 public:
     /**
      * @brief Constructs a WasteManagementUpgrade object based on an existing WasteManagement.
-     * 
+     *
      * Initializes the upgrade with a reference to an existing WasteManagement, enhancing its features.
-     * 
+     *
      * @param waste Pointer to the WasteManagement being upgraded.
      */
-    WasteManagementUpgrade(WasteManagement* waste);
+    WasteManagementUpgrade(WasteManagement *waste);
 
     /**
      * @brief Copy constructor for the WasteManagementUpgrade class.
-     * 
+     *
      * Creates a new WasteManagementUpgrade object by copying the attributes of an existing WasteManagementUpgrade.
      * 
      * @param wMU Pointer to the existing WasteManagementUpgrade object to be copied.
      */
-    WasteManagementUpgrade(WasteManagementUpgrade* wMU);
+    WasteManagementUpgrade(WasteManagementUpgrade *wMU);
 
     /**
      * @brief Destructor for the WasteManagementUpgrade object.
@@ -43,20 +43,20 @@ public:
 
     /**
      * @brief Pure virtual function to clone the upgraded waste management system.
-     * 
+     *
      * @return A pointer to a new cloned WasteManagementUpgrade object.
      */
-    virtual Entity* clone() = 0;
+    virtual Entity *clone() = 0;
 
     /**
      * @brief Upgrades the current utility to the next level.
      * @return A pointer to the upgraded utility instance, or nullptr if already at maximum level.
      */
-    virtual Entity* upgrade() = 0;
+    virtual Entity *upgrade() = 0;
 
     /**
      * @brief Retrieves the output of the upgraded waste management system.
-     * 
+     *
      * @return The output value as an integer.
      */
     virtual int getOutput() = 0;
@@ -68,7 +68,7 @@ public:
     virtual Cost getCost() = 0;
 
 protected:
-    WasteManagement* wasteManagement; ///< Pointer to the original WasteManagement that is being upgraded.
+    WasteManagement *wasteManagement; ///< Pointer to the original WasteManagement that is being upgraded.
 };
 
 #endif // WASTEMANAGEMENTUPGRADE_H

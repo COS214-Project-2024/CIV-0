@@ -1,4 +1,12 @@
 #include "PopulationManager.h"
+#include <iostream>
+#include "utils/PolicyType.h"
+#include "policies/electricity/HighElectricityPolicy.h"
+#include "policies/electricity/NormalElectricityPolicy.h"
+#include "policies/electricity/LowElectricityPolicy.h"
+#include "policies/water/HighWaterPolicy.h"
+#include "policies/water/NormalWaterPolicy.h"
+#include "policies/water/LowWaterPolicy.h"
 
 PopulationManager::PopulationManager(int minimumIncrease, int maximumIncrease)
 {
@@ -46,6 +54,7 @@ void PopulationManager::calculateSatisfaction()
     SatisfactionVisitor *sv = new SatisfactionVisitor();
     sv->visit(c);
     float satisfaction = sv->getAverageSatisfaction();
+    satisfaction = satisfaction - c->getResidentialTax() - c->getEconomicTax() + 50;
 
     UtilityVisitor *uv = new UtilityVisitor();
     uv->visit(c);
@@ -63,24 +72,51 @@ void PopulationManager::calculateSatisfaction()
 
     // Todo - consider adding waste and sewage (optional)
 
+    ElectricityPolicy *et = City::instance()->getElectricityPolicy();
+    WaterPolicy *wt = City::instance()->getWaterPolicy();
+
+    float electricityConsumption = static_cast<float>(c->getElectricityConsumption());
+    if (dynamic_cast<HighElectricityPolicy *>(et) != nullptr)
+    {
+        electricityConsumption += electricityConsumption * 0.25;
+        satisfaction += 5;
+    }
+    else if (dynamic_cast<LowElectricityPolicy *>(et) != nullptr)
+    {
+        electricityConsumption -= electricityConsumption * 0.25;
+        satisfaction -= 5;
+    }
+
+    float waterConsumption = static_cast<float>(c->getElectricityConsumption());
+    if (dynamic_cast<HighWaterPolicy *>(wt) != nullptr)
+    {
+        waterConsumption += waterConsumption * 0.25;
+        satisfaction += 5;
+    }
+    else if (dynamic_cast<LowWaterPolicy *>(wt) != nullptr)
+    {
+        waterConsumption -= waterConsumption * 0.25;
+        satisfaction -= 5;
+    }
+
     float electricityPercentage;
-    if (c->getElectricityConsumption() == 0)
+    if (electricityConsumption <= 0)
     {
         electricityPercentage = 100;
     }
     else
     {
-        electricityPercentage = (c->getElectricityProduction() / c->getElectricityConsumption()) * 100;
+        electricityPercentage = (static_cast<float>(c->getElectricityProduction()) / electricityConsumption) * 100.0f;
     }
 
     float waterPercentage;
-    if (c->getWaterConsumption() == 0)
+    if (waterConsumption <= 0)
     {
         waterPercentage = 100;
     }
     else
     {
-        waterPercentage = (c->getWaterProduction() / c->getWaterConsumption()) * 100;
+        waterPercentage = (static_cast<float>(c->getWaterProduction()) / waterConsumption) * 100.0f;
     }
 
     if (satisfaction > electricityPercentage)
@@ -92,9 +128,21 @@ void PopulationManager::calculateSatisfaction()
         satisfaction = waterPercentage;
     }
 
+    if (satisfaction > 100)
+    {
+        satisfaction = 100;
+    }
+    else if (satisfaction < 0)
+    {
+        satisfaction = 0;
+    }
+
     delete sv;
     delete uv;
     delete pv;
+
+    int randomAdjustment = (std::rand() % 21) - 10;
+    satisfaction = std::max(0.0f, std::min(100.0f, satisfaction + randomAdjustment));
 
     c->setSatisfaction(satisfaction);
 }

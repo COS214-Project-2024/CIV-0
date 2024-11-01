@@ -5,11 +5,11 @@
 class ConcreteProducerUpgrade : public ConcreteProducer
 {
 public:
-    ConcreteProducerUpgrade(ConcreteProducer* concreteProd);
-    ConcreteProducerUpgrade(ConcreteProducerUpgrade* concreteProd);
+    ConcreteProducerUpgrade(ConcreteProducer *concreteProd);
+    ConcreteProducerUpgrade(ConcreteProducerUpgrade *concreteProd);
     ~ConcreteProducerUpgrade();
     virtual int getOutput() = 0;
-    virtual Entity* clone() = 0;
+    virtual Entity *clone() = 0;
     virtual void update() = 0;
 
 protected:

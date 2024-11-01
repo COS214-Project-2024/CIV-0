@@ -7,6 +7,16 @@
 #include <sstream>
 #include <regex>
 
+// Define color constants
+const char *IMenu::RESET = "\033[0m";
+const char *IMenu::BOLD_WHITE = "\033[1;37m";
+const char *IMenu::NORMAL_WHITE = "\033[0;37m";
+const char *IMenu::DARK_GRAY = "\033[1;30m";
+const char *IMenu::BOLD_YELLOW = "\033[1;33m";
+const char *IMenu::BOLD_GREEN = "\033[1;32m";
+const char *IMenu::BOLD_RED = "\033[1;31m";
+const char *IMenu::BOLD_CYAN = "\033[1;36m";
+
 std::string IMenu::coordinatesToLabel(int x, int y) const
 {
     char xLabel = indexToExtendedChar(x);
@@ -98,7 +108,7 @@ char IMenu::indexToExtendedChar(int index) const
  * @brief Constructs a menu with the specified heading.
  * @param heading The heading of the menu.
  */
-IMenu::IMenu(std::string heading) : menuHeading(heading) {}
+IMenu::IMenu(std::string heading) : menuHeading(heading), displayResources(true), isInfoMenu(false) {}
 
 void IMenu::setHeading(const std::string &heading)
 {
@@ -256,75 +266,60 @@ void IMenu::displayMenu() const
         printDoubleLineDivider(maxWidth);
     }
 
-    // Display City Resources section with the correct heading format
-    std::cout << DARK_GRAY << "║ " << NORMAL_WHITE
-              << centerTextWithChar("City Resources", maxWidth - 2, "•")
-              << DARK_GRAY << " ║" << RESET << "\n";
-    printSectionDivider(maxWidth);
-
-    // Gather city resources with alignment and color
-    std::vector<std::pair<std::string, std::string>> resourceLines = {
-        {"Money:", std::to_string(city->getMoney())},
-        {"Population:", std::to_string(city->getPopulation()) + "/" + std::to_string(city->getPopulationCapacity())},
-        {"Wood:", std::to_string(city->getWood())},
-        {"Stone:", std::to_string(city->getStone())},
-        {"Concrete:", std::to_string(city->getConcrete())},
-        {"Electricity Production:", std::to_string(city->getElectricityProduction())},
-        {"Electricity Consumption:", std::to_string(city->getElectricityConsumption())},
-        {"Water Production:", std::to_string(city->getWaterProduction())},
-        {"Water Consumption:", std::to_string(city->getWaterConsumption())}};
-
-    // Get satisfaction value and prepare it for conditional color display
-    int satisfaction = static_cast<int>(city->getSatisfaction());
-    std::string satisfactionColor;
-    if (satisfaction >= 70)
+    // Conditionally display the resources section
+    if (displayResources)
     {
-        satisfactionColor = BOLD_GREEN;
-    }
-    else if (satisfaction >= 30)
-    {
-        satisfactionColor = BOLD_YELLOW;
-    }
-    else
-    {
-        satisfactionColor = BOLD_RED;
-    }
-    resourceLines.push_back({"Satisfaction:", satisfactionColor + std::to_string(satisfaction) + "%" + RESET});
+        std::cout << DARK_GRAY << "║ " << NORMAL_WHITE
+                  << centerTextWithChar("City Resources", maxWidth - 2, "•")
+                  << DARK_GRAY << " ║" << RESET << "\n";
+        printSectionDivider(maxWidth);
 
-    // Display each resource line with color formatting
-    for (const auto &line : resourceLines)
-    {
-        std::ostringstream formattedLine;
-        formattedLine << BOLD_WHITE << std::left << std::setw(25) << line.first << RESET;
+        // Define resource lines with aligned and conditionally color-coded values
+        std::vector<std::pair<std::string, std::string>> resourceLines = {
+            {"Money:", std::string(BOLD_GREEN) + std::to_string(city->getMoney()) + RESET},
+            {"Wood:", std::string(BOLD_CYAN) + std::to_string(city->getWood()) + RESET},
+            {"Stone:", std::string(BOLD_CYAN) + std::to_string(city->getStone()) + RESET},
+            {"Concrete:", std::string(BOLD_CYAN) + std::to_string(city->getConcrete()) + RESET},
+            {"Population:", std::to_string(city->getPopulation()) + "/" + std::to_string(city->getPopulationCapacity())}};
 
-        // Apply different colors to values based on resource type
-        if (line.first == "Money:")
-        {
-            formattedLine << BOLD_GREEN << line.second << RESET; // Green for money
-        }
-        else if (line.first.find("Production") != std::string::npos)
-        {
-            formattedLine << BOLD_YELLOW << line.second << RESET; // Yellow for production values
-        }
-        else if (line.first.find("Consumption") != std::string::npos)
-        {
-            formattedLine << BOLD_RED << line.second << RESET; // Red for consumption values
-        }
-        else if (line.first == "Satisfaction:")
-        {
-            formattedLine << line.second; // Satisfaction is already colored
-        }
-        else
-        {
-            formattedLine << BOLD_CYAN << line.second << RESET; // Cyan for other resources
-        }
+        // Conditionally color electricity and water consumption/production
+        int electricityConsumption = city->getElectricityConsumption();
+        int electricityProduction = city->getElectricityProduction();
+        int waterConsumption = city->getWaterConsumption();
+        int waterProduction = city->getWaterProduction();
 
-        int padding = maxWidth - 4 - stripColorCodes(formattedLine.str()).size(); // Calculate right padding for alignment
-        std::cout << DARK_GRAY << "║ " << RESET << formattedLine.str()
-                  << std::string(std::max(0, padding), ' ') << DARK_GRAY << "   ║" << RESET << "\n";
+        std::string electricityColor = electricityConsumption > electricityProduction ? BOLD_RED : BOLD_GREEN;
+        std::string waterColor = waterConsumption > waterProduction ? BOLD_RED : BOLD_GREEN;
+
+        resourceLines.push_back({"Electricity :",
+                                 electricityColor + std::to_string(electricityConsumption) + RESET + "/" +
+                                     BOLD_GREEN + std::to_string(electricityProduction) + RESET});
+
+        resourceLines.push_back({"Water :",
+                                 waterColor + std::to_string(waterConsumption) + RESET + "/" +
+                                     BOLD_GREEN + std::to_string(waterProduction) + RESET});
+
+        // Set satisfaction color based on value
+        int satisfaction = static_cast<int>(city->getSatisfaction());
+        std::string satisfactionColor = satisfaction >= 70 ? BOLD_GREEN : satisfaction >= 30 ? BOLD_YELLOW
+                                                                                             : BOLD_RED;
+        resourceLines.push_back({"Satisfaction:", satisfactionColor + std::to_string(satisfaction) + "%" + RESET});
+
+        // Display each resource line
+        for (const auto &line : resourceLines)
+        {
+            std::ostringstream formattedLine;
+            formattedLine << BOLD_WHITE << std::left << std::setw(25) << line.first << RESET;
+
+            // Add the already formatted value string
+            formattedLine << line.second;
+
+            int padding = maxWidth - 4 - stripColorCodes(formattedLine.str()).size();
+            std::cout << DARK_GRAY << "║ " << RESET << formattedLine.str()
+                      << std::string(std::max(0, padding), ' ') << DARK_GRAY << "   ║" << RESET << "\n";
+        }
+        printSectionDivider(maxWidth);
     }
-
-    printSectionDivider(maxWidth); // Divider between City Resources and the rest of the menu
 
     // Display each section and its options
     bool showSections = sections.size() > 1;
@@ -363,13 +358,19 @@ void IMenu::displayMenu() const
             std::cout << DARK_GRAY << "║ ";
             if (auto keyChar = std::get_if<char>(&option.key))
             {
-                std::cout << BOLD_YELLOW << *keyChar; // Display char as-is
+                std::cout << BOLD_YELLOW << *keyChar;
+                if (!isInfoMenu)
+                    std::cout << "."; // Conditionally add a period
+                else
+                    std::cout << " ";
             }
             else if (auto keyInt = std::get_if<int>(&option.key))
             {
-                std::cout << BOLD_YELLOW << *keyInt; // Display int as-is
+                std::cout << BOLD_YELLOW << *keyInt;
+                if (!isInfoMenu)
+                    std::cout << "."; // Conditionally add a period
             }
-            std::cout << RESET << ". " << option.icon << " " << option.text
+            std::cout << RESET << " " << option.icon << " " << option.text
                       << std::string(std::max(0, padding), ' ') << DARK_GRAY << " ║" << RESET << std::endl;
         }
 
