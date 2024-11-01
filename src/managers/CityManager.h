@@ -9,8 +9,6 @@
 #include "entities/base/Entity.h"
 #include <vector>
 #include "city/City.h"
-#include "utils/Caretaker.h"
-#include "utils/PolicyType.h"
 
 /**
  * @class CityManager
