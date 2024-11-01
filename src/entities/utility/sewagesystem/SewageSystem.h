@@ -16,9 +16,9 @@ class SewageSystem : public Utility
 public:
     /**
      * @brief Constructs a SewageSystem object with specified attributes.
-     * 
+     *
      * Initializes a SewageSystem with detailed parameters, including utility consumption, effects, and dimensions.
-     * 
+     *
      * @param ec        EntityConfig.
      * @param size      Size.
      * @param xPos      xPosition
@@ -28,16 +28,16 @@ public:
 
     /**
      * @brief Copy constructor for the SewageSystem class.
-     * 
+     *
      * Creates a new SewageSystem object by copying the attributes of an existing SewageSystem.
-     * 
+     *
      * @param sewage Pointer to the existing SewageSystem object to be copied.
      */
-    SewageSystem(SewageSystem* sewage);
+    SewageSystem(SewageSystem *sewage);
 
     /**
      * @brief Default constructor for the SewageSystem class.
-     * 
+     *
      * Creates a new SewageSystem object without initializing any of it's values (naughty).
      */
     SewageSystem();
@@ -49,25 +49,25 @@ public:
 
     /**
      * @brief Updates the state of the sewage system.
-     * 
+     *
      * Defines the specific behavior of the SewageSystem when it is updated in the simulation.
      */
     void update();
 
     /**
      * @brief Clones the current SewageSystem object.
-     * 
+     *
      * Creates and returns a copy of the current SewageSystem instance.
-     * 
+     *
      * @return A pointer to the newly cloned SewageSystem object.
      */
-    Entity* clone();
+    Entity *clone();
 
     /**
      * @brief Upgrades the current utility to the next level.
      * @return A pointer to the upgraded utility instance, or nullptr if already at maximum level.
      */
-    Entity* upgrade();
+    Entity *upgrade();
 };
 
 #endif // SEWAGESYSTEM_H
