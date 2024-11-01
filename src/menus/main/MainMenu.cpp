@@ -94,6 +94,7 @@ void MainMenu::handleInput()
             displayPressEnterToContinue();
             clearScreen();
             displayMenu();
+            choosing = false;
             break;
         case 'd':
             // Switch to the Display City Menu
