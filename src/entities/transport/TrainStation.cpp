@@ -9,7 +9,6 @@ TrainStation::TrainStation(TrainStation* trainStation) : Transport(trainStation)
 
 }
 
-TrainStation::TrainStation() {}
 TrainStation::~TrainStation() {}
 
 void TrainStation::update()

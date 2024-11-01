@@ -13,13 +13,6 @@ class PoliceStation : public ServiceBuilding
 {
 public:
     /**
-     * @brief Default constructor for the PoliceStation class.
-     * 
-     * Initializes an empty police station object.
-     */
-    PoliceStation();
-
-    /**
      * @brief Parameterized constructor for the PoliceStation class.
      * 
      * @param ec Entity configuration for initializing the police station.

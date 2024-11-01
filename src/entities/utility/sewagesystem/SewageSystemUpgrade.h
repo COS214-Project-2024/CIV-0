@@ -26,10 +26,10 @@ public:
      * @brief Copy constructor for the SewageSystemUpgrade class.
      *
      * Creates a new SewageSystemUpgrade object by copying the attributes of an existing SewageSystemUpgrade.
-     *
-     * @param sewageSystemUpgrade Pointer to the existing SewageSystemUpgrade object to be copied.
+     * 
+     * @param sSU Pointer to the existing SewageSystemUpgrade object to be copied.
      */
-    SewageSystemUpgrade(SewageSystemUpgrade *sewageSystemUpgrade);
+    SewageSystemUpgrade(SewageSystemUpgrade *sSU);
 
     /**
      * @brief Destructor for the SewageSystemUpgrade object.

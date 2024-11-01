@@ -14,11 +14,6 @@ class BusStop : public Transport
 {
 public:
     /**
-     * @brief Default constructor for the BusStop class.
-     */
-    BusStop();
-
-    /**
      * @brief Constructs a BusStop entity with specified attributes.
      * 
      * @param ec Configuration settings for the entity.

@@ -28,10 +28,10 @@ public:
      * @brief Copy constructor for WaterSupplyLevelTwoUpgrade.
      *
      * Copies the attributes of an existing WaterSupplyLevelTwoUpgrade object.
-     *
-     * @param waterSupplyLevelTwoUpgrade Pointer to the existing object to be copied.
+     * 
+     * @param wSLTU Pointer to the existing object to be copied.
      */
-    WaterSupplyLevelTwoUpgrade(WaterSupplyLevelTwoUpgrade *waterSupplyLevelTwoUpgrade);
+    WaterSupplyLevelTwoUpgrade(WaterSupplyLevelTwoUpgrade *wSLTU);
 
     /**
      * @brief Destructor for WaterSupplyLevelTwoUpgrade.

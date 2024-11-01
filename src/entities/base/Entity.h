@@ -44,11 +44,6 @@ protected:
 
 public:
     /**
-     * @brief Default constructor for the Entity class.
-     */
-    Entity();
-
-    /**
      * @brief Constructs an Entity with specified attributes.
      *
      * @param ec Entity configuration containing resource consumption and effects.

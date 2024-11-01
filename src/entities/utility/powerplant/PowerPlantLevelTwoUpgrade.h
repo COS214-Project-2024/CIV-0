@@ -29,10 +29,10 @@ public:
      *
      * Creates a new PowerPlantLevelTwoUpgrade object by copying the attributes of an existing
      * PowerPlantLevelTwoUpgrade object.
-     *
-     * @param powerPlantLevelTwoUpgrade Pointer to the existing PowerPlantLevelTwoUpgrade to be copied.
+     * 
+     * @param pPLTU Pointer to the existing PowerPlantLevelTwoUpgrade to be copied.
      */
-    PowerPlantLevelTwoUpgrade(PowerPlantLevelTwoUpgrade *powerPlantLevelTwoUpgrade);
+    PowerPlantLevelTwoUpgrade(PowerPlantLevelTwoUpgrade *pPLTU);
 
     /**
      * @brief Destructor for PowerPlantLevelTwoUpgrade.

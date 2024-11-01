@@ -1,4 +1,3 @@
-
 #include "WoodProducerLevelTwoUpgrade.h"
 #include "entities/industry/woodproducer/WoodProducerLevelThreeUpgrade.h"
 

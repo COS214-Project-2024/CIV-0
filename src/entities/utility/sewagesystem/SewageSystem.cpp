@@ -1,10 +1,6 @@
 #include "SewageSystem.h"
 #include "entities/utility/sewagesystem/SewageSystemLevelOneUpgrade.h"
 
-SewageSystem::SewageSystem() : Utility()
-{
-}
-
 SewageSystem::~SewageSystem()
 {
 }

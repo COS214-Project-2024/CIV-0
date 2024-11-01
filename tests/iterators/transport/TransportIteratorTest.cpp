@@ -11,9 +11,9 @@ TEST_CASE("Testing TransportIterator initial position")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    Airport *a = new Airport();
-    BusStop *b = new BusStop();
-    TrainStation *t = new TrainStation();
+    Airport *a = new Airport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::SMALL), Size::SMALL, 10, 10);
+    BusStop *b = new BusStop(ConfigManager::getEntityConfig(EntityType::BUSSTOP, Size::SMALL), Size::SMALL, 10, 10);
+    TrainStation *t = new TrainStation(ConfigManager::getEntityConfig(EntityType::TRAINSTATION, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(a);
     row1.push_back(b);
@@ -41,9 +41,9 @@ TEST_CASE("Testing TransportIterator next()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    Airport *a = new Airport();
-    BusStop *b = new BusStop();
-    TrainStation *t = new TrainStation();
+    Airport *a = new Airport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::SMALL), Size::SMALL, 10, 10);
+    BusStop *b = new BusStop(ConfigManager::getEntityConfig(EntityType::BUSSTOP, Size::SMALL), Size::SMALL, 10, 10);
+    TrainStation *t = new TrainStation(ConfigManager::getEntityConfig(EntityType::TRAINSTATION, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(a);
     row1.push_back(nullptr);
@@ -86,9 +86,9 @@ TEST_CASE("Testing TransportIterator first()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    Airport *a = new Airport();
-    BusStop *b = new BusStop();
-    TrainStation *t = new TrainStation();
+    Airport *a = new Airport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::SMALL), Size::SMALL, 10, 10);
+    BusStop *b = new BusStop(ConfigManager::getEntityConfig(EntityType::BUSSTOP, Size::SMALL), Size::SMALL, 10, 10);
+    TrainStation *t = new TrainStation(ConfigManager::getEntityConfig(EntityType::TRAINSTATION, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(a);
     row1.push_back(nullptr);
@@ -116,9 +116,9 @@ TEST_CASE("Testing TransportIterator hasNext() with multiple transports")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    Airport *a = new Airport();
-    BusStop *b = new BusStop();
-    TrainStation *t = new TrainStation();
+    Airport *a = new Airport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::SMALL), Size::SMALL, 10, 10);
+    BusStop *b = new BusStop(ConfigManager::getEntityConfig(EntityType::BUSSTOP, Size::SMALL), Size::SMALL, 10, 10);
+    TrainStation *t = new TrainStation(ConfigManager::getEntityConfig(EntityType::TRAINSTATION, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(a);
     row1.push_back(nullptr);
@@ -151,9 +151,9 @@ TEST_CASE("Testing TransportIterator reaching the end")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    Airport *a = new Airport();
-    BusStop *b = new BusStop();
-    TrainStation *t = new TrainStation();
+    Airport *a = new Airport(ConfigManager::getEntityConfig(EntityType::AIRPORT, Size::SMALL), Size::SMALL, 10, 10);
+    BusStop *b = new BusStop(ConfigManager::getEntityConfig(EntityType::BUSSTOP, Size::SMALL), Size::SMALL, 10, 10);
+    TrainStation *t = new TrainStation(ConfigManager::getEntityConfig(EntityType::TRAINSTATION, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(a);
     row1.push_back(nullptr);

@@ -10,7 +10,7 @@ TEST_CASE("Testing WoodProducerIterator initial position")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    WoodProducer *producer = new WoodProducer();
+    WoodProducer *producer = new WoodProducer(ConfigManager::getEntityConfig(EntityType::WOODPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(producer);
     row1.push_back(nullptr);
@@ -35,8 +35,8 @@ TEST_CASE("Testing WoodProducerIterator next()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    WoodProducer *producer = new WoodProducer();
-    Theater *theater = new Theater();
+    WoodProducer *producer = new WoodProducer(ConfigManager::getEntityConfig(EntityType::WOODPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *theater = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(producer);
     row1.push_back(nullptr);
@@ -68,9 +68,9 @@ TEST_CASE("Testing WoodProducerIterator first()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    WoodProducer *producer1 = new WoodProducer();
-    WoodProducer *producer2 = new WoodProducer();
-    Theater *theater = new Theater();
+    WoodProducer *producer1 = new WoodProducer(ConfigManager::getEntityConfig(EntityType::WOODPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    WoodProducer *producer2 = new WoodProducer(ConfigManager::getEntityConfig(EntityType::WOODPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *theater = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(producer1);
     row1.push_back(theater);
@@ -98,9 +98,9 @@ TEST_CASE("Testing WoodProducerIterator hasNext() with multiple producers")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    WoodProducer *producer1 = new WoodProducer();
-    WoodProducer *producer2 = new WoodProducer();
-    Theater *theater = new Theater();
+    WoodProducer *producer1 = new WoodProducer(ConfigManager::getEntityConfig(EntityType::WOODPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    WoodProducer *producer2 = new WoodProducer(ConfigManager::getEntityConfig(EntityType::WOODPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *theater = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(producer1);
     row1.push_back(nullptr);
@@ -138,8 +138,8 @@ TEST_CASE("Testing WoodProducerIterator hasNext() reaching the end")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    WoodProducer *producer = new WoodProducer();
-    Theater *theater = new Theater();
+    WoodProducer *producer = new WoodProducer(ConfigManager::getEntityConfig(EntityType::WOODPRODUCER, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *theater = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(producer);
     row1.push_back(theater);

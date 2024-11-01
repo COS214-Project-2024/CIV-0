@@ -14,11 +14,6 @@ class House : public ResidentialBuilding
 {
 public:
     /**
-     * @brief Default constructor for the House class.
-     */
-    House();
-
-    /**
      * @brief Constructs a House with specified attributes.
      * 
      * @param ec Configuration containing resource consumption and other properties.

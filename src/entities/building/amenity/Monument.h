@@ -15,11 +15,6 @@ class Monument : public Amenity
 {
 public:
     /**
-     * @brief Default constructor for the Monument class.
-     */
-    Monument();
-
-    /**
      * @brief Constructs a Monument with specified attributes.
      * 
      * @param ec Configuration containing resource consumption and properties.

@@ -5,7 +5,7 @@ PowerPlantLevelOneUpgrade::PowerPlantLevelOneUpgrade(PowerPlant *power) : PowerP
 {
 }
 
-PowerPlantLevelOneUpgrade::PowerPlantLevelOneUpgrade(PowerPlantLevelOneUpgrade *powerPlantLevelOneUpgrade) : PowerPlantUpgrade(powerPlantLevelOneUpgrade)
+PowerPlantLevelOneUpgrade::PowerPlantLevelOneUpgrade(PowerPlantLevelOneUpgrade *pPLOU) : PowerPlantUpgrade(pPLOU)
 {
 }
 

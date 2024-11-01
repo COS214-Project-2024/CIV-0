@@ -1,7 +1,5 @@
-
 #ifndef CONCRETEPRODUCERLEVELTWOUPGRADE_H
 #define CONCRETEPRODUCERLEVELTWOUPGRADE_H
-
 
 #include "entities/industry/concreteproducer/ConcreteProducerUpgrade.h"
 

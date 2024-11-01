@@ -1,6 +1,5 @@
 #include "PoliceStation.h"
 
-PoliceStation::PoliceStation() {}
 PoliceStation::~PoliceStation() {}
 
 PoliceStation::PoliceStation(EntityConfig ec, Size size, int xPos, int yPos) : ServiceBuilding(ec, size, xPos, yPos)

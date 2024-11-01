@@ -4,7 +4,7 @@ WasteManagementLevelThreeUpgrade::WasteManagementLevelThreeUpgrade(WasteManageme
 {
 }
 
-WasteManagementLevelThreeUpgrade::WasteManagementLevelThreeUpgrade(WasteManagementLevelThreeUpgrade *wasteManagementLevelThreeUpgrade) : WasteManagementUpgrade(wasteManagementLevelThreeUpgrade)
+WasteManagementLevelThreeUpgrade::WasteManagementLevelThreeUpgrade(WasteManagementLevelThreeUpgrade *wMLTU) : WasteManagementUpgrade(wMLTU)
 {
 }
 

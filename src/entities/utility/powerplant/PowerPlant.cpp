@@ -1,10 +1,6 @@
 #include "PowerPlant.h"
 #include "entities/utility/powerplant/PowerPlantLevelOneUpgrade.h"
 
-PowerPlant::PowerPlant() : Utility()
-{
-}
-
 PowerPlant::~PowerPlant()
 {
 }

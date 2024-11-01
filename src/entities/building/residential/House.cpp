@@ -1,6 +1,5 @@
 #include "House.h"
 
-House::House() {}
 House::~House() {}
 
 House::House(House* entity) : ResidentialBuilding(entity)

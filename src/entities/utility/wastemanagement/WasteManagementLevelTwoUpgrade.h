@@ -28,10 +28,10 @@ public:
      * @brief Copy constructor for WasteManagementLevelTwoUpgrade.
      *
      * Copies the attributes of an existing WasteManagementLevelTwoUpgrade object.
-     *
-     * @param wasteManagementLevelTwoUpgrade Pointer to the existing object to be copied.
+     * 
+     * @param wMLTU Pointer to the existing object to be copied.
      */
-    WasteManagementLevelTwoUpgrade(WasteManagementLevelTwoUpgrade *wasteManagementLevelTwoUpgrade);
+    WasteManagementLevelTwoUpgrade(WasteManagementLevelTwoUpgrade *wMLTU);
 
     /**
      * @brief Destructor for WasteManagementLevelTwoUpgrade.

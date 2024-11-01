@@ -13,13 +13,6 @@ class Factory : public EconomicBuilding
 {
 public:
     /**
-     * @brief Default constructor for the Factory class.
-     * 
-     * Initializes a new instance of the Factory class with default values.
-     */
-    Factory();
-
-    /**
      * @brief Parameterized constructor for the Factory class.
      * 
      * @param ec The configuration object containing general entity properties.

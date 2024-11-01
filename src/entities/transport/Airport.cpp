@@ -10,7 +10,6 @@ Airport::Airport(Airport* airport) : Transport(airport)
 
 }
 
-Airport::Airport() {}
 Airport::~Airport() {}
 
 void Airport::update()

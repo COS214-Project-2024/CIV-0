@@ -15,11 +15,6 @@ class Theater : public Amenity
 {
 public:
     /**
-     * @brief Default constructor for the Theater class.
-     */
-    Theater();
-
-    /**
      * @brief Constructs a Theater with specified attributes.
      * 
      * @param ec Configuration containing resource consumption and properties.

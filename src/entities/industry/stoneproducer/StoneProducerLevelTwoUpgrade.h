@@ -1,9 +1,7 @@
-
 #ifndef STONEPRODUCERLEVELTWOUPGRADE_H
 #define STONEPRODUCERLEVELTWOUPGRADE_H
 
 #include "StoneProducerUpgrade.h"
-
 
 class StoneProducerLevelThreeUpgrade; 
 

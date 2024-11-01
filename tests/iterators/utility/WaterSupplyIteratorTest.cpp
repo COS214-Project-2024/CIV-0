@@ -9,8 +9,8 @@ TEST_CASE("WaterSupplyIterator initial position")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    WaterSupply *ws1 = new WaterSupply();
-    Theater *t = new Theater();
+    WaterSupply *ws1 = new WaterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 5, 5);
 
     row1.push_back(ws1);
     row1.push_back(ws1);
@@ -36,8 +36,8 @@ TEST_CASE("WaterSupplyIterator next()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    WaterSupply *ws1 = new WaterSupply();
-    Theater *t = new Theater();
+    WaterSupply *ws1 = new WaterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 5, 5);
 
     row1.push_back(ws1);
     row1.push_back(nullptr);
@@ -68,8 +68,8 @@ TEST_CASE("WaterSupplyIterator first()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    WaterSupply *ws1 = new WaterSupply();
-    Theater *t = new Theater();
+    WaterSupply *ws1 = new WaterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 5, 5);
 
     row1.push_back(ws1);
     row1.push_back(t);
@@ -96,9 +96,9 @@ TEST_CASE("WaterSupplyIterator hasNext() with multiple WaterSupply instances")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    WaterSupply *ws1 = new WaterSupply();
-    WaterSupply *ws2 = new WaterSupply();
-    Theater *t = new Theater();
+    WaterSupply *ws1 = new WaterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 10, 10);
+    WaterSupply *ws2 = new WaterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 5, 5);
 
     row1.push_back(ws1);
     row1.push_back(nullptr);
@@ -136,8 +136,8 @@ TEST_CASE("WaterSupplyIterator reaching the end")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    WaterSupply *ws1 = new WaterSupply();
-    Theater *t = new Theater();
+    WaterSupply *ws1 = new WaterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 5, 5);
 
     row1.push_back(ws1);
     row1.push_back(t);

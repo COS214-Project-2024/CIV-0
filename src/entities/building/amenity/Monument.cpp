@@ -1,6 +1,5 @@
 #include "Monument.h"
 
-Monument::Monument() {}
 Monument::~Monument() {}
 
 Monument::Monument(EntityConfig ec, Size size, int xPos, int yPos) : Amenity(ec, size, xPos, yPos)

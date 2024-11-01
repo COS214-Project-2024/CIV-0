@@ -6,7 +6,7 @@ SewageSystemLevelOneUpgrade::SewageSystemLevelOneUpgrade(SewageSystem *sewage) :
 {
 }
 
-SewageSystemLevelOneUpgrade::SewageSystemLevelOneUpgrade(SewageSystemLevelOneUpgrade *sewageSystemLevelOneUpgrade) : SewageSystemUpgrade(sewageSystemLevelOneUpgrade)
+SewageSystemLevelOneUpgrade::SewageSystemLevelOneUpgrade(SewageSystemLevelOneUpgrade *sSLOU) : SewageSystemUpgrade(sSLOU)
 {
 }
 

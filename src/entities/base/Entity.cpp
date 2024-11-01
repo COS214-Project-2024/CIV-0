@@ -6,12 +6,7 @@
 #include "entities/road/Road.h"
 #include "entities/utility/base/Utility.h"
 #include "entities/industry/base/Industry.h"
-#include <iostream>
 #include <algorithm>
-
-Entity::Entity()
-{
-}
 
 Entity::Entity(Entity *entity)
 {

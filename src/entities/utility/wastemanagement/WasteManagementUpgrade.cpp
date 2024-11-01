@@ -5,9 +5,9 @@ WasteManagementUpgrade::WasteManagementUpgrade(WasteManagement *waste) : WasteMa
     this->wasteManagement = new WasteManagement(waste);
 }
 
-WasteManagementUpgrade::WasteManagementUpgrade(WasteManagementUpgrade *wasteManagementUpgrade) : WasteManagement(wasteManagementUpgrade)
+WasteManagementUpgrade::WasteManagementUpgrade(WasteManagementUpgrade *wMU) : WasteManagement(wMU)
 {
-    this->wasteManagement = new WasteManagement(wasteManagementUpgrade->wasteManagement);
+    this->wasteManagement = new WasteManagement(wMU->wasteManagement);
 }
 
 WasteManagementUpgrade::~WasteManagementUpgrade()

@@ -1,4 +1,3 @@
-
 #include "WoodProducerUpgrade.h"
 
 WoodProducerUpgrade::WoodProducerUpgrade(WoodProducer *woodProducer)  : WoodProducer(woodProducer)
