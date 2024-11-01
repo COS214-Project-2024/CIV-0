@@ -53,12 +53,20 @@ void CityManager::updateCity()
 
     //Update all buildings to update ResidentialBuilding attributes
     Iterator* ci = c->createCityIterator(true);
-
+    // int revenue = 0;
     for (ci->first(); ci->hasNext(); ci->next())
     {
         if(ci->current()!=nullptr && dynamic_cast<ResidentialBuilding *>(ci->current()) == nullptr)
         {
             ci->current()->update();
+            // if(dynamic_cast<EconomicBuilding *>(ci->current()) != nullptr)
+            // {
+            //     revenue+=ci->current()->getRevenue()*c->getEconomicTax();
+            // }
+            // else
+            // {
+            //     revenue+=ci->current()->getRevenue();
+            // }
         }
     }
     delete ci;
@@ -69,6 +77,7 @@ void CityManager::updateCity()
     for (ri->first(); ri->hasNext(); ri->next())
     {
         ri->current()->update();
+        // revenue+=ci->current()->getRevenue()*(c->getResidentialTax());
     }
     delete ri;
 
@@ -91,6 +100,7 @@ void CityManager::updateCity()
     pm.growPopulation();
     pm.calculatePopulationCapacity();
     pm.calculateSatisfaction();
+    // c->setMoney(c->getMoney()+revenue);
 }
 
 Entity *CityManager::getEntity(int x, int y)
