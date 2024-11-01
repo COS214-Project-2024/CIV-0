@@ -4,6 +4,8 @@
 #include "city/City.h"
 #include "entities/building/residential/ResidentialBuilding.h"
 #include "entities/road/Road.h"
+#include "entities/utility/base/Utility.h"
+#include "entities/industry/base/Industry.h"
 #include <iostream>
 #include <algorithm>
 
@@ -245,6 +247,38 @@ std::string Entity::getSymbol()
         else
         {
             color = "\033[31m"; // Red
+        }
+        return color + this->symbol + "\033[0m";
+    }
+
+    // Check if the entity is a Utility or Industry type and apply color based on level
+    if (dynamic_cast<Utility *>(this) || dynamic_cast<Industry *>(this))
+    {
+        int level = 0;
+        if (Utility *utility = dynamic_cast<Utility *>(this))
+        {
+            level = utility->getLevel();
+        }
+        else if (Industry *industry = dynamic_cast<Industry *>(this))
+        {
+            level = industry->getLevel();
+        }
+
+        std::string color;
+        switch (level)
+        {
+        case 1:
+            color = "\033[36m"; // Cyan for level 1
+            break;
+        case 2:
+            color = "\033[34m"; // Magenta for level 2
+            break;
+        case 3:
+            color = "\033[97m"; // Bright White for level 3
+            break;
+        default:
+            color = ""; // No color change for level 0
+            break;
         }
         return color + this->symbol + "\033[0m";
     }
