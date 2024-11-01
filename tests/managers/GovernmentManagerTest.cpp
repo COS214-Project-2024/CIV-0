@@ -133,8 +133,11 @@ TEST_CASE("Retrieve All Past Policies in GovernmentManager") {
     REQUIRE(pastPolicies.size() >= 2); // Check that at least two policies have been stored
 
     // Verify the types of past policies stored
-    CHECK(pastPolicies[0]->getName() == "LowWaterPolicy" || pastPolicies[0]->getName() == "LowElectricityPolicy");
-    CHECK(pastPolicies[1]->getName() == "LowWaterPolicy" || pastPolicies[1]->getName() == "LowElectricityPolicy");
+    CHECK((pastPolicies[0]->getName() == "LowWaterPolicy"));
+    CHECK((pastPolicies[0]->getName() == "LowElectricityPolicy"));
+
+    CHECK((pastPolicies[1]->getName() == "LowWaterPolicy"));
+    CHECK((pastPolicies[1]->getName() == "LowElectricityPolicy"));
 
     // Clean up mementos stored in caretaker
     for (Memento* memento : pastPolicies) {
