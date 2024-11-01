@@ -3,39 +3,16 @@
 EconomicBuildingFactory::EconomicBuildingFactory() {}
 EconomicBuildingFactory::~EconomicBuildingFactory() {}
 
-Entity* EconomicBuildingFactory::createSmallEntity(EntityType type, int xPos, int yPos) {
+Entity* EconomicBuildingFactory::createEntity(EntityType type, Size size, int xPos, int yPos) {
 	switch (type) {
 		case EntityType::FACTORY:
-			return createFactory(Size::SMALL, xPos, yPos);
+			return createFactory(size, xPos, yPos);
 			break;
 		case EntityType::SHOPPINGMALL:
-			return createShoppingMall(Size::SMALL, xPos, yPos);
+			return createShoppingMall(size, xPos, yPos);
 			break;
-		default:
-			return nullptr;
-	}
-}
-
-Entity* EconomicBuildingFactory::createMediumEntity(EntityType type, int xPos, int yPos) {
-	switch (type) {
-		case EntityType::FACTORY:
-			return createFactory(Size::MEDIUM, xPos, yPos);
-			break;
-		case EntityType::SHOPPINGMALL:
-			return createShoppingMall(Size::MEDIUM, xPos, yPos);
-			break;
-		default:
-			return nullptr;
-	}
-}
-
-Entity* EconomicBuildingFactory::createLargeEntity(EntityType type, int xPos, int yPos) {
-	switch (type) {
-		case EntityType::FACTORY:
-			return createFactory(Size::LARGE, xPos, yPos);
-			break;
-		case EntityType::SHOPPINGMALL:
-			return createShoppingMall(Size::LARGE, xPos, yPos);
+		case EntityType::OFFICE:
+			return createOffice(size, xPos, yPos);
 			break;
 		default:
 			return nullptr;
@@ -43,9 +20,12 @@ Entity* EconomicBuildingFactory::createLargeEntity(EntityType type, int xPos, in
 }
 
 Entity* EconomicBuildingFactory::createFactory(Size size, int xPos, int yPos) {
-    return new Factory(ConfigManager::getEntityConfig(EntityType::FACTORY, size), size, xPos, yPos);
+	return new Factory(ConfigManager::getEntityConfig(EntityType::FACTORY, size), size, xPos, yPos);
 }
 
 Entity* EconomicBuildingFactory::createShoppingMall(Size size, int xPos, int yPos) {
-    return new ShoppingMall(ConfigManager::getEntityConfig(EntityType::SHOPPINGMALL, size), size, xPos, yPos);
+	return new ShoppingMall(ConfigManager::getEntityConfig(EntityType::SHOPPINGMALL, size), size, xPos, yPos);
+}
+Entity* EconomicBuildingFactory::createOffice(Size size, int xPos, int yPos) {
+	return new Office(ConfigManager::getEntityConfig(EntityType::OFFICE, size), size, xPos, yPos);
 }

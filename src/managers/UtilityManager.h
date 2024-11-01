@@ -43,7 +43,7 @@ public:
      * @param x X-coordinate in the city grid.
      * @param y Y-coordinate in the city grid.
      */
-    void buildUtility(EntityType type, Size size, int x, int y);
+    bool buildUtility(EntityType type, Size size, int x, int y);
 
     /**
      * @brief Gets the total electricity production across all utilities in the city.

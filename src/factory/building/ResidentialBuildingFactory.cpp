@@ -6,44 +6,19 @@ ResidentialBuildingFactory::ResidentialBuildingFactory() {
 ResidentialBuildingFactory::~ResidentialBuildingFactory() {
 }
 
-Entity* ResidentialBuildingFactory::createSmallEntity(EntityType type, int xPos, int yPos) {
+Entity* ResidentialBuildingFactory::createEntity(EntityType type, Size size, int xPos, int yPos) {
 	switch (type) {
 		case EntityType::HOUSE:
-			return createHouse(Size::SMALL, xPos, yPos);
+			return createHouse(size, xPos, yPos);
 			break;
 		case EntityType::APARTMENT:
-			return createApartment(Size::SMALL, xPos, yPos);
+			return createApartment(size, xPos, yPos);
 			break;
 		default:
 			return nullptr;
 	}
 }
 
-Entity* ResidentialBuildingFactory::createMediumEntity(EntityType type, int xPos, int yPos) {
-	switch (type) {
-		case EntityType::HOUSE:
-			return createHouse(Size::MEDIUM, xPos, yPos);
-			break;
-		case EntityType::APARTMENT:
-			return createApartment(Size::MEDIUM, xPos, yPos);
-			break;
-		default:
-			return nullptr;
-	}
-}
-
-Entity* ResidentialBuildingFactory::createLargeEntity(EntityType type, int xPos, int yPos) {
-	switch (type) {
-		case EntityType::HOUSE:
-			return createHouse(Size::LARGE, xPos, yPos);
-			break;
-		case EntityType::APARTMENT:
-			return createApartment(Size::LARGE, xPos, yPos);
-			break;
-		default:
-			return nullptr;
-	}
-}
 
 Entity* ResidentialBuildingFactory::createHouse(Size size, int xPos, int yPos) {
 	return new House(ConfigManager::getEntityConfig(EntityType::HOUSE, size), size, xPos, yPos);

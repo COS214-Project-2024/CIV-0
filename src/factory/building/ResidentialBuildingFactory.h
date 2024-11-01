@@ -1,4 +1,3 @@
-
 #ifndef RESIDENTIALBUILDINGFACTORY_H
 #define RESIDENTIALBUILDINGFACTORY_H
 
@@ -8,74 +7,54 @@
 
 /**
  * @class ResidentialBuildingFactory
- * @brief A factory class for creating residential buildings like houses and apartments.
+ * @brief Factory class for creating residential buildings, including houses and apartments.
  * 
- * This class inherits from EntityFactory and provides methods to create small, medium,
- * and large residential buildings of different types.
+ * Inherits from EntityFactory and provides methods to create various-sized residential
+ * buildings (small, medium, and large) of different types at specified positions.
  */
 class ResidentialBuildingFactory : public EntityFactory {
 public:
     /**
-     * @brief Constructor for the ResidentialBuildingFactory class.
+     * @brief Default constructor for ResidentialBuildingFactory.
      */
     ResidentialBuildingFactory();
 
     /**
-     * @brief Destructor for the ResidentialBuildingFactory class.
+     * @brief Destructor for ResidentialBuildingFactory.
      */
     ~ResidentialBuildingFactory();
 
     /**
-     * @brief Creates a small residential building of the specified type at the given position.
+     * @brief Creates a residential building of a specified type and size at the given coordinates.
      * 
-     * @param type The type of residential building to create.
-     * @param xPos The x-coordinate of the building's position.
-     * @param yPos The y-coordinate of the building's position.
+     * @param type Type of residential building to create (e.g., House, Apartment).
+     * @param size Size of the building (small, medium, or large).
+     * @param xPos X-coordinate for the building's position.
+     * @param yPos Y-coordinate for the building's position.
      * @return A pointer to the created Entity.
      */
-    virtual Entity* createSmallEntity(EntityType type, int xPos, int yPos);
-
-    /**
-     * @brief Creates a medium residential building of the specified type at the given position.
-     * 
-     * @param type The type of residential building to create.
-     * @param xPos The x-coordinate of the building's position.
-     * @param yPos The y-coordinate of the building's position.
-     * @return A pointer to the created Entity.
-     */
-    virtual Entity* createMediumEntity(EntityType type, int xPos, int yPos);
-
-    /**
-     * @brief Creates a large residential building of the specified type at the given position.
-     * 
-     * @param type The type of residential building to create.
-     * @param xPos The x-coordinate of the building's position.
-     * @param yPos The y-coordinate of the building's position.
-     * @return A pointer to the created Entity.
-     */
-    virtual Entity* createLargeEntity(EntityType type, int xPos, int yPos);
+    virtual Entity* createEntity(EntityType type, Size size, int xPos, int yPos);
 
 private:
     /**
-     * @brief Creates a house of the specified size at the given position.
+     * @brief Creates a house of the specified size at a given position.
      * 
-     * @param size The size of the house to create.
-     * @param xPos The x-coordinate of the house's position.
-     * @param yPos The y-coordinate of the house's position.
-     * @return A pointer to the created Entity.
+     * @param size Size of the house (small, medium, or large).
+     * @param xPos X-coordinate for the house's position.
+     * @param yPos Y-coordinate for the house's position.
+     * @return A pointer to the created House entity.
      */
     Entity* createHouse(Size size, int xPos, int yPos);
 
     /**
-     * @brief Creates an apartment of the specified size at the given position.
+     * @brief Creates an apartment of the specified size at a given position.
      * 
-     * @param size The size of the apartment to create.
-     * @param xPos The x-coordinate of the apartment's position.
-     * @param yPos The y-coordinate of the apartment's position.
-     * @return A pointer to the created Entity.
+     * @param size Size of the apartment (small, medium, or large).
+     * @param xPos X-coordinate for the apartment's position.
+     * @param yPos Y-coordinate for the apartment's position.
+     * @return A pointer to the created Apartment entity.
      */
     Entity* createApartment(Size size, int xPos, int yPos);
 };
 
 #endif // RESIDENTIALBUILDINGFACTORY_H
-

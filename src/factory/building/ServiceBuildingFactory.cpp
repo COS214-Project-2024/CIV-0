@@ -4,52 +4,20 @@
 ServiceBuildingFactory::ServiceBuildingFactory() {}
 ServiceBuildingFactory::~ServiceBuildingFactory() {}
 
-Entity* ServiceBuildingFactory::createSmallEntity(EntityType type, int xPos, int yPos) {
+Entity* ServiceBuildingFactory::createEntity(EntityType type, Size size, int xPos, int yPos) {
 	switch (type) {
 		case EntityType::HOSPITAL:
-			return createHospital(Size::SMALL, xPos, yPos);
+			return createHospital(size, xPos, yPos);
 			break;
 		case EntityType::POLICESTATION:
-			return createPoliceStation(Size::SMALL, xPos, yPos);
+			return createPoliceStation(size, xPos, yPos);
 			break;
 		case EntityType::SCHOOL:
-			return createSchool(Size::SMALL, xPos, yPos);
+			return createSchool(size, xPos, yPos);
 			break;
 		default:
 			return nullptr;
 	}
-}
-
-Entity* ServiceBuildingFactory::createMediumEntity(EntityType type, int xPos, int yPos) {
-	switch (type) {
-        case EntityType::HOSPITAL:
-            return createHospital(Size::MEDIUM, xPos, yPos);
-            break;
-        case EntityType::POLICESTATION:
-            return createPoliceStation(Size::MEDIUM, xPos, yPos);
-            break;
-        case EntityType::SCHOOL:
-            return createSchool(Size::MEDIUM, xPos, yPos);
-            break;
-        default:
-            return nullptr;
-    }
-}
-
-Entity* ServiceBuildingFactory::createLargeEntity(EntityType type, int xPos, int yPos) {
-	switch (type) {
-        case EntityType::HOSPITAL:
-            return createHospital(Size::LARGE, xPos, yPos);
-            break;
-        case EntityType::POLICESTATION:
-            return createPoliceStation(Size::LARGE, xPos, yPos);
-            break;
-        case EntityType::SCHOOL:
-            return createSchool(Size::LARGE, xPos, yPos);
-            break;
-        default:
-            return nullptr;
-    }
 }
 
 Entity* ServiceBuildingFactory::createHospital(Size size, int xPos, int yPos) {
