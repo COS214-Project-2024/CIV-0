@@ -31,3 +31,11 @@ Caretaker::~Caretaker() {
         delete memento; // Free dynamically allocated Mementos
     }
 }
+/**
+ * @brief Retrieves all past policies stored in the caretaker.
+ * 
+ * @return Vector of pointers to Memento objects representing past policies.
+ */
+std::vector<Memento*> Caretaker::getPastPolicies() const {
+    return pastStrategies;
+}
