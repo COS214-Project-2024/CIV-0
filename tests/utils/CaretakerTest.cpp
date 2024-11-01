@@ -54,8 +54,4 @@ TEST_CASE("Test getPastPolicies in Caretaker") {
     CHECK(pastPolicies[2]->getName() == "Policy3");
     CHECK(pastPolicies[2]->getDetail() == "Detail3");
     
-    // Clean up dynamically allocated Mementos
-    for (Memento* memento : pastPolicies) {
-        delete memento;
-    }
 }
