@@ -1,7 +1,6 @@
 #ifndef GOVERNMENTMANAGER_H
 #define GOVERNMENTMANAGER_H
 
-#include "PolicyType.h"
 #include <vector>
 #include "utils/Caretaker.h"
 #include "utils/PolicyType.h"
