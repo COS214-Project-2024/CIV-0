@@ -5,6 +5,7 @@
 #include "factory/base/EntityFactory.h"
 #include "entities/building/economic/Factory.h"
 #include "entities/building/economic/ShoppingMall.h"
+#include "entities/building/economic/Office.h"
 
 /**
  * @class EconomicBuildingFactory
@@ -33,27 +34,7 @@ public:
      * @param yPos The y-coordinate of the building's position.
      * @return A pointer to the created Entity.
      */
-    virtual Entity* createSmallEntity(EntityType type, int xPos, int yPos);
-
-    /**
-     * @brief Creates a medium economic building of the specified type at the given position.
-     * 
-     * @param type The type of economic building to create.
-     * @param xPos The x-coordinate of the building's position.
-     * @param yPos The y-coordinate of the building's position.
-     * @return A pointer to the created Entity.
-     */
-    virtual Entity* createMediumEntity(EntityType type, int xPos, int yPos);
-
-    /**
-     * @brief Creates a large economic building of the specified type at the given position.
-     * 
-     * @param type The type of economic building to create.
-     * @param xPos The x-coordinate of the building's position.
-     * @param yPos The y-coordinate of the building's position.
-     * @return A pointer to the created Entity.
-     */
-    virtual Entity* createLargeEntity(EntityType type, int xPos, int yPos);
+    virtual Entity* createEntity(EntityType type,Size size, int xPos, int yPos);
 
 private:
     /**
@@ -75,6 +56,7 @@ private:
      * @return A pointer to the created Entity.
      */
     Entity* createShoppingMall(Size size, int xPos, int yPos);
+    Entity* createOffice(Size size, int xPos, int yPos);
 };
 
 #endif // ECONOMICBUILDINGFACTORY_H
