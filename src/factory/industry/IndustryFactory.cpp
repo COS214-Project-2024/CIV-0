@@ -2,46 +2,16 @@
 
 IndustryFactory::IndustryFactory() {}
 IndustryFactory::~IndustryFactory() {}
-Entity* IndustryFactory::createSmallEntity(EntityType type, int xPos, int yPos) {
+Entity* IndustryFactory::createEntity(EntityType type, Size size, int xPos, int yPos) {
 	switch (type) {
 		case EntityType::CONCRETEPRODUCER:
-			return createConcreteProducer(Size::SMALL, xPos, yPos);
+			return createConcreteProducer(size, xPos, yPos);
 			break;
 		case EntityType::STONEPRODUCER:
-			return createStoneProducer(Size::SMALL, xPos, yPos);
+			return createStoneProducer(size, xPos, yPos);
 			break;
 		case EntityType::WOODPRODUCER:
-			return createWoodProducer(Size::SMALL, xPos, yPos);
-			break;
-		default:
-			return nullptr;
-	}
-}
-Entity* IndustryFactory::createMediumEntity(EntityType type, int xPos, int yPos) {
-	switch (type) {
-		case EntityType::CONCRETEPRODUCER:
-			return createConcreteProducer(Size::MEDIUM, xPos, yPos);
-			break;
-		case EntityType::STONEPRODUCER:
-			return createStoneProducer(Size::MEDIUM, xPos, yPos);
-			break;
-		case EntityType::WOODPRODUCER:
-			return createWoodProducer(Size::MEDIUM, xPos, yPos);
-			break;
-		default:
-			return nullptr;
-	}
-}
-Entity* IndustryFactory::createLargeEntity(EntityType type, int xPos, int yPos) {
-	switch (type) {
-		case EntityType::CONCRETEPRODUCER:
-			return createConcreteProducer(Size::LARGE, xPos, yPos);
-			break;
-		case EntityType::STONEPRODUCER:
-			return createStoneProducer(Size::LARGE, xPos, yPos);
-			break;
-		case EntityType::WOODPRODUCER:
-			return createWoodProducer(Size::LARGE, xPos, yPos);
+			return createWoodProducer(size, xPos, yPos);
 			break;
 		default:
 			return nullptr;
