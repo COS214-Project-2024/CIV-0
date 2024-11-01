@@ -77,6 +77,7 @@ float ResidentialBuilding::getSatisfaction()
 }
 
 // this is beautiful
+// this is beautiful
 void ResidentialBuilding::updateAirport(Entity *entity)
 {
     updateEntity(ConfigManager::getSatisfactionConfig(EntityType::AIRPORT), localAirport, globalAirport, entity);
@@ -158,10 +159,10 @@ void ResidentialBuilding::updateEntity(SatisfactionConfig sc, float &local, floa
 // hey idk man. I've given up. I had an elegent solution for the code above this but now idk what to do. Maybe you can fix it. I give up. It works that's all that matters
 void ResidentialBuilding::update()
 {
-    // // This is for updating the build state (it should run once per game loop)
-    // if (!isBuilt()) {
-    //     updateBuildState();
-    // }
+    // This is for updating the build state (it should run once per game loop)
+    if (!isBuilt()) {
+        updateBuildState();
+    }
 
     reduceByChange(globalAirport);
     reduceByChangeWithNegativeExtreme(ConfigManager::getSatisfactionConfig(EntityType::AIRPORT), localAirport);
