@@ -87,6 +87,8 @@ void MainMenu::handleInput()
             cityManager.updateCity();
             displaySuccessMessage("The Sun has risen for another day 🌅 :)");
             displayPressEnterToContinue();
+            clearScreen();
+            displayMenu();
             break;
         case 'd':
             // Switch to the Display City Menu

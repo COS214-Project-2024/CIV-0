@@ -10,7 +10,7 @@ PowerPlant::~PowerPlant() {
 }
 
 PowerPlant::PowerPlant(EntityConfig ec, Size size, int xPos, int yPos) : Utility(ec, size, xPos, yPos) {
-    setOutput(20); //TODO - change value
+    setOutput(200); //TODO - change value
 }
 
 PowerPlant::PowerPlant(PowerPlant* power) : Utility(power) {

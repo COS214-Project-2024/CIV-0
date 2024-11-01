@@ -1,4 +1,5 @@
 #include "PopulationManager.h"
+#include <iostream>
 
 PopulationManager::PopulationManager(int minimumIncrease, int maximumIncrease)
 {
@@ -70,7 +71,7 @@ void PopulationManager::calculateSatisfaction()
     }
     else
     {
-        electricityPercentage = (c->getElectricityProduction() / c->getElectricityConsumption()) * 100;
+        electricityPercentage = (static_cast<float>(c->getElectricityProduction()) / static_cast<float>(c->getElectricityConsumption())) * 100.0f;
     }
 
     float waterPercentage;
@@ -80,8 +81,9 @@ void PopulationManager::calculateSatisfaction()
     }
     else
     {
-        waterPercentage = (c->getWaterProduction() / c->getWaterConsumption()) * 100;
+        waterPercentage = (static_cast<float>(c->getWaterProduction()) / static_cast<float>(c->getWaterConsumption())) * 100.0f;
     }
+
 
     if (satisfaction > electricityPercentage)
     {
@@ -92,9 +94,21 @@ void PopulationManager::calculateSatisfaction()
         satisfaction = waterPercentage;
     }
 
+    if(satisfaction>100)
+    {
+        satisfaction = 100;
+    }
+    else if(satisfaction<0)
+    {
+        satisfaction = 0;
+    }
+
     delete sv;
     delete uv;
     delete pv;
+
+    int randomAdjustment = (std::rand() % 21) - 10;
+    satisfaction = std::max(0.0f, std::min(100.0f, satisfaction + randomAdjustment));
 
     c->setSatisfaction(satisfaction);
 }

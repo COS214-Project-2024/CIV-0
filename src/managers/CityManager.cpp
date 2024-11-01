@@ -22,6 +22,12 @@
 #include "entities/building/service/Hospital.h"
 #include "entities/building/service/PoliceStation.h"
 #include "entities/building/service/School.h"
+#include "visitors/population/PopulationVisitor.h"
+#include "city/City.h"
+#include "iterators/city/CityIterator.h"
+#include "managers/PopulationManager.h"
+#include "managers/UtilityManager.h"
+#include "city/CivZero.h"
 #include <iostream>
 #include <random>
 #include <cmath>
@@ -42,7 +48,49 @@ void CityManager::initializeCity()
 
 void CityManager::updateCity()
 {
-    // TODO - I need to wait for the other managers
+    CivZero::instance().incrementGameLoop();
+    City* c = City::instance();
+
+    //Update all buildings to update ResidentialBuilding attributes
+    Iterator* ci = c->createCityIterator(true);
+
+    for (ci->first(); ci->hasNext(); ci->next())
+    {
+        if(ci->current()!=nullptr && dynamic_cast<ResidentialBuilding *>(ci->current()) == nullptr)
+        {
+            ci->current()->update();
+        }
+    }
+    delete ci;
+
+    //Update all ResidentialBuildings satisfaction
+    Iterator* ri = c->createResidentialBuildingIterator(true);    
+
+    for (ri->first(); ri->hasNext(); ri->next())
+    {
+        ri->current()->update();
+    }
+    delete ri;
+
+    //Update Utility attributes
+    UtilityManager um;
+    um.getElectricityProduction();
+    um.getElectricityConsumption();
+    um.getWaterProduction();
+    um.getWaterConsumption();
+    um.getWasteProduction();
+    um.getWasteConsumption();
+    um.getSewageProduction();
+    um.getSewageConsumption();
+
+    //Get Population and Satisfaction
+    PopulationVisitor pv;
+    pv.visit(c);
+
+    PopulationManager pm(CivZero::instance().getGameLoop(), CivZero::instance().getGameLoop()+10);
+    pm.growPopulation();
+    pm.calculatePopulationCapacity();
+    pm.calculateSatisfaction();
 }
 
 Entity *CityManager::getEntity(int x, int y)
@@ -395,18 +443,18 @@ void CityManager::generateRandomBuildings(int placementProbability)
 
     // Create a weighted list of building types
     std::vector<EntityType> weightedBuildingTypes = {
-        EntityType::HOUSE, EntityType::HOUSE, EntityType::HOUSE, EntityType::HOUSE, EntityType::HOUSE, EntityType::HOUSE, // Higher weight for houses
+        EntityType::HOUSE, EntityType::HOUSE, EntityType::HOUSE, EntityType::HOUSE,
         EntityType::APARTMENT, EntityType::APARTMENT, EntityType::APARTMENT,
         EntityType::OFFICE, EntityType::OFFICE,
         EntityType::SHOPPINGMALL,
         EntityType::FACTORY,
         EntityType::HOSPITAL,
         EntityType::SCHOOL,
-        EntityType::PARK, EntityType::PARK, // Higher weight for parks
+        EntityType::PARK, EntityType::PARK, 
         EntityType::THEATER,
         EntityType::MONUMENT,
-        EntityType::POWERPLANT,
-        EntityType::WATERSUPPLY,
+        EntityType::POWERPLANT,EntityType::POWERPLANT,EntityType::POWERPLANT,EntityType::POWERPLANT,EntityType::POWERPLANT,
+        EntityType::WATERSUPPLY,EntityType::WATERSUPPLY,EntityType::WATERSUPPLY,EntityType::WATERSUPPLY,EntityType::WATERSUPPLY,
         EntityType::WASTEMANAGMENT,
         EntityType::SEWAGESYSTEM,
         EntityType::WOODPRODUCER,

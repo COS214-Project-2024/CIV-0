@@ -17,9 +17,12 @@ public:
     // Method to start the game with options for random city generation and a seed
     void startGame(bool generateRandomCity = false, std::optional<unsigned int> seed = std::nullopt);
     void quit();
+    void incrementGameLoop();
+    int getGameLoop();
 
 private:
     static int const GRID_SIZE = 50;
+    int currentGameLoop = 0;
     // Private constructor and destructor
     CivZero(); // Constructor is private for singleton pattern
     ~CivZero();
