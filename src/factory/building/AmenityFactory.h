@@ -36,27 +36,7 @@ public:
      * @param yPos The y-coordinate of the entity's position.
      * @return A pointer to the created Entity.
      */
-    virtual Entity* createSmallEntity(EntityType type, int xPos, int yPos);
-
-    /**
-     * @brief Creates a medium entity of the specified type at the given position.
-     * 
-     * @param type The type of entity to create.
-     * @param xPos The x-coordinate of the entity's position.
-     * @param yPos The y-coordinate of the entity's position.
-     * @return A pointer to the created Entity.
-     */
-    virtual Entity* createMediumEntity(EntityType type, int xPos, int yPos);
-
-    /**
-     * @brief Creates a large entity of the specified type at the given position.
-     * 
-     * @param type The type of entity to create.
-     * @param xPos The x-coordinate of the entity's position.
-     * @param yPos The y-coordinate of the entity's position.
-     * @return A pointer to the created Entity.
-     */
-    virtual Entity* createLargeEntity(EntityType type, int xPos, int yPos);
+    virtual Entity* createEntity(EntityType type, Size size, int xPos, int yPos);
 
 private:
     /**
