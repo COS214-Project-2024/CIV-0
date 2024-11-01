@@ -1,4 +1,5 @@
 #include "StoneProducer.h"
+#include "entities/industry/stoneproducer/StoneProducerLevelOneUpgrade.h"
 
 StoneProducer::StoneProducer() : Industry() {}
 StoneProducer::~StoneProducer() {}
@@ -29,4 +30,9 @@ void StoneProducer::update()
 Entity *StoneProducer::clone()
 {
     return new StoneProducer(this);
+}
+
+Entity *StoneProducer::upgrade()
+{
+    return new StoneProducerLevelOneUpgrade(this);
 }

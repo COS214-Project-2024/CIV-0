@@ -16,7 +16,7 @@ class Industry : public Entity
 {
 private:
     int output; ///< Production output of the industrial entity.
-
+    Cost cost;
 public:
     /**
      * @brief Default constructor for the Industry class.
@@ -78,6 +78,20 @@ public:
     void setOutput(int output);
 
     virtual int getLevel();
+
+    /**
+     * @brief Gets the cost of an upgrade
+     * 
+     * @reutrn Cost Struct of various costs for upgrade
+     */
+    virtual Cost getCost();
+
+    
+    /**
+     * @brief Upgrades the current industry to the next level.
+     * @return A pointer to the upgraded industry instance, or nullptr if already at maximum level.
+     */
+    virtual Entity* upgrade() = 0;
 };
 
 #endif // INDUSTRY_H

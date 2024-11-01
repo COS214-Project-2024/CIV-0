@@ -11,9 +11,9 @@ Entity *StoneProducerLevelThreeUpgrade::clone()
     return new StoneProducerLevelThreeUpgrade(this);
 }
 
-void StoneProducerLevelThreeUpgrade::update()
+Entity *StoneProducerLevelThreeUpgrade::upgrade()
 {
-    stoneProducer->update();
+    return nullptr;
 }
 
 int StoneProducerLevelThreeUpgrade::getLevel()
@@ -24,4 +24,14 @@ int StoneProducerLevelThreeUpgrade::getLevel()
 int StoneProducerLevelThreeUpgrade::getOutput()
 {
     return stoneProducer->getOutput() * UPGRADE;
+}
+
+void StoneProducerLevelThreeUpgrade::update()
+{
+    stoneProducer->update();
+}
+
+Cost StoneProducerLevelThreeUpgrade::getCost()
+{
+    return Cost(stoneProducer->getCost().moneyCost * UPGRADE, stoneProducer->getCost().woodCost * UPGRADE, stoneProducer->getCost().stoneCost * UPGRADE, stoneProducer->getCost().concreteCost * UPGRADE);
 }
