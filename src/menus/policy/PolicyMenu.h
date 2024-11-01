@@ -2,6 +2,7 @@
 #define POLICYMENU_H
 
 #include "menus/base/IMenu.h"
+#include "managers/GovernmentManager.h"
 #include <vector>
 #include <string>
 
@@ -22,7 +23,7 @@ public:
     void handleInput() override;
 
 private:
-    std::vector<std::string> policyHistory; ///< Stores all past policy applications
+    GovernmentManager governmentManager;
 
     /**
      * @brief Submenu to select water consumption policy.
@@ -38,12 +39,6 @@ private:
      * @brief Displays the history of all applied policies.
      */
     void showPolicyHistory();
-
-    /**
-     * @brief Records a new policy in the history.
-     * @param policyDescription The description of the policy.
-     */
-    void addPolicyToHistory(std::string policyDescription);
 };
 
 #endif // POLICYMENU_H
