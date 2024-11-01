@@ -7,6 +7,7 @@ TEST_CASE("PopulationManager Calculate Population Capacity Test")
 {
     PopulationManager pm(5, 15);
     City *c = City::instance();
+    c->reset();
     CHECK(c->getPopulationCapacity() == 0);
     c->addEntity(new House(ConfigManager::getEntityConfig(EntityType::HOUSE, Size::SMALL), Size::SMALL, 3, 3));
     pm.calculatePopulationCapacity();

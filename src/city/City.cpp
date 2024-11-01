@@ -36,6 +36,16 @@ City::~City()
             }
         }
     }
+
+    if(waterPolicy != nullptr) {
+        delete waterPolicy;
+        waterPolicy = nullptr;
+    }
+
+    if(electricityPolicy != nullptr) {
+        delete electricityPolicy;
+        electricityPolicy = nullptr;
+    }
 }
 
 void City::reset(int newWidth, int newHeight)
@@ -67,6 +77,16 @@ void City::reset(int newWidth, int newHeight)
                 grid[i][j] = nullptr; // Set to nullptr to avoid double-deletion
             }
         }
+    }
+
+    if(waterPolicy != nullptr) {
+        delete waterPolicy;
+        waterPolicy = nullptr;
+    }
+
+    if(electricityPolicy != nullptr) {
+        delete electricityPolicy;
+        electricityPolicy = nullptr;
     }
 
     // Resize grid based on new dimensions

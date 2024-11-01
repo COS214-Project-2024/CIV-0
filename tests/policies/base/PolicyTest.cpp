@@ -13,9 +13,10 @@ TEST_CASE("Test Policy State") {
     
     // Create a memento from the policy
     Memento* memento = policy.createMemento();
-    
+
     // Modify the policy state
-    policy.setMemento(new Memento("Policy2", "Detail2"));
+    Memento* temp = new Memento("Policy2", "Detail2");
+    policy.setMemento(temp);
     
     CHECK(policy.getName() == "Policy2");
     CHECK(policy.getDetail() == "Detail2");
@@ -28,4 +29,5 @@ TEST_CASE("Test Policy State") {
 
     // Clean up dynamically allocated memory
     delete memento;
+    delete temp;
 }

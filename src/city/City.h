@@ -39,14 +39,9 @@ private:
     // Private constructor and destructor to enforce the singleton pattern
     City();
     ~City();
-
-    /**
-     * @brief Creates a road entity at a random position within the city grid.
-     */
-    void createRandomRoad();
     
-     WaterPolicy* waterPolicy = nullptr;         ///< Pointer to the current water policy.
-     ElectricityPolicy* electricityPolicy = nullptr; ///< Pointer to the current electricity policy.
+    WaterPolicy* waterPolicy = nullptr;         ///< Pointer to the current water policy.
+    ElectricityPolicy* electricityPolicy = nullptr; ///< Pointer to the current electricity policy.
 
 public:
     /**
