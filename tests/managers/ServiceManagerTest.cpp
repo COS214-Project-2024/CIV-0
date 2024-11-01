@@ -1,32 +1,24 @@
-// #include "doctest.h"
-// #include "managers/ServiceManager.h"
+ #include "doctest.h"
+ #include "managers/ServiceManager.h"
 
-// TEST_CASE("ServiceManagerTest buildSchool") {
-//  ServiceManager* am = new ServiceManager();
-//     School* p = dynamic_cast<School*>(am->buildService(EntityType::SCHOOL,Size::MEDIUM,1,1));
-//     CHECK(p != NULL);
-//     CHECK(p->getSymbol() == "S");
+TEST_CASE("ServiceManagerTest buildSchool") {
+    ServiceManager sm;
+    City* c = City::instance();
+    sm.buildService(EntityType::SCHOOL,Size::LARGE,23,23);
+    CHECK(dynamic_cast<School*>(c->getEntity(23,23)) != NULL);
+}
 
-//     delete am;
-//     delete p;
-// }
+TEST_CASE("ServiceManagerTest buildHospital") {
+    ServiceManager sm;
+    City* c = City::instance();
+    sm.buildService(EntityType::HOSPITAL,Size::MEDIUM,12,12);
+    CHECK(dynamic_cast<Hospital*>(c->getEntity(12,12)) != NULL);
+}
 
-// TEST_CASE("ServiceManagerTest buildHospital") {
-//  ServiceManager* am = new ServiceManager();
-//     Hospital* p = dynamic_cast<Hospital*>(am->buildService(EntityType::HOSPITAL,Size::MEDIUM,1,1));
-//     CHECK(p != NULL);
-//     CHECK(p->getSymbol() == "H");
+TEST_CASE("ServiceManagerTest buildPoliceStation") {
+    ServiceManager sm;
+    City* c = City::instance();
+    sm.buildService(EntityType::POLICESTATION,Size::SMALL,5,5);
+    CHECK(dynamic_cast<PoliceStation*>(c->getEntity(5,5)) != NULL);
+}
 
-//     delete am;
-//     delete p;
-// }
-
-// TEST_CASE("ServiceManagerTest buildTheater") {
-//  ServiceManager* am = new ServiceManager();
-//     PoliceStation* p = dynamic_cast<PoliceStation*>(am->buildService(EntityType::POLICESTATION,Size::MEDIUM,1,1));
-//     CHECK(p != NULL);
-//     CHECK(p->getSymbol() == "P");
-
-//     delete am;
-//     delete p;
-// }

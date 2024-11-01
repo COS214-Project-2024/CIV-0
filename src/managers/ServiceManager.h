@@ -5,7 +5,7 @@
 #include "utils/Size.h"
 #include "entities/building/service/ServiceBuilding.h"
 #include "factory/building/ServiceBuildingFactory.h"
-
+#include "city/City.h"
 /**
  * @class ServiceManager
  * @brief Manages the creation and handling of service buildings within the system.
