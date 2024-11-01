@@ -6,6 +6,8 @@
 #include "src/iterators/industry/StoneProducerIterator.h"
 #include "src/iterators/industry/IndustryIterator.h"
 #include "src/iterators/industry/WoodProducerIterator.h"
+#include "city/City.h"
+
 class ResourceManager
 {
 public:

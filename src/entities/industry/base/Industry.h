@@ -16,6 +16,9 @@ class Industry : public Entity
 {
 private:
     int output;   ///< Production output of the industrial entity.
+protected: 
+
+    const int cost;
 
 public:
     /**
@@ -76,6 +79,8 @@ public:
      * @param output The new output value.
      */
     void setOutput(int output);
+
+    virtual const int getCost() = 0;
 };
 
 #endif // INDUSTRY_H

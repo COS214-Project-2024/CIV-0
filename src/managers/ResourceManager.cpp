@@ -4,11 +4,13 @@ ResourceManager::ResourceManager() {}
 ResourceManager::~ResourceManager() {}
 
 void ResourceManager::upgrade(Industry* industry) {
+    
     industry->update();
 }
 
 std::vector<Industry*> ResourceManager::getAllConcreteProducers() {
-    ConcreteProducerIterator* iterator = new ConcreteProducerIterator(); //dont forget to pass in the grid later 
+    std::vector<std::vector<Entity*>> grid = City::instance()->getGrid();
+    ConcreteProducerIterator* iterator = new ConcreteProducerIterator(grid);  
     std::vector<Industry*> vectorFromDespicibleMe;
 
     for (iterator->first(); iterator->hasNext(); iterator->next()) {
@@ -23,7 +25,8 @@ std::vector<Industry*> ResourceManager::getAllConcreteProducers() {
 }
 
 std::vector<Industry*> ResourceManager::getAllStoneProducers() {
-    StoneProducerIterator* iterator = new StoneProducerIterator(); //same dealio here 
+    std::vector<std::vector<Entity*>> grid = City::instance()->getGrid();
+    StoneProducerIterator* iterator = new StoneProducerIterator(grid); 
     std::vector<Industry*> stoneProducers;
 
     for (iterator->first(); iterator->hasNext(); iterator->next()) {
@@ -38,7 +41,8 @@ std::vector<Industry*> ResourceManager::getAllStoneProducers() {
 }
 
 std::vector<Industry*> ResourceManager::getAllWoodProducers() {
-    WoodProducerIterator* iterator = new WoodProducerIterator();
+    std::vector<std::vector<Entity*>> grid = City::instance()->getGrid();
+    WoodProducerIterator* iterator = new WoodProducerIterator(grid);
     std::vector<Industry*> woodProducers;
 
     for (iterator->first(); iterator->hasNext(); iterator->next()) {
@@ -54,7 +58,8 @@ std::vector<Industry*> ResourceManager::getAllWoodProducers() {
 
 
 std::vector<Industry*> ResourceManager::getAllIndustryBuildings() {
-    IndustryIterator* iterator = new IndustryIterator();
+    std::vector<std::vector<Entity*>> grid = City::instance()->getGrid();
+    IndustryIterator* iterator = new IndustryIterator(grid);
     std::vector<Industry*> industryBuildings;
 
     for (iterator->first(); iterator->hasNext(); iterator->next()) {
@@ -69,3 +74,6 @@ std::vector<Industry*> ResourceManager::getAllIndustryBuildings() {
 }
 
 
+bool ResourceManager::canAffordUpgrade(Industry* industry) {
+    int cost = industry->getCost(); //this WILL break, do NOT use it yet
+}

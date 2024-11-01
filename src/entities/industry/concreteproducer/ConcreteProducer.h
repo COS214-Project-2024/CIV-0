@@ -12,6 +12,7 @@ public:
     virtual ~ConcreteProducer();
     void update();
     Entity* clone();
+    virtual const int getCost() = 0;
 };
 
 #endif // CONCRETEPRODUCER_H
