@@ -8,7 +8,6 @@ class ConcreteProducerLevelOneUpgrade;
 class ConcreteProducer : public Industry
 {
 public:
-    ConcreteProducer();
     ConcreteProducer(EntityConfig ec, Size size, int xPos, int yPos);
     ConcreteProducer(ConcreteProducer *concreteProducer);
     virtual ~ConcreteProducer();

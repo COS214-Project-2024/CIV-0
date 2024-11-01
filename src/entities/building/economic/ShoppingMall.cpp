@@ -1,6 +1,5 @@
 #include "ShoppingMall.h"
 
-ShoppingMall::ShoppingMall() {}
 ShoppingMall::~ShoppingMall() {}
 
 ShoppingMall::ShoppingMall(EntityConfig ec, Size size, int xPos, int yPos) : EconomicBuilding(ec, size, xPos, yPos)

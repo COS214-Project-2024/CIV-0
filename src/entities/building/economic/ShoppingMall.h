@@ -13,13 +13,6 @@ class ShoppingMall : public EconomicBuilding
 {
 public:
     /**
-     * @brief Default constructor for the ShoppingMall class.
-     * 
-     * Initializes a new instance of the ShoppingMall class with default values.
-     */
-    ShoppingMall();
-
-    /**
      * @brief Parameterized constructor for the ShoppingMall class.
      * 
      * @param ec The configuration object containing general entity properties.

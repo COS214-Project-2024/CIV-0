@@ -14,11 +14,6 @@ class TrainStation : public Transport
 {
 public:
     /**
-     * @brief Default constructor for the TrainStation class.
-     */
-    TrainStation();
-
-    /**
      * @brief Constructs a TrainStation entity with specified attributes.
      * 
      * @param ec Configuration settings for the entity.

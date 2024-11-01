@@ -71,11 +71,6 @@ private:
 
 public:
     /**
-     * @brief Default constructor for the ResidentialBuilding class.
-     */
-    ResidentialBuilding();
-
-    /**
      * @brief Constructs a ResidentialBuilding with specified attributes.
      *
      * @param ec Configuration containing resource consumption and other properties.

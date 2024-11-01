@@ -13,13 +13,6 @@ class Office : public EconomicBuilding
 {
 public:
     /**
-     * @brief Default constructor for the Office class.
-     * 
-     * Initializes a new instance of the Office class with default values.
-     */
-    Office();
-
-    /**
      * @brief Parameterized constructor for the Office class.
      * 
      * @param ec The configuration object containing general entity properties.

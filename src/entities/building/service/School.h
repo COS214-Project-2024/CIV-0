@@ -13,13 +13,6 @@ class School : public ServiceBuilding
 {
 public:
     /**
-     * @brief Default constructor for the School class.
-     * 
-     * Initializes an empty school object.
-     */
-    School();
-
-    /**
      * @brief Parameterized constructor for the School class.
      * 
      * @param ec Entity configuration for initializing the school.

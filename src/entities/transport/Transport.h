@@ -16,11 +16,6 @@ class Transport : public Entity
 {
 public:
     /**
-     * @brief Default constructor for the Transport class.
-     */
-    Transport();
-
-    /**
      * @brief Constructs a Transport entity with specified attributes.
      * 
      * @param ec Configuration settings for the entity.

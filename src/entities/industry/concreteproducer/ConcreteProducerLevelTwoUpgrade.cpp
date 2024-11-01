@@ -1,4 +1,3 @@
-
 #include "ConcreteProducerLevelTwoUpgrade.h"
 #include "entities/industry/concreteproducer/ConcreteProducerLevelThreeUpgrade.h"
 

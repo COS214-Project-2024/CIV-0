@@ -14,11 +14,6 @@ class Airport : public Transport
 {
 public:
     /**
-     * @brief Default constructor for the Airport class.
-     */
-    Airport();
-
-    /**
      * @brief Constructs an Airport entity with specified attributes.
      * 
      * @param ec Configuration settings for the entity.

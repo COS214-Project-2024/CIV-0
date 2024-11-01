@@ -5,10 +5,6 @@
 #include "entities/building/residential/ResidentialBuilding.h"
 #include "entities/road/Road.h"
 
-Entity::Entity()
-{
-}
-
 Entity::Entity(Entity *entity)
 {
     this->electricityConsumption = entity->electricityConsumption;

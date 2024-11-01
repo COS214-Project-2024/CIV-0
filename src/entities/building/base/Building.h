@@ -14,13 +14,6 @@ class Building : public Entity
 {
 public:
     /**
-     * @brief Default constructor for the Building class.
-     * 
-     * Initializes a new instance of the Building class with default values.
-     */
-    Building();
-
-    /**
      * @brief Parameterized constructor for the Building class.
      * 
      * @param ec The configuration object containing general entity properties.

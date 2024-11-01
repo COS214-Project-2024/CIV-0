@@ -1,6 +1,5 @@
 #include "Park.h"
 
-Park::Park() {}
 Park::~Park() {}
 
 Park::Park(EntityConfig ec, Size size, int xPos, int yPos) : Amenity(ec, size, xPos, yPos)

@@ -19,11 +19,6 @@ private:
     Cost cost;
 public:
     /**
-     * @brief Default constructor for the Industry class.
-     */
-    Industry();
-
-    /**
      * @brief Constructs an Industry entity with specified attributes.
      *
      * @param ec Configuration settings for the entity.

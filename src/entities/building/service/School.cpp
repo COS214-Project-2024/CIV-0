@@ -1,6 +1,5 @@
 #include "School.h"
 
-School::School() {}
 School::~School() {}
 
 School::School(EntityConfig ec, Size size, int xPos, int yPos) : ServiceBuilding(ec, size, xPos, yPos)

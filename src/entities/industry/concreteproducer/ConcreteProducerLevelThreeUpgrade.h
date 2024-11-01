@@ -1,9 +1,7 @@
-
 #ifndef CONCRETEPRODUCERLEVELTHREEUPGRADE_H
 #define CONCRETEPRODUCERLEVELTHREEUPGRADE_H
 
 #include "entities/industry/concreteproducer/ConcreteProducerUpgrade.h"
-
 
 class ConcreteProducerLevelThreeUpgrade : public ConcreteProducerUpgrade {
 public:

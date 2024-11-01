@@ -1,7 +1,6 @@
-
 #include "StoneProducerUpgrade.h"
 
-StoneProducerUpgrade::StoneProducerUpgrade(StoneProducer *stoneProd)
+StoneProducerUpgrade::StoneProducerUpgrade(StoneProducer *stoneProd) : StoneProducer(stoneProd)
 {
     this->stoneProducer = new StoneProducer(stoneProd);
 }

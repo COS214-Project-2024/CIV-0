@@ -1,7 +1,6 @@
 #include "WoodProducer.h"
 #include "entities/industry/woodproducer/WoodProducerLevelOneUpgrade.h"
 
-WoodProducer::WoodProducer() : Industry() {}
 WoodProducer::~WoodProducer() {}
 
 WoodProducer::WoodProducer(EntityConfig ec, Size size, int xPos, int yPos) : Industry(ec, size, xPos, yPos)

@@ -10,5 +10,4 @@ Transport::Transport(Transport* transport): Entity(transport)
     subscribeToAllResidentialInRadius();
 }
 
-Transport::Transport() {}
 Transport::~Transport() {}
