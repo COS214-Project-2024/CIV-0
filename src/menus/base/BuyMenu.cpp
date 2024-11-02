@@ -332,7 +332,7 @@ void BuyMenu::confirmPurchase(EntityType type, Size size, int xPos, int yPos)
     std::string sizeValue = sizeToString(size);
 
     std::string positionStr = "Position: ";
-    std::string positionValue = "(" + std::to_string(xPos) + "," + std::to_string(yPos) + ")";
+    std::string positionValue = coordinatesToLabel(xPos, yPos);
 
     // Prepare cost information separately
     std::string moneyCostStr = "Money: " + std::to_string(config.cost.moneyCost);

@@ -14,23 +14,25 @@
  */
 struct Option
 {
-    std::variant<char, int> key; // Custom key can be either char or int.
-    std::string icon;            // Icon for this option.
-    std::string text;            // The actual text of the option.
+    std::variant<char, int> key; ///< Custom key can be either char or int.
+    std::string icon;            ///< Icon representing this option.
+    std::string text;            ///< The display text for the option.
 };
 
 /**
- * @brief Represents a section in the menu, which contains a heading and multiple options.
+ * @brief Represents a section in the menu, containing a heading and multiple options.
  */
 struct Section
 {
-    std::string heading;         ///< The heading of the section.
-    std::vector<Option> options; ///< The list of options in the section.
+    std::string heading;         ///< The heading/title of the section.
+    std::vector<Option> options; ///< The list of options within the section.
 };
 
 /**
- * @brief Base class for creating menus.
- * Derived menus should implement display and input handling.
+ * @brief Abstract base class for creating menus.
+ *
+ * This class provides the common functionality and interface for all menus.
+ * Derived classes must implement the display and input handling methods.
  */
 class IMenu
 {
@@ -41,8 +43,8 @@ public:
     IMenu() = default;
 
     /**
-     * @brief Constructor to initialize a menu with a heading.
-     * @param heading The heading of the menu.
+     * @brief Constructor to initialize a menu with a specified heading.
+     * @param heading The heading/title of the menu.
      */
     IMenu(std::string heading);
 
@@ -53,11 +55,15 @@ public:
 
     /**
      * @brief Pure virtual function to display the menu.
+     *
+     * Must be implemented by derived classes to handle the rendering of the menu.
      */
     virtual void display() const = 0;
 
     /**
      * @brief Pure virtual function to handle user input in the menu.
+     *
+     * Must be implemented by derived classes to process user interaction.
      */
     virtual void handleInput() = 0;
 
@@ -68,13 +74,13 @@ public:
     void setHeading(const std::string &heading);
 
 protected:
-    std::vector<Section> sections; ///< List of sections in the menu.
-    std::string menuHeading;       ///< The heading of the menu.
-    bool hasExited;
-    CityManager cityManager;
+    std::vector<Section> sections; ///< List of sections contained in the menu.
+    std::string menuHeading;       ///< The heading/title of the menu.
+    bool hasExited;                ///< Flag indicating if the menu has been exited.
+    CityManager cityManager;       ///< Manager for city-related operations.
 
-    bool displayResources; ///< Flag to conditionally display resources.
-    bool isInfoMenu;       ///< Flag to display option numbers if true.
+    bool displayResources; ///< Flag indicating whether to display resources in the menu.
+    bool isInfoMenu;       ///< Flag indicating whether to display option numbers.
 
     // Utility functions and color constants for inherited classes.
 
@@ -94,7 +100,8 @@ protected:
      * @brief Converts a numeric index (0-99) to a single character in an extended set.
      *
      * @param index Numeric index to convert (0-99).
-     * @return char Corresponding character.
+     * @return The corresponding character for the given index.
+     * @throws std::out_of_range If the index is outside the allowed range.
      */
     char indexToExtendedChar(int index) const;
 
@@ -102,15 +109,17 @@ protected:
      * @brief Utility function to repeat a string multiple times.
      * @param str The string to repeat.
      * @param times The number of times to repeat the string.
-     * @return A concatenated string repeated n times.
+     * @return A concatenated string repeated the specified number of times.
      */
     std::string repeat(const std::string &str, int times) const;
 
     /**
-     * @brief Calculates the maximum width for the menu.
+     * @brief Calculates the maximum width required for the menu.
+     *
+     * This function ensures the menu is wide enough to fit the heading and options.
      * @param menuHeading The heading of the menu.
      * @param sections The sections of the menu.
-     * @return The maximum width.
+     * @return The maximum width needed to display the menu.
      */
     int calculateMaxWidth(const std::string &menuHeading, const std::vector<Section> &sections) const;
 
@@ -139,35 +148,35 @@ protected:
     void printDoubleLineDivider(int width) const;
 
     /**
-     * @brief Centers text with space padding on both sides.
+     * @brief Centers text within a specified width using space padding.
      * @param text The text to be centered.
      * @param width The total width to center the text within.
-     * @return A string containing the centered text.
+     * @return A string containing the centered text with space padding.
      */
     std::string centerText(const std::string &text, int width) const;
 
     /**
-     * @brief Centers text with custom character padding on both sides.
+     * @brief Centers text within a specified width using a custom character for padding.
      * @param text The text to be centered.
      * @param width The total width to center the text within.
-     * @param padChar The character used to pad the text.
-     * @return A string containing the centered text with padding.
+     * @param padChar The character used for padding.
+     * @return A string containing the centered text with custom character padding.
      */
     std::string centerTextWithChar(const std::string &text, int width, const std::string &padChar) const;
 
     /**
-     * @brief Function to display the formatted menu with sections and options.
+     * @brief Displays the formatted menu, including sections and options.
      */
     void displayMenu() const;
 
     /**
-     * @brief Displays the choice prompt for the user.
+     * @brief Displays the choice prompt for user input.
      */
     void displayChoicePrompt() const;
 
     /**
-     * @brief Displays a message prompt with a custom message for the user.
-     * @param message The message to display.
+     * @brief Displays a custom message prompt for user input.
+     * @param message The custom message to display.
      */
     void displayChoiceMessagePrompt(const std::string &message) const;
 
@@ -194,14 +203,14 @@ protected:
     void displayPressEnterToContinue() const;
 
     /**
-     * @brief Clears the screen.
+     * @brief Clears the terminal screen.
      */
     void clearScreen() const { system("clear"); }
 
     /**
      * @brief Strips ANSI color codes from a string.
-     * @param input The string with potential color codes.
-     * @return A plain string with color codes removed.
+     * @param input The string potentially containing color codes.
+     * @return The string with color codes removed.
      */
     std::string stripColorCodes(const std::string &input) const;
 
@@ -215,10 +224,10 @@ protected:
     std::string coordinatesToLabel(int x, int y) const;
 
     /**
-     * @brief Displays available positions for an entity on the city grid.
-     * Positions are marked based on availability for a given type and size.
+     * @brief Displays available positions on the city grid for an entity.
      *
-     * @param positions Vector of available positions.
+     * Marks positions based on availability for a given type and size.
+     * @param positions A vector of available positions on the grid.
      */
     virtual void displayAvailablePositions(const std::vector<std::vector<int>> &positions) const;
 };
