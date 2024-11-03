@@ -269,7 +269,7 @@ std::string Entity::getSymbol()
             color = "\033[34m"; // Magenta for level 2
             break;
         case 3:
-            color = "\033[97m"; // Bright White for level 3
+            color = "\033[1;33m"; // Bold Yellow for level 3
             break;
         default:
             color = ""; // No color change for level 0

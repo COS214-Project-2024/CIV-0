@@ -16,12 +16,13 @@ const char *IMenu::BOLD_YELLOW = "\033[1;33m";
 const char *IMenu::BOLD_GREEN = "\033[1;32m";
 const char *IMenu::BOLD_RED = "\033[1;31m";
 const char *IMenu::BOLD_CYAN = "\033[1;36m";
+const char *IMenu::BLUE = "\033[34m";
 
-std::string IMenu::coordinatesToLabel(int x, int y) const
+std::string IMenu::coordinatesToLabel(int x, int y)
 {
     char xLabel = indexToExtendedChar(x);
     char yLabel = indexToExtendedChar(y);
-    return "(" + std::string(1, xLabel) + ", " + std::string(1, yLabel) + ")";
+    return "(" + std::string(1, xLabel) + ", " + std::to_string(y + 1) + ")";
 }
 
 void IMenu::displayAvailablePositions(const std::vector<std::vector<int>> &positions) const
@@ -78,7 +79,7 @@ void IMenu::displayAvailablePositions(const std::vector<std::vector<int>> &posit
     printBottomBorder(width * 2 + 1);
 }
 
-char IMenu::indexToExtendedChar(int index) const
+char IMenu::indexToExtendedChar(int index)
 {
     if (index >= 0 && index <= 9)
     {
@@ -162,7 +163,7 @@ int IMenu::calculateMaxWidth(const std::string &menuHeading, const std::vector<S
     }
 
     // Set a reasonable minimum width for all menus to ensure it’s large enough for the longest text
-    maxWidth = std::max(maxWidth, 70); // Example width, adjust as necessary
+    maxWidth = std::max(maxWidth, 80); // Example width, adjust as necessary
 
     return maxWidth;
 }

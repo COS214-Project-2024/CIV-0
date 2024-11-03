@@ -168,7 +168,8 @@ void UpgradesMenu::selectSpecificUtility(const std::string &type, const std::vec
     char optionKey = '1';
     for (auto *utility : options)
     {
-        std::string label = type + " (" + std::to_string(utility->getXPosition()) + "," + std::to_string(utility->getYPosition()) + ") (Output = " + std::to_string(utility->getOutput()) + ") (Level " + std::to_string(utility->getLevel()) + ")";
+        std::string position = coordinatesToLabel(utility->getXPosition(), utility->getYPosition());
+        std::string label = type + " " + position + " (Output = " + std::to_string(utility->getOutput()) + ") (Level " + std::to_string(utility->getLevel()) + ")";
         sections[0].options.push_back(Option{optionKey++, "🔧", label});
     }
 
@@ -227,7 +228,8 @@ void UpgradesMenu::selectSpecificIndustry(const std::string &type, const std::ve
     char optionKey = '1';
     for (auto *industry : options)
     {
-        std::string label = type + " (" + std::to_string(industry->getXPosition()) + "," + std::to_string(industry->getYPosition()) + ") (Output = " + std::to_string(industry->getOutput()) + ") (Level " + std::to_string(industry->getLevel()) + ")";
+        std::string position = coordinatesToLabel(industry->getXPosition(), industry->getYPosition());
+        std::string label = type + " " + position + " (Output = " + std::to_string(industry->getOutput()) + ") (Level " + std::to_string(industry->getLevel()) + ")";
         sections[0].options.push_back(Option{optionKey++, "🔧", label});
     }
 
@@ -260,7 +262,7 @@ void UpgradesMenu::selectSpecificIndustry(const std::string &type, const std::ve
         }
         else if (choice == 'b')
         {
-            upgradeUtilities(); // Go back to industries menu
+            upgradeIndustries(); // Go back to industries menu
             choosing = false;
         }
         else if (choice == 'q')
