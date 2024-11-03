@@ -78,6 +78,11 @@ public:
      */
     Cost getCost() override;
 
+    /**
+     * @brief Gets the level of the sewage system upgrade.
+     *
+     * @return The level of the sewage system upgrade.
+     */
     int getLevel() override;
 
 private:
