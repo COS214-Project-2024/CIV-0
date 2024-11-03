@@ -139,9 +139,8 @@ void StatsMenu::listAllCityEntities()
         if (entity)
         {
             std::string type = entityTypeToString(entity->getType());
-            std::string description = " located at (" +
-                                      std::to_string(entity->getXPosition()) + ", " +
-                                      std::to_string(entity->getYPosition()) + ")";
+            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
+            std::string description = " located at " + position;
 
             // Create an option entry for each entity
             entityOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
@@ -178,9 +177,8 @@ void StatsMenu::listAllBuildings()
         if (entity)
         {
             std::string type = entityTypeToString(entity->getType());
-            std::string description = " located at (" +
-                                      std::to_string(entity->getXPosition()) + ", " +
-                                      std::to_string(entity->getYPosition()) + ")";
+            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
+            std::string description = " located at " + position;
 
             buildingOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
         }
@@ -213,9 +211,8 @@ void StatsMenu::listAllUtilities()
         if (entity)
         {
             std::string type = entityTypeToString(entity->getType());
-            std::string description = " located at (" +
-                                      std::to_string(entity->getXPosition()) + ", " +
-                                      std::to_string(entity->getYPosition()) + ")";
+            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
+            std::string description = " located at " + position;
 
             utilityOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
         }
@@ -248,9 +245,8 @@ void StatsMenu::listAllRoads()
         if (entity)
         {
             std::string type = entityTypeToString(entity->getType());
-            std::string description = " located at (" +
-                                      std::to_string(entity->getXPosition()) + ", " +
-                                      std::to_string(entity->getYPosition()) + ")";
+            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
+            std::string description = " located at " + position;
 
             roadOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
         }
@@ -282,9 +278,8 @@ void StatsMenu::listAllTransport()
         if (entity)
         {
             std::string type = entityTypeToString(entity->getType());
-            std::string description = " located at (" +
-                                      std::to_string(entity->getXPosition()) + ", " +
-                                      std::to_string(entity->getYPosition()) + ")";
+            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
+            std::string description = " located at " + position;
 
             transportOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
         }
@@ -316,9 +311,8 @@ void StatsMenu::listAllEconomicBuildings()
         if (entity)
         {
             std::string type = entityTypeToString(entity->getType());
-            std::string description = " located at (" +
-                                      std::to_string(entity->getXPosition()) + ", " +
-                                      std::to_string(entity->getYPosition()) + ")";
+            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
+            std::string description = " located at " + position;
 
             economicOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
         }
@@ -350,9 +344,8 @@ void StatsMenu::listAllResidentialBuildings()
         if (entity)
         {
             std::string type = entityTypeToString(entity->getType());
-            std::string description = " located at (" +
-                                      std::to_string(entity->getXPosition()) + ", " +
-                                      std::to_string(entity->getYPosition()) + ")";
+            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
+            std::string description = " located at " + position;
 
             residentialOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
         }
@@ -384,9 +377,8 @@ void StatsMenu::listAllServiceBuildings()
         if (entity)
         {
             std::string type = entityTypeToString(entity->getType());
-            std::string description = " located at (" +
-                                      std::to_string(entity->getXPosition()) + ", " +
-                                      std::to_string(entity->getYPosition()) + ")";
+            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
+            std::string description = " located at " + position;
 
             serviceOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
         }
@@ -418,9 +410,8 @@ void StatsMenu::listAllAmenities()
         if (entity)
         {
             std::string type = entityTypeToString(entity->getType());
-            std::string description = " located at (" +
-                                      std::to_string(entity->getXPosition()) + ", " +
-                                      std::to_string(entity->getYPosition()) + ")";
+            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
+            std::string description = " located at " + position;
 
             amenityOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
         }
@@ -452,9 +443,8 @@ void StatsMenu::listAllPowerPlants()
         if (entity)
         {
             std::string type = entityTypeToString(entity->getType());
-            std::string description = " located at (" +
-                                      std::to_string(entity->getXPosition()) + ", " +
-                                      std::to_string(entity->getYPosition()) + ")";
+            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
+            std::string description = " located at " + position;
 
             powerPlantOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
         }
@@ -486,9 +476,8 @@ void StatsMenu::listAllWaterSupplies()
         if (entity)
         {
             std::string type = entityTypeToString(entity->getType());
-            std::string description = " located at (" +
-                                      std::to_string(entity->getXPosition()) + ", " +
-                                      std::to_string(entity->getYPosition()) + ")";
+            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
+            std::string description = " located at " + position;
 
             waterSupplyOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
         }
@@ -520,9 +509,8 @@ void StatsMenu::listAllWasteManagement()
         if (entity)
         {
             std::string type = entityTypeToString(entity->getType());
-            std::string description = " located at (" +
-                                      std::to_string(entity->getXPosition()) + ", " +
-                                      std::to_string(entity->getYPosition()) + ")";
+            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
+            std::string description = " located at " + position;
 
             wasteManagementOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
         }
@@ -554,9 +542,8 @@ void StatsMenu::listAllSewageSystems()
         if (entity)
         {
             std::string type = entityTypeToString(entity->getType());
-            std::string description = " located at (" +
-                                      std::to_string(entity->getXPosition()) + ", " +
-                                      std::to_string(entity->getYPosition()) + ")";
+            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
+            std::string description = " located at " + position;
 
             sewageSystemOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
         }
@@ -588,9 +575,8 @@ void StatsMenu::listAllConcreteProducers()
         if (entity)
         {
             std::string type = entityTypeToString(entity->getType());
-            std::string description = " located at (" +
-                                      std::to_string(entity->getXPosition()) + ", " +
-                                      std::to_string(entity->getYPosition()) + ")";
+            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
+            std::string description = " located at " + position;
 
             concreteProducerOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
         }
@@ -622,9 +608,8 @@ void StatsMenu::listAllStoneProducers()
         if (entity)
         {
             std::string type = entityTypeToString(entity->getType());
-            std::string description = " located at (" +
-                                      std::to_string(entity->getXPosition()) + ", " +
-                                      std::to_string(entity->getYPosition()) + ")";
+            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
+            std::string description = " located at " + position;
 
             stoneProducerOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
         }
@@ -656,9 +641,8 @@ void StatsMenu::listAllWoodProducers()
         if (entity)
         {
             std::string type = entityTypeToString(entity->getType());
-            std::string description = " located at (" +
-                                      std::to_string(entity->getXPosition()) + ", " +
-                                      std::to_string(entity->getYPosition()) + ")";
+            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
+            std::string description = " located at " + position;
 
             woodProducerOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
         }
