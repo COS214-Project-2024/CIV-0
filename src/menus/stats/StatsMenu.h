@@ -48,85 +48,12 @@ public:
     void handleInput() override;
 
 private:
-    /**
-     * @brief Lists all entities present in the city.
-     */
-    void listAllCityEntities();
+    void listEntities(Iterator *it, std::string (*labelGenerator)(Entity *), std::string heading);
 
-    /**
-     * @brief Lists all building entities in the city.
-     */
-    void listAllBuildings();
-
-    /**
-     * @brief Lists all utility entities in the city.
-     */
-    void listAllUtilities();
-
-    /**
-     * @brief Lists all road entities in the city.
-     */
-    void listAllRoads();
-
-    /**
-     * @brief Lists all transport-related entities in the city.
-     */
-    void listAllTransport();
-
-    /**
-     * @brief Lists all economic buildings in the city.
-     */
-    void listAllEconomicBuildings();
-
-    /**
-     * @brief Lists all residential buildings in the city.
-     */
-    void listAllResidentialBuildings();
-
-    /**
-     * @brief Lists all service buildings in the city.
-     */
-    void listAllServiceBuildings();
-
-    /**
-     * @brief Lists all amenities in the city.
-     */
-    void listAllAmenities();
-
-    /**
-     * @brief Lists all power plants in the city.
-     */
-    void listAllPowerPlants();
-
-    /**
-     * @brief Lists all water supply entities in the city.
-     */
-    void listAllWaterSupplies();
-
-    /**
-     * @brief Lists all waste management facilities in the city.
-     */
-    void listAllWasteManagement();
-
-    /**
-     * @brief Lists all sewage systems in the city.
-     */
-    void listAllSewageSystems();
-
-    /**
-     * @brief Lists all concrete-producing entities in the city.
-     */
-    void listAllConcreteProducers();
-
-    /**
-     * @brief Lists all stone-producing entities in the city.
-     */
-    void listAllStoneProducers();
-
-    /**
-     * @brief Lists all wood-producing entities in the city.
-     */
-    void listAllWoodProducers();
+    static std::string labelGenerator(Entity *entity);
+    static std::string residentialLabelGenerator(Entity *entity);
+    static std::string industrialLabelGenerator(Entity *entity);
+    static std::string utilityLabelGenerator(Entity *entity);
 
     /**
      * @brief Displays overall city statistics including population, resources, and satisfaction.

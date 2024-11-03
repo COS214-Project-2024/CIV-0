@@ -350,6 +350,11 @@ Iterator *City::createUtilityIterator(bool unique)
     return new UtilityIterator(this->grid);
 }
 
+Iterator *City::createIndustryIterator(bool unique)
+{
+    return new IndustryIterator(this->grid);
+}
+
 Iterator *City::createRoadIterator(bool unique)
 {
     return new RoadIterator(this->grid);

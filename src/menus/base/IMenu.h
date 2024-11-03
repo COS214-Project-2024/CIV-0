@@ -95,6 +95,7 @@ protected:
     static const char *BOLD_GREEN;
     static const char *BOLD_RED;
     static const char *BOLD_CYAN;
+    static const char *BLUE;
 
     /**
      * @brief Converts a numeric index (0-99) to a single character in an extended set.
@@ -103,7 +104,7 @@ protected:
      * @return The corresponding character for the given index.
      * @throws std::out_of_range If the index is outside the allowed range.
      */
-    char indexToExtendedChar(int index) const;
+    static char indexToExtendedChar(int index);
 
     /**
      * @brief Utility function to repeat a string multiple times.
@@ -221,7 +222,7 @@ protected:
      * @param y The y-coordinate.
      * @return A formatted string representing the labeled coordinates.
      */
-    std::string coordinatesToLabel(int x, int y) const;
+    static std::string coordinatesToLabel(int x, int y);
 
     /**
      * @brief Displays available positions on the city grid for an entity.

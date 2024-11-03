@@ -39,9 +39,9 @@ private:
     // Private constructor and destructor to enforce the singleton pattern
     City();
     ~City();
-    
-    WaterPolicy* waterPolicy = nullptr;         ///< Pointer to the current water policy.
-    ElectricityPolicy* electricityPolicy = nullptr; ///< Pointer to the current electricity policy.
+
+    WaterPolicy *waterPolicy = nullptr;             ///< Pointer to the current water policy.
+    ElectricityPolicy *electricityPolicy = nullptr; ///< Pointer to the current electricity policy.
 
 public:
     /**
@@ -88,13 +88,13 @@ public:
      * @brief Gets the current water usage policy.
      * @return Pointer to the current water policy.
      */
-    WaterPolicy* getWaterPolicy() const;
+    WaterPolicy *getWaterPolicy() const;
 
     /**
      * @brief Gets the current electricity usage policy.
      * @return Pointer to the current electricity policy.
      */
-    ElectricityPolicy* getElectricityPolicy() const;
+    ElectricityPolicy *getElectricityPolicy() const;
 
     // Setters
     void setWidth(int width);
@@ -116,7 +116,7 @@ public:
     void setSewageConsumption(int sewageConsumption);
     void setResidentialTax(int residentialTax);
     void setEconomicTax(int economicTax);
-   /**
+    /**
      * @brief Sets the water usage policy for the city.
      * @param policyType The type of water policy to enact.
      */
@@ -131,22 +131,23 @@ public:
     void reset();
     void reset(int width, int height);
 
-    Iterator* createCityIterator(bool unique);
-    Iterator* createBuildingIterator(bool unique);
-    Iterator* createUtilityIterator(bool unique);
-    Iterator* createRoadIterator(bool unique);
-    Iterator* createTransportIterator(bool unique);
-    Iterator* createEconomicBuildingIterator(bool unique);
-    Iterator* createResidentialBuildingIterator(bool unique);
-    Iterator* createServiceBuildingIterator(bool unique);
-    Iterator* createAmenityIterator(bool unique);
-    Iterator* createPowerPlantIterator(bool unique);
-    Iterator* createWaterSupplyIterator(bool unique);
-    Iterator* createWasteManagementIterator(bool unique);
-    Iterator* createSewageSystemIterator(bool unique);
-    Iterator* createConcreteProducerIterator(bool unique);
-    Iterator* createStoneProducerIterator(bool unique);
-    Iterator* createWoodProducerIterator(bool unique);
+    Iterator *createCityIterator(bool unique);
+    Iterator *createBuildingIterator(bool unique);
+    Iterator *createUtilityIterator(bool unique);
+    Iterator *createIndustryIterator(bool unique);
+    Iterator *createRoadIterator(bool unique);
+    Iterator *createTransportIterator(bool unique);
+    Iterator *createEconomicBuildingIterator(bool unique);
+    Iterator *createResidentialBuildingIterator(bool unique);
+    Iterator *createServiceBuildingIterator(bool unique);
+    Iterator *createAmenityIterator(bool unique);
+    Iterator *createPowerPlantIterator(bool unique);
+    Iterator *createWaterSupplyIterator(bool unique);
+    Iterator *createWasteManagementIterator(bool unique);
+    Iterator *createSewageSystemIterator(bool unique);
+    Iterator *createConcreteProducerIterator(bool unique);
+    Iterator *createStoneProducerIterator(bool unique);
+    Iterator *createWoodProducerIterator(bool unique);
 
     /**
      * @brief Creates a road entity at a random position within the city grid.

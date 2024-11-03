@@ -17,7 +17,6 @@ void StatsMenu::display() const
 
 void StatsMenu::handleInput()
 {
-
     bool choosing = true;
 
     while (choosing)
@@ -28,9 +27,10 @@ void StatsMenu::handleInput()
 
         sections = {
             {"Entity Listings",
-             {{'1', "🏙️ ", "List All City Entities"},
-              {'2', "🏢", "List All Buildings"},
-              {'3', "⚙️ ", "List All Utilities"},
+             {{'0', "🏙️ ", "List All City Entities"},
+              {'1', "🏢", "List All Buildings"},
+              {'2', "⚙️ ", "List All Utilities"},
+              {'3', "🛠️ ", "List All Industries"},
               {'4', "🛣️ ", "List All Roads"},
               {'5', "🚍", "List All Transport"},
               {'6', "🏛️ ", "List All Economic Buildings"},
@@ -58,53 +58,56 @@ void StatsMenu::handleInput()
 
         switch (choice)
         {
+        case '0':
+            listEntities(City::instance()->createCityIterator(true), labelGenerator, "City Entities Summary");
+            break;
         case '1':
-            listAllCityEntities();
+            listEntities(City::instance()->createBuildingIterator(true), labelGenerator, "Buildings Summary");
             break;
         case '2':
-            listAllBuildings();
+            listEntities(City::instance()->createUtilityIterator(true), utilityLabelGenerator, "Utilities Summary");
             break;
         case '3':
-            listAllUtilities();
+            listEntities(City::instance()->createIndustryIterator(true), industrialLabelGenerator, "Industry Summary");
             break;
         case '4':
-            listAllRoads();
+            listEntities(City::instance()->createRoadIterator(true), labelGenerator, "Roads Summary");
             break;
         case '5':
-            listAllTransport();
+            listEntities(City::instance()->createTransportIterator(true), labelGenerator, "Transport Summary");
             break;
         case '6':
-            listAllEconomicBuildings();
+            listEntities(City::instance()->createEconomicBuildingIterator(true), labelGenerator, "Economic Buildings Summary");
             break;
         case '7':
-            listAllResidentialBuildings();
+            listEntities(City::instance()->createResidentialBuildingIterator(true), residentialLabelGenerator, "Residential Buildings Summary");
             break;
         case '8':
-            listAllServiceBuildings();
+            listEntities(City::instance()->createServiceBuildingIterator(true), labelGenerator, "Service Buildings Summary");
             break;
         case '9':
-            listAllAmenities();
+            listEntities(City::instance()->createAmenityIterator(true), labelGenerator, "Amenities Summary");
             break;
         case 'a':
-            listAllPowerPlants();
+            listEntities(City::instance()->createPowerPlantIterator(true), utilityLabelGenerator, "Power Plants Summary");
             break;
         case 'b':
-            listAllWaterSupplies();
+            listEntities(City::instance()->createWaterSupplyIterator(true), utilityLabelGenerator, "Water Supplies Summary");
             break;
         case 'c':
-            listAllWasteManagement();
+            listEntities(City::instance()->createWasteManagementIterator(true), utilityLabelGenerator, "Waste Management Summary");
             break;
         case 'd':
-            listAllSewageSystems();
+            listEntities(City::instance()->createSewageSystemIterator(true), utilityLabelGenerator, "Sewage Systems Summary");
             break;
         case 'e':
-            listAllConcreteProducers();
+            listEntities(City::instance()->createConcreteProducerIterator(true), industrialLabelGenerator, "Concrete Producers Summary");
             break;
         case 'f':
-            listAllStoneProducers();
+            listEntities(City::instance()->createStoneProducerIterator(true), industrialLabelGenerator, "Stone Producers Summary");
             break;
         case 'g':
-            listAllWoodProducers();
+            listEntities(City::instance()->createWoodProducerIterator(true), industrialLabelGenerator, "Wood Producers Summary");
             break;
         case 's':
             showCityStats();
@@ -119,542 +122,103 @@ void StatsMenu::handleInput()
     }
 }
 
-// Example of a listing function using an iterator
-void StatsMenu::listAllCityEntities()
+std::string StatsMenu::labelGenerator(Entity *entity)
 {
-    clearScreen();
-    setHeading("City Entities Summary");
+    std::string type = entityTypeToString(entity->getType());
+    std::string size = sizeToString(entity->getSize());
+    std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
+    std::string observers = std::to_string(entity->getObservers().size());
+    return position + ", " + type + ", " + size + ", Observers = " + observers;
+}
 
-    City *city = City::instance();
-    Iterator *iterator = city->createCityIterator(true);
+std::string StatsMenu::residentialLabelGenerator(Entity *entity)
+{
+    std::string type = entityTypeToString(entity->getType());
+    std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
+    int satisfaction = dynamic_cast<ResidentialBuilding *>(entity)->getSatisfaction();
+    std::string satisfactionColor = (satisfaction >= 70) ? BOLD_GREEN : (satisfaction >= 40) ? BOLD_YELLOW
+                                                                                             : BOLD_RED;
+    return position + ", " + type + ", Satisfaction = " + satisfactionColor + std::to_string(satisfaction) + "%" + RESET;
+}
+
+std::string StatsMenu::industrialLabelGenerator(Entity *entity)
+{
+    std::string type = entityTypeToString(entity->getType());
+    std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
+    std::string productionRate = std::to_string(dynamic_cast<Industry *>(entity)->getOutput());
+    int level = dynamic_cast<Industry *>(entity)->getLevel();
+
+    // Determine color based on the level
+    std::string color;
+    switch (level)
+    {
+    case 1:
+        color = IMenu::BOLD_CYAN; // Cyan for level 1
+        break;
+    case 2:
+        color = IMenu::BLUE; // Blue for level 2
+        break;
+    case 3:
+        color = IMenu::BOLD_YELLOW; // Bold Yellow for level 3
+        break;
+    default:
+        color = ""; // No color change for level 0
+        break;
+    }
+
+    return position + ", " + type + ", Production Rate = " + productionRate + ", Level = " + color + std::to_string(level) + IMenu::RESET;
+}
+
+std::string StatsMenu::utilityLabelGenerator(Entity *entity)
+{
+    std::string type = entityTypeToString(entity->getType());
+    std::string position = IMenu::coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
+    int level = dynamic_cast<Utility *>(entity)->getLevel();
+
+    // Determine color based on the level
+    std::string color;
+    switch (level)
+    {
+    case 1:
+        color = IMenu::BOLD_CYAN; // Cyan for level 1
+        break;
+    case 2:
+        color = IMenu::BLUE; // Blue for level 2
+        break;
+    case 3:
+        color = IMenu::BOLD_YELLOW; // Bold Yellow for level 3
+        break;
+    default:
+        color = ""; // No color change for level 0
+        break;
+    }
+
+    return position + ", " + type + ", Level = " + color + std::to_string(level) + IMenu::RESET;
+}
+
+void StatsMenu::listEntities(Iterator *it, std::string (*labelGenerator)(Entity *), std::string heading)
+{
+    setHeading(heading);
+    clearScreen();
 
     sections.clear(); // Clear previous sections
     isInfoMenu = true;
 
-    // Prepare a section for all city entities
     std::vector<Option> entityOptions;
-    for (iterator->first(); iterator->hasNext(); iterator->next())
+    for (it->first(); it->hasNext(); it->next())
     {
-        Entity *entity = iterator->current();
+        Entity *entity = it->current();
         if (entity)
         {
-            std::string type = entityTypeToString(entity->getType());
-            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
-            std::string description = " located at " + position;
-
-            // Create an option entry for each entity
-            entityOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
+            std::string description = labelGenerator(entity);
+            entityOptions.push_back({'-', entity->getSymbol() + " ", description});
         }
     }
-    delete iterator;
-
-    // Add entity options to sections
-    sections.push_back({"All City Entities", entityOptions});
-
-    // Display entities in sections using displayMenu()
+    sections.push_back({"Entity List", entityOptions});
     displayMenu();
-
     displayPressEnterToContinue();
 
     isInfoMenu = false; // Reset after displaying
-}
-
-void StatsMenu::listAllBuildings()
-{
-    clearScreen();
-    setHeading("Buildings Summary");
-
-    City *city = City::instance();
-    Iterator *iterator = city->createBuildingIterator(true);
-
-    sections.clear();
-    isInfoMenu = true;
-
-    std::vector<Option> buildingOptions;
-    for (iterator->first(); iterator->hasNext(); iterator->next())
-    {
-        Entity *entity = iterator->current();
-        if (entity)
-        {
-            std::string type = entityTypeToString(entity->getType());
-            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
-            std::string description = " located at " + position;
-
-            buildingOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
-        }
-    }
-    delete iterator;
-
-    sections.push_back({"All Buildings", buildingOptions});
-
-    displayMenu();
-    displayPressEnterToContinue();
-
-    isInfoMenu = false;
-}
-
-void StatsMenu::listAllUtilities()
-{
-    clearScreen();
-    setHeading("Utilities Summary");
-
-    City *city = City::instance();
-    Iterator *iterator = city->createUtilityIterator(true);
-
-    sections.clear();
-    isInfoMenu = true;
-
-    std::vector<Option> utilityOptions;
-    for (iterator->first(); iterator->hasNext(); iterator->next())
-    {
-        Entity *entity = iterator->current();
-        if (entity)
-        {
-            std::string type = entityTypeToString(entity->getType());
-            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
-            std::string description = " located at " + position;
-
-            utilityOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
-        }
-    }
-    delete iterator;
-
-    sections.push_back({"All Utilities", utilityOptions});
-
-    displayMenu();
-    displayPressEnterToContinue();
-
-    isInfoMenu = false;
-}
-
-void StatsMenu::listAllRoads()
-{
-    clearScreen();
-    setHeading("Roads Summary");
-
-    City *city = City::instance();
-    Iterator *iterator = city->createRoadIterator(true);
-
-    sections.clear();
-    isInfoMenu = true;
-
-    std::vector<Option> roadOptions;
-    for (iterator->first(); iterator->hasNext(); iterator->next())
-    {
-        Entity *entity = iterator->current();
-        if (entity)
-        {
-            std::string type = entityTypeToString(entity->getType());
-            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
-            std::string description = " located at " + position;
-
-            roadOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
-        }
-    }
-    delete iterator;
-
-    sections.push_back({"All Roads", roadOptions});
-
-    displayMenu();
-    displayPressEnterToContinue();
-
-    isInfoMenu = false;
-}
-
-void StatsMenu::listAllTransport()
-{
-    clearScreen();
-    setHeading("List of All Transport");
-
-    Iterator *iterator = City::instance()->createTransportIterator(true);
-
-    sections.clear();
-    isInfoMenu = true;
-
-    std::vector<Option> transportOptions;
-    for (iterator->first(); iterator->hasNext(); iterator->next())
-    {
-        Entity *entity = iterator->current();
-        if (entity)
-        {
-            std::string type = entityTypeToString(entity->getType());
-            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
-            std::string description = " located at " + position;
-
-            transportOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
-        }
-    }
-    delete iterator;
-
-    sections.push_back({"All Transport", transportOptions});
-
-    displayMenu();
-    displayPressEnterToContinue();
-
-    isInfoMenu = false;
-}
-
-void StatsMenu::listAllEconomicBuildings()
-{
-    clearScreen();
-    setHeading("List of All Economic Buildings");
-
-    Iterator *iterator = City::instance()->createEconomicBuildingIterator(true);
-
-    sections.clear();
-    isInfoMenu = true;
-
-    std::vector<Option> economicOptions;
-    for (iterator->first(); iterator->hasNext(); iterator->next())
-    {
-        Entity *entity = iterator->current();
-        if (entity)
-        {
-            std::string type = entityTypeToString(entity->getType());
-            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
-            std::string description = " located at " + position;
-
-            economicOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
-        }
-    }
-    delete iterator;
-
-    sections.push_back({"All Economic Buildings", economicOptions});
-
-    displayMenu();
-    displayPressEnterToContinue();
-
-    isInfoMenu = false;
-}
-
-void StatsMenu::listAllResidentialBuildings()
-{
-    clearScreen();
-    setHeading("List of All Residential Buildings");
-
-    Iterator *iterator = City::instance()->createResidentialBuildingIterator(true);
-
-    sections.clear();
-    isInfoMenu = true;
-
-    std::vector<Option> residentialOptions;
-    for (iterator->first(); iterator->hasNext(); iterator->next())
-    {
-        Entity *entity = iterator->current();
-        if (entity)
-        {
-            std::string type = entityTypeToString(entity->getType());
-            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
-            std::string description = " located at " + position;
-
-            residentialOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
-        }
-    }
-    delete iterator;
-
-    sections.push_back({"All Residential Buildings", residentialOptions});
-
-    displayMenu();
-    displayPressEnterToContinue();
-
-    isInfoMenu = false;
-}
-
-void StatsMenu::listAllServiceBuildings()
-{
-    clearScreen();
-    setHeading("List of All Service Buildings");
-
-    Iterator *iterator = City::instance()->createServiceBuildingIterator(true);
-
-    sections.clear();
-    isInfoMenu = true;
-
-    std::vector<Option> serviceOptions;
-    for (iterator->first(); iterator->hasNext(); iterator->next())
-    {
-        Entity *entity = iterator->current();
-        if (entity)
-        {
-            std::string type = entityTypeToString(entity->getType());
-            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
-            std::string description = " located at " + position;
-
-            serviceOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
-        }
-    }
-    delete iterator;
-
-    sections.push_back({"All Service Buildings", serviceOptions});
-
-    displayMenu();
-    displayPressEnterToContinue();
-
-    isInfoMenu = false;
-}
-
-void StatsMenu::listAllAmenities()
-{
-    clearScreen();
-    setHeading("List of All Amenities");
-
-    Iterator *iterator = City::instance()->createAmenityIterator(true);
-
-    sections.clear();
-    isInfoMenu = true;
-
-    std::vector<Option> amenityOptions;
-    for (iterator->first(); iterator->hasNext(); iterator->next())
-    {
-        Entity *entity = iterator->current();
-        if (entity)
-        {
-            std::string type = entityTypeToString(entity->getType());
-            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
-            std::string description = " located at " + position;
-
-            amenityOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
-        }
-    }
-    delete iterator;
-
-    sections.push_back({"All Amenities", amenityOptions});
-
-    displayMenu();
-    displayPressEnterToContinue();
-
-    isInfoMenu = false;
-}
-
-void StatsMenu::listAllPowerPlants()
-{
-    clearScreen();
-    setHeading("List of All Power Plants");
-
-    Iterator *iterator = City::instance()->createPowerPlantIterator(true);
-
-    sections.clear();
-    isInfoMenu = true;
-
-    std::vector<Option> powerPlantOptions;
-    for (iterator->first(); iterator->hasNext(); iterator->next())
-    {
-        Entity *entity = iterator->current();
-        if (entity)
-        {
-            std::string type = entityTypeToString(entity->getType());
-            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
-            std::string description = " located at " + position;
-
-            powerPlantOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
-        }
-    }
-    delete iterator;
-
-    sections.push_back({"All Power Plants", powerPlantOptions});
-
-    displayMenu();
-    displayPressEnterToContinue();
-
-    isInfoMenu = false;
-}
-
-void StatsMenu::listAllWaterSupplies()
-{
-    clearScreen();
-    setHeading("List of All Water Supplies");
-
-    Iterator *iterator = City::instance()->createWaterSupplyIterator(true);
-
-    sections.clear();
-    isInfoMenu = true;
-
-    std::vector<Option> waterSupplyOptions;
-    for (iterator->first(); iterator->hasNext(); iterator->next())
-    {
-        Entity *entity = iterator->current();
-        if (entity)
-        {
-            std::string type = entityTypeToString(entity->getType());
-            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
-            std::string description = " located at " + position;
-
-            waterSupplyOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
-        }
-    }
-    delete iterator;
-
-    sections.push_back({"All Water Supplies", waterSupplyOptions});
-
-    displayMenu();
-    displayPressEnterToContinue();
-
-    isInfoMenu = false;
-}
-
-void StatsMenu::listAllWasteManagement()
-{
-    clearScreen();
-    setHeading("List of All Waste Management");
-
-    Iterator *iterator = City::instance()->createWasteManagementIterator(true);
-
-    sections.clear();
-    isInfoMenu = true;
-
-    std::vector<Option> wasteManagementOptions;
-    for (iterator->first(); iterator->hasNext(); iterator->next())
-    {
-        Entity *entity = iterator->current();
-        if (entity)
-        {
-            std::string type = entityTypeToString(entity->getType());
-            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
-            std::string description = " located at " + position;
-
-            wasteManagementOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
-        }
-    }
-    delete iterator;
-
-    sections.push_back({"All Waste Management", wasteManagementOptions});
-
-    displayMenu();
-    displayPressEnterToContinue();
-
-    isInfoMenu = false;
-}
-
-void StatsMenu::listAllSewageSystems()
-{
-    clearScreen();
-    setHeading("List of All Sewage Systems");
-
-    Iterator *iterator = City::instance()->createSewageSystemIterator(true);
-
-    sections.clear();
-    isInfoMenu = true;
-
-    std::vector<Option> sewageSystemOptions;
-    for (iterator->first(); iterator->hasNext(); iterator->next())
-    {
-        Entity *entity = iterator->current();
-        if (entity)
-        {
-            std::string type = entityTypeToString(entity->getType());
-            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
-            std::string description = " located at " + position;
-
-            sewageSystemOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
-        }
-    }
-    delete iterator;
-
-    sections.push_back({"All Sewage Systems", sewageSystemOptions});
-
-    displayMenu();
-    displayPressEnterToContinue();
-
-    isInfoMenu = false;
-}
-
-void StatsMenu::listAllConcreteProducers()
-{
-    clearScreen();
-    setHeading("List of All Concrete Producers");
-
-    Iterator *iterator = City::instance()->createConcreteProducerIterator(true);
-
-    sections.clear();
-    isInfoMenu = true;
-
-    std::vector<Option> concreteProducerOptions;
-    for (iterator->first(); iterator->hasNext(); iterator->next())
-    {
-        Entity *entity = iterator->current();
-        if (entity)
-        {
-            std::string type = entityTypeToString(entity->getType());
-            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
-            std::string description = " located at " + position;
-
-            concreteProducerOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
-        }
-    }
-    delete iterator;
-
-    sections.push_back({"All Concrete Producers", concreteProducerOptions});
-
-    displayMenu();
-    displayPressEnterToContinue();
-
-    isInfoMenu = false;
-}
-
-void StatsMenu::listAllStoneProducers()
-{
-    clearScreen();
-    setHeading("List of All Stone Producers");
-
-    Iterator *iterator = City::instance()->createStoneProducerIterator(true);
-
-    sections.clear();
-    isInfoMenu = true;
-
-    std::vector<Option> stoneProducerOptions;
-    for (iterator->first(); iterator->hasNext(); iterator->next())
-    {
-        Entity *entity = iterator->current();
-        if (entity)
-        {
-            std::string type = entityTypeToString(entity->getType());
-            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
-            std::string description = " located at " + position;
-
-            stoneProducerOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
-        }
-    }
-    delete iterator;
-
-    sections.push_back({"All Stone Producers", stoneProducerOptions});
-
-    displayMenu();
-    displayPressEnterToContinue();
-
-    isInfoMenu = false;
-}
-
-void StatsMenu::listAllWoodProducers()
-{
-    clearScreen();
-    setHeading("List of All Wood Producers");
-
-    Iterator *iterator = City::instance()->createWoodProducerIterator(true);
-
-    sections.clear();
-    isInfoMenu = true;
-
-    std::vector<Option> woodProducerOptions;
-    for (iterator->first(); iterator->hasNext(); iterator->next())
-    {
-        Entity *entity = iterator->current();
-        if (entity)
-        {
-            std::string type = entityTypeToString(entity->getType());
-            std::string position = coordinatesToLabel(entity->getXPosition(), entity->getYPosition());
-            std::string description = " located at " + position;
-
-            woodProducerOptions.push_back({'-', entity->getSymbol() + " ", description + ", Type: " + type});
-        }
-    }
-    delete iterator;
-
-    sections.push_back({"All Wood Producers", woodProducerOptions});
-
-    displayMenu();
-    displayPressEnterToContinue();
-
-    isInfoMenu = false;
 }
 
 void StatsMenu::showCityStats()
