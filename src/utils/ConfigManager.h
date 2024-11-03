@@ -1,3 +1,8 @@
+/**
+ * @file ConfigManager.h
+ * @brief Manages entity and satisfaction configurations for different entity types and sizes.
+ */
+
 #ifndef CONFIGMANAGER_H
 #define CONFIGMANAGER_H
 
@@ -8,9 +13,19 @@
 #include "EntityConfig.h"
 #include "SatisfactionConfig.h"
 
+/**
+ * @class ConfigManager
+ * @brief Singleton class to manage configurations for various entities.
+ */
 class ConfigManager
 {
 public:
+    /**
+     * @brief Retrieves the configuration for a specified entity type and size.
+     * @param entityType The type of the entity.
+     * @param size The size of the entity.
+     * @return The configuration for the specified entity.
+     */
     static EntityConfig getEntityConfig(EntityType entityType, Size size)
     {
         static ConfigManager instance;
@@ -18,6 +33,11 @@ public:
         return instance.entityConfigTable.at(key); // Use at to safely access the map
     }
 
+    /**
+     * @brief Retrieves the satisfaction configuration for a specified entity type.
+     * @param entityType The type of the entity.
+     * @return The satisfaction configuration for the specified entity.
+     */
     static SatisfactionConfig getSatisfactionConfig(EntityType entityType)
     {
         static ConfigManager instance;
@@ -25,17 +45,21 @@ public:
     }
 
 private:
-    std::map<std::pair<EntityType, Size>, EntityConfig> entityConfigTable;
-    std::map<EntityType, SatisfactionConfig> satisfactionConfigTable;
+    std::map<std::pair<EntityType, Size>, EntityConfig> entityConfigTable; ///< Stores configurations for entities.
+    std::map<EntityType, SatisfactionConfig> satisfactionConfigTable; ///< Stores satisfaction configurations.
 
-    // Private constructor to initialize the configurations
+    /**
+     * @brief Constructor initializes configuration tables.
+     */
     ConfigManager()
     {
         initializeEntityConfig();
         initializeSatisfactionConfig();
     }
 
-    // Method to initialize the configuration map with reasonable values for each entity
+    /**
+     * @brief Initializes entity configuration table with default values.
+     */
     void initializeEntityConfig()
     {
         // EntityConfig(Cost(money, wood, stone, concrete), electricity, water, symbol, radius, localEffect, globalEffect, width, height, revenue, buildTime)
@@ -217,6 +241,9 @@ private:
                                   EntityConfig(Cost(6000, 2400, 1200, 800), 50, 0, "ʊ", 20, 25, 15, 10, 10, -0, 8, EntityType::TRAINSTATION, Size::LARGE));
     }
 
+    /**
+     * @brief Initializes satisfaction configuration table with default values.
+     */
     void initializeSatisfactionConfig()
     {
         // SatisfactionConfig(localRate, globalRate, localExtreme, globalExtreme)
