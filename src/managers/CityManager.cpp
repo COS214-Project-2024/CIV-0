@@ -29,7 +29,6 @@
 #include "managers/UtilityManager.h"
 #include "managers/ResourceManager.h"
 #include "city/CivZero.h"
-#include <iostream>
 #include <random>
 #include <cmath>
 #include "utils/BSPPartitioner.h"
