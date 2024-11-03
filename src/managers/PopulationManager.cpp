@@ -1,5 +1,4 @@
 #include "PopulationManager.h"
-#include <iostream>
 #include "utils/PolicyType.h"
 #include "policies/electricity/HighElectricityPolicy.h"
 #include "policies/electricity/NormalElectricityPolicy.h"

@@ -5,7 +5,6 @@
 #include "utils/Caretaker.h"
 #include "utils/PolicyType.h"
 
-
 /**
  * @class GovernmentManager
  * @brief Manages government policies and taxation within the city.
