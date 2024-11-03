@@ -183,13 +183,14 @@ void PolicyMenu::showPolicyHistory()
     else
     {
         // Print a top border
-        int boxWidth = 60;
+        int boxWidth = 80;
         printTopBorder(boxWidth);
 
         // Loop through policy history and display each entry in a formatted manner
         for (size_t i = 0; i < pastPolicies.size(); ++i)
         {
-            std::string entry = " " + std::to_string(i + 1) + ". " + pastPolicies[i]->getDetail();
+
+            std::string entry = " " + std::to_string(i + 1) + ". " + pastPolicies[i]->getName() + ": " + pastPolicies[i]->getDetail();
             int padding = boxWidth - static_cast<int>(entry.size()) - 2;
 
             // Ensure proper alignment by adjusting padding
