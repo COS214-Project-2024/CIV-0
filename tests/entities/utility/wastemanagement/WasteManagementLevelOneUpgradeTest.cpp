@@ -10,7 +10,7 @@ TEST_SUITE("WasteManagementLevelOneUpgrade Tests")
 
     TEST_CASE("WasteManagementLevelOneUpgrade constructor")
     {
-        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL);
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::WASTEMANAGEMENT, Size::SMALL);
         WasteManagement basePlant(ec, Size::SMALL, 10, 10);
         WasteManagementLevelOneUpgrade upgrade(&basePlant);
 
@@ -20,7 +20,7 @@ TEST_SUITE("WasteManagementLevelOneUpgrade Tests")
 
     TEST_CASE("WasteManagementLevelOneUpgrade update()")
     {
-        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::MEDIUM);
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::WASTEMANAGEMENT, Size::MEDIUM);
         WasteManagement basePlant(ec, Size::MEDIUM, 10, 10);
         WasteManagementLevelOneUpgrade upgrade(&basePlant);
 
@@ -31,7 +31,7 @@ TEST_SUITE("WasteManagementLevelOneUpgrade Tests")
 
     TEST_CASE("WasteManagementLevelOneUpgrade clone()")
     {
-        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::LARGE);
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::WASTEMANAGEMENT, Size::LARGE);
         WasteManagement basePlant(ec, Size::LARGE, 10, 10);
         WasteManagementLevelOneUpgrade upgrade(&basePlant);
 
@@ -47,7 +47,7 @@ TEST_SUITE("WasteManagementLevelOneUpgrade Tests")
 
     TEST_CASE("WasteManagementLevelOneUpgrade getOutput()")
     {
-        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL);
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::WASTEMANAGEMENT, Size::SMALL);
         WasteManagement basePlant(ec, Size::SMALL, 10, 10);
         WasteManagementLevelOneUpgrade upgrade(&basePlant);
 
@@ -56,7 +56,7 @@ TEST_SUITE("WasteManagementLevelOneUpgrade Tests")
 
     TEST_CASE("WasteManagementLevelOneUpgrade getCost()")
     {
-        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL);
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::WASTEMANAGEMENT, Size::SMALL);
         WasteManagement basePlant(ec, Size::SMALL, 10, 10);
         WasteManagementLevelOneUpgrade upgrade(&basePlant);
 
@@ -65,7 +65,7 @@ TEST_SUITE("WasteManagementLevelOneUpgrade Tests")
 
     TEST_CASE("Upgrade test")
     {
-        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL);
+        EntityConfig ec = ConfigManager::getEntityConfig(EntityType::WASTEMANAGEMENT, Size::SMALL);
         WasteManagement basePlant(ec, Size::SMALL, 0, 0);
         WasteManagementLevelOneUpgrade upgrade(&basePlant);
         Entity *upgradedEntity = upgrade.upgrade();

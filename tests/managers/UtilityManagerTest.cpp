@@ -29,7 +29,7 @@ TEST_SUITE("UtilityManager") {
         }
 
         SUBCASE("Build a medium WasteManagement facility") {
-            manager.buildUtility(EntityType::WASTEMANAGMENT, Size::MEDIUM, 10, 30);
+            manager.buildUtility(EntityType::WASTEMANAGEMENT, Size::MEDIUM, 10, 30);
             std::vector<Utility*> utilities = manager.getAllWasteManagements();
             CHECK(utilities.size() == 1);
             //CHECK(City::instance()->getWasteConsumption() == 20);
@@ -51,7 +51,7 @@ TEST_SUITE("UtilityManager") {
         SUBCASE("All together") {
             manager.buildUtility(EntityType::POWERPLANT, Size::SMALL, 10, 10);
             manager.buildUtility(EntityType::SEWAGESYSTEM, Size::SMALL, 40, 10);
-            manager.buildUtility(EntityType::WASTEMANAGMENT, Size::MEDIUM, 10, 30);
+            manager.buildUtility(EntityType::WASTEMANAGEMENT, Size::MEDIUM, 10, 30);
             manager.buildUtility(EntityType::WATERSUPPLY, Size::LARGE, 20, 30);
             manager.buildUtility(EntityType::BUSSTOP, Size::SMALL, 20, 20);
             std::vector<Utility*> utilities = manager.getAllUtilities();
@@ -65,7 +65,7 @@ TEST_SUITE("UtilityManager") {
 
         manager.buildUtility(EntityType::POWERPLANT, Size::SMALL, 20, 20);
         manager.buildUtility(EntityType::WATERSUPPLY, Size::SMALL, 40, 40);
-        manager.buildUtility(EntityType::WASTEMANAGMENT, Size::SMALL, 0, 30);
+        manager.buildUtility(EntityType::WASTEMANAGEMENT, Size::SMALL, 0, 30);
         manager.buildUtility(EntityType::SEWAGESYSTEM, Size::SMALL, 20, 40);
 
         manager.getElectricityProduction();
@@ -147,7 +147,7 @@ TEST_SUITE("UtilityManager") {
             City::instance()->setWood(600);
             City::instance()->setStone(300);
             City::instance()->setConcrete(200);
-            manager.buildUtility(EntityType::WASTEMANAGMENT, Size::SMALL, 20, 20);
+            manager.buildUtility(EntityType::WASTEMANAGEMENT, Size::SMALL, 20, 20);
 
             Utility* wasteManagement = manager.getAllWasteManagements().front();
             REQUIRE(wasteManagement != nullptr);
@@ -159,7 +159,7 @@ TEST_SUITE("UtilityManager") {
             City::instance()->setWood(200);
             City::instance()->setStone(100);
             City::instance()->setConcrete(50);
-            manager.buildUtility(EntityType::WASTEMANAGMENT, Size::SMALL, 20, 20);
+            manager.buildUtility(EntityType::WASTEMANAGEMENT, Size::SMALL, 20, 20);
 
             Utility* wasteManagement = manager.getAllWasteManagements().front();
             REQUIRE(wasteManagement != nullptr);

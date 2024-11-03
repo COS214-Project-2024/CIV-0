@@ -22,7 +22,7 @@ enum class EntityType
     MONUMENT,
     POWERPLANT,
     WATERSUPPLY,
-    WASTEMANAGMENT,
+    WASTEMANAGEMENT,
     SEWAGESYSTEM,
     ROAD,
     WOODPRODUCER,
@@ -72,8 +72,8 @@ inline std::string entityTypeToString(EntityType type)
         return "POWERPLANT";
     case EntityType::WATERSUPPLY:
         return "WATERSUPPLY";
-    case EntityType::WASTEMANAGMENT:
-        return "WASTEMANAGMENT";
+    case EntityType::WASTEMANAGEMENT:
+        return "WASTEMANAGEMENT";
     case EntityType::SEWAGESYSTEM:
         return "SEWAGESYSTEM";
     case EntityType::ROAD:
@@ -129,8 +129,8 @@ inline EntityType stringToEntityType(const std::string &typeStr)
         return EntityType::POWERPLANT;
     else if (typeStr == "WATERSUPPLY")
         return EntityType::WATERSUPPLY;
-    else if (typeStr == "WASTEMANAGMENT")
-        return EntityType::WASTEMANAGMENT;
+    else if (typeStr == "WASTEMANAGEMENT")
+        return EntityType::WASTEMANAGEMENT;
     else if (typeStr == "SEWAGESYSTEM")
         return EntityType::SEWAGESYSTEM;
     else if (typeStr == "ROAD")

@@ -169,12 +169,12 @@ private:
                                   EntityConfig(Cost(5000, 2000, 1000, 700), 0, 200, "☂", 20, 25, 15, 10, 10, -0, 8, EntityType::WATERSUPPLY, Size::LARGE));
 
         // Waste Management
-        entityConfigTable.emplace(std::make_pair(EntityType::WASTEMANAGMENT, Size::SMALL),
-                                  EntityConfig(Cost(1000, 500, 300, 150), 10, 5, "☣", 5, -5, -5, 5, 5, -0, 3, EntityType::WASTEMANAGMENT, Size::SMALL));
-        entityConfigTable.emplace(std::make_pair(EntityType::WASTEMANAGMENT, Size::MEDIUM),
-                                  EntityConfig(Cost(2000, 900, 500, 300), 15, 10, "☣", 8, -10, -10, 7, 7, -0, 5, EntityType::WASTEMANAGMENT, Size::MEDIUM));
-        entityConfigTable.emplace(std::make_pair(EntityType::WASTEMANAGMENT, Size::LARGE),
-                                  EntityConfig(Cost(3500, 1500, 800, 600), 25, 15, "☣", 12, -15, -15, 9, 9, -0, 7, EntityType::WASTEMANAGMENT, Size::LARGE));
+        entityConfigTable.emplace(std::make_pair(EntityType::WASTEMANAGEMENT, Size::SMALL),
+                                  EntityConfig(Cost(1000, 500, 300, 150), 10, 5, "☣", 5, -5, -5, 5, 5, -0, 3, EntityType::WASTEMANAGEMENT, Size::SMALL));
+        entityConfigTable.emplace(std::make_pair(EntityType::WASTEMANAGEMENT, Size::MEDIUM),
+                                  EntityConfig(Cost(2000, 900, 500, 300), 15, 10, "☣", 8, -10, -10, 7, 7, -0, 5, EntityType::WASTEMANAGEMENT, Size::MEDIUM));
+        entityConfigTable.emplace(std::make_pair(EntityType::WASTEMANAGEMENT, Size::LARGE),
+                                  EntityConfig(Cost(3500, 1500, 800, 600), 25, 15, "☣", 12, -15, -15, 9, 9, -0, 7, EntityType::WASTEMANAGEMENT, Size::LARGE));
 
         // Sewage Systems
         entityConfigTable.emplace(std::make_pair(EntityType::SEWAGESYSTEM, Size::SMALL),
@@ -273,7 +273,7 @@ private:
         satisfactionConfigTable.emplace(EntityType::WATERSUPPLY, SatisfactionConfig(-2.0f, -2.0f, -25.0f, 0.0f));
 
         // Waste Managment
-        satisfactionConfigTable.emplace(EntityType::WASTEMANAGMENT, SatisfactionConfig(-2.0f, 2.0f, -25.0f, 0.0f));
+        satisfactionConfigTable.emplace(EntityType::WASTEMANAGEMENT, SatisfactionConfig(-2.0f, 2.0f, -25.0f, 0.0f));
 
         // Sewage System
         satisfactionConfigTable.emplace(EntityType::SEWAGESYSTEM, SatisfactionConfig(-2.0f, 2.0f, -25.0f, 0.0f));

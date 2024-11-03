@@ -26,7 +26,7 @@ UtilityManager::~UtilityManager()
 
 bool UtilityManager::buildUtility(EntityType type, Size size, int x, int y)
 {
-	if (type != EntityType::POWERPLANT && type != EntityType::SEWAGESYSTEM && type != EntityType::WASTEMANAGMENT && type != EntityType::WATERSUPPLY)
+	if (type != EntityType::POWERPLANT && type != EntityType::SEWAGESYSTEM && type != EntityType::WASTEMANAGEMENT && type != EntityType::WATERSUPPLY)
 	{
 		return false;
 	}
