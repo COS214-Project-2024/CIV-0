@@ -29,7 +29,6 @@
 #include "managers/UtilityManager.h"
 #include "managers/ResourceManager.h"
 #include "city/CivZero.h"
-#include <iostream>
 #include <random>
 #include <cmath>
 #include "utils/BSPPartitioner.h"
@@ -230,7 +229,7 @@ void CityManager::sellAllBuildingsOfType(EntityType type)
                     sellBuilding(i, j);
                 }
                 break;
-            case (EntityType::WASTEMANAGMENT):
+            case (EntityType::WASTEMANAGEMENT):
                 if (dynamic_cast<WasteManagement *>(c->getEntity(i, j)) != nullptr)
                 {
                     sellBuilding(i, j);
@@ -470,7 +469,7 @@ void CityManager::generateRandomBuildings(int placementProbability)
         EntityType::BUSSTOP,
         EntityType::POWERPLANT, EntityType::POWERPLANT,
         EntityType::WATERSUPPLY, EntityType::WATERSUPPLY, EntityType::WATERSUPPLY, EntityType::WATERSUPPLY,
-        EntityType::WASTEMANAGMENT,
+        EntityType::WASTEMANAGEMENT,
         EntityType::SEWAGESYSTEM,
         EntityType::WOODPRODUCER,
         EntityType::STONEPRODUCER,
@@ -541,7 +540,7 @@ void CityManager::generateRandomBuildings(int placementProbability)
                 case EntityType::WATERSUPPLY:
                     building = new WaterSupply(config, defaultSize, x, y);
                     break;
-                case EntityType::WASTEMANAGMENT:
+                case EntityType::WASTEMANAGEMENT:
                     building = new WasteManagement(config, defaultSize, x, y);
                     break;
                 case EntityType::SEWAGESYSTEM:

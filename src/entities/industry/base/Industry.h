@@ -16,7 +16,7 @@ class Industry : public Entity
 {
 private:
     int output; ///< Production output of the industrial entity.
-    Cost cost;
+    Cost cost; ///< Cost structure for the industrial entity.
 public:
     /**
      * @brief Constructs an Industry entity with specified attributes.
@@ -72,18 +72,23 @@ public:
      */
     void setOutput(int output);
 
+    /**
+     * @brief Gets the current level of the industry.
+     *
+     * @return The level of the industry (default implementation returns 0).
+     */
     virtual int getLevel();
 
     /**
-     * @brief Gets the cost of an upgrade
-     * 
-     * @reutrn Cost Struct of various costs for upgrade
+     * @brief Gets the cost of an upgrade.
+     *
+     * @return Cost struct of various costs for upgrade.
      */
     virtual Cost getCost();
 
-    
     /**
      * @brief Upgrades the current industry to the next level.
+     *
      * @return A pointer to the upgraded industry instance, or nullptr if already at maximum level.
      */
     virtual Entity* upgrade() = 0;

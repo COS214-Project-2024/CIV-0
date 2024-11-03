@@ -76,6 +76,11 @@ public:
      */
     Cost getCost() override;
 
+    /**
+     * @brief Gets the level of the waste management upgrade.
+     *
+     * @return The level of the waste management upgrade.
+     */
     int getLevel() override;
 
 private:

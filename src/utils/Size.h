@@ -4,17 +4,22 @@
 #include <string>
 #include <stdexcept> // For std::invalid_argument
 
+/**
+ * @enum Size
+ * @brief Enumeration for size categories.
+ */
 enum class Size
 {
-    SMALL,
-    MEDIUM,
-    LARGE,
+    SMALL,   ///< Small size
+    MEDIUM,  ///< Medium size
+    LARGE,   ///< Large size
 };
 
 /**
  * @brief Converts a Size enum to its corresponding string value.
  * @param size The Size enum value.
  * @return The string representation of the size.
+ * @throws std::invalid_argument if the size is invalid.
  */
 inline std::string sizeToString(Size size)
 {

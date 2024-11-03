@@ -76,6 +76,11 @@ public:
      */
     Cost getCost() override;
 
+    /**
+     * @brief Gets the level of the power plant upgrade.
+     *
+     * @return The level of the power plant upgrade.
+     */
     int getLevel() override;
 
 private:

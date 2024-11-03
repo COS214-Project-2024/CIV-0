@@ -48,11 +48,45 @@ public:
     void handleInput() override;
 
 private:
+    /**
+     * @brief Lists the entities based on the provided iterator and label generator.
+     *
+     * @param it The iterator for city entities.
+     * @param labelGenerator The function to generate labels for entities.
+     * @param heading The heading for the entity list.
+     */
     void listEntities(Iterator *it, std::string (*labelGenerator)(Entity *), std::string heading);
 
+    /**
+     * @brief Generates a label for a general entity.
+     *
+     * @param entity The entity to label.
+     * @return The generated label string.
+     */
     static std::string labelGenerator(Entity *entity);
+
+    /**
+     * @brief Generates a label for a residential building entity.
+     *
+     * @param entity The residential building entity to label.
+     * @return The generated label string with satisfaction.
+     */
     static std::string residentialLabelGenerator(Entity *entity);
+
+    /**
+     * @brief Generates a label for an industrial entity.
+     *
+     * @param entity The industrial entity to label.
+     * @return The generated label string with production rate and level.
+     */
     static std::string industrialLabelGenerator(Entity *entity);
+
+    /**
+     * @brief Generates a label for a utility entity.
+     *
+     * @param entity The utility entity to label.
+     * @return The generated label string with level information.
+     */
     static std::string utilityLabelGenerator(Entity *entity);
 
     /**

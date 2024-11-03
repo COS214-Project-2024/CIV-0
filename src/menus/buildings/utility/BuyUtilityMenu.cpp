@@ -54,7 +54,7 @@ EntityType BuyUtilityMenu::chooseEntityType()
             choosing = false;
             break;
         case '3':
-            type = EntityType::WASTEMANAGMENT;
+            type = EntityType::WASTEMANAGEMENT;
             choosing = false;
             break;
         case '4':

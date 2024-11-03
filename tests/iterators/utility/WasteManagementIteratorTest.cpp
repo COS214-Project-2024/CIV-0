@@ -9,7 +9,7 @@ TEST_CASE("WasteManagementIterator initial position")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    WasteManagement *wm1 = new WasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
+    WasteManagement *wm1 = new WasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGEMENT, Size::SMALL), Size::SMALL, 10, 10);
     Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 5, 5);
 
     row1.push_back(wm1);
@@ -36,7 +36,7 @@ TEST_CASE("WasteManagementIterator next()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    WasteManagement *wm1 = new WasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
+    WasteManagement *wm1 = new WasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGEMENT, Size::SMALL), Size::SMALL, 10, 10);
     Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 5, 5);
 
     row1.push_back(wm1);
@@ -68,7 +68,7 @@ TEST_CASE("WasteManagementIterator first()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    WasteManagement *wm1 = new WasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
+    WasteManagement *wm1 = new WasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGEMENT, Size::SMALL), Size::SMALL, 10, 10);
     Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 5, 5);
 
     row1.push_back(wm1);
@@ -96,8 +96,8 @@ TEST_CASE("WasteManagementIterator hasNext() with multiple WasteManagement insta
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    WasteManagement *wm1 = new WasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
-    WasteManagement *wm2 = new WasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 15, 15);
+    WasteManagement *wm1 = new WasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGEMENT, Size::SMALL), Size::SMALL, 10, 10);
+    WasteManagement *wm2 = new WasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGEMENT, Size::SMALL), Size::SMALL, 15, 15);
     Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 5, 5);
 
     row1.push_back(wm1);
@@ -136,7 +136,7 @@ TEST_CASE("WasteManagementIterator reaching the end")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    WasteManagement *wm1 = new WasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, Size::SMALL), Size::SMALL, 10, 10);
+    WasteManagement *wm1 = new WasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGEMENT, Size::SMALL), Size::SMALL, 10, 10);
     Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 5, 5);
 
     row1.push_back(wm1);
