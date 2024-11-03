@@ -76,6 +76,11 @@ public:
      */
     Cost getCost() override;
 
+    /**
+     * @brief Gets the level of the water supply upgrade.
+     *
+     * @return The level of the water supply upgrade.
+     */
     int getLevel() override;
 
 private:
