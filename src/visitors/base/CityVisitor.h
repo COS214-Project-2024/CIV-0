@@ -6,14 +6,27 @@
 
 class City; // Forward declaration to avoid circular dependency
 
+/**
+ * @brief Base class for visiting and interacting with City objects.
+ */
 class CityVisitor
 {
 public:
-    CityVisitor() = default;          // Default constructor
-    virtual ~CityVisitor() = default; // Default destructor
+    /**
+     * @brief Default constructor.
+     */
+    CityVisitor() = default;
 
-    // Abstract visit method
-    virtual void visit(City *city) = 0; // Pure virtual to force subclasses to implement
+    /**
+     * @brief Default destructor.
+     */
+    virtual ~CityVisitor() = default;
+
+    /**
+     * @brief Abstract method to visit a City object.
+     * @param city Pointer to the City object to be visited.
+     */
+    virtual void visit(City *city) = 0;
 };
 
 #endif // CITYVISITOR_H
