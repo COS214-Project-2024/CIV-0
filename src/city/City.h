@@ -1,3 +1,8 @@
+/**
+ * @file City.h
+ * @brief Manages city entities and resources in the simulation.
+ */
+
 #ifndef CITY_H
 #define CITY_H
 
@@ -12,35 +17,38 @@
 class Entity;
 class Iterator;
 
+/**
+ * @class City
+ * @brief Singleton class that represents and manages a simulated city with entities, resources, and policies.
+ */
 class City
 {
 private:
-    std::vector<std::vector<Entity *>> grid;
-    int width;
-    int height;
-    float satisfaction;
-    int money;
-    int wood;
-    int stone;
-    int concrete;
-    int populationCapacity;
-    int population;
-    int electricityProduction;
-    int electricityConsumption;
-    int waterProduction;
-    int waterConsumption;
-    int wasteProduction;
-    int wasteConsumption;
-    int sewageProduction;
-    int sewageConsumption;
-    int residentialTax;
-    int economicTax;
+    std::vector<std::vector<Entity *>> grid; ///< 2D grid representing the layout of entities in the city.
+    int width;                                ///< Width of the city grid.
+    int height;                               ///< Height of the city grid.
+    float satisfaction;                       ///< Overall satisfaction level of the city's population.
+    int money;                                ///< Available money resource for the city.
+    int wood;                                 ///< Available wood resource for the city.
+    int stone;                                ///< Available stone resource for the city.
+    int concrete;                             ///< Available concrete resource for the city.
+    int populationCapacity;                   ///< Total capacity for housing population in the city.
+    int population;                           ///< Current population count.
+    int electricityProduction;                ///< Current electricity production level.
+    int electricityConsumption;               ///< Current electricity consumption level.
+    int waterProduction;                      ///< Current water production level.
+    int waterConsumption;                     ///< Current water consumption level.
+    int wasteProduction;                      ///< Current waste production level.
+    int wasteConsumption;                     ///< Current waste consumption level.
+    int sewageProduction;                     ///< Current sewage production level.
+    int sewageConsumption;                    ///< Current sewage consumption level.
+    int residentialTax;                       ///< Residential tax rate.
+    int economicTax;                          ///< Economic tax rate.
 
-    // Private constructor and destructor to enforce the singleton pattern
-    City();
-    ~City();
+    City();                                   ///< Private constructor for singleton pattern.
+    ~City();                                  ///< Private destructor for singleton pattern.
 
-    WaterPolicy *waterPolicy = nullptr;             ///< Pointer to the current water policy.
+    WaterPolicy *waterPolicy = nullptr;       ///< Pointer to the current water policy.
     ElectricityPolicy *electricityPolicy = nullptr; ///< Pointer to the current electricity policy.
 
 public:
@@ -50,20 +58,43 @@ public:
      */
     static City *instance();
 
-    // Deleted copy constructor and assignment operator to enforce singleton pattern
-    City(const City &) = delete;
-    City &operator=(const City &) = delete;
+    City(const City &) = delete;              ///< Deleted copy constructor for singleton pattern.
+    City &operator=(const City &) = delete;   ///< Deleted assignment operator for singleton pattern.
 
+    /**
+     * @brief Retrieves an entity at specified coordinates.
+     * @param x X-coordinate on the grid.
+     * @param y Y-coordinate on the grid.
+     * @return Pointer to the Entity at the coordinates, or nullptr if empty.
+     */
     Entity *getEntity(int x, int y);
-    void addEntity(Entity *entity);
-    std::vector<std::vector<Entity *>> &getGrid(); // Provide access to the grid
 
+    /**
+     * @brief Adds an entity to the city grid.
+     * @param entity Pointer to the Entity to be added.
+     */
+    void addEntity(Entity *entity);
+
+    /**
+     * @brief Provides access to the city grid.
+     * @return A reference to the 2D grid of entities.
+     */
+    std::vector<std::vector<Entity *>> &getGrid();
+
+    /**
+     * @brief Deletes an entity at the specified coordinates.
+     * @param x X-coordinate of the entity.
+     * @param y Y-coordinate of the entity.
+     */
     void deleteEntity(int x, int y);
 
-    // Accept method for the visitor pattern
+    /**
+     * @brief Accepts a visitor for the city (Visitor Pattern).
+     * @param visitor The CityVisitor object.
+     */
     void accept(CityVisitor &visitor);
 
-    // Getters
+    // Getters for city properties
     int getWidth() const;
     int getHeight() const;
     float getSatisfaction() const;
@@ -96,7 +127,7 @@ public:
      */
     ElectricityPolicy *getElectricityPolicy() const;
 
-    // Setters
+    // Setters for city properties
     void setWidth(int width);
     void setHeight(int height);
     void setSatisfaction(float satisfaction);
@@ -116,6 +147,7 @@ public:
     void setSewageConsumption(int sewageConsumption);
     void setResidentialTax(int residentialTax);
     void setEconomicTax(int economicTax);
+
     /**
      * @brief Sets the water usage policy for the city.
      * @param policyType The type of water policy to enact.
@@ -128,9 +160,19 @@ public:
      */
     void setElectricityPolicy(PolicyType policyType);
 
-    void reset();
+    /**
+     * @brief Resets the city with current or specified dimensions.
+     * @param width Width of the new grid.
+     * @param height Height of the new grid.
+     */
     void reset(int width, int height);
+    void reset();
 
+    /**
+     * @brief Creates various iterators for the city.
+     * @param unique If true, creates unique iterators.
+     * @return A pointer to the created iterator.
+     */
     Iterator *createCityIterator(bool unique);
     Iterator *createBuildingIterator(bool unique);
     Iterator *createUtilityIterator(bool unique);
@@ -154,6 +196,9 @@ public:
      */
     void createRandomRoad();
 
+    /**
+     * @brief Displays the city layout on the console.
+     */
     void displayCity() const;
 };
 
