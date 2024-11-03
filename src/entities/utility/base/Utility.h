@@ -83,6 +83,11 @@ public:
      */
     virtual Cost getCost();
 
+    /**
+     * @brief Gets the level of the utility.
+     *
+     * @return The level of the utility.
+     */
     virtual int getLevel();
 
 private:
