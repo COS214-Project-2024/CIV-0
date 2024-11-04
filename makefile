@@ -1,5 +1,5 @@
 # Variables
-PROJECT_NAME = project
+PROJECT_NAME = civzero
 SRCDIR = src
 TESTDIR = tests
 BUILDDIR = build
