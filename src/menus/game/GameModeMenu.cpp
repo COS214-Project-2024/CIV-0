@@ -74,16 +74,8 @@ void GameModeMenu::handleInput()
         switch (choice)
         {
         case '1':
-            // Start normal game
-            City::instance()->reset(CivZero::GRID_SIZE, CivZero::GRID_SIZE);
-
-            {
-                CityManager manager;
-                manager.initializeCity();
-            }
-
-            // Now set the next menu to the MainMenu
-            MenuManager::instance().setCurrentMenu(Menu::MAIN);
+            // Start normal game by asking for city name
+            MenuManager::instance().setCurrentMenu(Menu::CITY_NAME);
             choosing = false;
             break;
 
@@ -134,6 +126,7 @@ void GameModeMenu::handleInput()
 
         default:
             displayInvalidChoice(); // Handle invalid input
+            displayPressEnterToContinue();
             break;
         }
     }

@@ -25,6 +25,7 @@ enum class Menu
     DEMOLISH,                 /// < This Menu is for selling building(s)
     STATS,                    /// < This is the stats menu
     GAME_MODE,                /// < This menu is used to select the game mode
+    CITY_NAME,                /// < Menu to set the name of your city
 
 };
 
