@@ -107,6 +107,8 @@ void MainMenu::handleInput()
             char confirm;
             displayChoiceMessagePrompt("Are you sure you want to restart the game? All progress will be lost (y/n): ");
             std::cin >> confirm;
+            // Clear the input buffer
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             if (confirm == 'y' || confirm == 'Y')
             {
                 displaySuccessMessage("Restarting game...");

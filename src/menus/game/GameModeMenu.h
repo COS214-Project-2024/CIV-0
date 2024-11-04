@@ -32,6 +32,11 @@ public:
 
 private:
     mutable bool hasDisplayedWelcomeMessage;
+
+    /**
+     * @brief Displays the welcome message to the user.
+     */
+    void displayWelcomeMessage() const;
 };
 
 #endif // GAMEMODEMENU_H

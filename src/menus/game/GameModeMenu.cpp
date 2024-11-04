@@ -4,6 +4,7 @@
 #include "city/CivZero.h"
 #include <iostream>
 #include <limits>
+#include <string>
 
 /**
  * @brief Constructor for GameModeMenu.
@@ -56,30 +57,58 @@ GameModeMenu::GameModeMenu() : hasDisplayedWelcomeMessage(false)
 GameModeMenu::~GameModeMenu() {}
 
 /**
+ * @brief Displays the welcome message to the user.
+ */
+void GameModeMenu::displayWelcomeMessage() const
+{
+    clearScreen();
+
+    // Create a stylized welcome message using ASCII art
+    std::string welcomeArt = R"(
+
+          _____                    _____                    _____                            _____                    _____                    _____                   _______         
+         /\    \                  /\    \                  /\    \                          /\    \                  /\    \                  /\    \                 /::\    \        
+        /::\    \                /::\    \                /::\____\                        /::\    \                /::\    \                /::\    \               /::::\    \       
+       /::::\    \               \:::\    \              /:::/    /                        \:::\    \              /::::\    \              /::::\    \             /::::::\    \      
+      /::::::\    \               \:::\    \            /:::/    /                          \:::\    \            /::::::\    \            /::::::\    \           /::::::::\    \     
+     /:::/\:::\    \               \:::\    \          /:::/    /                            \:::\    \          /:::/\:::\    \          /:::/\:::\    \         /:::/~~\:::\    \    
+    /:::/  \:::\    \               \:::\    \        /:::/____/                              \:::\    \        /:::/__\:::\    \        /:::/__\:::\    \       /:::/    \:::\    \   
+   /:::/    \:::\    \              /::::\    \       |::|    |                                \:::\    \      /::::\   \:::\    \      /::::\   \:::\    \     /:::/    / \:::\    \  
+  /:::/    / \:::\    \    ____    /::::::\    \      |::|    |     _____                       \:::\    \    /::::::\   \:::\    \    /::::::\   \:::\    \   /:::/____/   \:::\____\ 
+ /:::/    /   \:::\    \  /\   \  /:::/\:::\    \     |::|    |    /\    \                       \:::\    \  /:::/\:::\   \:::\    \  /:::/\:::\   \:::\____\ |:::|    |     |:::|    |
+/:::/____/     \:::\____\/::\   \/:::/  \:::\____\    |::|    |   /::\____\        _______________\:::\____\/:::/__\:::\   \:::\____\/:::/  \:::\   \:::|    ||:::|____|     |:::|    |
+\:::\    \      \::/    /\:::\  /:::/    \::/    /    |::|    |  /:::/    /        \::::::::::::::::::/    /\:::\   \:::\   \::/    /\::/   |::::\  /:::|____| \:::\    \   /:::/    / 
+ \:::\    \      \/____/  \:::\/:::/    / \/____/     |::|    | /:::/    /          \::::::::::::::::/____/  \:::\   \:::\   \/____/  \/____|:::::\/:::/    /   \:::\    \ /:::/    /  
+  \:::\    \               \::::::/    /              |::|____|/:::/    /            \:::\~~~~\~~~~~~         \:::\   \:::\    \            |:::::::::/    /     \:::\    /:::/    /   
+   \:::\    \               \::::/____/               |:::::::::::/    /              \:::\    \               \:::\   \:::\____\           |::|\::::/    /       \:::\__/:::/    /    
+    \:::\    \               \:::\    \               \::::::::::/____/                \:::\    \               \:::\   \::/    /           |::| \::/____/         \::::::::/    /     
+     \:::\    \               \:::\    \               ~~~~~~~~~~                       \:::\    \               \:::\   \/____/            |::|  ~|                \::::::/    /      
+      \:::\    \               \:::\    \                                                \:::\    \               \:::\    \                |::|   |                 \::::/    /       
+       \:::\____\               \:::\____\                                                \:::\____\               \:::\____\               \::|   |                  \::/____/        
+        \::/    /                \::/    /                                                 \::/    /                \::/    /                \:|   |                   ~~              
+         \/____/                  \/____/                                                   \/____/                  \/____/                  \|___|                                   
+                                                                                                                                                                                                                                
+    )";
+
+    std::cout << BOLD_CYAN << welcomeArt << RESET << "\n";
+
+    displayPressEnterToContinue();
+
+    hasDisplayedWelcomeMessage = true;
+    clearScreen();
+}
+
+/**
  * @brief Displays the menu to the user.
  */
 void GameModeMenu::display() const
 {
     if (!hasDisplayedWelcomeMessage)
     {
-        // Display welcome message
-        clearScreen();
-        std::cout << BOLD_WHITE << centerText("Welcome to CivZero!", 80) << RESET << "\n";
-        std::cout << DARK_GRAY << repeat("─", 80) << RESET << "\n";
-        std::cout << NORMAL_WHITE << centerText("A city-building simulation game", 80) << RESET << "\n";
-        displayPressEnterToContinue();
-
-        // Set the flags
-        hasDisplayedWelcomeMessage = true;
-
-        clearScreen();
-        displayMenu();
+        displayWelcomeMessage();
     }
-    else
-    {
-        // Display the game mode menu
-        displayMenu();
-    }
+
+    displayMenu();
 }
 
 /**
@@ -91,16 +120,25 @@ void GameModeMenu::handleInput()
 
     while (choosing)
     {
+        clearScreen();
+        displayMenu();
         displayChoicePrompt();
 
-        char choice;
-        std::cin >> choice;
+        // Use getline to handle input properly
+        std::string inputLine;
+        std::getline(std::cin, inputLine);
+
+        // Trim whitespace
+        inputLine.erase(0, inputLine.find_first_not_of(' '));
+        inputLine.erase(inputLine.find_last_not_of(' ') + 1);
+
+        char choice = inputLine[0];
 
         switch (choice)
         {
         case '1':
             // Start normal game by asking for city name
-            MenuManager::instance().setCurrentMenu(Menu::CITY_NAME);
+            MenuManager::instance().setCurrentMenu(std::make_shared<CityNameMenu>());
             choosing = false;
             break;
 
@@ -152,16 +190,21 @@ void GameModeMenu::handleInput()
             choosing = false;
             break;
         case 'q':
+        case 'Q':
+        {
             char confirm;
             displayChoiceMessagePrompt("Are you sure you want to quit the game (y/n): ");
             std::cin >> confirm;
-            if (confirm == 'y')
+            // Clear input buffer
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            if (confirm == 'y' || confirm == 'Y')
             {
                 displaySuccessMessage("Quitting game...");
                 CivZero::instance().quit(); // Call the quit method from CivZero
                 choosing = false;
             }
-            break;
+        }
+        break;
         default:
             displayInvalidChoice(); // Handle invalid input
             displayPressEnterToContinue();
