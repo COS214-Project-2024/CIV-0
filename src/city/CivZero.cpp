@@ -40,6 +40,13 @@ void CivZero::startGame(bool generateRandomCity, std::optional<unsigned int> see
     gameLoop(); // Call the internal game loop method
 }
 
+void CivZero::resetGame()
+{
+    // Reset game loop counter
+    currentGameLoop = 0;
+    // Reset other game-specific variables if any
+}
+
 void CivZero::quit()
 {
     this->running = false;

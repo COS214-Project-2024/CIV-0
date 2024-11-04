@@ -53,6 +53,11 @@ public:
      */
     int getGameLoop();
 
+    /**
+     * @brief Resets the game state to initial conditions.
+     */
+    void resetGame();
+
     static const int GRID_SIZE = 50; ///< The size of the game grid.
 private:
     int currentGameLoop = 0; ///< Counter for the current game loop.

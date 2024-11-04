@@ -21,7 +21,8 @@ MainMenu::MainMenu() : IMenu("Main Menu")
          {{'s', "📊", "Show Stats"},
           {'d', "🏙️ ", "Display City"}}},
         {"Navigation",
-         {{'q', "🚪", "Quit Game"}}}};
+         {{'r', "🔄", "Restart Game"},
+          {'q', "🚪", "Quit Game"}}}};
 }
 
 /**
@@ -101,6 +102,27 @@ void MainMenu::handleInput()
             MenuManager::instance().setCurrentMenu(Menu::DISPLAYCITY);
             choosing = false;
             break;
+        case 'r':
+        {
+            char confirm;
+            displayChoiceMessagePrompt("Are you sure you want to restart the game? All progress will be lost (y/n): ");
+            std::cin >> confirm;
+            if (confirm == 'y' || confirm == 'Y')
+            {
+                displaySuccessMessage("Restarting game...");
+                // Perform restart logic
+                CivZero::instance().resetGame();
+                City::instance()->reset(CivZero::GRID_SIZE, CivZero::GRID_SIZE);
+                // Set the current menu to the GameModeMenu
+                MenuManager::instance().setCurrentMenu(Menu::GAME_MODE);
+                choosing = false;
+            }
+            else
+            {
+                displaySuccessMessage("Cancelled restart.");
+            }
+            break;
+        }
         case 'q':
             char confirm;
             displayChoiceMessagePrompt("Are you sure you want to quit the game (y/n): ");

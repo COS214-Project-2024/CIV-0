@@ -8,7 +8,7 @@
 /**
  * @brief Constructor for GameModeMenu.
  */
-GameModeMenu::GameModeMenu()
+GameModeMenu::GameModeMenu() : hasDisplayedWelcomeMessage(false)
 {
     // Set the menu heading
     setHeading("Select Game Mode");
@@ -41,6 +41,12 @@ GameModeMenu::GameModeMenu()
     option4.text = "Demo City";
     section.options.push_back(option4);
 
+    Option option5;
+    option5.key = 'q';
+    option5.icon = "🚪";
+    option5.text = "Quit Game";
+    section.options.push_back(option5);
+
     sections.push_back(section);
 }
 
@@ -54,7 +60,26 @@ GameModeMenu::~GameModeMenu() {}
  */
 void GameModeMenu::display() const
 {
-    displayMenu();
+    if (!hasDisplayedWelcomeMessage)
+    {
+        // Display welcome message
+        clearScreen();
+        std::cout << BOLD_WHITE << centerText("Welcome to CivZero!", 80) << RESET << "\n";
+        std::cout << DARK_GRAY << repeat("─", 80) << RESET << "\n";
+        std::cout << NORMAL_WHITE << centerText("A city-building simulation game", 80) << RESET << "\n";
+        displayPressEnterToContinue();
+
+        // Set the flags
+        hasDisplayedWelcomeMessage = true;
+
+        clearScreen();
+        displayMenu();
+    }
+    else
+    {
+        // Display the game mode menu
+        displayMenu();
+    }
 }
 
 /**
@@ -82,6 +107,7 @@ void GameModeMenu::handleInput()
         case '2':
             // Generate roads method
             City::instance()->reset(CivZero::GRID_SIZE, CivZero::GRID_SIZE);
+            City::instance()->setCityName("Random Roads City");
 
             {
                 CityManager manager;
@@ -97,6 +123,7 @@ void GameModeMenu::handleInput()
         case '3':
             // Generate random city
             City::instance()->reset(CivZero::GRID_SIZE, CivZero::GRID_SIZE);
+            City::instance()->setCityName("Random City");
 
             {
                 CityManager manager;
@@ -112,6 +139,7 @@ void GameModeMenu::handleInput()
         case '4':
             // Demo city
             City::instance()->reset(CivZero::GRID_SIZE, CivZero::GRID_SIZE);
+            City::instance()->setCityName("DEMO City");
 
             {
                 CityManager manager;
@@ -123,7 +151,17 @@ void GameModeMenu::handleInput()
             MenuManager::instance().setCurrentMenu(Menu::MAIN);
             choosing = false;
             break;
-
+        case 'q':
+            char confirm;
+            displayChoiceMessagePrompt("Are you sure you want to quit the game (y/n): ");
+            std::cin >> confirm;
+            if (confirm == 'y')
+            {
+                displaySuccessMessage("Quitting game...");
+                CivZero::instance().quit(); // Call the quit method from CivZero
+                choosing = false;
+            }
+            break;
         default:
             displayInvalidChoice(); // Handle invalid input
             displayPressEnterToContinue();

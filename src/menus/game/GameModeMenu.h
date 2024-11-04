@@ -29,6 +29,9 @@ public:
      * @brief Handles user input for the menu.
      */
     void handleInput() override;
+
+private:
+    mutable bool hasDisplayedWelcomeMessage;
 };
 
 #endif // GAMEMODEMENU_H

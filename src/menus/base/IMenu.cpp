@@ -271,6 +271,14 @@ void IMenu::displayMenu() const
     // Conditionally display the resources section
     if (displayResources)
     {
+        // Display the city name
+        std::string cityName = City::instance()->getCityName();
+        std::cout << DARK_GRAY << "║ " << BOLD_WHITE
+                  << centerTextWithChar("City: " + cityName, maxWidth - 2, "-")
+                  << DARK_GRAY << " ║" << RESET << "\n";
+        printSectionDivider(maxWidth);
+
+        // Display the resources heading
         std::cout << DARK_GRAY << "║ " << NORMAL_WHITE
                   << centerTextWithChar("City Resources", maxWidth - 2, "•")
                   << DARK_GRAY << " ║" << RESET << "\n";
