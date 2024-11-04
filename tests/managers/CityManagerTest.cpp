@@ -81,7 +81,6 @@ TEST_CASE("CityManager Buy Entity - Placement Check")
 {
     City::instance()->reset();
     CityManager cityManager;
-    cityManager.initializeCity();
 
     // Assume position (5, 5) is within the city bounds
     bool canPlace = cityManager.canBuyAt(5, 5, EntityType::BUSSTOP, Size::SMALL);
