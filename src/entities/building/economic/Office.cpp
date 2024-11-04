@@ -1,6 +1,5 @@
 #include "Office.h"
 
-Office::Office() {}
 Office::~Office() {}
 
 Office::Office(EntityConfig ec, Size size, int xPos, int yPos) : EconomicBuilding(ec, size, xPos, yPos)

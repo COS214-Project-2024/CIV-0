@@ -1,4 +1,3 @@
-
 #include "ConcreteProducerLevelThreeUpgrade.h"
 
 ConcreteProducerLevelThreeUpgrade::ConcreteProducerLevelThreeUpgrade(ConcreteProducer *concreteProd) : ConcreteProducerUpgrade(concreteProd) {}

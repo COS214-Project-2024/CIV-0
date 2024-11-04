@@ -29,10 +29,10 @@ public:
      *
      * Creates a new WasteManagementLevelOneUpgrade object by copying the attributes of an existing
      * WasteManagementLevelOneUpgrade object.
-     *
-     * @param wasteManagementLevelOneUpgrade Pointer to the existing WasteManagementLevelOneUpgrade to be copied.
+     * 
+     * @param wMLOU Pointer to the existing WasteManagementLevelOneUpgrade to be copied.
      */
-    WasteManagementLevelOneUpgrade(WasteManagementLevelOneUpgrade *wasteManagementLevelOneUpgrade);
+    WasteManagementLevelOneUpgrade(WasteManagementLevelOneUpgrade *wMLOU);
 
     /**
      * @brief Destructor for WasteManagementLevelOneUpgrade.
@@ -46,7 +46,7 @@ public:
      *
      * Implements specific behavior for the waste management system after applying the level one upgrade.
      */
-    void update();
+    void update() override;
 
     /**
      * @brief Clones the current WasteManagementLevelOneUpgrade object.
@@ -55,13 +55,13 @@ public:
      *
      * @return A pointer to the newly cloned WasteManagementLevelOneUpgrade object.
      */
-    Entity *clone();
+    Entity *clone() override;
 
     /**
      * @brief Upgrades the current utility to the next level.
      * @return A pointer to the upgraded utility instance, or nullptr if already at maximum level.
      */
-    Entity *upgrade();
+    Entity *upgrade() override;
 
     /**
      * @brief Retrieves the upgraded waste management system's output.
@@ -70,14 +70,19 @@ public:
      *
      * @return The updated output as an integer.
      */
-    int getOutput();
+    int getOutput() override;
 
     /**
      * @brief Retrieves the cost of the utility or its upgraded version.
      * @return A Cost object representing the monetary and material costs.
      */
-    Cost getCost();
+    Cost getCost() override;
 
+    /**
+     * @brief Gets the level of the waste management upgrade.
+     *
+     * @return The level of the waste management upgrade.
+     */
     int getLevel() override;
 
 private:

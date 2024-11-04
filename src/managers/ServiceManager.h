@@ -44,7 +44,13 @@ public:
      */
     ~ServiceManager();
 
-
+    /**
+     * @brief Builds a service of the specified type, size, and location within the city.
+     * @param type Type of service to build (e.g., School, Hospital).
+     * @param size Size of the service (e.g., small, medium, large).
+     * @param x X-coordinate in the city grid.
+     * @param y Y-coordinate in the city grid.
+     */
     bool buildService(EntityType type, Size size, int xPos, int yPos);
 };
 

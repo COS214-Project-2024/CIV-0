@@ -1,6 +1,5 @@
 #include "Theater.h"
 
-Theater::Theater() {}
 Theater::~Theater() {}
 
 Theater::Theater(EntityConfig ec, Size size, int xPos, int yPos) : Amenity(ec, size, xPos, yPos)

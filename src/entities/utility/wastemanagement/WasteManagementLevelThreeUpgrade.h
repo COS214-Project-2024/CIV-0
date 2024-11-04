@@ -27,10 +27,10 @@ public:
      *
      * Creates a new WasteManagementLevelThreeUpgrade object by copying the attributes of an existing
      * WasteManagementLevelThreeUpgrade object.
-     *
-     * @param wasteManagementLevelThreeUpgrade Pointer to the existing WasteManagementLevelThreeUpgrade to be copied.
+     * 
+     * @param wMLTU Pointer to the existing WasteManagementLevelThreeUpgrade to be copied.
      */
-    WasteManagementLevelThreeUpgrade(WasteManagementLevelThreeUpgrade *wasteManagementLevelThreeUpgrade);
+    WasteManagementLevelThreeUpgrade(WasteManagementLevelThreeUpgrade *wMLTU);
 
     /**
      * @brief Destructor for WasteManagementLevelThreeUpgrade.
@@ -44,7 +44,7 @@ public:
      *
      * Implements specific behavior for the waste management system after applying the level three upgrade.
      */
-    void update();
+    void update() override;
 
     /**
      * @brief Clones the current WasteManagementLevelThreeUpgrade object.
@@ -53,13 +53,13 @@ public:
      *
      * @return A pointer to the newly cloned WasteManagementLevelThreeUpgrade object.
      */
-    Entity *clone();
+    Entity *clone() override;
 
     /**
      * @brief Upgrades the current utility to the next level.
      * @return A pointer to the upgraded utility instance, or nullptr if already at maximum level.
      */
-    Entity *upgrade();
+    Entity *upgrade() override;
 
     /**
      * @brief Retrieves the upgraded waste management system's output.
@@ -68,14 +68,19 @@ public:
      *
      * @return The updated efficiency output as an integer.
      */
-    int getOutput();
+    int getOutput() override;
 
     /**
      * @brief Retrieves the cost of the utility or its upgraded version.
      * @return A Cost object representing the monetary and material costs.
      */
-    Cost getCost();
+    Cost getCost() override;
 
+    /**
+     * @brief Gets the level of the waste management upgrade.
+     *
+     * @return The level of the waste management upgrade.
+     */
     int getLevel() override;
 
 private:

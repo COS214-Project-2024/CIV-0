@@ -10,7 +10,6 @@ BusStop::BusStop(BusStop* busStop): Transport(busStop)
 
 }
 
-BusStop::BusStop() {}
 BusStop::~BusStop() {}
 
 void BusStop::update()

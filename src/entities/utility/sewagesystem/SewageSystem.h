@@ -36,13 +36,6 @@ public:
     SewageSystem(SewageSystem *sewage);
 
     /**
-     * @brief Default constructor for the SewageSystem class.
-     *
-     * Creates a new SewageSystem object without initializing any of it's values (naughty).
-     */
-    SewageSystem();
-
-    /**
      * @brief Destructor for the SewageSystem object.
      */
     virtual ~SewageSystem();
@@ -52,7 +45,7 @@ public:
      *
      * Defines the specific behavior of the SewageSystem when it is updated in the simulation.
      */
-    void update();
+    void update() override;
 
     /**
      * @brief Clones the current SewageSystem object.
@@ -61,13 +54,13 @@ public:
      *
      * @return A pointer to the newly cloned SewageSystem object.
      */
-    Entity *clone();
+    Entity *clone() override;
 
     /**
      * @brief Upgrades the current utility to the next level.
      * @return A pointer to the upgraded utility instance, or nullptr if already at maximum level.
      */
-    Entity *upgrade();
+    Entity *upgrade() override;
 };
 
 #endif // SEWAGESYSTEM_H

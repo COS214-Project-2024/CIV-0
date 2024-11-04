@@ -9,13 +9,13 @@ TEST_CASE("SewageSystemIterator initial position")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    SewageSystem *s1 = new SewageSystem();
-    Theater *t = new Theater();
+    SewageSystem *s = new SewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
-    row1.push_back(s1);
-    row1.push_back(s1);
+    row1.push_back(s);
+    row1.push_back(s);
     row2.push_back(nullptr);
-    row2.push_back(s1);
+    row2.push_back(s);
 
     grid.push_back(row1);
     grid.push_back(row2);
@@ -26,7 +26,7 @@ TEST_CASE("SewageSystemIterator initial position")
     CHECK(sIter->getCol() == 0);
 
     delete sIter;
-    delete s1;
+    delete s;
     delete t;
 }
 
@@ -36,13 +36,13 @@ TEST_CASE("SewageSystemIterator next()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    SewageSystem *s1 = new SewageSystem();
-    Theater *t = new Theater();
+    SewageSystem *s = new SewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
-    row1.push_back(s1);
+    row1.push_back(s);
     row1.push_back(nullptr);
     row2.push_back(t);
-    row2.push_back(s1);
+    row2.push_back(s);
 
     grid.push_back(row1);
     grid.push_back(row2);
@@ -58,7 +58,7 @@ TEST_CASE("SewageSystemIterator next()")
     CHECK(sIter->hasNext() == false);
 
     delete sIter;
-    delete s1;
+    delete s;
     delete t;
 }
 
@@ -68,13 +68,13 @@ TEST_CASE("SewageSystemIterator first()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    SewageSystem *s1 = new SewageSystem();
-    Theater *t = new Theater();
+    SewageSystem *s = new SewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
-    row1.push_back(s1);
+    row1.push_back(s);
     row1.push_back(t);
     row2.push_back(nullptr);
-    row2.push_back(s1);
+    row2.push_back(s);
 
     grid.push_back(row1);
     grid.push_back(row2);
@@ -86,7 +86,7 @@ TEST_CASE("SewageSystemIterator first()")
     CHECK(sIter->hasNext() == true);
 
     delete sIter;
-    delete s1;
+    delete s;
     delete t;
 }
 
@@ -96,9 +96,9 @@ TEST_CASE("SewageSystemIterator hasNext() with multiple SewageSystems")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    SewageSystem *s1 = new SewageSystem();
-    SewageSystem *s2 = new SewageSystem();
-    Theater *t = new Theater();
+    SewageSystem *s1 = new SewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
+    SewageSystem *s2 = new SewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(s1);
     row1.push_back(nullptr);
@@ -136,10 +136,10 @@ TEST_CASE("SewageSystemIterator reaching the end")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    SewageSystem *s1 = new SewageSystem();
-    Theater *t = new Theater();
+    SewageSystem *s = new SewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
-    row1.push_back(s1);
+    row1.push_back(s);
     row1.push_back(t);
     row2.push_back(nullptr);
     row2.push_back(nullptr);
@@ -153,6 +153,6 @@ TEST_CASE("SewageSystemIterator reaching the end")
     CHECK(sIter->hasNext() == false);
 
     delete sIter;
-    delete s1;
+    delete s;
     delete t;
 }

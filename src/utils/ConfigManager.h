@@ -1,3 +1,8 @@
+/**
+ * @file ConfigManager.h
+ * @brief Manages entity and satisfaction configurations for different entity types and sizes.
+ */
+
 #ifndef CONFIGMANAGER_H
 #define CONFIGMANAGER_H
 
@@ -8,9 +13,19 @@
 #include "EntityConfig.h"
 #include "SatisfactionConfig.h"
 
+/**
+ * @class ConfigManager
+ * @brief Singleton class to manage configurations for various entities.
+ */
 class ConfigManager
 {
 public:
+    /**
+     * @brief Retrieves the configuration for a specified entity type and size.
+     * @param entityType The type of the entity.
+     * @param size The size of the entity.
+     * @return The configuration for the specified entity.
+     */
     static EntityConfig getEntityConfig(EntityType entityType, Size size)
     {
         static ConfigManager instance;
@@ -18,6 +33,11 @@ public:
         return instance.entityConfigTable.at(key); // Use at to safely access the map
     }
 
+    /**
+     * @brief Retrieves the satisfaction configuration for a specified entity type.
+     * @param entityType The type of the entity.
+     * @return The satisfaction configuration for the specified entity.
+     */
     static SatisfactionConfig getSatisfactionConfig(EntityType entityType)
     {
         static ConfigManager instance;
@@ -25,17 +45,21 @@ public:
     }
 
 private:
-    std::map<std::pair<EntityType, Size>, EntityConfig> entityConfigTable;
-    std::map<EntityType, SatisfactionConfig> satisfactionConfigTable;
+    std::map<std::pair<EntityType, Size>, EntityConfig> entityConfigTable; ///< Stores configurations for entities.
+    std::map<EntityType, SatisfactionConfig> satisfactionConfigTable; ///< Stores satisfaction configurations.
 
-    // Private constructor to initialize the configurations
+    /**
+     * @brief Constructor initializes configuration tables.
+     */
     ConfigManager()
     {
         initializeEntityConfig();
         initializeSatisfactionConfig();
     }
 
-    // Method to initialize the configuration map with reasonable values for each entity
+    /**
+     * @brief Initializes entity configuration table with default values.
+     */
     void initializeEntityConfig()
     {
         // EntityConfig(Cost(money, wood, stone, concrete), electricity, water, symbol, radius, localEffect, globalEffect, width, height, revenue, buildTime)
@@ -145,12 +169,12 @@ private:
                                   EntityConfig(Cost(5000, 2000, 1000, 700), 0, 200, "☂", 20, 25, 15, 10, 10, -0, 8, EntityType::WATERSUPPLY, Size::LARGE));
 
         // Waste Management
-        entityConfigTable.emplace(std::make_pair(EntityType::WASTEMANAGMENT, Size::SMALL),
-                                  EntityConfig(Cost(1000, 500, 300, 150), 10, 5, "☣", 5, -5, -5, 5, 5, -0, 3, EntityType::WASTEMANAGMENT, Size::SMALL));
-        entityConfigTable.emplace(std::make_pair(EntityType::WASTEMANAGMENT, Size::MEDIUM),
-                                  EntityConfig(Cost(2000, 900, 500, 300), 15, 10, "☣", 8, -10, -10, 7, 7, -0, 5, EntityType::WASTEMANAGMENT, Size::MEDIUM));
-        entityConfigTable.emplace(std::make_pair(EntityType::WASTEMANAGMENT, Size::LARGE),
-                                  EntityConfig(Cost(3500, 1500, 800, 600), 25, 15, "☣", 12, -15, -15, 9, 9, -0, 7, EntityType::WASTEMANAGMENT, Size::LARGE));
+        entityConfigTable.emplace(std::make_pair(EntityType::WASTEMANAGEMENT, Size::SMALL),
+                                  EntityConfig(Cost(1000, 500, 300, 150), 10, 5, "☣", 5, -5, -5, 5, 5, -0, 3, EntityType::WASTEMANAGEMENT, Size::SMALL));
+        entityConfigTable.emplace(std::make_pair(EntityType::WASTEMANAGEMENT, Size::MEDIUM),
+                                  EntityConfig(Cost(2000, 900, 500, 300), 15, 10, "☣", 8, -10, -10, 7, 7, -0, 5, EntityType::WASTEMANAGEMENT, Size::MEDIUM));
+        entityConfigTable.emplace(std::make_pair(EntityType::WASTEMANAGEMENT, Size::LARGE),
+                                  EntityConfig(Cost(3500, 1500, 800, 600), 25, 15, "☣", 12, -15, -15, 9, 9, -0, 7, EntityType::WASTEMANAGEMENT, Size::LARGE));
 
         // Sewage Systems
         entityConfigTable.emplace(std::make_pair(EntityType::SEWAGESYSTEM, Size::SMALL),
@@ -217,6 +241,9 @@ private:
                                   EntityConfig(Cost(6000, 2400, 1200, 800), 50, 0, "ʊ", 20, 25, 15, 10, 10, -0, 8, EntityType::TRAINSTATION, Size::LARGE));
     }
 
+    /**
+     * @brief Initializes satisfaction configuration table with default values.
+     */
     void initializeSatisfactionConfig()
     {
         // SatisfactionConfig(localRate, globalRate, localExtreme, globalExtreme)
@@ -246,7 +273,7 @@ private:
         satisfactionConfigTable.emplace(EntityType::WATERSUPPLY, SatisfactionConfig(-2.0f, -2.0f, -25.0f, 0.0f));
 
         // Waste Managment
-        satisfactionConfigTable.emplace(EntityType::WASTEMANAGMENT, SatisfactionConfig(-2.0f, 2.0f, -25.0f, 0.0f));
+        satisfactionConfigTable.emplace(EntityType::WASTEMANAGEMENT, SatisfactionConfig(-2.0f, 2.0f, -25.0f, 0.0f));
 
         // Sewage System
         satisfactionConfigTable.emplace(EntityType::SEWAGESYSTEM, SatisfactionConfig(-2.0f, 2.0f, -25.0f, 0.0f));

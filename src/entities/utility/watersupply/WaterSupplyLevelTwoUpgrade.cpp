@@ -5,7 +5,7 @@ WaterSupplyLevelTwoUpgrade::WaterSupplyLevelTwoUpgrade(WaterSupply *water) : Wat
 {
 }
 
-WaterSupplyLevelTwoUpgrade::WaterSupplyLevelTwoUpgrade(WaterSupplyLevelTwoUpgrade *waterSupplyLevelTwoUpgrade) : WaterSupplyUpgrade(waterSupplyLevelTwoUpgrade)
+WaterSupplyLevelTwoUpgrade::WaterSupplyLevelTwoUpgrade(WaterSupplyLevelTwoUpgrade *wSLTU) : WaterSupplyUpgrade(wSLTU)
 {
 }
 

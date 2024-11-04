@@ -15,7 +15,7 @@ Entity* UtilityFactory::createEntity(EntityType type,Size size, int xPos, int yP
 		case EntityType::WATERSUPPLY:
 			return createWaterSupply(size, xPos, yPos);
 			break;
-		case EntityType::WASTEMANAGMENT:
+		case EntityType::WASTEMANAGEMENT:
 			return createWasteManagement(size, xPos, yPos);
 			break;
 		case EntityType::SEWAGESYSTEM:
@@ -35,7 +35,7 @@ Entity* UtilityFactory::createWaterSupply(Size size, int xPos, int yPos) {
 }
 
 Entity* UtilityFactory::createWasteManagement(Size size, int xPos, int yPos) {
-	return new WasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGMENT, size), size, xPos, yPos);
+	return new WasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGEMENT, size), size, xPos, yPos);
 }
 
 Entity* UtilityFactory::createSewageSystem(Size size, int xPos, int yPos) {

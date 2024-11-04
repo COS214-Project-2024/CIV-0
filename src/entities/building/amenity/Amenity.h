@@ -16,11 +16,6 @@ class Amenity : public Building
 {
 public:
     /**
-     * @brief Default constructor for the Amenity class.
-     */
-    Amenity();
-
-    /**
      * @brief Constructs an Amenity with specified attributes.
      * 
      * @param ec Configuration containing resource consumption and other properties.

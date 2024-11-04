@@ -7,10 +7,6 @@ Utility::Utility(EntityConfig ec, Size size, int xPos, int yPos) : Entity(ec, si
     subscribeToAllResidentialInRadius();
 }
 
-Utility::Utility() : Entity()
-{
-}
-
 Utility::Utility(Utility *utility) : Entity(utility)
 {
     this->output = utility->output;

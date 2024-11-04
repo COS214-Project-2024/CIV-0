@@ -145,7 +145,7 @@ bool ResourceManager::upgrade(Industry *&industry)
 		{
 			std::vector<std::vector<Entity *>> &grid = City::instance()->getGrid();
 
-			for (int i = industry->getXPosition(); i < industry->getYPosition() + industry->getWidth(); i++)
+			for (int i = industry->getXPosition(); i < industry->getXPosition() + industry->getWidth(); i++)
 			{
 				for (int j = industry->getYPosition() - industry->getHeight() + 1; j <= industry->getYPosition(); j++)
 				{
@@ -155,6 +155,14 @@ bool ResourceManager::upgrade(Industry *&industry)
 
 			delete industry;
 			industry = (Industry *)industryUpgrade;
+
+			// Subtract cost
+			Cost cost = industry->getCost();
+			City *city = City::instance();
+			city->setMoney(city->getMoney() - cost.moneyCost);
+			city->setWood(city->getWood() - cost.woodCost);
+			city->setStone(city->getStone() - cost.stoneCost);
+			city->setConcrete(city->getConcrete() - cost.concreteCost);
 
 			return true;
 		}

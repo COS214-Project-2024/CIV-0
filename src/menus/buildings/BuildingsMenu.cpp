@@ -124,7 +124,7 @@ void BuildingsMenu::handleInput()
             break;
         case 'f': // View Utility Stats
             MenuManager::instance().setCurrentMenu(std::make_shared<BuildingsStatMenu>(
-                std::vector<EntityType>{EntityType::POWERPLANT, EntityType::WATERSUPPLY, EntityType::WASTEMANAGMENT, EntityType::SEWAGESYSTEM}));
+                std::vector<EntityType>{EntityType::POWERPLANT, EntityType::WATERSUPPLY, EntityType::WASTEMANAGEMENT, EntityType::SEWAGESYSTEM}));
             choosing = false;
             break;
         case 'g': // View Resource Stats

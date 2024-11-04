@@ -1,6 +1,5 @@
 #include "Factory.h"
 
-Factory::Factory() {}
 Factory::~Factory() {}
 
 Factory::Factory(EntityConfig ec, Size size, int xPos, int yPos) : EconomicBuilding(ec, size, xPos, yPos)

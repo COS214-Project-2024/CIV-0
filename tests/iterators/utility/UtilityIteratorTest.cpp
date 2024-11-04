@@ -12,11 +12,11 @@ TEST_CASE("UtilityIterator initial position")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    PowerPlant *pp = new PowerPlant();
-    SewageSystem *ss = new SewageSystem();
-    WasteManagement *wm = new WasteManagement();
-    WaterSupply *ws = new WaterSupply();
-    Theater *t = new Theater();
+    PowerPlant *pp = new PowerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::SMALL), Size::SMALL, 10, 10);
+    SewageSystem *ss = new SewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
+    WasteManagement *wm = new WasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGEMENT, Size::SMALL), Size::SMALL, 10, 10);
+    WaterSupply *ws = new WaterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(pp);
     row1.push_back(ss);
@@ -46,11 +46,11 @@ TEST_CASE("UtilityIterator next()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    PowerPlant *pp = new PowerPlant();
-    SewageSystem *ss = new SewageSystem();
-    WasteManagement *wm = new WasteManagement();
-    WaterSupply *ws = new WaterSupply();
-    Theater *t = new Theater();
+    PowerPlant *pp = new PowerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::SMALL), Size::SMALL, 10, 10);
+    SewageSystem *ss = new SewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
+    WasteManagement *wm = new WasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGEMENT, Size::SMALL), Size::SMALL, 10, 10);
+    WaterSupply *ws = new WaterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(pp);
     row1.push_back(nullptr);
@@ -95,11 +95,11 @@ TEST_CASE("UtilityIterator hasNext() with multiple Utility instances")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    PowerPlant *pp = new PowerPlant();
-    SewageSystem *ss = new SewageSystem();
-    WasteManagement *wm = new WasteManagement();
-    WaterSupply *ws = new WaterSupply();
-    Theater *t = new Theater();
+    PowerPlant *pp = new PowerPlant(ConfigManager::getEntityConfig(EntityType::POWERPLANT, Size::SMALL), Size::SMALL, 10, 10);
+    SewageSystem *ss = new SewageSystem(ConfigManager::getEntityConfig(EntityType::SEWAGESYSTEM, Size::SMALL), Size::SMALL, 10, 10);
+    WasteManagement *wm = new WasteManagement(ConfigManager::getEntityConfig(EntityType::WASTEMANAGEMENT, Size::SMALL), Size::SMALL, 10, 10);
+    WaterSupply *ws = new WaterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(pp);
     row1.push_back(ss);
@@ -144,8 +144,8 @@ TEST_CASE("UtilityIterator reaching the end")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    WaterSupply *ws1 = new WaterSupply();
-    Theater *t = new Theater();
+    WaterSupply *ws1 = new WaterSupply(ConfigManager::getEntityConfig(EntityType::WATERSUPPLY, Size::SMALL), Size::SMALL, 10, 10);
+    Theater *t = new Theater(ConfigManager::getEntityConfig(EntityType::THEATER, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(ws1);
     row1.push_back(t);

@@ -29,10 +29,10 @@ public:
      *
      * Creates a new SewageSystemLevelTwoUpgrade object by copying the attributes of an existing
      * SewageSystemLevelTwoUpgrade object.
-     *
-     * @param sewageSystemLevelTwoUpgrade Pointer to the existing SewageSystemLevelTwoUpgrade to be copied.
+     * 
+     * @param sSLTU Pointer to the existing SewageSystemLevelTwoUpgrade to be copied.
      */
-    SewageSystemLevelTwoUpgrade(SewageSystemLevelTwoUpgrade *sewageSystemLevelTwoUpgrade);
+    SewageSystemLevelTwoUpgrade(SewageSystemLevelTwoUpgrade *sSLTU);
 
     /**
      * @brief Destructor for SewageSystemLevelTwoUpgrade.
@@ -46,7 +46,7 @@ public:
      *
      * Implements specific behavior for the sewage system after applying the level two upgrade.
      */
-    void update();
+    void update() override;
 
     /**
      * @brief Clones the current SewageSystemLevelTwoUpgrade object.
@@ -55,13 +55,13 @@ public:
      *
      * @return A pointer to the newly cloned SewageSystemLevelTwoUpgrade object.
      */
-    Entity *clone();
+    Entity *clone() override;
 
     /**
      * @brief Upgrades the current utility to the next level.
      * @return A pointer to the upgraded utility instance, or nullptr if already at maximum level.
      */
-    Entity *upgrade();
+    Entity *upgrade() override;
 
     /**
      * @brief Retrieves the upgraded sewage system's output.
@@ -70,14 +70,19 @@ public:
      *
      * @return The updated output as an integer.
      */
-    int getOutput();
+    int getOutput() override;
 
     /**
      * @brief Retrieves the cost of the utility or its upgraded version.
      * @return A Cost object representing the monetary and material costs.
      */
-    Cost getCost();
+    Cost getCost() override;
 
+    /**
+     * @brief Gets the level of the sewage system upgrade.
+     *
+     * @return The level of the sewage system upgrade.
+     */
     int getLevel() override;
 
 private:

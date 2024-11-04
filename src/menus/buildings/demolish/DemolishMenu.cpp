@@ -153,7 +153,7 @@ void DemolishMenu::demolishAllBuildingsOfType()
         EntityType::SHOPPINGMALL, EntityType::FACTORY, EntityType::HOSPITAL,
         EntityType::POLICESTATION, EntityType::SCHOOL, EntityType::PARK,
         EntityType::THEATER, EntityType::MONUMENT, EntityType::POWERPLANT,
-        EntityType::WATERSUPPLY, EntityType::WASTEMANAGMENT, EntityType::SEWAGESYSTEM,
+        EntityType::WATERSUPPLY, EntityType::WASTEMANAGEMENT, EntityType::SEWAGESYSTEM,
         EntityType::WOODPRODUCER, EntityType::STONEPRODUCER, EntityType::CONCRETEPRODUCER};
 
     int optionKey = 1; // Start with option key 1

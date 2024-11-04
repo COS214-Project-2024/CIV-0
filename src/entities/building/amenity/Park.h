@@ -15,11 +15,6 @@ class Park : public Amenity
 {
 public:
     /**
-     * @brief Default constructor for the Park class.
-     */
-    Park();
-
-    /**
      * @brief Constructs a Park with specified attributes.
      * 
      * @param ec Configuration containing resource consumption and properties.

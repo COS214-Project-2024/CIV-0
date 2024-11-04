@@ -105,7 +105,7 @@ void DisplayCityMenu::displayCity() const
             }
             else
             {
-                std::cout << DARK_GRAY << ". " << RESET;
+                std::cout << DARK_GRAY << "  " << RESET;
             }
         }
 
@@ -147,7 +147,7 @@ void DisplayCityMenu::displayCityByType() const
             }
             else
             {
-                std::cout << DARK_GRAY << ". " << RESET;
+                std::cout << DARK_GRAY << "  " << RESET;
             }
         }
 

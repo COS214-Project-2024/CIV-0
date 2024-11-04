@@ -123,10 +123,6 @@ void City::reset()
     reset(width, height); // Use current dimensions to reset
 }
 
-/**
- * @brief Returns a pointer to the singleton instance of City.
- * @return A pointer to the City instance.
- */
 City *City::instance()
 {
     // Correct singleton pattern implementation with a static object
@@ -243,21 +239,12 @@ int City::getSewageProduction() const { return sewageProduction; }
 int City::getSewageConsumption() const { return sewageConsumption; }
 int City::getResidentialTax() const { return residentialTax; }
 int City::getEconomicTax() const { return economicTax; }
-/**
- * @brief Retrieves the current water usage policy for the city.
- *
- * @return Pointer to the current WaterPolicy.
- */
+
 WaterPolicy *City::getWaterPolicy() const
 {
     return waterPolicy;
 }
 
-/**
- * @brief Retrieves the current electricity usage policy for the city.
- *
- * @return Pointer to the current ElectricityPolicy.
- */
 ElectricityPolicy *City::getElectricityPolicy() const
 {
     return electricityPolicy;
@@ -348,6 +335,11 @@ Iterator *City::createBuildingIterator(bool unique)
 Iterator *City::createUtilityIterator(bool unique)
 {
     return new UtilityIterator(this->grid);
+}
+
+Iterator *City::createIndustryIterator(bool unique)
+{
+    return new IndustryIterator(this->grid);
 }
 
 Iterator *City::createRoadIterator(bool unique)

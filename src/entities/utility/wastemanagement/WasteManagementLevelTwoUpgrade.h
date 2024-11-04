@@ -28,10 +28,10 @@ public:
      * @brief Copy constructor for WasteManagementLevelTwoUpgrade.
      *
      * Copies the attributes of an existing WasteManagementLevelTwoUpgrade object.
-     *
-     * @param wasteManagementLevelTwoUpgrade Pointer to the existing object to be copied.
+     * 
+     * @param wMLTU Pointer to the existing object to be copied.
      */
-    WasteManagementLevelTwoUpgrade(WasteManagementLevelTwoUpgrade *wasteManagementLevelTwoUpgrade);
+    WasteManagementLevelTwoUpgrade(WasteManagementLevelTwoUpgrade *wMLTU);
 
     /**
      * @brief Destructor for WasteManagementLevelTwoUpgrade.
@@ -41,20 +41,20 @@ public:
     /**
      * @brief Updates the state of the upgraded waste management system.
      */
-    void update();
+    void update() override;
 
     /**
      * @brief Clones the current WasteManagementLevelTwoUpgrade object.
      *
      * @return A pointer to the newly cloned object.
      */
-    Entity *clone();
+    Entity *clone() override;
 
     /**
      * @brief Upgrades the current utility to the next level.
      * @return A pointer to the upgraded utility instance, or nullptr if already at maximum level.
      */
-    Entity *upgrade();
+    Entity *upgrade() override;
 
     /**
      * @brief Retrieves the upgraded waste management system's output.
@@ -63,14 +63,19 @@ public:
      *
      * @return The updated output as an integer.
      */
-    int getOutput();
+    int getOutput() override;
 
     /**
      * @brief Retrieves the cost of the utility or its upgraded version.
      * @return A Cost object representing the monetary and material costs.
      */
-    Cost getCost();
+    Cost getCost() override;
 
+    /**
+     * @brief Gets the level of the waste management upgrade.
+     *
+     * @return The level of the waste management upgrade.
+     */
     int getLevel() override;
 
 private:

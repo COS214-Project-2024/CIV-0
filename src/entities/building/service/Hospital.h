@@ -13,13 +13,6 @@ class Hospital : public ServiceBuilding
 {
 public:
     /**
-     * @brief Default constructor for the Hospital class.
-     * 
-     * Initializes an empty hospital object.
-     */
-    Hospital();
-
-    /**
      * @brief Parameterized constructor for the Hospital class.
      * 
      * @param ec Entity configuration for initializing the hospital.

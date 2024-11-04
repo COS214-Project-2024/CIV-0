@@ -36,13 +36,6 @@ public:
     PowerPlant(PowerPlant *power);
 
     /**
-     * @brief Default constructor for the PowerPlant class.
-     *
-     * Creates a new PowerPlant object without initializing any of it's values (naughty).
-     */
-    PowerPlant();
-
-    /**
      * @brief Destructor for the PowerPlant object.
      */
     virtual ~PowerPlant();
@@ -52,7 +45,7 @@ public:
      *
      * Defines the specific behavior of the PowerPlant when it is updated in the simulation.
      */
-    void update();
+    void update() override;
 
     /**
      * @brief Clones the current PowerPlant object.
@@ -61,13 +54,13 @@ public:
      *
      * @return A pointer to the newly cloned PowerPlant object.
      */
-    Entity *clone();
+    Entity *clone() override;
 
     /**
      * @brief Upgrades the current utility to the next level.
      * @return A pointer to the upgraded utility instance, or nullptr if already at maximum level.
      */
-    Entity *upgrade();
+    Entity *upgrade() override;
 };
 
 #endif // POWERPLANT_H

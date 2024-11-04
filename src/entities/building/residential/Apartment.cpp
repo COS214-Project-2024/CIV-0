@@ -1,6 +1,5 @@
 #include "Apartment.h"
 
-Apartment::Apartment() {}
 Apartment::~Apartment() {}
 
 Apartment::Apartment(Apartment* apartment) : ResidentialBuilding(apartment)

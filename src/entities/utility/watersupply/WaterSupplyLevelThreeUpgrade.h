@@ -27,10 +27,10 @@ public:
      *
      * Creates a new WaterSupplyLevelThreeUpgrade object by copying the attributes of an existing
      * WaterSupplyLevelThreeUpgrade object.
-     *
-     * @param waterSupplyLevelThreeUpgrade Pointer to the existing WaterSupplyLevelThreeUpgrade to be copied.
+     * 
+     * @param wSLTU Pointer to the existing WaterSupplyLevelThreeUpgrade to be copied.
      */
-    WaterSupplyLevelThreeUpgrade(WaterSupplyLevelThreeUpgrade *waterSupplyLevelThreeUpgrade);
+    WaterSupplyLevelThreeUpgrade(WaterSupplyLevelThreeUpgrade *wSLTU);
 
     /**
      * @brief Destructor for WaterSupplyLevelThreeUpgrade.
@@ -44,7 +44,7 @@ public:
      *
      * Implements specific behavior for the water supply system after applying the level three upgrade.
      */
-    void update();
+    void update() override;
 
     /**
      * @brief Clones the current WaterSupplyLevelThreeUpgrade object.
@@ -53,13 +53,13 @@ public:
      *
      * @return A pointer to the newly cloned WaterSupplyLevelThreeUpgrade object.
      */
-    Entity *clone();
+    Entity *clone() override;
 
     /**
      * @brief Upgrades the current utility to the next level.
      * @return A pointer to the upgraded utility instance, or nullptr if already at maximum level.
      */
-    Entity *upgrade();
+    Entity *upgrade() override;
 
     /**
      * @brief Retrieves the upgraded water supply system's output.
@@ -68,14 +68,19 @@ public:
      *
      * @return The updated delivery capacity as an integer.
      */
-    int getOutput();
+    int getOutput() override;
 
     /**
      * @brief Retrieves the cost of the utility or its upgraded version.
      * @return A Cost object representing the monetary and material costs.
      */
-    Cost getCost();
+    Cost getCost() override;
 
+    /**
+     * @brief Gets the level of the water supply upgrade.
+     *
+     * @return The level of the water supply upgrade.
+     */
     int getLevel() override;
 
 private:

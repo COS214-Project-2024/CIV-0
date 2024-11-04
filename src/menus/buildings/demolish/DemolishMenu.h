@@ -1,3 +1,8 @@
+/**
+ * @file DemolishMenu.h
+ * @brief Declares the DemolishMenu class for handling building demolition within the game.
+ */
+
 #ifndef DEMOLISHMENU_H
 #define DEMOLISHMENU_H
 
@@ -5,14 +10,20 @@
 #include <vector>
 
 /**
- * @brief Menu for demolishing buildings in the game.
- * Provides options to demolish a specific building or all buildings of a particular type.
+ * @class DemolishMenu
+ * @brief Provides a menu interface for demolishing buildings in the game.
+ *
+ * The DemolishMenu class allows users to choose options for demolishing specific buildings
+ * or all buildings of a particular type. It provides functionality for confirming and processing
+ * the demolition of selected buildings.
  */
 class DemolishMenu : public IMenu
 {
 public:
     /**
      * @brief Constructor for DemolishMenu.
+     *
+     * Initializes the menu with options for selecting buildings to demolish.
      */
     DemolishMenu();
 
@@ -23,28 +34,38 @@ public:
 
     /**
      * @brief Displays the demolish menu.
+     *
+     * Clears the screen and shows the available demolition options.
      */
     void display() const override;
 
     /**
      * @brief Handles user input for the demolish menu.
+     *
+     * Processes user choices and navigates to specific demolition operations based on input.
      */
     void handleInput() override;
 
 private:
     /**
      * @brief Presents a menu for demolishing a specific building.
+     *
+     * Lists individual buildings in the city and allows the user to choose one to demolish.
      */
     void demolishSpecificBuilding();
 
     /**
      * @brief Presents a menu for selecting and demolishing all buildings of a particular type.
+     *
+     * Allows the user to select a building type and demolishes all instances of that type in the city.
      */
     void demolishAllBuildingsOfType();
 
     /**
-     * @brief Helper function to confirm the demolition of buildings.
-     * @param buildingsToDemolish A list of buildings the user is about to demolish.
+     * @brief Confirms the demolition of selected buildings.
+     *
+     * Displays a confirmation prompt and processes the demolition if confirmed.
+     * @param positionsToDemolish A list of building positions to be demolished.
      */
     void confirmDemolish(const std::vector<std::pair<int, int>> &positionsToDemolish);
 };

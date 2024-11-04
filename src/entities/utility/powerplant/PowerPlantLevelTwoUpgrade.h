@@ -29,10 +29,10 @@ public:
      *
      * Creates a new PowerPlantLevelTwoUpgrade object by copying the attributes of an existing
      * PowerPlantLevelTwoUpgrade object.
-     *
-     * @param powerPlantLevelTwoUpgrade Pointer to the existing PowerPlantLevelTwoUpgrade to be copied.
+     * 
+     * @param pPLTU Pointer to the existing PowerPlantLevelTwoUpgrade to be copied.
      */
-    PowerPlantLevelTwoUpgrade(PowerPlantLevelTwoUpgrade *powerPlantLevelTwoUpgrade);
+    PowerPlantLevelTwoUpgrade(PowerPlantLevelTwoUpgrade *pPLTU);
 
     /**
      * @brief Destructor for PowerPlantLevelTwoUpgrade.
@@ -46,7 +46,7 @@ public:
      *
      * Implements specific behavior for the power plant after applying the level two upgrade.
      */
-    void update();
+    void update() override;
 
     /**
      * @brief Clones the current PowerPlantLevelTwoUpgrade object.
@@ -55,13 +55,13 @@ public:
      *
      * @return A pointer to the newly cloned PowerPlantLevelTwoUpgrade object.
      */
-    Entity *clone();
+    Entity *clone() override;
 
     /**
      * @brief Upgrades the current utility to the next level.
      * @return A pointer to the upgraded utility instance, or nullptr if already at maximum level.
      */
-    Entity *upgrade();
+    Entity *upgrade() override;
 
     /**
      * @brief Retrieves the upgraded power plant's output.
@@ -70,14 +70,19 @@ public:
      *
      * @return The updated power output as an integer.
      */
-    int getOutput();
+    int getOutput() override;
 
     /**
      * @brief Retrieves the cost of the utility or its upgraded version.
      * @return A Cost object representing the monetary and material costs.
      */
-    Cost getCost();
+    Cost getCost() override;
 
+    /**
+     * @brief Gets the level of the power plant upgrade.
+     *
+     * @return The level of the power plant upgrade.
+     */
     int getLevel() override;
 
 private:

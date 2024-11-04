@@ -2,6 +2,7 @@
 #include "entities/base/Entity.h"
 #include "entities/building/economic/Factory.h"
 #include "iterators/city/CityIterator.h"
+#include "managers/CityManager.h"
 
 TEST_CASE("CityIteratorTest test")
 {
@@ -9,7 +10,7 @@ TEST_CASE("CityIteratorTest test")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    Factory *f = new Factory();
+    Factory *f = new Factory(ConfigManager::getEntityConfig(EntityType::FACTORY, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(f);
     row1.push_back(f);
@@ -32,7 +33,7 @@ TEST_CASE("Testing first")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    Factory *f = new Factory();
+    Factory *f = new Factory(ConfigManager::getEntityConfig(EntityType::FACTORY, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(f);
     row1.push_back(f);
@@ -56,7 +57,7 @@ TEST_CASE("Testing next() 1")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    Factory *f = new Factory();
+    Factory *f = new Factory(ConfigManager::getEntityConfig(EntityType::FACTORY, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(f);
     row1.push_back(f);
@@ -80,7 +81,7 @@ TEST_CASE("Testing next() 2")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    Factory *f = new Factory();
+    Factory *f = new Factory(ConfigManager::getEntityConfig(EntityType::FACTORY, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(f);
     row1.push_back(f);
@@ -107,7 +108,7 @@ TEST_CASE("Testing next() 3")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    Factory *f = new Factory();
+    Factory *f = new Factory(ConfigManager::getEntityConfig(EntityType::FACTORY, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(f);
     row1.push_back(f);
@@ -134,7 +135,7 @@ TEST_CASE("Testing next() 4")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    Factory *f = new Factory();
+    Factory *f = new Factory(ConfigManager::getEntityConfig(EntityType::FACTORY, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(f);
     row1.push_back(f);
@@ -161,7 +162,7 @@ TEST_CASE("Testing hasNext()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    Factory *f = new Factory();
+    Factory *f = new Factory(ConfigManager::getEntityConfig(EntityType::FACTORY, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(f);
     row1.push_back(f);
@@ -186,7 +187,7 @@ TEST_CASE("Testing hasNext()")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    Factory *f = new Factory();
+    Factory *f = new Factory(ConfigManager::getEntityConfig(EntityType::FACTORY, Size::SMALL), Size::SMALL, 10, 10);
 
     row1.push_back(f);
     row1.push_back(f);
@@ -219,8 +220,8 @@ TEST_CASE("CityIteratorTest test iterate unique")
 
     std::vector<Entity *> row1;
     std::vector<Entity *> row2;
-    Factory *f = new Factory();
-
+    Factory *f = new Factory(ConfigManager::getEntityConfig(EntityType::FACTORY, Size::SMALL), Size::SMALL, 10, 10);
+    
     row1.push_back(f);
     row1.push_back(f);
     row2.push_back(NULL);
