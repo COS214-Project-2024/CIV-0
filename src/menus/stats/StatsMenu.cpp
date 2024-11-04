@@ -1,6 +1,7 @@
 #include "StatsMenu.h"
 #include "menus/base/MenuManager.h"
 #include "utils/EntityType.h"
+#include "city/CivZero.h"
 #include <iostream>
 #include <iomanip>
 
@@ -235,7 +236,8 @@ void StatsMenu::showCityStats()
 
     sections = {
         {"General Statistics",
-         {{'-', "👥", "Population: " + std::to_string(city->getPopulation()) + "/" + std::to_string(city->getPopulationCapacity())},
+         {{'-', "🌅", "Day: " + std::string(BOLD_YELLOW) + std::to_string(CivZero::instance().getGameLoop()) + RESET},
+          {'-', "👥", "Population: " + std::to_string(city->getPopulation()) + "/" + std::to_string(city->getPopulationCapacity())},
           {'-', "😊", "Satisfaction: " + satisfactionColor + std::to_string(static_cast<int>(city->getSatisfaction())) + "%" + RESET}}},
         {"Resources",
          {{'-', "💵", "Money: " + std::string(BOLD_GREEN) + std::to_string(city->getMoney()) + RESET},

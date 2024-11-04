@@ -1,6 +1,7 @@
 #include "IMenu.h"
 #include "city/City.h"
 #include "entities/road/Road.h"
+#include "city/CivZero.h"
 #include <algorithm> // For std::max
 #include <iostream>
 #include <iomanip>
@@ -275,13 +276,14 @@ void IMenu::displayMenu() const
                   << DARK_GRAY << " ║" << RESET << "\n";
         printSectionDivider(maxWidth);
 
-        // Define resource lines with aligned and conditionally color-coded values
-        std::vector<std::pair<std::string, std::string>> resourceLines = {
-            {"Money:", std::string(BOLD_GREEN) + std::to_string(city->getMoney()) + RESET},
-            {"Wood:", std::string(BOLD_CYAN) + std::to_string(city->getWood()) + RESET},
-            {"Stone:", std::string(BOLD_CYAN) + std::to_string(city->getStone()) + RESET},
-            {"Concrete:", std::string(BOLD_CYAN) + std::to_string(city->getConcrete()) + RESET},
-            {"Population:", std::to_string(city->getPopulation()) + "/" + std::to_string(city->getPopulationCapacity())}};
+        // Displaying resource lines with icons
+        std::vector<std::tuple<std::string, std::string, std::string>> resourceLines = {
+            {"Day:", "🌅", std::to_string(CivZero::instance().getGameLoop())},
+            {"Money:", "💰", std::string(BOLD_GREEN) + std::to_string(city->getMoney()) + RESET},
+            {"Wood:", "🪵 ", std::string(BOLD_CYAN) + std::to_string(city->getWood()) + RESET},
+            {"Stone:", "🗿", std::string(BOLD_CYAN) + std::to_string(city->getStone()) + RESET},
+            {"Concrete:", "🏗️ ", std::string(BOLD_CYAN) + std::to_string(city->getConcrete()) + RESET},
+            {"Population:", "👥", std::to_string(city->getPopulation()) + "/" + std::to_string(city->getPopulationCapacity())}};
 
         // Conditionally color electricity and water consumption/production
         int electricityConsumption = city->getElectricityConsumption();
@@ -292,11 +294,11 @@ void IMenu::displayMenu() const
         std::string electricityColor = electricityConsumption > electricityProduction ? BOLD_RED : BOLD_GREEN;
         std::string waterColor = waterConsumption > waterProduction ? BOLD_RED : BOLD_GREEN;
 
-        resourceLines.push_back({"Electricity :",
+        resourceLines.push_back({"Electricity :", "⚡️",
                                  electricityColor + std::to_string(electricityConsumption) + RESET + "/" +
                                      BOLD_GREEN + std::to_string(electricityProduction) + RESET});
 
-        resourceLines.push_back({"Water :",
+        resourceLines.push_back({"Water :", "💧",
                                  waterColor + std::to_string(waterConsumption) + RESET + "/" +
                                      BOLD_GREEN + std::to_string(waterProduction) + RESET});
 
@@ -304,21 +306,50 @@ void IMenu::displayMenu() const
         int satisfaction = static_cast<int>(city->getSatisfaction());
         std::string satisfactionColor = satisfaction >= 70 ? BOLD_GREEN : satisfaction >= 30 ? BOLD_YELLOW
                                                                                              : BOLD_RED;
-        resourceLines.push_back({"Satisfaction:", satisfactionColor + std::to_string(satisfaction) + "%" + RESET});
+        resourceLines.push_back({"Satisfaction:", "😁", satisfactionColor + std::to_string(satisfaction) + "%" + RESET});
 
-        // Display each resource line
+        // Display each resource line with icons
         for (const auto &line : resourceLines)
         {
-            std::ostringstream formattedLine;
-            formattedLine << BOLD_WHITE << std::left << std::setw(25) << line.first << RESET;
+            // Extract resource components
+            std::string resourceName = std::get<0>(line);
+            std::string resourceIcon = std::get<1>(line);
+            std::string resourceValue = std::get<2>(line);
 
-            // Add the already formatted value string
-            formattedLine << line.second;
+            resourceValue = BOLD_YELLOW + resourceValue + RESET;
 
-            int padding = maxWidth - 4 - stripColorCodes(formattedLine.str()).size();
-            std::cout << DARK_GRAY << "║ " << RESET << formattedLine.str()
-                      << std::string(std::max(0, padding), ' ') << DARK_GRAY << "   ║" << RESET << "\n";
+            // Define the fixed width for the resource name column
+            int resourceNameWidth = 20;
+
+            // Strip color codes to get the actual length for padding
+            int nameLength = stripColorCodes(resourceName).size();
+
+            // Pad the resource name to the fixed width
+            std::string paddedResourceName = BOLD_WHITE + resourceName + RESET;
+            if (nameLength < resourceNameWidth)
+            {
+                paddedResourceName += std::string(resourceNameWidth - nameLength, ' ');
+            }
+
+            // Construct the formatted line
+            std::string formattedLine = " " + resourceValue;
+
+            // Calculate the content width without color codes
+            int contentWidth = stripColorCodes(formattedLine).size() + resourceNameWidth + 2;
+
+            formattedLine = paddedResourceName + resourceIcon + formattedLine;
+
+            // Adjust padding; subtract 4 for borders and spaces
+            int padding = maxWidth - contentWidth - 2;
+
+            // Ensure padding is not negative
+            padding = std::max(0, padding);
+
+            // Display the formatted resource lineq
+            std::cout << DARK_GRAY << "║ " << RESET << formattedLine
+                      << std::string(padding, ' ') << DARK_GRAY << " ║" << RESET << "\n";
         }
+
         printSectionDivider(maxWidth);
     }
 
