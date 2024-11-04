@@ -23,7 +23,7 @@ std::string IMenu::coordinatesToLabel(int x, int y)
 {
     char xLabel = indexToExtendedChar(x);
     char yLabel = indexToExtendedChar(y);
-    return "(" + std::string(1, xLabel) + ", " + std::to_string(y + 1) + ")";
+    return "(" + std::string(1, xLabel) + ", " + std::string(1, yLabel) + ")";
 }
 
 void IMenu::displayAvailablePositions(const std::vector<std::vector<int>> &positions) const
