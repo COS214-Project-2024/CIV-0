@@ -60,9 +60,9 @@ void CityManager::updateCity()
         if (ci->current() != nullptr && dynamic_cast<ResidentialBuilding *>(ci->current()) == nullptr)
         {
             ci->current()->update();
-            if(dynamic_cast<EconomicBuilding *>(ci->current()) == nullptr && ci->current()->isBuilt())
+            if (dynamic_cast<EconomicBuilding *>(ci->current()) == nullptr && ci->current()->isBuilt())
             {
-                revenue+=ci->current()->getRevenue();
+                revenue += ci->current()->getRevenue();
             }
         }
     }
@@ -103,8 +103,8 @@ void CityManager::updateCity()
     rm.calculateStoneMade();
     rm.calculateWoodMade();
     rm.calculateMoneyMade();
-    
-    c->setMoney(c->getMoney()+revenue);
+
+    c->setMoney(c->getMoney() + revenue);
 }
 
 Entity *CityManager::getEntity(int x, int y)
@@ -576,4 +576,81 @@ void CityManager::generateRandomBuildings(int placementProbability)
             }
         }
     }
+}
+
+/**
+ * @brief Generates a road grid using the BSP algorithm with default parameters.
+ *
+ * This overloaded function calls the main generateRoads function using the city's grid size
+ * and predefined partitioning parameters.
+ */
+void CityManager::generateRandomRoads()
+{
+    City *city = City::instance();
+    int gridWidth = city->getWidth();
+    int gridHeight = city->getHeight();
+    int minWidth = 7;  // Default minimum width for partitions
+    int minHeight = 7; // Default minimum height for partitions
+    int roadGap = 1;   // Default gap width between partitions for roads
+
+    generateRandomRoads(gridWidth, gridHeight, minWidth, minHeight, roadGap);
+}
+
+/**
+ * @brief Generates a demo city with a pre-set layout of roads and buildings.
+ *
+ * This function creates a demo city by setting up specific road and building placements
+ * for testing and demonstration purposes.
+ */
+void CityManager::generateDemoCity()
+{
+    City *city = City::instance();
+    int width = city->getWidth();
+    int height = city->getHeight();
+
+    // Clear existing city grid
+    city->reset();
+
+    // Generate a simple road grid
+    for (int x = 0; x < width; x += 3)
+    {
+        for (int y = 0; y < height; ++y)
+        {
+            if (city->getEntity(x, y) == nullptr)
+            {
+                Entity *road = new Road(ConfigManager::getEntityConfig(EntityType::ROAD, Size::SMALL), Size::SMALL, x, y);
+                city->addEntity(road);
+            }
+        }
+    }
+
+    for (int y = 0; y < height; y += 3)
+    {
+        for (int x = 0; x < width; ++x)
+        {
+            if (city->getEntity(x, y) == nullptr)
+            {
+                Entity *road = new Road(ConfigManager::getEntityConfig(EntityType::ROAD, Size::SMALL), Size::SMALL, x, y);
+                city->addEntity(road);
+            }
+        }
+    }
+
+    // Place demo buildings in specific locations
+    Entity *house1 = new House(ConfigManager::getEntityConfig(EntityType::HOUSE, Size::SMALL), Size::SMALL, 1, 1);
+    city->addEntity(house1);
+
+    Entity *factory1 = new Factory(ConfigManager::getEntityConfig(EntityType::FACTORY, Size::MEDIUM), Size::MEDIUM, 5, 5);
+    city->addEntity(factory1);
+
+    Entity *park1 = new Park(ConfigManager::getEntityConfig(EntityType::PARK, Size::SMALL), Size::SMALL, 8, 3);
+    city->addEntity(park1);
+
+    Entity *school1 = new School(ConfigManager::getEntityConfig(EntityType::SCHOOL, Size::MEDIUM), Size::MEDIUM, 10, 7);
+    city->addEntity(school1);
+
+    Entity *office1 = new Office(ConfigManager::getEntityConfig(EntityType::OFFICE, Size::LARGE), Size::LARGE, 15, 5);
+    city->addEntity(office1);
+
+    // Additional demo buildings can be added similarly
 }

@@ -23,6 +23,7 @@
 #include "menus/buildings/resource/BuyResourceMenu.h"
 #include "menus/buildings/service/BuyServiceMenu.h"
 #include "menus/buildings/demolish/DemolishMenu.h"
+#include "menus/game/GameModeMenu.h"
 #include "menus/stats/StatsMenu.h"
 #include "menus/road/BuyRoadMenu.h"
 #include <memory>

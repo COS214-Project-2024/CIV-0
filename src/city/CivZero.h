@@ -30,7 +30,7 @@ public:
 
     /**
      * @brief Start the game with options for random city generation and a seed.
-     * 
+     *
      * @param generateRandomCity If true, generate a random city.
      * @param seed Optional seed for random generation.
      */
@@ -48,19 +48,19 @@ public:
 
     /**
      * @brief Get the current game loop number.
-     * 
+     *
      * @return int The current game loop number.
      */
     int getGameLoop();
 
+    static const int GRID_SIZE = 50; ///< The size of the game grid.
 private:
-    static int const GRID_SIZE = 50; ///< The size of the game grid.
     int currentGameLoop = 0; ///< Counter for the current game loop.
 
     /**
      * @brief Private constructor for the singleton pattern.
      */
-    CivZero(); 
+    CivZero();
 
     /**
      * @brief Private destructor.
