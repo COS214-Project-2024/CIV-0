@@ -24,18 +24,27 @@ void CivZero::startGame(bool generateRandomCity, std::optional<unsigned int> see
 
     City::instance()->reset(GRID_SIZE, GRID_SIZE);
 
-    CityManager manager;
-    if (generateRandomCity)
-    {
-        manager.generateCity(seed);
-        manager.updateCity();
-    }
-    else
-    {
-        manager.initializeCity();
-    }
+    // CityManager manager;
+    // if (generateRandomCity)
+    // {
+    //     manager.generateCity(seed);
+    //     manager.updateCity();
+    // }
+    // else
+    // {
+    //     manager.initializeCity();
+    // }
+    // Set the initial menu to GameModeMenu
+    MenuManager::instance().setCurrentMenu(Menu::GAME_MODE);
 
     gameLoop(); // Call the internal game loop method
+}
+
+void CivZero::resetGame()
+{
+    // Reset game loop counter
+    currentGameLoop = 0;
+    // Reset other game-specific variables if any
 }
 
 void CivZero::quit()

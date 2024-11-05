@@ -33,6 +33,8 @@ MenuManager::MenuManager()
     menus[Menu::BUY_ROAD] = std::make_shared<BuyRoadMenu>();
     menus[Menu::DEMOLISH] = std::make_shared<DemolishMenu>();
     menus[Menu::STATS] = std::make_shared<StatsMenu>();
+    menus[Menu::GAME_MODE] = std::make_shared<GameModeMenu>();
+    menus[Menu::CITY_NAME] = std::make_shared<CityNameMenu>();
 
     // Set the default menu to MainMenu
     setCurrentMenu(Menu::MAIN);

@@ -23,7 +23,7 @@ std::string IMenu::coordinatesToLabel(int x, int y)
 {
     char xLabel = indexToExtendedChar(x);
     char yLabel = indexToExtendedChar(y);
-    return "(" + std::string(1, xLabel) + ", " + std::to_string(y + 1) + ")";
+    return "(" + std::string(1, xLabel) + ", " + std::string(1, yLabel) + ")";
 }
 
 void IMenu::displayAvailablePositions(const std::vector<std::vector<int>> &positions) const
@@ -271,6 +271,14 @@ void IMenu::displayMenu() const
     // Conditionally display the resources section
     if (displayResources)
     {
+        // Display the city name
+        std::string cityName = City::instance()->getCityName();
+        std::cout << DARK_GRAY << "║ " << BOLD_WHITE
+                  << centerTextWithChar("City: " + cityName, maxWidth - 2, "-")
+                  << DARK_GRAY << " ║" << RESET << "\n";
+        printSectionDivider(maxWidth);
+
+        // Display the resources heading
         std::cout << DARK_GRAY << "║ " << NORMAL_WHITE
                   << centerTextWithChar("City Resources", maxWidth - 2, "•")
                   << DARK_GRAY << " ║" << RESET << "\n";

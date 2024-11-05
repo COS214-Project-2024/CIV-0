@@ -25,30 +25,31 @@ class City
 {
 private:
     std::vector<std::vector<Entity *>> grid; ///< 2D grid representing the layout of entities in the city.
-    int width;                                ///< Width of the city grid.
-    int height;                               ///< Height of the city grid.
-    float satisfaction;                       ///< Overall satisfaction level of the city's population.
-    int money;                                ///< Available money resource for the city.
-    int wood;                                 ///< Available wood resource for the city.
-    int stone;                                ///< Available stone resource for the city.
-    int concrete;                             ///< Available concrete resource for the city.
-    int populationCapacity;                   ///< Total capacity for housing population in the city.
-    int population;                           ///< Current population count.
-    int electricityProduction;                ///< Current electricity production level.
-    int electricityConsumption;               ///< Current electricity consumption level.
-    int waterProduction;                      ///< Current water production level.
-    int waterConsumption;                     ///< Current water consumption level.
-    int wasteProduction;                      ///< Current waste production level.
-    int wasteConsumption;                     ///< Current waste consumption level.
-    int sewageProduction;                     ///< Current sewage production level.
-    int sewageConsumption;                    ///< Current sewage consumption level.
-    int residentialTax;                       ///< Residential tax rate.
-    int economicTax;                          ///< Economic tax rate.
+    int width;                               ///< Width of the city grid.
+    int height;                              ///< Height of the city grid.
+    float satisfaction;                      ///< Overall satisfaction level of the city's population.
+    int money;                               ///< Available money resource for the city.
+    int wood;                                ///< Available wood resource for the city.
+    int stone;                               ///< Available stone resource for the city.
+    int concrete;                            ///< Available concrete resource for the city.
+    int populationCapacity;                  ///< Total capacity for housing population in the city.
+    int population;                          ///< Current population count.
+    int electricityProduction;               ///< Current electricity production level.
+    int electricityConsumption;              ///< Current electricity consumption level.
+    int waterProduction;                     ///< Current water production level.
+    int waterConsumption;                    ///< Current water consumption level.
+    int wasteProduction;                     ///< Current waste production level.
+    int wasteConsumption;                    ///< Current waste consumption level.
+    int sewageProduction;                    ///< Current sewage production level.
+    int sewageConsumption;                   ///< Current sewage consumption level.
+    int residentialTax;                      ///< Residential tax rate.
+    int economicTax;                         ///< Economic tax rate.
+    std::string cityName;                    ///< The name of the city
 
-    City();                                   ///< Private constructor for singleton pattern.
-    ~City();                                  ///< Private destructor for singleton pattern.
+    City();  ///< Private constructor for singleton pattern.
+    ~City(); ///< Private destructor for singleton pattern.
 
-    WaterPolicy *waterPolicy = nullptr;       ///< Pointer to the current water policy.
+    WaterPolicy *waterPolicy = nullptr;             ///< Pointer to the current water policy.
     ElectricityPolicy *electricityPolicy = nullptr; ///< Pointer to the current electricity policy.
 
 public:
@@ -58,8 +59,8 @@ public:
      */
     static City *instance();
 
-    City(const City &) = delete;              ///< Deleted copy constructor for singleton pattern.
-    City &operator=(const City &) = delete;   ///< Deleted assignment operator for singleton pattern.
+    City(const City &) = delete;            ///< Deleted copy constructor for singleton pattern.
+    City &operator=(const City &) = delete; ///< Deleted assignment operator for singleton pattern.
 
     /**
      * @brief Retrieves an entity at specified coordinates.
@@ -114,6 +115,7 @@ public:
     int getSewageConsumption() const;
     int getResidentialTax() const;
     int getEconomicTax() const;
+    std::string getCityName() const;
 
     /**
      * @brief Gets the current water usage policy.
@@ -147,6 +149,7 @@ public:
     void setSewageConsumption(int sewageConsumption);
     void setResidentialTax(int residentialTax);
     void setEconomicTax(int economicTax);
+    void setCityName(std::string name);
 
     /**
      * @brief Sets the water usage policy for the city.

@@ -239,6 +239,7 @@ int City::getSewageProduction() const { return sewageProduction; }
 int City::getSewageConsumption() const { return sewageConsumption; }
 int City::getResidentialTax() const { return residentialTax; }
 int City::getEconomicTax() const { return economicTax; }
+std::string City::getCityName() const { return cityName; }
 
 WaterPolicy *City::getWaterPolicy() const
 {
@@ -270,6 +271,7 @@ void City::setSewageProduction(int sewageProduction) { this->sewageProduction = 
 void City::setSewageConsumption(int sewageConsumption) { this->sewageConsumption = sewageConsumption; }
 void City::setResidentialTax(int residentialTax) { this->residentialTax = residentialTax; }
 void City::setEconomicTax(int economicTax) { this->economicTax = economicTax; }
+void City::setCityName(std::string name) { this->cityName = name; }
 /**
  * @brief Sets the water usage policy for the city.
  *

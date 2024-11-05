@@ -94,21 +94,21 @@ public:
 
     /**
      * @brief Generates a random city with an optional seed for reproducibility.
-     * 
-     * This function creates a new city layout based on a random generation algorithm. 
+     *
+     * This function creates a new city layout based on a random generation algorithm.
      * The seed can be specified to produce consistent results for testing.
      * This function is used for testing and demonstration purposes.
-     * 
+     *
      * @param seed An optional seed value for the random number generator. If not provided, a random seed is used.
      */
     void generateCity(std::optional<unsigned int> seed = std::nullopt);
 
     /**
      * @brief Generates random roads within the specified grid dimensions.
-     * 
-     * This function creates random roads on the city grid, ensuring they fit within 
+     *
+     * This function creates random roads on the city grid, ensuring they fit within
      * the specified dimensions and have a minimum width and height.
-     * 
+     *
      * @param gridWidth The width of the grid in which to generate roads.
      * @param gridHeight The height of the grid in which to generate roads.
      * @param minWidth The minimum width of each road segment.
@@ -116,16 +116,19 @@ public:
      * @param roadGap The gap between consecutive road segments to avoid overlaps.
      */
     void generateRandomRoads(int gridWidth, int gridHeight, int minWidth, int minHeight, int roadGap);
+    void generateRandomRoads();
 
     /**
      * @brief Generates random buildings based on a specified placement probability.
-     * 
-     * This function places buildings randomly across the city grid, with the likelihood 
+     *
+     * This function places buildings randomly across the city grid, with the likelihood
      * of placement determined by the provided probability value.
-     * 
+     *
      * @param placementProbability The probability of placing a building in each grid cell.
      */
     void generateRandomBuildings(int placementProbability);
+
+    void generateDemoCity();
 };
 
 #endif // CITYMANAGER_H
